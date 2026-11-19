@@ -1,0 +1,409 @@
+# MoreFunQuicksandMod/main/MFQM
+
+ID `class:74869df190ce99828e3f45c0`；class SHA `322b4e7f23affead38264a9cf4f03faaf5e15f27b93f5efa35abf148581dbbe4`；原 JAR SHA `2a0809e13f2267b0eb981606164e863bc52bcdc326120b0ca27fd845a2f0db6b`。
+
+状态 **INDEXED / FIRST_BATCH_PARTIAL**（除重点模块报告给出的分支外）。super `java/lang/Object`；interfaces ``；access `33`；annotations/attributes `InnerClasses;SourceFile;RuntimeVisibleAnnotations`。内部类宿主 `MoreFunQuicksandMod/main/MFQM`；客户端/服务端语义 UNKNOWN，不能按包名断言。
+
+原始字节码证据位于仓库 `research/task-001/evidence/MoreFunQuicksandMod__main__MFQM.bytecode.txt`，METHOD name+descriptor 节及十进制 offset；本轮从私人 JAR 直接读取，未提交 class 字节。工具 jawa2.2.0。反编译不是原作者源代码。现代身份候选 `UNKNOWN / modern bridge review`，只映射身份，不代表机制一致。调用边以 member_id 查询 CALL_GRAPH.csv；重要注解值尚未解码。
+
+## 字段目录
+
+- `field:c785eef5c421e4212dacdec0` `proxy:LMoreFunQuicksandMod/main/CommonProxy;` access 9
+- `field:07b32478bc9aa5e1ba3b22dd` `instance:LMoreFunQuicksandMod/main/MFQM;` access 9
+- `field:aa6fc787bce23ca92f604af3` `network:Lcpw/mods/fml/common/network/simpleimpl/SimpleNetworkWrapper;` access 9
+- `field:05afff8aceff6fe8d9cf542d` `customRegister:LMoreFunQuicksandMod/main/CustomRegister;` access 1
+- `field:675e6ec70cf69bde642171ee` `armorMaterialUnprotective:Lnet/minecraft/item/ItemArmor$ArmorMaterial;` access 9
+- `field:5e4ee6b1261fdf25c25aa6ae` `tabMFQM:Lnet/minecraft/creativetab/CreativeTabs;` access 9
+- `field:f8164014362d55fc884cfe73` `eggIdCounter:I` access 9
+- `field:6bb0b750aa0a0c545159d628` `mudTextures:[Lnet/minecraft/util/ResourceLocation;` access 25
+- `field:f21cb60e6f0545b0a5cabd0e` `slimeTextures:[Lnet/minecraft/util/ResourceLocation;` access 25
+- `field:ad5ec945084a24f4620a4ae0` `mudTypesColors:[I` access 25
+- `field:052654573cd8cc917e62efe2` `mudMaxOpacity:[I` access 25
+- `field:6a7ca354a9354d22d1e59971` `mudLastOpacity:[I` access 25
+- `field:8d80aed2437352c2765f3874` `mudIncOpacity:[I` access 25
+- `field:7a4296dc5e41a312e4fb5a9b` `BootsID:I` access 9
+- `field:5c21a43a4f76b066a839a945` `BOPMudBlockID:I` access 9
+- `field:dda258a180bd83512db0ee99` `MudBlockID:I` access 9
+- `field:0e5c6df5a6a068bd6f6fa4ea` `AshBlockID:I` access 9
+- `field:d87f8389d7ad1d824ddff93c` `FleshBlockID:I` access 9
+- `field:0afefdb98e62e08445f53814` `HiveBlockID:I` access 9
+- `field:4a8d650a20ce238685d11e2d` `HoneyBlockID:I` access 9
+- `field:0184ddc86ab10759cd813993` `SolidHoneyBlockID:I` access 9
+- `field:1ccc9e08537465c8dca288dd` `TBLMudBlockID:I` access 9
+- `field:9986d1df78d01fa4b4f4d450` `TBLTarBlockID:I` access 9
+- `field:faf98b0412a7aac13d96da4a` `TBLSolidTarBlockID:I` access 9
+- `field:4fa87b7b6b5f248b08c132e1` `TBLSludgeBlockID:I` access 9
+- `field:44b340d67f669151ab487ace` `ABCSludgeBlockID:I` access 9
+- `field:bdebdf8d7ed368ed49500f11` `WLDAshBlockID:I` access 9
+- `field:8f204499a939e19c3eb728f0` `WLDSwampBlockID:I` access 9
+- `field:2265afbc805271a8f1b41491` `AOAToxicBlockID:I` access 9
+- `field:0259876f6fbfe04f0b048f0d` `AOAToxicWasteID:I` access 9
+- `field:142a9cbb3036d9075ae0e154` `FleshItemID:I` access 9
+- `field:6369f54c72a47eb4298485af` `FoodItemID:I` access 9
+- `field:278e7d3d1fba25056f69360a` `FertilizerItemID:I` access 9
+- `field:52057248fb5b2b496283c236` `WLDDruidPouchItemID:I` access 9
+- `field:bc408bedb51cb2aad48ca0a8` `AOAFaceMaskItemID:I` access 9
+- `field:41e9717e7b2e8eadad42d479` `AOADoomStoneItemID:I` access 9
+- `field:4b06c91716cae2eff15ec383` `AOAToxicLumpItemID:I` access 9
+- `field:0cd86064c1a95c6f32c38565` `MireBucketItemID:I` access 9
+- `field:df61277ba64c6263de7d605f` `BogBucketItemID:I` access 9
+- `field:f1c11e8576f1d1191deb61be` `QuicksandBucketItemID:I` access 9
+- `field:ca832ab369a6a4b09159ea2d` `SandBucketItemID:I` access 9
+- `field:98cbf48dc9c7b8de5129f656` `TarBucketItemID:I` access 9
+- `field:17e0d4bad40c3d1bce107e41` `SlimeBucketItemID:I` access 9
+- `field:9e0c719b39354b0be0faa63e` `AcidBucketItemID:I` access 9
+- `field:ceebad85ae281eac4988da5a` `RopeItemID:I` access 9
+- `field:fba45de10adc55599f39e7b1` `CableItemID:I` access 9
+- `field:24cbee5bdf1a1911b7ecfa02` `CoilItemID:I` access 9
+- `field:711314bab7f9951e40f27302` `HookItemID:I` access 9
+- `field:50b4600821c0f9f8caf5437e` `GrapplingHookItemID:I` access 9
+- `field:83fb48b9ed591dd60279ac8d` `GrapplingHookBRKItemID:I` access 9
+- `field:ae4d816bfe4a5ff5f6e9d70b` `arrayRopes:[Lnet/minecraft/entity/Entity;` access 9
+- `field:c66d6c289e82a1901ca08427` `arrayPlayers:[Ljava/lang/String;` access 9
+- `field:b39896dc4df0a69215cfa343` `arrayHooks:[Lnet/minecraft/entity/Entity;` access 9
+- `field:f833287f176ef655a14e650f` `arrayPlayersHooks:[Ljava/lang/String;` access 9
+- `field:eebed2ab8bdf3496620f7617` `arrayRescue:[Lnet/minecraft/entity/Entity;` access 9
+- `field:c4a42120d26f99f739dcf6e2` `arrayPlayersRescue:[Ljava/lang/String;` access 9
+- `field:dd7ae4840b256a2476e625f1` `LarvaRawItemID:I` access 9
+- `field:56ecf6ae77300fca2e174ad6` `LarvaCookedItemID:I` access 9
+- `field:985b6ddd4bf013c9f26aaa75` `CberryItemID:I` access 9
+- `field:258652e5d977207704e39882` `MudBallID:I` access 9
+- `field:edb0ad3aa64c2cffc709657d` `GenMud:Z` access 9
+- `field:11b9b72ecebb48ab6565115d` `GenMire:Z` access 9
+- `field:c5686842cdb57f56d228c57e` `GenDeep:Z` access 9
+- `field:a7f47e3c7894bdc5891012d2` `GenLiqMire:Z` access 9
+- `field:6d2fe5be2ef80395b7e1dedc` `GenMoor:Z` access 9
+- `field:cfc8eb60080152796dc60386` `GenBog:Z` access 9
+- `field:ee1c5aef4ae333664ca641f7` `GenMorass:Z` access 9
+- `field:bb68cfcd2be22baa8e66d66c` `GenQS:Z` access 9
+- `field:a08a4d5c8b402436235b8ec8` `GenSQS:Z` access 9
+- `field:41835085b5a52b429484a926` `GenSQSF:Z` access 9
+- `field:4d59c01ca43a0465fea9c739` `GenJQS:Z` access 9
+- `field:22eb1025d21adff4ba82f206` `GenSSand:Z` access 9
+- `field:fb85f5442817ba548adf3449` `GenSSnow:Z` access 9
+- `field:4c760c36001d8ad7f0253de2` `GenHClay:Z` access 9
+- `field:be308f75f3aee62091352f3e` `GenHPClay:Z` access 9
+- `field:ec3ccf785ecbce8198c9f1cb` `GenSClay:Z` access 9
+- `field:13859a0cf2fce1ff93388578` `GenWebU:Z` access 9
+- `field:1922475a6f87dc438c10e420` `GenWeb:Z` access 9
+- `field:23c0b298d223be70aae54683` `GenLarv:Z` access 9
+- `field:f4e1ce2ddd4e2a152954345a` `GenTar:Z` access 9
+- `field:6e8031ba7c46047a4ceaa806` `GenSlime:Z` access 9
+- `field:2bb199bc09c87346473a1b57` `GenCSand:Z` access 9
+- `field:2d350b632b00914d25d13b5d` `GenMeat:Z` access 9
+- `field:698436edc0a8d7b62a0835ea` `GenMeatS:Z` access 9
+- `field:bcd7fedb9786c550b5e6be36` `GenMeatAss:Z` access 9
+- `field:c98a4aeac0a9372e2409f5a8` `GenMucBl:Z` access 9
+- `field:5220b40eb44467643a91be6e` `GenMoss:Z` access 9
+- `field:e8a2beb11e439a0f3c349ad1` `GenBClay:Z` access 9
+- `field:cd05b2a999f9b3403eb90e56` `GenMClay:Z` access 9
+- `field:1b738b461f70046b1e77dd02` `GenWax:Z` access 9
+- `field:e9817cf6be037477dcd18675` `GenHoney:Z` access 9
+- `field:47399187f79e04792fc0d4cc` `GenHoney2:Z` access 9
+- `field:ad09e383a74ff73e37e5c297` `GenGP:Z` access 9
+- `field:e11c596925dbdc4ff025e275` `GenWastePit:Z` access 9
+- `field:45b1a2c13168c2f6fb825f30` `GenTempleQS:Z` access 9
+- `field:be0c3a147830f1e745adc3ea` `GenMarshOver:Z` access 9
+- `field:c1826bff7657d989b95e978d` `GenWaterColor:Z` access 9
+- `field:d161001d26ee677f9f360734` `GenDesertTombs:Z` access 9
+- `field:6fc562d7a64726fb35a84918` `InitMobs:Z` access 9
+- `field:fac847a22da424901d37cd54` `SpawnVS:Z` access 9
+- `field:53be418f919faacdea909531` `SpawnMB:Z` access 9
+- `field:21a018fc190e0aa910d8938f` `SpawnSB:Z` access 9
+- `field:a7b58b95dfdec9868b7c64de` `SpawnTS:Z` access 9
+- `field:f2ebd5d31622bfd59ac4dccf` `TurnBoots:Z` access 9
+- `field:503e5d1f83ab9d7316b3f4c0` `TurnStick:Z` access 9
+- `field:b277866e140b339d94c4306e` `TurnRope:Z` access 9
+- `field:d15fb330373d1a19fcfb7e75` `TurnHook:Z` access 9
+- `field:5e6c639b301b16e46e1d64db` `TurnJacket:Z` access 9
+- `field:77e326616dfb42e9fcefd951` `TurnGasMask:Z` access 9
+- `field:c337e1299dfe3feed0d48dfd` `TurnPotion:Z` access 9
+- `field:27fd285f2b821db700779083` `TurnLiqGun:Z` access 9
+- `field:eb5969ecdc0813f82c77dd0b` `CFR:Z` access 9
+- `field:d204ca9d8e41a9bed8563523` `BoP:Z` access 9
+- `field:51641fb6b9fa9d32dd7e4a17` `PBoP:Z` access 9
+- `field:22cbdaa62cd65ced024adfb8` `CWG:Z` access 9
+- `field:3c468f174e1ca6cbab9b3da2` `LiqFixer:Z` access 9
+- `field:c6e4c80b20eef3e950792d72` `AltitudeShift:I` access 9
+- `field:265a12a1f50a048628858742` `TF:Z` access 9
+- `field:1723a83374c9f06edda269f0` `TFDim:I` access 9
+- `field:650b956171d90d01f13255a6` `TBL:Z` access 9
+- `field:b39f90f666072a358856fa4b` `TBLDim:I` access 9
+- `field:8f28ac0b214c099e734be37d` `ABC:Z` access 9
+- `field:05ddaa8e249a5f213d72444b` `ABCDim1:I` access 9
+- `field:7d90de4d0cdf70617fdde0de` `ABCDim2:I` access 9
+- `field:dd1d1b81337f13d554527d2f` `ABCDim3:I` access 9
+- `field:bfbff3f8316cbe7133876b53` `ABCDim4:I` access 9
+- `field:653d8690ed89af1b4c835b79` `WLD:Z` access 9
+- `field:375f32839b7196e787d938b0` `WLDDim:I` access 9
+- `field:d51608db5dfeec48ac0a72b9` `AOA:Z` access 9
+- `field:87f57b6aeda6639e5be2c696` `AOADimHeaven:I` access 9
+- `field:fc06987fbe8db48672ac1d7b` `AOADimAbyss:I` access 9
+- `field:ffa6b40c27cb537ad8558bc4` `AOADimDeeplands:I` access 9
+- `field:b3ad5523033c90525b0de8e8` `AOADimPrecasia:I` access 9
+- `field:251904072ce02d9530a74620` `AOADimLunalus:I` access 9
+- `field:90e81f4ac80c27de2e88f439` `AOADimIromine:I` access 9
+- `field:7ce98c12ba8c470295dd5db1` `AOADimGardencia:I` access 9
+- `field:cf23933f5a143e352c368505` `AOADimGreckon:I` access 9
+- `field:46b4d4678605e3ad87521f56` `AOADimLBorean:I` access 9
+- `field:407dd60ad67823c61dbba512` `AOADimBarathos:I` access 9
+- `field:cb48d1244cff0084b6056c22` `AOADimDustopia:I` access 9
+- `field:3018e79ba9691adcb5c6643e` `AOADimVoxPonds:I` access 9
+- `field:cd1d2b7229137b8ca5747fd4` `AOADimLandsLelyetia:I` access 9
+- `field:fb3ded9bdb1dbd5f023d1949` `AOADimCeleve:I` access 9
+- `field:72926b247c16e63c18f10969` `AOADimCreeponia:I` access 9
+- `field:932c6479c19c4ba081ac355f` `AOADimShyrelands:I` access 9
+- `field:9d0d3bcc940ef4dd8108b947` `AOADimCrystevia:I` access 9
+- `field:247ec84299bed1b38c648659` `AOADimCandyland:I` access 9
+- `field:51e79db80befc87ddff1dfc6` `AOADimMysterium:I` access 9
+- `field:2dacb7790e2b18b952db6bbf` `EUD:Z` access 9
+- `field:c58c694ce80323216247f844` `EUDDim:I` access 9
+- `field:e11b4145877db18a28b41f29` `TBL_MIC:Z` access 9
+- `field:2af25988bc81739edcaa6015` `ABC_MIC:Z` access 9
+- `field:fbfbe6a006ec688aaed031f8` `WLD_MIC:Z` access 9
+- `field:2f9d2f10f2892a6dfcfd42d6` `AOA_MIC:Z` access 9
+- `field:9f5b5b2484bbad3e082624c5` `TBLMobs:Ljava/util/ArrayList;` access 9
+- `field:5182d7d6562b4c214ab7d2f8` `TBLMobsTar:Ljava/util/ArrayList;` access 9
+- `field:77188bd22611cab513289f3b` `TBLTarBeast:Ljava/lang/Class;` access 9
+- `field:c732b5e3092ac8d4cc2f63c7` `HookAsRider:Z` access 9
+- `field:5b02c210ce8493d33f9dfe3b` `QSOpacity:Z` access 9
+- `field:91b90c973eb5e1b7a850ce72` `QSThirdPerson:Z` access 9
+- `field:85f53bb846598baa8e0d7f8d` `QSCover:Z` access 9
+- `field:1204e3bb6389a04e436b90d0` `QSTarTreads:Z` access 9
+- `field:e057eb93f59f37a6cb2e2051` `QSAir:Z` access 9
+- `field:096df2dbed2f1f8595de25aa` `QSMAir:Z` access 9
+- `field:50329c8a71a14ee3fbb54057` `QSCAir:Z` access 9
+- `field:69a779eccc6f59bced00f7c7` `QSBubble:Z` access 9
+- `field:082d2a47c6b6ba7657490afc` `QSGas:Z` access 9
+- `field:47d3b2a13ce4e9165e19abbb` `QSTentacles:Z` access 9
+- `field:c333a5f56d27a9fbfc950e35` `QSMudTentacles:Z` access 9
+- `field:ac230ab58f17e658e51d7fd4` `QSHandRescue:Z` access 9
+- `field:1f765074ed0b8727413d87fd` `QSBootsCalc:Z` access 9
+- `field:89c07b9e933ec509c1877f4b` `QSArmorCalc:Z` access 9
+- `field:8af88ed051319d77dffe1a5e` `QSWeightCalc:Z` access 9
+- `field:e05401cffddb951bd1fe9dcd` `QSHotTar:Z` access 9
+- `field:36810821271df2a449284123` `DmgMul:F` access 9
+- `field:37645b1bb68995addeeddfc9` `SwampBiomes:[I` access 9
+- `field:a766dc4c11c2db619e65cb70` `TarBiomes:[I` access 9
+- `field:5e6af3114599f9ad9db10c77` `QSJungleBiomes:[I` access 9
+- `field:5a76592b2fd3e33bd81aa626` `SQSBiomes:[I` access 9
+- `field:9dcdddd06ad8b02bb23a2909` `JungleBiomes:[I` access 9
+- `field:f95488ee18fecd9d855fa1a4` `DesertBiomes:[I` access 9
+- `field:9a5ed3817038118ce1853818` `SnowBiomes:[I` access 9
+- `field:a22253a8126d9c6586c0fc4e` `LarvBiomes:[I` access 9
+- `field:bb8a8e6b1dbeebc71c986721` `CorruptedSands:[I` access 9
+- `field:3f26b069ae0ec115fa254503` `BloodHeaps:[I` access 9
+- `field:e08a1267fcf55ab5416b99f8` `PeatBogBiomes:[I` access 9
+- `field:0aaa3e4efd93aa6317d9fadb` `MineralBiomes:[I` access 9
+- `field:f6532021dac044718e2b8c06` `WastelandBiomes:[I` access 9
+- `field:c0a42486632ecc01140c11df` `ABCBiomes:[I` access 9
+- `field:68a5fab7afec10ecbc2895c8` `WLDBiomes:[I` access 9
+- `field:0f2a70958f659a65106d1de7` `AOABiomes:[I` access 9
+- `field:c2c16758ccfc1bbd7353662f` `AshBlock:Lnet/minecraft/block/Block;` access 9
+- `field:f0e367ed988f5a5a6b2cb344` `FleshBlock:Lnet/minecraft/block/Block;` access 9
+- `field:ef24c3abf26429e14387c3ad` `MudBlock:Lnet/minecraft/block/Block;` access 9
+- `field:9e02745174b2c71a7d13dd5e` `HiveBlock:Lnet/minecraft/block/Block;` access 9
+- `field:a926d8e6c199a25b23b6cdb7` `BOPMudBlock:Lnet/minecraft/block/Block;` access 9
+- `field:c50da2eb71494aba09fd46f4` `BOPHoneyBlock:Lnet/minecraft/block/Block;` access 9
+- `field:07f9f39faa0fa3a356e31df9` `BOPSolidHoneyBlock:Lnet/minecraft/block/Block;` access 9
+- `field:323a7e715bc8419084c7724b` `TBLMudBlock:Lnet/minecraft/block/Block;` access 9
+- `field:8dab779c6f38129a06e36f42` `TBLTarBlock:Lnet/minecraft/block/Block;` access 9
+- `field:d24a1f72748c7ec89a467c00` `TBLSolidTarBlock:Lnet/minecraft/block/Block;` access 9
+- `field:e66a4927159ba806fbeb6801` `TBLSludgeBlock:Lnet/minecraft/block/Block;` access 9
+- `field:8a7202655f22e67cc93a277f` `ABCSludgeBlock:Lnet/minecraft/block/Block;` access 9
+- `field:5930e6bc0d407b47696f18ff` `WLDAshBlock:Lnet/minecraft/block/Block;` access 9
+- `field:b7de1a5b99e67edd0d795044` `WLDSwampBlock:Lnet/minecraft/block/Block;` access 9
+- `field:c2b8b2439cffa72911bedff7` `AOAToxicBlock:Lnet/minecraft/block/Block;` access 9
+- `field:0b11727b54654d2eb72b2ced` `AOAToxicWaste:Lnet/minecraft/block/Block;` access 9
+- `field:b96555501db7b664d0e44c2f` `MireBlock:Lnet/minecraft/block/Block;` access 9
+- `field:1d1ef042aeaa3fae81f7a24e` `MoorBlock:Lnet/minecraft/block/Block;` access 9
+- `field:f1659ad243a557def2c56354` `MorassBlock:Lnet/minecraft/block/Block;` access 9
+- `field:706de7ce5a636e9d95d7ea3e` `MoorGrassBlock:Lnet/minecraft/block/Block;` access 9
+- `field:c9f14f0f93355b65fa6354ba` `CustomLilyPadBlock:Lnet/minecraft/block/Block;` access 9
+- `field:630b28cdcd71830f730f90ad` `LiquidMireBlock:Lnet/minecraft/block/Block;` access 9
+- `field:8bfef9660ec33e6890f2628a` `StableLiquidMireBlock:Lnet/minecraft/block/Block;` access 9
+- `field:1f9ec996bfd11471ecfcf27d` `SinkyLiquidBlock:Lnet/minecraft/block/Block;` access 9
+- `field:8468a2119a7ffbbe9cf8f987` `BogBlock:Lnet/minecraft/block/Block;` access 9
+- `field:1918bb50af3b5da61446c1f8` `SlurryBlock:Lnet/minecraft/block/Block;` access 9
+- `field:3958636a44b54c180e31a595` `GasBlock:Lnet/minecraft/block/Block;` access 9
+- `field:268ee61dcb37dec69337dc4f` `JungleQuicksandBlock:Lnet/minecraft/block/Block;` access 9
+- `field:6349268483138b7c8671725c` `SandBlock:Lnet/minecraft/block/Block;` access 9
+- `field:3790e5ae1039561faee9694a` `TarBlock:Lnet/minecraft/block/Block;` access 9
+- `field:4faae2ab5f3e658434c687ea` `SlimeBlock:Lnet/minecraft/block/Block;` access 9
+- `field:356461726558dee209cdad80` `QuicksandBlock:Lnet/minecraft/block/Block;` access 9
+- `field:41d0cb45df7b4711db293f2a` `SoftSnowBlock:Lnet/minecraft/block/Block;` access 9
+- `field:2abc7321441ce2b7c10a2264` `HClayBlock:Lnet/minecraft/block/Block;` access 9
+- `field:05e994559871aab223027604` `SClayBlock:Lnet/minecraft/block/Block;` access 9
+- `field:9f8fd5aac41343e0ab361e2a` `LarvaeBlock:Lnet/minecraft/block/Block;` access 9
+- `field:daa01d65616795281688118a` `DenseWebBlock:Lnet/minecraft/block/Block;` access 9
+- `field:37e009d8643336fca7df2491` `CSandBlock:Lnet/minecraft/block/Block;` access 9
+- `field:b905bd5f5733f8aea1cc3498` `MeatBlock:Lnet/minecraft/block/Block;` access 9
+- `field:a214c43f6d7c770e15974440` `MeatHoleBlock:Lnet/minecraft/block/Block;` access 9
+- `field:7068e33699a2a7ef35213b97` `AcidBlock:Lnet/minecraft/block/Block;` access 9
+- `field:6a10df37b48a71115431c2d0` `SinkingWoolBlock:Lnet/minecraft/block/Block;` access 9
+- `field:6ff0ce8a7b02077d06ee19ef` `SoftQuicksandBlock:Lnet/minecraft/block/Block;` access 9
+- `field:87d46ce78f3946ee95df2823` `SwFleshBlock:Lnet/minecraft/block/Block;` access 9
+- `field:5bb4f177fccec13317bb3557` `TentBlock:Lnet/minecraft/block/Block;` access 9
+- `field:dd65d1ff4d3d63ecc515efe9` `MucusBlock:Lnet/minecraft/block/Block;` access 9
+- `field:dedefd88b6960047e7df7d0a` `BlossomBlock:Lnet/minecraft/block/Block;` access 9
+- `field:3545155969d1abdc23f186c7` `BlossomSlabBlock:Lnet/minecraft/block/Block;` access 9
+- `field:647561b9add0b985e4de4d9b` `LureBlock:Lnet/minecraft/block/Block;` access 9
+- `field:402004bf89966d87886af55b` `VoreHoleBlock:Lnet/minecraft/block/Block;` access 9
+- `field:212e4cdee16f246006d2147b` `MossBlock:Lnet/minecraft/block/Block;` access 9
+- `field:d682ae624d5832a64a698d5f` `BrownClayBlock:Lnet/minecraft/block/Block;` access 9
+- `field:64c0878acf20a470b3d52f5f` `WetPeatBlock:Lnet/minecraft/block/Block;` access 9
+- `field:b4db96895bd29b8304175a3e` `PeatBlock:Lnet/minecraft/block/Block;` access 9
+- `field:98fb3a533d0350db995aebc4` `WaxBlock:Lnet/minecraft/block/Block;` access 9
+- `field:8cf50f818c117d8d85c58676` `SoftGravelBlock:Lnet/minecraft/block/Block;` access 9
+- `field:601f4415e14a33e926fe7f8c` `LiquidChocolateBlock:Lnet/minecraft/block/Block;` access 9
+- `field:2be39629e8405e4ebcc6a6f3` `ChocolateBlock:Lnet/minecraft/block/Block;` access 9
+- `field:7e5cdfd7096b31e029c2a4f3` `HoneyBlock:Lnet/minecraft/block/Block;` access 9
+- `field:796977427e237c43dd81f67a` `SolidHoneyBlock:Lnet/minecraft/block/Block;` access 9
+- `field:cd47d294eb2ee50dab92391a` `HoneycombBlock:Lnet/minecraft/block/Block;` access 9
+- `field:5e68a9058fd5bce663fdbbe5` `WaxWoodBlock:Lnet/minecraft/block/Block;` access 9
+- `field:a247696fe1c50cb6b24ac177` `LeavesBlock:Lnet/minecraft/block/Block;` access 9
+- `field:eed2a1327e304331a897804d` `SandstoneTrapBlock:Lnet/minecraft/block/Block;` access 9
+- `field:0c707f405bafb04affd8a2f0` `MireFluid:Lnet/minecraftforge/fluids/Fluid;` access 25
+- `field:f54309355b0c49cc45432c11` `MireFluidS:Lnet/minecraftforge/fluids/Fluid;` access 25
+- `field:8aeb43ee7eb4a527edfcdd00` `BogFluid:Lnet/minecraftforge/fluids/Fluid;` access 25
+- `field:75041a7256fd1f15d61f3f08` `SlurryFluid:Lnet/minecraftforge/fluids/Fluid;` access 25
+- `field:dc2899579d593010ea2dbd79` `QuicksandFluid:Lnet/minecraftforge/fluids/Fluid;` access 25
+- `field:fb898e1509c47e2a2b675186` `SandFluid:Lnet/minecraftforge/fluids/Fluid;` access 25
+- `field:4a6a2699b9a0b34a9d14b353` `TarFluid:Lnet/minecraftforge/fluids/Fluid;` access 25
+- `field:fef795c6fb80f81484f93b7a` `SlimeFluid:Lnet/minecraftforge/fluids/Fluid;` access 25
+- `field:8f9e2130a5766d53c74f71ba` `AcidFluid:Lnet/minecraftforge/fluids/Fluid;` access 25
+- `field:f352b345288add0ae01c4014` `MucusFluid:Lnet/minecraftforge/fluids/Fluid;` access 25
+- `field:867cb27aa1c7f84907927cf3` `ChocolateFluid:Lnet/minecraftforge/fluids/Fluid;` access 25
+- `field:f537d4bd163bf6ab57bfd80c` `HoneyFluid:Lnet/minecraftforge/fluids/Fluid;` access 25
+- `field:335fe27996ba8969edbc0964` `SinkyFluid:Lnet/minecraftforge/fluids/Fluid;` access 25
+- `field:8f6b345760e37c393e7412fe` `CustFishRod:Lnet/minecraft/item/Item;` access 9
+- `field:55df2f39d7da4eeda6e20708` `MudBall:Lnet/minecraft/item/Item;` access 9
+- `field:a19c75c948db0d066e6f898d` `FleshItem:Lnet/minecraft/item/Item;` access 9
+- `field:783dc86abcfb24697735edd0` `FoodItem:Lnet/minecraft/item/Item;` access 9
+- `field:f4b325d16bfbc80cbdc52eff` `IC2FertilizerItem:Lnet/minecraft/item/Item;` access 9
+- `field:121806be459be3aa3fb2a5de` `WLDDruidPouchItem:Lnet/minecraft/item/Item;` access 9
+- `field:a6c48e7e48afd7ea5e18eb75` `AOAFaceMaskItem:Lnet/minecraft/item/Item;` access 9
+- `field:3fe7c94557a68de41d818f67` `AOADoomStoneItem:Lnet/minecraft/item/Item;` access 9
+- `field:04690924b0e6fa2acb51c3a7` `AOAToxicLumpItem:Lnet/minecraft/item/Item;` access 9
+- `field:9fbeaa3beb9a3484bca9943a` `MireBucketItem:Lnet/minecraft/item/Item;` access 9
+- `field:38473814295430d57052f975` `BogBucketItem:Lnet/minecraft/item/Item;` access 9
+- `field:bb4a183ad819427d31d42a6b` `QuicksandBucketItem:Lnet/minecraft/item/Item;` access 9
+- `field:d45cf32e0daf75c11cbd94c2` `SandBucketItem:Lnet/minecraft/item/Item;` access 9
+- `field:2432ec34f0d535190aa19996` `TarBucketItem:Lnet/minecraft/item/Item;` access 9
+- `field:a56e5679d5d0811d890f22cf` `SlimeBucketItem:Lnet/minecraft/item/Item;` access 9
+- `field:86530c942a7b9a0a7986de75` `AcidBucketItem:Lnet/minecraft/item/Item;` access 9
+- `field:202afbe0a17e5f9ecbf550f0` `MucusBucketItem:Lnet/minecraft/item/Item;` access 9
+- `field:597d97b207fb5ca354dd14d3` `ClayBucketItem:Lnet/minecraft/item/Item;` access 9
+- `field:43c12392f40d84f690942fd3` `ChocolateBucketItem:Lnet/minecraft/item/Item;` access 9
+- `field:9e46d6b84e9d86b4b9961d61` `ChocolatePowderBucketItem:Lnet/minecraft/item/Item;` access 9
+- `field:917c5c3510774256d5c194fb` `SlurryBucketItem:Lnet/minecraft/item/Item;` access 9
+- `field:10d8a6bd4336abf6fdbe4043` `HoneyBucketItem:Lnet/minecraft/item/Item;` access 9
+- `field:996b8e725025d58c15971f2d` `RescueItem:Lnet/minecraft/item/Item;` access 9
+- `field:706afc8b70c204ae78bbf624` `RopeItem:Lnet/minecraft/item/Item;` access 9
+- `field:eb049652e52252b3c294b7cf` `CableItem:Lnet/minecraft/item/Item;` access 9
+- `field:c90d60d3e38826c5fbae2e6d` `CoilItem:Lnet/minecraft/item/Item;` access 9
+- `field:f35f7e95fff589d5b432dfeb` `HookItem:Lnet/minecraft/item/Item;` access 9
+- `field:9cf2c72db56027587b57e0a2` `FilterItem:Lnet/minecraft/item/Item;` access 9
+- `field:97a5163df32750bd7f60819d` `GasMaskItem:Lnet/minecraft/item/Item;` access 9
+- `field:cb0284b74819fb394182bd8d` `GrapplingHookItem:Lnet/minecraft/item/Item;` access 9
+- `field:8ecc3371a565b9a62b6d7aba` `GrapplingHookBRKItem:Lnet/minecraft/item/Item;` access 9
+- `field:39bd329cb0d8656cb2842ffc` `LiqGunItem:Lnet/minecraft/item/Item;` access 9
+- `field:10f6ad5eb5b58e82a5adfee2` `MyPotionItem:Lnet/minecraft/item/Item;` access 9
+- `field:c4097027ae2c59c95939f078` `ThrPotionItem:Lnet/minecraft/item/Item;` access 9
+- `field:e1e03fd5ef5bd21fe64acf1d` `PeatItem:Lnet/minecraft/item/Item;` access 9
+- `field:d469dcd7c7b53b80931d499a` `WaxItem:Lnet/minecraft/item/Item;` access 9
+- `field:2e21c83bfea14a15d5a62d21` `HoneycombItem:Lnet/minecraft/item/Item;` access 9
+- `field:f3bcdb95377b478aa3085ed4` `EmptycombItem:Lnet/minecraft/item/Item;` access 9
+- `field:5b510e579cf0d2f1edb81656` `FertilizerItem:Lnet/minecraft/item/Item;` access 9
+- `field:b327e1c7f35dca3acaf46e03` `LarvaRawItem:Lnet/minecraft/item/ItemFood;` access 9
+- `field:4ac0c566e1508276bb2d6bc0` `LarvaCookedItem:Lnet/minecraft/item/ItemFood;` access 9
+- `field:b8c87ecf352fab0132c18b09` `CberryItem:Lnet/minecraft/item/Item;` access 9
+- `field:29fabfaff645f0bac6ccda97` `DonutItem0:Lnet/minecraft/item/Item;` access 9
+- `field:ed5c73ee91f3bf46a2b14339` `DonutItem1:Lnet/minecraft/item/Item;` access 9
+- `field:01f933feae1e6cd2b3ff6d96` `DonutItem2:Lnet/minecraft/item/Item;` access 9
+- `field:5592e581f7d939101f65d3bb` `DonutItem3:Lnet/minecraft/item/Item;` access 9
+- `field:a3ab402235aef83c4caefc05` `DonutItem4:Lnet/minecraft/item/Item;` access 9
+- `field:59c05adfc050f7f6c8c7e77c` `LongStickItem:Lnet/minecraft/item/Item;` access 9
+- `field:43dfee60ca3d8227a8523356` `LifeJacketItem:Lnet/minecraft/item/Item;` access 9
+- `field:1af9cb5873ecd7aa76313e42` `WadingBoots:Lnet/minecraft/item/Item;` access 9
+- `field:2ce453513e5d01d65d2b05c2` `PreWadingBoots0:Lnet/minecraft/item/Item;` access 9
+- `field:6d5906729f929abfea252e3b` `PreWadingBoots1:Lnet/minecraft/item/Item;` access 9
+- `field:26ac5839cc922cfa9ae901c6` `MuddyLevel:I` access 9
+- `field:e71080ec613862ad7651d4b1` `MuddyAir:I` access 9
+- `field:95b675d2699bb9e4a2c8055b` `MuddyMobsAir:I` access 9
+- `field:463976f343f7d4be81d57333` `MuddyLevelEcp:I` access 9
+- `field:dfa15cb6f4004275cf8bd39f` `MuddyAirEcp:I` access 9
+- `field:3b73c332defb4046b5148d3f` `MuddyMobsAirEcp:I` access 9
+- `field:4e721255299ab196825e10fd` `SIWeight:D` access 9
+- `field:91a3263c2849fdc24cdd9f79` `SIFOV:D` access 9
+- `field:bb66957ad5502b9b8e88d82d` `SIRenderYaw:D` access 9
+- `field:013169ccd2c935a7cd772883` `SIRenderYawPre:D` access 9
+
+## 方法目录
+
+- `method:120cd0c869d6e7f4222f158c` `<init>()V` access 1，5 code bytes；语义 NOT_ANALYZED
+- `method:b58075bf0c1ae4d69b3c91f7` `preInit(Lcpw/mods/fml/common/event/FMLPreInitializationEvent;)V` access 1，15475 code bytes；语义 NOT_ANALYZED
+- `method:72eab5980c2906e2bc501374` `registerEntityEgg(Ljava/lang/Class;II)V` access 9，40 code bytes；语义 NOT_ANALYZED
+- `method:a5b04a0330251af2907392e3` `getUniqueEntityEggId()I` access 9，21 code bytes；语义 NOT_ANALYZED
+- `method:302fdf067f4064a5bc4bd4e4` `Init(Lcpw/mods/fml/common/event/FMLPostInitializationEvent;)V` access 1，23 code bytes；语义 NOT_ANALYZED
+- `method:0d0c2babfde6a067fa4a73b8` `load(Lcpw/mods/fml/common/event/FMLInitializationEvent;)V` access 1，1 code bytes；语义 NOT_ANALYZED
+- `method:89a2c11519ab446944aa29f6` `postInit(Lcpw/mods/fml/common/event/FMLPostInitializationEvent;)V` access 1，6008 code bytes；语义 NOT_ANALYZED
+- `method:4a1754989893728bd9ade9bf` `registerClientEntity()V` access 0，1 code bytes；语义 NOT_ANALYZED
+- `method:9f8453af7b8dfabd02c1db67` `dropItem(Lnet/minecraft/world/World;IIILnet/minecraft/item/ItemStack;)V` access 9，123 code bytes；语义 NOT_ANALYZED
+- `method:e7ab938b8f8adb73deeec0e9` `dropItem(Lnet/minecraft/world/World;DDDLnet/minecraft/item/ItemStack;)V` access 9，38 code bytes；语义 NOT_ANALYZED
+- `method:c31250e3500fb32c6f3d48fc` `isEntityInsideOfBlock(Lnet/minecraft/entity/Entity;Lnet/minecraft/block/Block;)Z` access 9，217 code bytes；语义 NOT_ANALYZED
+- `method:ea31bb77c66162c752c78876` `isEntityInsideOfBlockS(Lnet/minecraft/entity/Entity;Lnet/minecraft/block/Block;)Z` access 9，221 code bytes；语义 NOT_ANALYZED
+- `method:9614fa68dc5a0a6ae16f5c66` `isEntityInsideOfBlockM(Lnet/minecraft/entity/Entity;Lnet/minecraft/block/Block;)Z` access 9，70 code bytes；语义 NOT_ANALYZED
+- `method:9e83dd9d1120cc80d4e41fb2` `isEntityInsideOfBlockL(Lnet/minecraft/entity/Entity;Lnet/minecraft/block/Block;)Z` access 9，82 code bytes；语义 NOT_ANALYZED
+- `method:131f45fbd7aa26c59a79a3a6` `getMuddyLevel(Lnet/minecraft/entity/player/EntityPlayer;DLnet/minecraft/world/World;)I` access 9，135 code bytes；语义 NOT_ANALYZED
+- `method:f7ba8bb592d3edfb6f9f25d5` `getMuddyType(Lnet/minecraft/block/Block;)I` access 9，29 code bytes；语义 NOT_ANALYZED
+- `method:cd85f99e1bde24a2b997dac7` `getLastMuddyType(I)I` access 9，22 code bytes；语义 NOT_ANALYZED
+- `method:a0ac73ee3c55d69bbd82ca1f` `isTrulySink(Lnet/minecraft/entity/Entity;D)Z` access 9，17 code bytes；语义 NOT_ANALYZED
+- `method:b8c69dfa981677af99453f72` `suctionWorldCheck(Lnet/minecraft/entity/Entity;Lnet/minecraft/world/World;D)Z` access 9，112 code bytes；语义 NOT_ANALYZED
+- `method:ac1c7c14e6535de248882479` `antiHoldJumpScript(Lnet/minecraft/entity/Entity;DZ)V` access 9，1421 code bytes；语义 NOT_ANALYZED
+- `method:8c9a34fafb7ab9b24ee71a3a` `jumpKey(Lnet/minecraft/entity/player/EntityPlayer;)Z` access 9，42 code bytes；语义 NOT_ANALYZED
+- `method:c08f0104251ef49653b5f415` `crouchKey(Lnet/minecraft/entity/player/EntityPlayer;)Z` access 9，42 code bytes；语义 NOT_ANALYZED
+- `method:bae4c813caf75737b2ef1758` `surfaceY(Lnet/minecraft/block/Block;)D` access 9，29 code bytes；语义 NOT_ANALYZED
+- `method:74b9f1755c95cee66bfe41a9` `getEntityByUUID(Lnet/minecraft/world/World;Lnet/minecraft/entity/Entity;Ljava/util/UUID;D)Lnet/minecraft/entity/Entity;` access 9，100 code bytes；语义 NOT_ANALYZED
+- `method:5cf5cdef6416c4a7317e3afc` `SpawnMudTentacles(Lnet/minecraft/world/World;Lnet/minecraft/entity/Entity;IIILnet/minecraft/block/Block;III)V` access 9，193 code bytes；语义 NOT_ANALYZED
+- `method:218e54d5def963ba4ca646fa` `HandleMudTentacles(Lnet/minecraft/world/World;Lnet/minecraft/entity/Entity;IIILnet/minecraft/block/Block;I)V` access 9，147 code bytes；语义 NOT_ANALYZED
+- `method:37ed72481546751113683646` `CanBeMudTentacles(Lnet/minecraft/world/World;IIILnet/minecraft/block/Block;I)Z` access 9，216 code bytes；语义 NOT_ANALYZED
+- `method:1ae8405b2d8c6717a415cf69` `spawnBubble(Lnet/minecraft/world/World;DDDLnet/minecraft/block/Block;IFI)V` access 9，26 code bytes；语义 NOT_ANALYZED
+- `method:89cce725400645f186bfe74f` `spawnBubbleDelay(Lnet/minecraft/world/World;DDDLnet/minecraft/block/Block;IFII)V` access 9，28 code bytes；语义 NOT_ANALYZED
+- `method:1c7869749692911f2f43baf7` `spawnQSBubble(Lnet/minecraft/world/World;DDDLnet/minecraft/block/Block;IF)V` access 9，197 code bytes；语义 NOT_ANALYZED
+- `method:09557519421025d9383de561` `spawnBodyBubble(Lnet/minecraft/world/World;Lnet/minecraft/entity/Entity;IIILnet/minecraft/block/Block;I)V` access 9，161 code bytes；语义 NOT_ANALYZED
+- `method:9393a12a447fe20008ff31bf` `spawnBodyBubbleRandom(Lnet/minecraft/world/World;Lnet/minecraft/entity/Entity;IIILnet/minecraft/block/Block;I)V` access 9，173 code bytes；语义 NOT_ANALYZED
+- `method:8a277dd29d9ca3a18ad81755` `spawnDrowningBubble(Lnet/minecraft/world/World;Lnet/minecraft/entity/Entity;Lnet/minecraft/block/Block;I)V` access 9，291 code bytes；语义 NOT_ANALYZED
+- `method:64d93e97348093c3c6ef8b89` `spawnStickBubble(Lnet/minecraft/world/World;DDDLnet/minecraft/block/Block;IZ)V` access 9，239 code bytes；语义 NOT_ANALYZED
+- `method:2f28a85021aad2e734b825a7` `getMuddyAir(Lnet/minecraft/entity/Entity;)I` access 9，32 code bytes；语义 NOT_ANALYZED
+- `method:2a9cdef953f5464682431772` `setMuddyAir(Lnet/minecraft/entity/Entity;I)V` access 9，44 code bytes；语义 NOT_ANALYZED
+- `method:bce2e4bc41ab81ca8341b8c5` `addMuddyAir(Lnet/minecraft/entity/Entity;I)V` access 9，66 code bytes；语义 NOT_ANALYZED
+- `method:bf526e09a72364d0a2805356` `isDrowning(Lnet/minecraft/entity/Entity;)Z` access 9，96 code bytes；语义 NOT_ANALYZED
+- `method:8adbcfb416d849832aaecb7f` `minAbs(DD)D` access 9，14 code bytes；语义 NOT_ANALYZED
+- `method:4e2966107a572da90264f231` `Sign(D)D` access 9，20 code bytes；语义 NOT_ANALYZED
+- `method:e09d0af6a47226935c137ddf` `isChildOf(Ljava/lang/Class;Ljava/lang/Class;)Z` access 9，31 code bytes；语义 NOT_ANALYZED
+- `method:ac67386d47f711fb8bee299c` `setStuckEffect(Lnet/minecraft/entity/EntityLivingBase;I)V` access 9，16 code bytes；语义 NOT_ANALYZED
+- `method:c718269ba2c556709a838d45` `<clinit>()V` access 8，1744 code bytes；语义 NOT_ANALYZED
+
+## 证据与待证问题
+
+字段/方法签名 BYTECODE_CONFIRMED；副作用/随机顺序/客户端权威/外部继承语义尚未逐方法闭合。不得视为无调用的死代码。重点模块分析见 reconstruction/reports/DEEP_FIRST_BATCH.md；完整方法和字段外键见 ORIGINAL_METHODS/FIELDS.csv。
+
+## 验证计划
+
+用 CALL_GRAPH 按类和 JVM descriptor 取调用/字段写入，逐条比对历史 bytecode，再做同输入 oracle 与现代 tick/状态轨迹。原1.7.10游戏本轮 NOT_RUN，现代正式安装 NOT_RUN；签名与反编译定位不是行为 PASS。
+
+## 首批深度档案入口
+
+注册和Stuck委派：MFQM.analysis.txt:602、954、968、1380、1480、2641；重点报告§1/§3。
+
+[深度证据、规范与对照](../../../../../../reconstruction/reports/DEEP_FIRST_BATCH.md)
+
+1. 身份/字节哈希/工具：本页顶部，原始来源非原作者源码。
+2. 原文证据与解释：按上述位置与重点报告分栏读取。
+3. 职责和触发：重点报告对应模块列出输入、调用次序、提前返回。
+4. 功能与资源：对应 ORIGINAL_REGISTRY、RESOURCE_USAGE 和本类调用边，不将名字映射当语义。
+5. 行为规范：重点报告的分支和边界；未列分支 UNKNOWN。
+6. 现代差异：重点报告逐模块对照现代真实路径及存档风险。
+7. 测试设计：原版对照本轮 NOT_RUN，现有现代回归见 R0_TEST_RESULTS.json。
+8. 结论：PARTIAL，仅已列静态链；下一步按 NEXT_WORK_PACKAGES.md 闭合。
