@@ -43,3 +43,14 @@ ID `class:58854726bf339c71b35cab8b`；class SHA `b5c8cb9c372141fdd44656572f1b244
 ## 验证计划
 
 用 CALL_GRAPH 按类和 JVM descriptor 取调用/字段写入，逐条比对历史 bytecode，再做同输入 oracle 与现代 tick/状态轨迹。原1.7.10游戏本轮 NOT_RUN，现代正式安装 NOT_RUN；签名与反编译定位不是行为 PASS。
+
+## R1 注册与显示证据
+
+- `func_149691_a(II)Lnet/minecraft/util/IIcon;` · CFR 470–472
+- `func_149651_a(Lnet/minecraft/client/renderer/texture/IIconRegister;)V` · CFR 634–636 · 635 morefunquicksandmod:Slurry_Still | 635 morefunquicksandmod:Slurry_Flowing
+
+|旧对象|damage|旧名称候选|现代物品|
+|---|---:|---|---|
+|Slurry|0|Slurry|`mfqm:slurry`|
+
+上述行号指向 research/task-001/evidence 中同类的分析文本。模型、名称冲突、行为与存档验证按 original_stack_id 查询 CONTENT_PARITY_MATRIX。

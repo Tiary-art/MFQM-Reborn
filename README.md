@@ -2,6 +2,8 @@
 
 More Fun Quicksand Mod 的 Minecraft Java 1.20.1 Forge 移植研究项目。
 
+[R1 可安装公开 JAR](deliverables/r1/mfqm-reborn-r1-public.jar) · [R1 完成报告](docs/reconstruction/R1_COMPLETION_REPORT.zh-CN.md) · [私有贴图构建与安装](deliverables/r1/README.zh-CN.md)
+
 当前已有研究、Forge 工程和三核心材料的近似实现。原代码及素材的许可证与再发布授权仍待核查；公开工程不分发旧素材。
 
 ## 任务 001：只读逆向盘点与移植设计

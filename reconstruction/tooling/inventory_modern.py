@@ -27,6 +27,16 @@ def run(root,out):
    for kind,id in[('FLUID_TYPE',s['id']),('FLUID',s['id']),('FLUID','flowing_'+s['id']),('ITEM',s['id']+'_bucket')]:reg(kind,id,'forge-1.20.1/src/main/java/art/tiary/mfqm/content/LegacyFluids.java')
  for kind in['BLOCK','ITEM']:reg(kind,'dev_test_block','forge-1.20.1/src/main/java/art/tiary/mfqm/registry/Mod'+('Blocks'if kind=='BLOCK'else'Items')+'.java')
  reg('CREATIVE_TAB','materials','forge-1.20.1/src/main/java/art/tiary/mfqm/registry/ModTabs.java')
+ restored = base/'src/main/resources/data/mfqm/r1_content.json'
+ if restored.exists():
+  for entry in json.loads(restored.read_text(encoding='utf-8')):
+   if entry['mode'] not in ('block','bucket'):
+    reg('ITEM',entry['id'],'forge-1.20.1/src/main/java/art/tiary/mfqm/registry/RestoredItems.java')
+  actual=out/'manifest/MODERN_REGISTRY_RUNTIME.csv'
+  if actual.exists():
+   observed={(r['kind'],r['registry_id']) for r in read(actual)}
+   for row in regs:
+    if (row['kind'],row['registry_id']) in observed:row['status']='FORGE_RUNTIME_ENUMERATED'
  for prefix in ['main','test']:
   for p in sorted((base/'build/classes/java'/prefix).rglob('*.class')):
    c=ClassFile(io.BytesIO(p.read_bytes()));owner=c.this.name.value

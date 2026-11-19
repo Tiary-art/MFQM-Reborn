@@ -28,5 +28,7 @@ public final class ModItems {
                 : new BlockItem(ModBlocks.LEGACY.get(spec.id()).get(),new Item.Properties())));
     }
 
+    public static final java.util.List<RegistryObject<Item>> RESTORED = RestoredItems.register();
+
     private ModItems() { }
 }

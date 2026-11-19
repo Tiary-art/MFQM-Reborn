@@ -22,3 +22,14 @@ ID `class:d6607116a687f54f692469ef`；class SHA `b0a9c420f6729a92a722e9c95f30b82
 ## 验证计划
 
 用 CALL_GRAPH 按类和 JVM descriptor 取调用/字段写入，逐条比对历史 bytecode，再做同输入 oracle 与现代 tick/状态轨迹。原1.7.10游戏本轮 NOT_RUN，现代正式安装 NOT_RUN；签名与反编译定位不是行为 PASS。
+
+## R1 注册与显示证据
+
+- `<init>(Lnet/minecraft/block/Block;)V` · CFR 22–26
+- `func_94581_a(Lnet/minecraft/client/renderer/texture/IIconRegister;)V` · CFR 29–31 · 30 morefunquicksandmod:BucketOfMucus
+
+|旧对象|damage|旧名称候选|现代物品|
+|---|---:|---|---|
+|BucketOfMucus|0|Bucket of Mucus|`mfqm:mucus_bucket`|
+
+上述行号指向 research/task-001/evidence 中同类的分析文本。模型、名称冲突、行为与存档验证按 original_stack_id 查询 CONTENT_PARITY_MATRIX。

@@ -15,9 +15,14 @@ public final class ModTabs {
             .title(Component.translatable("itemGroup.mfqm")).icon(()->new ItemStack(ModItems.QUICKSAND.get()))
             .displayItems((params,out)->{
                 for (var kind : LegacyCatalog.Kind.values()) for (var s : LegacyCatalog.ALL)
-                    if (s.visible() && s.kind()==kind) out.accept(ModItems.LEGACY.get(s.id()).get());
+                    if (s.visible() && !s.id().equals("sandstone_trap") && s.kind()==kind) out.accept(ModItems.LEGACY.get(s.id()).get());
                 for(var f:art.tiary.mfqm.content.LegacyFluids.ALL.values()) out.accept(f.bucket().get());
-                out.accept(ModItems.DEV_TEST_BLOCK.get());
+                for (int depth = 1; depth <= 3; depth++) {
+                    var stack = new ItemStack(ModItems.MUD.get());
+                    stack.getOrCreateTagElement("BlockStateTag").putString("depth", Integer.toString(depth));
+                    out.accept(stack);
+                }
+                for (var item : ModItems.RESTORED) out.accept(item.get());
             }).build());
     private ModTabs() { }
 }

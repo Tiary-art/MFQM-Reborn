@@ -41,3 +41,20 @@ ID `class:b9ba66dc0987df327f303ab8`；class SHA `cd6460621e5272fba99996b34669e02
 ## 验证计划
 
 用 CALL_GRAPH 按类和 JVM descriptor 取调用/字段写入，逐条比对历史 bytecode，再做同输入 oracle 与现代 tick/状态轨迹。原1.7.10游戏本轮 NOT_RUN，现代正式安装 NOT_RUN；签名与反编译定位不是行为 PASS。
+
+## R1 注册与显示证据
+
+- `func_149691_a(II)Lnet/minecraft/util/IIcon;` · CFR 93–106
+- `getSubBlocks(ILnet/minecraft/creativetab/CreativeTabs;Ljava/util/List;)V` · CFR 205–212 · 206 damage=0 | 207 damage=1 | 208 damage=2 | 209 damage=3 | 210 damage=4 | 211 damage=5
+- `func_149651_a(Lnet/minecraft/client/renderer/texture/IIconRegister;)V` · CFR 215–220 · 218 morefunquicksandmod:bog_grass | 219 morefunquicksandmod:bog_grass_cberry
+
+|旧对象|damage|旧名称候选|现代物品|
+|---|---:|---|---|
+|MoorGrass|0|Moor Grass|`mfqm:moor_grass`|
+|MoorGrass|1|Moor Grass|`未映射`|
+|MoorGrass|2|Moor Grass|`未映射`|
+|MoorGrass|3|Bog Grass|`未映射`|
+|MoorGrass|4|Bog Grass|`未映射`|
+|MoorGrass|5|Cranberry Grass|`未映射`|
+
+上述行号指向 research/task-001/evidence 中同类的分析文本。模型、名称冲突、行为与存档验证按 original_stack_id 查询 CONTENT_PARITY_MATRIX。

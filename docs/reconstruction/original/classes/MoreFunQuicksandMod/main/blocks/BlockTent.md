@@ -37,3 +37,18 @@ ID `class:66c9e8fd35095d431ee86b81`；class SHA `1e4a2aeedfa9379a4d88ba1d16222e5
 ## 验证计划
 
 用 CALL_GRAPH 按类和 JVM descriptor 取调用/字段写入，逐条比对历史 bytecode，再做同输入 oracle 与现代 tick/状态轨迹。原1.7.10游戏本轮 NOT_RUN，现代正式安装 NOT_RUN；签名与反编译定位不是行为 PASS。
+
+## R1 注册与显示证据
+
+- `getSubBlocks(ILnet/minecraft/creativetab/CreativeTabs;Ljava/util/List;)V` · CFR 63–68 · 64 damage=0 | 65 damage=1 | 66 damage=2 | 67 damage=3
+- `func_149691_a(II)Lnet/minecraft/util/IIcon;` · CFR 71–73
+- `func_149651_a(Lnet/minecraft/client/renderer/texture/IIconRegister;)V` · CFR 96–102 · 98 morefunquicksandmod:Tent0 | 99 morefunquicksandmod:Tent1 | 100 morefunquicksandmod:Tent2 | 101 morefunquicksandmod:Tent3
+
+|旧对象|damage|旧名称候选|现代物品|
+|---|---:|---|---|
+|Tendrils|0|Tendrils|`mfqm:tendrils`|
+|Tendrils|1|Tendrils|`未映射`|
+|Tendrils|2|Tendrils|`未映射`|
+|Tendrils|3|Tendrils|`未映射`|
+
+上述行号指向 research/task-001/evidence 中同类的分析文本。模型、名称冲突、行为与存档验证按 original_stack_id 查询 CONTENT_PARITY_MATRIX。

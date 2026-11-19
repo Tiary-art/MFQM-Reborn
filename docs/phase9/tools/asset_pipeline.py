@@ -25,7 +25,7 @@ def source_for(spec):
  p=ROOT/'research/original-phase3/evidence/source'/(spec['legacy_class']+'.cfr.txt')
  return p if p.exists()else None
 def plan(jar):
- output={};mapping=[];inventory=[];bindings={};catalog=json.loads((ROOT/'forge-1.20.1/src/main/resources/data/mfqm/legacy_block_catalog.json').read_text())
+ output={};mapping=[];inventory=[];bindings={};catalog=json.loads((ROOT/'forge-1.20.1/src/main/resources/data/mfqm/legacy_block_catalog.json').read_text(encoding='utf-8'))
  with zipfile.ZipFile(jar)as z:
   names=set(z.namelist());target_sources={}
   for name in sorted(names):
@@ -52,7 +52,7 @@ def plan(jar):
     if original+'.mcmeta'in names:output[target+'.mcmeta']=z.read(original+'.mcmeta')
    return 'mfqm:'+target.split('/textures/',1)[1][:-4]
   for spec in catalog:
-   p=source_for(spec);text=p.read_text()if p else'';lines=text.splitlines();icons=[]
+   p=source_for(spec);text=p.read_text(encoding='utf-8')if p else'';lines=text.splitlines();icons=[]
    for i,line in enumerate(lines,1):
     if 'func_94245_a('in line:
      for old in re.findall(r'func_94245_a\("morefunquicksandmod:([^"+]+)"\)',line):icons.append((old,f'{p.relative_to(ROOT)}:{i} registerIcon + original getIcon reviewed'))
@@ -61,7 +61,7 @@ def plan(jar):
     assert 'Math.min(Math.max(par2, 0), 2)'in text
     chosen=next(t for t in icons if t[0]=='SoftQuicksand1');tex=texture(spec,*[chosen[0],'block/default-metadata0-and-inventory',chosen[1]])
     for name in ['soft_quicksand','soft_quicksand_full']:
-     m=json.loads((model.parent/(name+'.json')).read_text());m['textures']={'all':tex,'particle':tex};output[f'assets/mfqm/models/block/{name}.json']=jsonbytes(m)
+     m=json.loads((model.parent/(name+'.json')).read_text(encoding='utf-8'));m['textures']={'all':tex,'particle':tex};output[f'assets/mfqm/models/block/{name}.json']=jsonbytes(m)
     for old,evidence in icons:
      if old!='SoftQuicksand1':texture(spec,old,'metadata1-or2',evidence,'UNRESOLVED','Modern block has FILLED, no original metadata1/2 selector; not flattened into default')
     confirmed=True
@@ -71,7 +71,7 @@ def plan(jar):
     output[f'assets/mfqm/models/block/{ident}.json']=jsonbytes({'parent':'minecraft:block/cube_bottom_top','textures':{'bottom':still,'top':still,'side':flow,'particle':still}})
     mapping.append(dict(original_path=PREFIX+'textures/blocks/'+icons[0][0]+'.png',original_sha256=sha(z.read(PREFIX+'textures/blocks/'+icons[0][0]+'.png')),new_registry_id='mfqm:'+ident,target_resource_path=f'assets/mfqm/models/block/{ident}.json',usage='block-item-and-particle-model',mapping_evidence=icons[0][1]+'; original getIcon top/bottom still, side flowing',status='PARTIAL_RENDER_GEOMETRY',blocker='Textures bound; modern cube inventory geometry is not claimed original item rendering'))
    elif len(icons)==1 and spec['kind']in['SINKING','SOLID','LEAVES'] and ident not in['temp_vore','temp_meat']:
-    tex=texture(spec,icons[0][0],'block/default-and-inventory',icons[0][1]);m=json.loads(model.read_text());m['textures']={'all':tex,'particle':tex}
+    tex=texture(spec,icons[0][0],'block/default-and-inventory',icons[0][1]);m=json.loads(model.read_text(encoding='utf-8'));m['textures']={'all':tex,'particle':tex}
     # Original transparent pixels remain unchanged; JSON render layer is a modern compatibility choice.
     if ident=='leaves_pile':m['render_type']='minecraft:cutout'
     output[f'assets/mfqm/models/block/{ident}.json']=jsonbytes(m);confirmed=True
@@ -79,6 +79,11 @@ def plan(jar):
     for old,evidence in icons:texture(spec,old,'multi-face/metadata/special-renderer',evidence,'UNRESOLVED','Face/variant/custom-render selection not closed; existing placeholder retained')
     if not icons:mapping.append(dict(original_path='',original_sha256='',new_registry_id='mfqm:'+ident,target_resource_path='',usage='inherited-vanilla'if ident in['sandstone_trap','sinking_rug','custom_lily_pad']else'block/item',mapping_evidence=str(p.relative_to(ROOT))if p else'catalog only',status='VANILLA_INTENTIONAL_PARTIAL'if ident in['sandstone_trap','sinking_rug','custom_lily_pad']else'UNRESOLVED',blocker='Original inherits BlockSandStone/BlockColored/BlockLilyPad; keep vanilla design; metadata/face/geometry parity still partial'if ident in['sandstone_trap','sinking_rug','custom_lily_pad']else'Dynamic/custom registration requires explicit proof; no guessed texture'))
    if spec['fluid']:mapping.append(dict(original_path='',original_sha256='',new_registry_id='mfqm:'+ident+'_bucket',target_resource_path='',usage='bucket-item',mapping_evidence='LegacyFluids/modern item model + original item renderer not closed',status='UNRESOLVED',blocker='Still/flowing mapping does not prove bucket item appearance'))
+  import sys
+  sys.path.insert(0,str(ROOT/'reconstruction/tooling/r1'))
+  from private_models import overlay
+  catalog_path=ROOT/'forge-1.20.1/src/main/resources/data/mfqm/r1_content.json'
+  overlay(z,json.loads(catalog_path.read_text(encoding='utf-8')),output)
   output['assets/mfqm/original_texture_bindings.json']=jsonbytes({'mode':'PRIVATE_ORIGINAL_ASSETS_BUILD','original_jar_sha256':EXPECTED,'fluids':bindings})
  for row in inventory:
   original=row['original_path'];base=original[:-7]if original.endswith('.mcmeta')else original
@@ -95,9 +100,9 @@ def output_root(path):
  return p
 def write_csv(path,rows):
  keys=list(dict.fromkeys(k for row in rows for k in row));path.parent.mkdir(parents=True,exist_ok=True)
- with path.open('w',newline='')as f:w=csv.DictWriter(f,fieldnames=keys,lineterminator='\n');w.writeheader();w.writerows(rows)
+ with path.open('w',newline='',encoding='utf-8')as f:w=csv.DictWriter(f,fieldnames=keys,lineterminator='\n');w.writeheader();w.writerows(rows)
 def main():
- ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--jar',type=Path,default=os.environ.get('MFQM_ORIGINAL_JAR'));ap.add_argument('--output',type=Path,default=ROOT/'local-original-assets/resources');ap.add_argument('--dry-run',action='store_true');ap.add_argument('--verify',action='store_true');ap.add_argument('--clean-generated',action='store_true');ap.add_argument('--audit',action='store_true');a=ap.parse_args();dest=output_root(a.output);manifest=dest/'.mfqm-import-manifest.json';prior=json.loads(manifest.read_text())if manifest.exists()else{'files':{}}
+ ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--jar',type=Path,default=os.environ.get('MFQM_ORIGINAL_JAR'));ap.add_argument('--output',type=Path,default=ROOT/'local-original-assets/resources');ap.add_argument('--dry-run',action='store_true');ap.add_argument('--verify',action='store_true');ap.add_argument('--clean-generated',action='store_true');ap.add_argument('--audit',action='store_true');a=ap.parse_args();dest=output_root(a.output);manifest=dest/'.mfqm-import-manifest.json';prior=json.loads(manifest.read_text(encoding='utf-8'))if manifest.exists()else{'files':{}}
  # Validate every registered path before reading or deleting any generated file.
  for rel in prior['files']:
   p=PurePosixPath(rel)

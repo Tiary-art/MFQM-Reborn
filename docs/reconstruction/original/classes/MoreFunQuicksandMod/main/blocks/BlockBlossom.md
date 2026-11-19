@@ -40,3 +40,26 @@ ID `class:27e60629960569a34fa631ed`；class SHA `64acf1bffbea9a01d9597076ea00cad
 ## 验证计划
 
 用 CALL_GRAPH 按类和 JVM descriptor 取调用/字段写入，逐条比对历史 bytecode，再做同输入 oracle 与现代 tick/状态轨迹。原1.7.10游戏本轮 NOT_RUN，现代正式安装 NOT_RUN；签名与反编译定位不是行为 PASS。
+
+## R1 注册与显示证据
+
+- `func_149666_a(Lnet/minecraft/item/Item;Lnet/minecraft/creativetab/CreativeTabs;Ljava/util/List;)V` · CFR 89–102 · 90 damage=0 | 91 damage=1 | 92 damage=2 | 93 damage=3 | 94 damage=4 | 95 damage=5 | 96 damage=6 | 97 damage=7 | 98 damage=8 | 99 damage=9 | 100 damage=10 | 101 damage=11
+- `func_149691_a(II)Lnet/minecraft/util/IIcon;` · CFR 116–213
+- `func_149651_a(Lnet/minecraft/client/renderer/texture/IIconRegister;)V` · CFR 332–339 · 334 morefunquicksandmod:Blossom3 | 335 morefunquicksandmod:Blossom2 | 336 morefunquicksandmod:Blossom5 | 337 morefunquicksandmod:Blossom4 | 338 morefunquicksandmod:Blossom0
+
+|旧对象|damage|旧名称候选|现代物品|
+|---|---:|---|---|
+|BlossomBlock|0|Plant Wall|`mfqm:blossom`|
+|BlossomBlock|1|Plant Wall|`mfqm:blossom_1`|
+|BlossomBlock|2|Plant Wall|`mfqm:blossom_2`|
+|BlossomBlock|3|Plant Wall|`mfqm:blossom_3`|
+|BlossomBlock|4|Plant Wall|`mfqm:blossom_4`|
+|BlossomBlock|5|Plant Wall|`mfqm:blossom_5`|
+|BlossomBlock|6|Plant Wall|`mfqm:blossom_6`|
+|BlossomBlock|7|Plant Wall|`mfqm:blossom_7`|
+|BlossomBlock|8|Plant Wall|`mfqm:blossom_8`|
+|BlossomBlock|9|Plant Wall|`mfqm:blossom_9`|
+|BlossomBlock|10|Plant Wall|`mfqm:blossom_10`|
+|BlossomBlock|11|Plant Wall|`mfqm:blossom_11`|
+
+上述行号指向 research/task-001/evidence 中同类的分析文本。模型、名称冲突、行为与存档验证按 original_stack_id 查询 CONTENT_PARITY_MATRIX。

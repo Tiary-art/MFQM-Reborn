@@ -42,3 +42,14 @@ ID `class:d321748f2f9b36970e57679b`；class SHA `dc5a0368082945a519ef8a265a33c10
 ## 验证计划
 
 用 CALL_GRAPH 按类和 JVM descriptor 取调用/字段写入，逐条比对历史 bytecode，再做同输入 oracle 与现代 tick/状态轨迹。原1.7.10游戏本轮 NOT_RUN，现代正式安装 NOT_RUN；签名与反编译定位不是行为 PASS。
+
+## R1 注册与显示证据
+
+- `func_149691_a(II)Lnet/minecraft/util/IIcon;` · CFR 344–346
+- `func_149651_a(Lnet/minecraft/client/renderer/texture/IIconRegister;)V` · CFR 501–503 · 502 morefunquicksandmod:JungleQuicksand_Still | 502 morefunquicksandmod:JungleQuicksand_Flowing
+
+|旧对象|damage|旧名称候选|现代物品|
+|---|---:|---|---|
+|JungleQuicksand|0|Jungle Quicksand|`mfqm:jungle_quicksand`|
+
+上述行号指向 research/task-001/evidence 中同类的分析文本。模型、名称冲突、行为与存档验证按 original_stack_id 查询 CONTENT_PARITY_MATRIX。

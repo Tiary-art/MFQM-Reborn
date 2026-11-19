@@ -36,6 +36,14 @@ for r in maps['BEHAVIOR_CASES']:
  for key in r['original_method_ids'].split(';'):
   if key not in ids['ORIGINAL_METHODS']:errors.append('behavior case method '+key)
 if {r['new_path']for r in maps['AI_APPROXIMATION_AUDIT']}!={r['path']for r in tables['NEW_PROJECT_INVENTORY']}:errors.append('audit file coverage gap')
+if 'ORIGINAL_ITEMSTACK_VARIANTS' in tables:
+ variants=tables['ORIGINAL_ITEMSTACK_VARIANTS'];objects={r['original_object_id'] for r in tables['ORIGINAL_REGISTRY_OBJECTS']}
+ keys_by_damage={(r['original_object_id'],r['old_damage']) for r in variants}
+ stack_ids={r['original_stack_id'] for r in variants}
+ if len(stack_ids)!=len(variants) or len(keys_by_damage)!=len(variants):errors.append('duplicate legacy stack identity')
+ if any(r['original_object_id'] not in objects for r in variants):errors.append('legacy stack lacks object')
+ if stack_ids!={r['original_stack_id'] for r in maps['CONTENT_PARITY_MATRIX']}:errors.append('stack parity coverage')
+ if {(r['kind'],r['registry_id']) for r in tables['MODERN_REGISTRY']}!={(r['kind'],r['registry_id']) for r in tables['MODERN_REGISTRY_RUNTIME']}:errors.append('source/runtime registry mismatch')
 unknown=[r for r in maps['CALL_GRAPH']if r['scope']=='INTERNAL'and r['target_id']not in ids['ORIGINAL_METHODS']|ids['ORIGINAL_FIELDS']]
 write(out/'checks/UNRESOLVED_INTERNAL_EDGES.csv',unknown,fields=list(maps['CALL_GRAPH'][0]))
 unmapped=[r for r in rows if not r.get('modern_ids')]if False else[r for r in maps['RESTORATION_MATRIX']if not r['modern_ids']]

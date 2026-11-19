@@ -26,3 +26,14 @@ ID `class:da9037ac23bee384c631a153`；class SHA `9e558db4941b26a49348c2749df0f10
 ## 验证计划
 
 用 CALL_GRAPH 按类和 JVM descriptor 取调用/字段写入，逐条比对历史 bytecode，再做同输入 oracle 与现代 tick/状态轨迹。原1.7.10游戏本轮 NOT_RUN，现代正式安装 NOT_RUN；签名与反编译定位不是行为 PASS。
+
+## R1 注册与显示证据
+
+- `func_149691_a(II)Lnet/minecraft/util/IIcon;` · CFR 43–50
+- `func_149651_a(Lnet/minecraft/client/renderer/texture/IIconRegister;)V` · CFR 53–66 · 56 morefunquicksandmod:clay0_0 | 57 morefunquicksandmod:clay0_1 | 58 morefunquicksandmod:clay0_2 | 59 morefunquicksandmod:clay0_3 | 60 morefunquicksandmod:clay0_4 | 61 morefunquicksandmod:clay1 | 62 morefunquicksandmod:clay2 | 63 morefunquicksandmod:clay3 | 64 morefunquicksandmod:clay4 | 65 morefunquicksandmod:clay5
+
+|旧对象|damage|旧名称候选|现代物品|
+|---|---:|---|---|
+|HardenedClay|0|Hardened Clay|`mfqm:hardened_clay`|
+
+上述行号指向 research/task-001/evidence 中同类的分析文本。模型、名称冲突、行为与存档验证按 original_stack_id 查询 CONTENT_PARITY_MATRIX。

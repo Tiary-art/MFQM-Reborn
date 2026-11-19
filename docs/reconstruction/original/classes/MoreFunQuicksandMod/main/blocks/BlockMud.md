@@ -59,3 +59,18 @@ metadata深度和safe覆盖：BlockMud.analysis.txt:199–247、483–545、618�
 6. 现代差异：重点报告逐模块对照现代真实路径及存档风险。
 7. 测试设计：原版对照本轮 NOT_RUN，现有现代回归见 R0_TEST_RESULTS.json。
 8. 结论：PARTIAL，仅已列静态链；下一步按 NEXT_WORK_PACKAGES.md 闭合。
+
+## R1 注册与显示证据
+
+- `func_149666_a(Lnet/minecraft/item/Item;Lnet/minecraft/creativetab/CreativeTabs;Ljava/util/List;)V` · CFR 579–584 · 580 damage=0 | 581 damage=1 | 582 damage=2 | 583 damage=3
+- `func_149651_a(Lnet/minecraft/client/renderer/texture/IIconRegister;)V` · CFR 605–607 · 606 morefunquicksandmod:mud
+- `func_149691_a(II)Lnet/minecraft/util/IIcon;` · CFR 618–634
+
+|旧对象|damage|旧名称候选|现代物品|
+|---|---:|---|---|
+|Mud|0|Mud|`mfqm:mud`|
+|Mud|1|Mud|`mfqm:mud`|
+|Mud|2|Mud|`mfqm:mud`|
+|Mud|3|Mud|`mfqm:mud`|
+
+上述行号指向 research/task-001/evidence 中同类的分析文本。模型、名称冲突、行为与存档验证按 original_stack_id 查询 CONTENT_PARITY_MATRIX。

@@ -22,3 +22,14 @@ ID `class:3de886a1d8dea0e047655a49`；class SHA `b828a1b34eded6cc2725f30814979b5
 ## 验证计划
 
 用 CALL_GRAPH 按类和 JVM descriptor 取调用/字段写入，逐条比对历史 bytecode，再做同输入 oracle 与现代 tick/状态轨迹。原1.7.10游戏本轮 NOT_RUN，现代正式安装 NOT_RUN；签名与反编译定位不是行为 PASS。
+
+## R1 注册与显示证据
+
+- `<init>()V` · CFR 20–24
+- `func_94581_a(Lnet/minecraft/client/renderer/texture/IIconRegister;)V` · CFR 27–29 · 28 morefunquicksandmod:BucketOfChocolatePowder
+
+|旧对象|damage|旧名称候选|现代物品|
+|---|---:|---|---|
+|BucketOfChocolatePowder|0|Bucket of Chocolate Powder|`mfqm:bucket_of_chocolate_powder`|
+
+上述行号指向 research/task-001/evidence 中同类的分析文本。模型、名称冲突、行为与存档验证按 original_stack_id 查询 CONTENT_PARITY_MATRIX。
