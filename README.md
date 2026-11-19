@@ -27,3 +27,7 @@ More Fun Quicksand Mod 的 Minecraft Java 1.20.1 Forge 移植研究项目。
 [中文完成报告](forge-1.20.1/docs/task-0035-b1/COMPLETION_REPORT.zh-CN.md) · [自动化与实测结果](forge-1.20.1/docs/task-0035-b1/TEST_RESULTS.md) · [双客户端/延迟/低TPS](forge-1.20.1/docs/task-0035-b1/NETWORK_RESULTS.md) · [原始证据](forge-1.20.1/docs/task-0035-b1/evidence/INDEX.md) · [候选测试JAR](deliverables/task-0035-b1/mfqm-reborn-0.0.3.5-b1-candidate.jar)
 
 提供默认关闭的限时诊断、首次入射限制、材料持续下沉与受控落地历史处理。参数仍待玩法验收；间歇性Y轴抽搐未被证明修复。保留旧测试断言，完成23项JUnit/20项GameTest，以及有明确证据范围的真实玩家、自然猪、双客户端和低TPS测试。没有开始船只修复或任务004/005。
+
+## Reconstruction R0
+
+工程重整数据库入口：[reconstruction/README.zh-CN.md](reconstruction/README.zh-CN.md)。本轮状态PARTIAL；完整字节索引不代表内容或玩法全部恢复。[R0报告](docs/reconstruction/COMPLETION_REPORT.zh-CN.md) / [未闭合项](docs/reconstruction/KNOWN_GAPS.md)。

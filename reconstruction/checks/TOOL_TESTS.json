@@ -1,0 +1,75 @@
+{
+  "status": "PASS",
+  "checks": [
+    "same original input deterministic manifests",
+    "missing input fails explicitly",
+    "invalid original foreign key rejected",
+    "live full database valid"
+  ],
+  "runs": [
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-B",
+        "/workspace/work/mfqm-reborn-r0/reconstruction/tooling/inventory_original.py",
+        "--repo-root",
+        "/workspace/work/mfqm-reborn-r0",
+        "--out-dir",
+        "/workspace/work/mfqm-reborn-r0/reconstruction",
+        "--input-jar",
+        "/workspace/attachments/14c76068-dd32-4531-8c0d-237671be9f82/[更多流沙] MoreFunQuicksandMod-1.1.1-1.7.10.jar"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "expected_success": true
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-B",
+        "/workspace/work/mfqm-reborn-r0/reconstruction/tooling/inventory_original.py",
+        "--repo-root",
+        "/workspace/work/mfqm-reborn-r0",
+        "--out-dir",
+        "/workspace/work/mfqm-reborn-r0/reconstruction"
+      ],
+      "exit": 2,
+      "stdout": "",
+      "stderr": "usage: inventory_original.py [-h] --input-jar INPUT_JAR --repo-root REPO_ROOT\n                             --out-dir OUT_DIR\ninventory_original.py: error: the following arguments are required: --input-jar\n",
+      "expected_success": false
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-B",
+        "/workspace/work/mfqm-reborn-r0/reconstruction/tooling/validate_database.py",
+        "--repo-root",
+        "/workspace/work/mfqm-reborn-r0",
+        "--out-dir",
+        "/tmp/mfqm-r0-7d1hx7ic",
+        "--verify"
+      ],
+      "exit": 1,
+      "stdout": "{\"errors\": [\"bad mapping intentionally-invalid\"], \"matrix_rows\": 3510, \"unmapped\": 2364}\n",
+      "stderr": "",
+      "expected_success": false
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-B",
+        "/workspace/work/mfqm-reborn-r0/reconstruction/tooling/validate_database.py",
+        "--repo-root",
+        "/workspace/work/mfqm-reborn-r0",
+        "--out-dir",
+        "/workspace/work/mfqm-reborn-r0/reconstruction",
+        "--verify"
+      ],
+      "exit": 0,
+      "stdout": "{\"errors\": [], \"matrix_rows\": 3510, \"unmapped\": 2364}\n",
+      "stderr": "",
+      "expected_success": true
+    }
+  ]
+}
