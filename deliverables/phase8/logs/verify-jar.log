@@ -1,0 +1,26 @@
+{
+  "status": "PASS_PACKAGED_BYTECODE_AND_RESOURCE_VERIFICATION",
+  "sha256": "1480c2746cdc64fb93563e652114769cbf0501a24baf71473c0469e3ce001a77",
+  "required_phase8_classes": [
+    "integration/OriginalContactBridge.class",
+    "legacy/QuicksandContacts.class",
+    "integration/StuckAdapter.class",
+    "integration/DryWorldAdapter.class",
+    "integration/Phase7Commands.class",
+    "client/Phase8ClientTrace.class",
+    "gametest/Phase8GameTests.class",
+    "gametest/Phase8TestIsolation.class"
+  ],
+  "hook_chain": [
+    "SinkingBlock -> OriginalContactBridge.inside",
+    "OriginalContactBridge -> QuicksandContacts.emit -> StuckAdapter.automaticContact",
+    "StuckAdapter -> StuckLease.update",
+    "Phase7Commands -> StuckAdapter.disableAll"
+  ],
+  "shader_shape": "FILLED-state read without BlockGetter query",
+  "java_class_version": 61,
+  "old_b2_sha256": "beef245fd6f642fe2510548a9f1ec668eafa6bde28757dedaa853d44d8c22355",
+  "old_b2_missing_all_required_phase8_classes": true,
+  "manifest": "Manifest-Version: 1.0\r\nImplementation-Title: More Fun Quicksand Reborn\r\nImplementation-Version: 0.0.3.5-b2-candidate\r\n\r\n",
+  "packaged_jar_gameplay_runtime_this_delivery": "NOT_RUN; rebuild/JUnit/bytecode inspection only"
+}

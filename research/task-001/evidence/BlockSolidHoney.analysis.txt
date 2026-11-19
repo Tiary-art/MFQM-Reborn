@@ -1,0 +1,249 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.block.Block
+8:  *  net.minecraft.block.material.Material
+9:  *  net.minecraft.client.renderer.texture.IIconRegister
+10:  *  net.minecraft.entity.Entity
+11:  *  net.minecraft.entity.EntityLivingBase
+12:  *  net.minecraft.entity.player.EntityPlayer
+13:  *  net.minecraft.potion.PotionEffect
+14:  *  net.minecraft.util.AxisAlignedBB
+15:  *  net.minecraft.util.IIcon
+16:  *  net.minecraft.world.IBlockAccess
+17:  *  net.minecraft.world.World
+18:  *  net.minecraftforge.common.util.ForgeDirection
+19:  */
+20: package MoreFunQuicksandMod.main.blocks;
+21: 
+22: import MoreFunQuicksandMod.main.MFQM;
+23: import cpw.mods.fml.relauncher.Side;
+24: import cpw.mods.fml.relauncher.SideOnly;
+25: import java.util.Random;
+26: import net.minecraft.block.Block;
+27: import net.minecraft.block.material.Material;
+28: import net.minecraft.client.renderer.texture.IIconRegister;
+29: import net.minecraft.entity.Entity;
+30: import net.minecraft.entity.EntityLivingBase;
+31: import net.minecraft.entity.player.EntityPlayer;
+32: import net.minecraft.potion.PotionEffect;
+33: import net.minecraft.util.AxisAlignedBB;
+34: import net.minecraft.util.IIcon;
+35: import net.minecraft.world.IBlockAccess;
+36: import net.minecraft.world.World;
+37: import net.minecraftforge.common.util.ForgeDirection;
+38: 
+39: public class BlockSolidHoney
+40: extends Block {
+41:     IIcon theQIIcon;
+42: 
+43:     public BlockSolidHoney() {
+44:         super(Material.field_151576_e);
+45:         this.func_149711_c(1.0f);
+46:         this.func_149672_a(Block.field_149769_e);
+47:         this.func_149752_b(1.0f);
+48:         this.func_149663_c("SolidHoney");
+49:         this.func_149647_a(MFQM.tabMFQM);
+50:     }
+51: 
+52:     public AxisAlignedBB func_149668_a(World world, int par2, int par3, int par4) {
+53:         float f = 0.025f;
+54:         return AxisAlignedBB.func_72330_a((double)((float)par2 + f), (double)((float)par3 + f), (double)((float)par4 + f), (double)((float)(par2 + 1) - f), (double)((float)(par3 + 1) - f), (double)((float)(par4 + 1) - f));
+55:     }
+56: 
+57:     public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
+58:         return false;
+59:     }
+60: 
+61:     protected boolean validForSpread(World world, int x, int y, int z) {
+62:         return world.func_147439_a(x, y, z) == MFQM.HoneycombBlock && world.func_72805_g(x, y, z) == 3;
+63:     }
+64: 
+65:     public void hyperHoney(World world, int x, int y, int z, int meta) {
+66:         if (meta > 1) {
+67:             if (this.validForSpread(world, x + 1, y, z)) {
+68:                 world.func_147465_d(x + 1, y, z, MFQM.SolidHoneyBlock, meta - 1, 3);
+69:             }
+70:             if (this.validForSpread(world, x + 2, y, z)) {
+71:                 world.func_147465_d(x + 2, y, z, MFQM.SolidHoneyBlock, meta - 1, 3);
+72:             }
+73:             if (this.validForSpread(world, x + 3, y, z)) {
+74:                 world.func_147465_d(x + 3, y, z, MFQM.SolidHoneyBlock, meta - 1, 3);
+75:             }
+76:             if (this.validForSpread(world, x - 1, y, z)) {
+77:                 world.func_147465_d(x - 1, y, z, MFQM.SolidHoneyBlock, meta - 1, 3);
+78:             }
+79:             if (this.validForSpread(world, x - 2, y, z)) {
+80:                 world.func_147465_d(x - 2, y, z, MFQM.SolidHoneyBlock, meta - 1, 3);
+81:             }
+82:             if (this.validForSpread(world, x - 3, y, z)) {
+83:                 world.func_147465_d(x - 3, y, z, MFQM.SolidHoneyBlock, meta - 1, 3);
+84:             }
+85:             if (this.validForSpread(world, x, y, z + 1)) {
+86:                 world.func_147465_d(x, y, z + 1, MFQM.SolidHoneyBlock, meta - 1, 3);
+87:             }
+88:             if (this.validForSpread(world, x, y, z + 2)) {
+89:                 world.func_147465_d(x, y, z + 2, MFQM.SolidHoneyBlock, meta - 1, 3);
+90:             }
+91:             if (this.validForSpread(world, x, y, z + 3)) {
+92:                 world.func_147465_d(x, y, z + 3, MFQM.SolidHoneyBlock, meta - 1, 3);
+93:             }
+94:             if (this.validForSpread(world, x, y, z - 1)) {
+95:                 world.func_147465_d(x, y, z - 1, MFQM.SolidHoneyBlock, meta - 1, 3);
+96:             }
+97:             if (this.validForSpread(world, x, y, z - 2)) {
+98:                 world.func_147465_d(x, y, z - 2, MFQM.SolidHoneyBlock, meta - 1, 3);
+99:             }
+100:             if (this.validForSpread(world, x, y, z - 3)) {
+101:                 world.func_147465_d(x, y, z - 3, MFQM.SolidHoneyBlock, meta - 1, 3);
+102:             }
+103:             if (this.validForSpread(world, x, y - 1, z)) {
+104:                 world.func_147465_d(x, y - 1, z, MFQM.SolidHoneyBlock, meta - 1, 2);
+105:             }
+106:             if (this.validForSpread(world, x, y - 2, z)) {
+107:                 world.func_147465_d(x, y - 2, z, MFQM.SolidHoneyBlock, meta - 1, 2);
+108:             }
+109:         }
+110:         world.func_147465_d(x, y, z, MFQM.HoneyBlock, 0, 3);
+111:     }
+112: 
+113:     public void func_149670_a(World world, int x, int y, int z, Entity entity) {
+114:         entity.field_70143_R = 0.0f;
+115:         double oy = (double)y - entity.field_70163_u + 1.0;
+116:         double oy2 = (double)y - entity.field_70167_r + 1.0;
+117:         oy *= -1.0;
+118:         if ((oy2 *= -1.0) < 0.0) {
+119:             oy2 = 0.0;
+120:         }
+121:         double kof1 = oy;
+122:         double kof1m = oy;
+123:         if (kof1m < 0.0) {
+124:             kof1m = 0.0;
+125:         }
+126:         double kof2 = oy2;
+127:         entity.field_70181_x = 0.0;
+128:         if (entity instanceof EntityLivingBase && !(entity instanceof EntityPlayer)) {
+129:             oy = (double)y - entity.field_70163_u - 0.5;
+130:             oy2 = (double)y - entity.field_70167_r - 0.5;
+131:             oy *= -1.0;
+132:             if ((oy2 *= -1.0) < 0.0) {
+133:                 oy2 = 0.0;
+134:             }
+135:             kof1 = oy;
+136:             kof1m = oy;
+137:             if (kof1m < 0.0) {
+138:                 kof1m = 0.0;
+139:             }
+140:             kof2 = oy2;
+141:             if (kof1 < 1.485) {
+142:                 entity.field_70181_x += 0.08 + Math.min((0.9 - kof1) / 100.0, 0.005);
+143:                 entity.field_70122_E = true;
+144:                 entity.field_70143_R = 0.0f;
+145:             }
+146:         }
+147:         entity.field_70159_w = 0.0;
+148:         entity.field_70179_y = 0.0;
+149:         if (entity instanceof EntityLivingBase) {
+150:             ((EntityLivingBase)entity).func_70690_d(new PotionEffect(8, 0, -2, false));
+151:         }
+152:         if (!entity.field_70122_E && entity.field_70181_x <= 0.0) {
+153:             entity.func_70110_aj();
+154:         }
+155:     }
+156: 
+157:     public void func_149674_a(World world, int x, int y, int z, Random rand) {
+158:         int xx = x;
+159:         int yy = y;
+160:         int zz = z;
+161:         boolean isLavaNear = false;
+162:         boolean isFireNear = false;
+163:         int hot = 0;
+164:         for (int re = 0; re <= 6; ++re) {
+165:             switch (re) {
+166:                 case 0: {
+167:                     xx = x - 1;
+168:                     yy = y;
+169:                     zz = z;
+170:                     break;
+171:                 }
+172:                 case 1: {
+173:                     xx = x + 1;
+174:                     yy = y;
+175:                     zz = z;
+176:                     break;
+177:                 }
+178:                 case 2: {
+179:                     xx = x;
+180:                     yy = y;
+181:                     zz = z - 1;
+182:                     break;
+183:                 }
+184:                 case 3: {
+185:                     xx = x;
+186:                     yy = y;
+187:                     zz = z + 1;
+188:                     break;
+189:                 }
+190:                 case 4: {
+191:                     xx = x;
+192:                     yy = y - 1;
+193:                     zz = z;
+194:                     break;
+195:                 }
+196:                 case 5: {
+197:                     xx = x;
+198:                     yy = y + 1;
+199:                     zz = z;
+200:                 }
+201:             }
+202:             if (world.func_147439_a(xx, yy, zz).func_149688_o() == Material.field_151587_i) {
+203:                 isLavaNear = true;
+204:                 break;
+205:             }
+206:             if (world.func_147439_a(xx, yy, zz).func_149688_o() != Material.field_151581_o) continue;
+207:             isFireNear = true;
+208:             ++hot;
+209:         }
+210:         if (isLavaNear) {
+211:             world.func_147465_d(x, y, z, MFQM.HoneyBlock, 0, 3);
+212:             world.func_72908_a((double)((float)x + 0.5f), (double)((float)y + 0.5f), (double)((float)z + 0.5f), "mob.silverfish.step", 0.25f, world.field_73012_v.nextFloat() * 0.15f + 0.1f);
+213:             return;
+214:         }
+215:         if (hot > 0 && world.func_72805_g(x, y, z) == 0 && world.field_73012_v.nextInt(Math.max(15 - hot, 1)) == 0) {
+216:             world.func_147465_d(x, y, z, MFQM.HoneyBlock, 0, 3);
+217:             return;
+218:         }
+219:         super.func_149674_a(world, x, y, z, rand);
+220:     }
+221: 
+222:     public void func_149726_b(World par1World, int par2, int par3, int par4) {
+223:         int meta = par1World.func_72805_g(par2, par3, par4);
+224:         if (meta > 0) {
+225:             this.hyperHoney(par1World, par2, par3, par4, meta);
+226:             return;
+227:         }
+228:         par1World.func_147464_a(par2, par3, par4, (Block)this, this.func_149738_a(par1World));
+229:     }
+230: 
+231:     public void func_149695_a(World par1World, int par2, int par3, int par4, Block par5) {
+232:         par1World.func_147464_a(par2, par3, par4, (Block)this, this.func_149738_a(par1World));
+233:     }
+234: 
+235:     @SideOnly(value=Side.CLIENT)
+236:     public IIcon func_149691_a(int par1, int par2) {
+237:         return this.theQIIcon;
+238:     }
+239: 
+240:     @SideOnly(value=Side.CLIENT)
+241:     public void func_149651_a(IIconRegister par1IIconRegister) {
+242:         this.theQIIcon = par1IIconRegister.func_94245_a("morefunquicksandmod:Honey");
+243:     }
+244: 
+245:     public int func_149643_k(World par1World, int par2, int par3, int par4) {
+246:         return par1World.func_72805_g(par2, par3, par4);
+247:     }
+248: }
+249: 

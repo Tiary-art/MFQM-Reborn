@@ -1,0 +1,18 @@
+// CFR0.152; original decompiler line 4091; NOT original source; inspect **/goto artifacts if present.
+    private void generateCliffs(int xx, int yy, int zz, int rad, World world, Random random) {
+        double rad_cof = Math.max((double)rad / 10.0, 1.0);
+        double rax = random.nextDouble() + 0.5;
+        double raz = 1.0 - rax + 0.5 + 0.5;
+        for (int i = 0; i <= rad; ++i) {
+            for (int j = 0; j <= rad / 2; ++j) {
+                for (int e = 0; e <= rad; ++e) {
+                    int posx = xx + i - rad / 2;
+                    int posy = yy - j;
+                    int posz = zz + e - rad / 2;
+                    double dis = Math.sqrt(Math.pow(xx - posx, 2.0) * rax + Math.pow(yy - posy, 2.0) + Math.pow(zz - posz, 2.0) * raz);
+                    if (!(dis < (double)rad / 2.0 / (1.0 + Math.abs(rax - raz) / 3.0) + (random.nextDouble() * rad_cof - rad_cof / 2.0)) || !world.func_147439_a(posx, posy, posz).func_149688_o().func_76218_k() && !world.func_147439_a(posx, posy, posz).func_149688_o().func_76224_d() || world.func_147439_a(posx, posy, posz) == MFQM.SoftQuicksandBlock || world.func_147439_a(posx, posy, posz).func_149688_o() == Material.field_151575_d) continue;
+                    this.spawnGreenStone(posx, posy, posz, world, random, 0);
+                }
+            }
+        }
+    }

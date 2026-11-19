@@ -1,0 +1,531 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  com.google.common.collect.Multimap
+6:  *  net.minecraft.block.Block
+7:  *  net.minecraft.block.material.Material
+8:  *  net.minecraft.enchantment.EnchantmentHelper
+9:  *  net.minecraft.entity.Entity
+10:  *  net.minecraft.entity.EntityLiving
+11:  *  net.minecraft.entity.EntityLivingBase
+12:  *  net.minecraft.entity.SharedMonsterAttributes
+13:  *  net.minecraft.entity.ai.attributes.AttributeModifier
+14:  *  net.minecraft.entity.monster.IMob
+15:  *  net.minecraft.entity.player.EntityPlayer
+16:  *  net.minecraft.init.Items
+17:  *  net.minecraft.item.Item
+18:  *  net.minecraft.item.ItemStack
+19:  *  net.minecraft.nbt.NBTBase
+20:  *  net.minecraft.nbt.NBTTagCompound
+21:  *  net.minecraft.nbt.NBTTagList
+22:  *  net.minecraft.potion.Potion
+23:  *  net.minecraft.potion.PotionEffect
+24:  *  net.minecraft.util.DamageSource
+25:  *  net.minecraft.util.MathHelper
+26:  *  net.minecraft.world.EnumDifficulty
+27:  *  net.minecraft.world.World
+28:  *  net.minecraft.world.WorldType
+29:  *  net.minecraft.world.chunk.Chunk
+30:  */
+31: package MoreFunQuicksandMod.main.entity;
+32: 
+33: import MoreFunQuicksandMod.main.CustomVarPlayer;
+34: import MoreFunQuicksandMod.main.MFQM;
+35: import MoreFunQuicksandMod.main.entity.EntitySandBlob;
+36: import MoreFunQuicksandMod.main.entity.EntityTarSlime;
+37: import MoreFunQuicksandMod.main.entity.EntityVoreSlime;
+38: import com.google.common.collect.Multimap;
+39: import java.util.Iterator;
+40: import java.util.Map;
+41: import net.minecraft.block.Block;
+42: import net.minecraft.block.material.Material;
+43: import net.minecraft.enchantment.EnchantmentHelper;
+44: import net.minecraft.entity.Entity;
+45: import net.minecraft.entity.EntityLiving;
+46: import net.minecraft.entity.EntityLivingBase;
+47: import net.minecraft.entity.SharedMonsterAttributes;
+48: import net.minecraft.entity.ai.attributes.AttributeModifier;
+49: import net.minecraft.entity.monster.IMob;
+50: import net.minecraft.entity.player.EntityPlayer;
+51: import net.minecraft.init.Items;
+52: import net.minecraft.item.Item;
+53: import net.minecraft.item.ItemStack;
+54: import net.minecraft.nbt.NBTBase;
+55: import net.minecraft.nbt.NBTTagCompound;
+56: import net.minecraft.nbt.NBTTagList;
+57: import net.minecraft.potion.Potion;
+58: import net.minecraft.potion.PotionEffect;
+59: import net.minecraft.util.DamageSource;
+60: import net.minecraft.util.MathHelper;
+61: import net.minecraft.world.EnumDifficulty;
+62: import net.minecraft.world.World;
+63: import net.minecraft.world.WorldType;
+64: import net.minecraft.world.chunk.Chunk;
+65: 
+66: public class EntityMuddyBlob
+67: extends EntityLiving
+68: implements IMob {
+69:     private ItemStack[] inv = new ItemStack[5];
+70:     public float squishAmount;
+71:     public float squishFactor;
+72:     public float prevSquishFactor;
+73:     public float deepFactor;
+74:     public float TdeepFactor;
+75:     public float pullTime;
+76:     public float antiSit = 0.5f;
+77:     private int slimeJumpDelay;
+78: 
+79:     public boolean func_70072_I() {
+80:         return false;
+81:     }
+82: 
+83:     public EntityMuddyBlob(World p_i1742_1_) {
+84:         super(p_i1742_1_);
+85:         this.field_70129_M = 0.0f;
+86:         this.deepFactor = 0.0f;
+87:         this.TdeepFactor = 0.0f;
+88:         this.pullTime = 0.0f;
+89:         this.slimeJumpDelay = this.field_70146_Z.nextInt(20) + 10;
+90:         this.setSlimeSize(3);
+91:     }
+92: 
+93:     protected void func_70088_a() {
+94:         super.func_70088_a();
+95:         this.field_70180_af.func_75682_a(16, (Object)new Byte(1));
+96:         this.field_70180_af.func_75682_a(15, (Object)Float.valueOf(0.0f));
+97:     }
+98: 
+99:     public int getSizeInventory() {
+100:         return 3;
+101:     }
+102: 
+103:     public void func_70014_b(NBTTagCompound nbtt) {
+104:         super.func_70014_b(nbtt);
+105:         nbtt.func_74768_a("Size", this.getSlimeSize() - 1);
+106:         NBTTagList var2 = new NBTTagList();
+107:         for (int var3 = 0; var3 < this.inv.length; ++var3) {
+108:             if (this.inv[var3] == null) continue;
+109:             NBTTagCompound var4 = new NBTTagCompound();
+110:             var4.func_74774_a("Slot", (byte)var3);
+111:             this.inv[var3].func_77955_b(var4);
+112:             var2.func_74742_a((NBTBase)var4);
+113:         }
+114:         nbtt.func_74782_a("Items", (NBTBase)var2);
+115:     }
+116: 
+117:     public void func_70037_a(NBTTagCompound nbtt) {
+118:         super.func_70037_a(nbtt);
+119:         int var0 = nbtt.func_74762_e("Size");
+120:         if (var0 < 0) {
+121:             var0 = 0;
+122:         }
+123:         this.setSlimeSize(var0 + 1);
+124:         NBTTagList var2 = nbtt.func_150295_c("Items", 10);
+125:         this.inv = new ItemStack[this.getSizeInventory()];
+126:         for (int var3 = 0; var3 < var2.func_74745_c(); ++var3) {
+127:             NBTTagCompound var4 = var2.func_150305_b(var3);
+128:             int var5 = var4.func_74771_c("Slot") & 0xFF;
+129:             if (var5 < 0 || var5 >= this.inv.length) continue;
+130:             this.inv[var5] = ItemStack.func_77949_a((NBTTagCompound)var4);
+131:         }
+132:     }
+133: 
+134:     protected void syncronizeDepth() {
+135:         if (!this.field_70170_p.field_72995_K) {
+136:             this.field_70180_af.func_75692_b(15, (Object)Float.valueOf(this.TdeepFactor));
+137:         } else {
+138:             this.TdeepFactor = this.field_70180_af.func_111145_d(15);
+139:         }
+140:     }
+141: 
+142:     protected void setSlimeSize(int p_70799_1_) {
+143:         this.field_70180_af.func_75692_b(16, (Object)new Byte((byte)p_70799_1_));
+144:         this.field_70180_af.func_75692_b(15, (Object)Float.valueOf(this.TdeepFactor));
+145:         this.func_70105_a(0.6f * (float)p_70799_1_, 0.6f * (float)p_70799_1_);
+146:         this.func_70107_b(this.field_70165_t, this.field_70163_u, this.field_70161_v);
+147:         this.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a((double)this.getSpawnHp());
+148:         this.func_70606_j(this.func_110138_aP());
+149:         this.field_70728_aV = p_70799_1_ + 2;
+150:     }
+151: 
+152:     public int getSlimeSize() {
+153:         return 3;
+154:     }
+155: 
+156:     protected String getJumpSound() {
+157:         return "mob.slime.big";
+158:     }
+159: 
+160:     protected EntityMuddyBlob createInstance() {
+161:         return new EntityMuddyBlob(this.field_70170_p);
+162:     }
+163: 
+164:     public void func_70106_y() {
+165:         super.func_70106_y();
+166:     }
+167: 
+168:     protected boolean canDamagePlayer() {
+169:         return true;
+170:     }
+171: 
+172:     protected float func_70599_aP() {
+173:         return 1.2f;
+174:     }
+175: 
+176:     public int func_70646_bf() {
+177:         return 0;
+178:     }
+179: 
+180:     protected boolean makesSoundOnJump() {
+181:         return true;
+182:     }
+183: 
+184:     protected boolean makesSoundOnLand() {
+185:         return true;
+186:     }
+187: 
+188:     protected String func_70621_aR() {
+189:         return "mob.slime.big";
+190:     }
+191: 
+192:     protected String func_70673_aS() {
+193:         return "mob.slime.big";
+194:     }
+195: 
+196:     public void func_70071_h_() {
+197:         int var2;
+198:         if (!this.field_70170_p.field_72995_K && this.field_70170_p.field_73013_u == EnumDifficulty.PEACEFUL) {
+199:             this.field_70128_L = true;
+200:         }
+201:         this.squishFactor += (this.squishAmount - this.squishFactor) * 0.5f;
+202:         this.prevSquishFactor = this.squishFactor;
+203:         boolean var1 = this.field_70122_E;
+204:         super.func_70071_h_();
+205:         if (this.field_70122_E && !var1) {
+206:             var2 = this.getSlimeSize();
+207:             for (int var3 = 0; var3 < var2 * 16; ++var3) {
+208:                 float var4 = this.field_70146_Z.nextFloat() * (float)Math.PI * 2.0f;
+209:                 float var5 = this.field_70146_Z.nextFloat() * 0.5f + 0.5f;
+210:                 float var6 = MathHelper.func_76126_a((float)var4) * (float)var2 * 0.5f * var5;
+211:                 float var7 = MathHelper.func_76134_b((float)var4) * (float)var2 * 0.5f * var5;
+212:                 this.field_70170_p.func_72869_a("blockcrack_" + Block.func_149682_b((Block)MFQM.BogBlock) + "_" + 0, this.field_70165_t + (double)var6, this.field_70121_D.field_72338_b, this.field_70161_v + (double)var7, 0.0, 0.0, 0.0);
+213:             }
+214:             if (this.makesSoundOnLand()) {
+215:                 this.func_85030_a(this.getJumpSound(), this.func_70599_aP(), ((this.field_70146_Z.nextFloat() - this.field_70146_Z.nextFloat()) * 0.2f + 1.0f) / 0.8f);
+216:             }
+217:             this.squishAmount = -0.5f;
+218:         } else if (!this.field_70122_E && var1) {
+219:             this.squishAmount = 1.0f;
+220:         }
+221:         this.alterSquishAmount();
+222:         if (this.field_70153_n == null) {
+223:             if (this.deepFactor > 0.0f) {
+224:                 this.TdeepFactor -= 0.5f;
+225:             }
+226:         } else {
+227:             if (!this.field_70170_p.field_72995_K) {
+228:                 if (!(this.field_70153_n instanceof EntityPlayer)) {
+229:                     this.field_70153_n.func_70078_a(null);
+230:                     return;
+231:                 }
+232:                 if (((EntityPlayer)this.field_70153_n).field_71075_bZ.field_75102_a) {
+233:                     ((EntityPlayer)this.field_70153_n).func_70078_a(null);
+234:                     return;
+235:                 }
+236:                 ((EntityLivingBase)this.field_70153_n).func_70690_d(new PotionEffect(4, 100, 10, false));
+237:                 ((EntityLivingBase)this.field_70153_n).func_70690_d(new PotionEffect(18, 100, 10, false));
+238:                 ((EntityLivingBase)this.field_70153_n).func_70690_d(new PotionEffect(4, 100, 2, false));
+239:                 ((EntityLivingBase)this.field_70153_n).func_70690_d(new PotionEffect(18, 100, 2, false));
+240:                 ((EntityLivingBase)this.field_70153_n).func_70690_d(new PotionEffect(2, 100, 0, false));
+241:                 if (this.field_70153_n.field_70163_u > this.field_70163_u + 0.25) {
+242:                     this.checkPlayerMuddy((EntityPlayer)this.field_70153_n, 0.0, this.field_70163_u + this.func_70042_X() - 0.5, 0.0, this.field_70170_p);
+243:                 }
+244:             }
+245:             if (this.field_70170_p.func_82737_E() % 8L == 0L && this.field_70146_Z.nextInt(5) == 0) {
+246:                 this.func_85030_a("mob.silverfish.step", 0.4f, this.field_70146_Z.nextFloat() * 0.15f + 0.1f);
+247:             }
+248:             if (this.deepFactor < 12.5f) {
+249:                 this.TdeepFactor += 0.015f;
+250:                 float f = this.pullTime;
+251:                 this.pullTime = f - 1.0f;
+252:                 if (f <= 0.0f) {
+253:                     this.pullTime = 35 + this.field_70146_Z.nextInt(10);
+254:                     this.squishAmount = 1.5f;
+255:                     this.TdeepFactor += 1.45f;
+256:                     this.func_85030_a("mob.magmacube.jump", 0.25f, 0.25f + (this.field_70146_Z.nextFloat() - this.field_70146_Z.nextFloat()) * 0.4f);
+257:                     this.func_85030_a("mob.magmacube.jump", 0.25f, 0.25f + (this.field_70146_Z.nextFloat() - this.field_70146_Z.nextFloat()) * 0.4f);
+258:                     this.func_85030_a("mob.magmacube.jump", 0.25f, 0.25f + (this.field_70146_Z.nextFloat() - this.field_70146_Z.nextFloat()) * 0.4f);
+259:                     this.func_85030_a("mob.magmacube.jump", 0.25f, 0.25f + (this.field_70146_Z.nextFloat() - this.field_70146_Z.nextFloat()) * 0.4f);
+260:                 }
+261:             } else if (!this.field_70170_p.field_72995_K && this.field_70170_p.func_82737_E() % 4L == 0L && this.field_70146_Z.nextInt(5) == 0) {
+262:                 this.field_70153_n.func_70097_a(DamageSource.field_76369_e, ((EntityLivingBase)this.field_70153_n).func_110138_aP() * 0.1f);
+263:             }
+264:         }
+265:         if ((double)Math.abs(this.deepFactor - this.TdeepFactor) > 0.1) {
+266:             this.deepFactor += (this.TdeepFactor - this.deepFactor) / 10.0f;
+267:         }
+268:         if (this.field_70170_p.field_72995_K) {
+269:             var2 = this.getSlimeSize();
+270:             this.func_70105_a(0.6f * (float)var2, 0.6f * (float)var2);
+271:         }
+272:     }
+273: 
+274:     public void checkPlayerMuddy(EntityPlayer ent, double x, double y, double z, World world) {
+275:         if (!MFQM.QSCover) {
+276:             return;
+277:         }
+278:         if (!world.field_72995_K) {
+279:             CustomVarPlayer props = CustomVarPlayer.get(ent);
+280:             int preML = MFQM.getMuddyLevel(ent, y, world);
+281:             if ((float)preML > (float)props.getMuddyLevel() * ((float)props.getMuddyTime() / 1000.0f)) {
+282:                 props.setMuddyLevel(preML);
+283:                 int mdtp = MFQM.getMuddyType(MFQM.MireBlock);
+284:                 props.setMuddyType(mdtp);
+285:                 if (props.getMuddyTime() < 5000) {
+286:                     props.addMuddyTime(100);
+287:                 }
+288:                 props.setMuddyTime(Math.min(props.getMuddyTime(), 1000));
+289:             }
+290:         }
+291:     }
+292: 
+293:     public void func_70043_V() {
+294:         if (this.field_70153_n != null) {
+295:             this.field_70153_n.func_70107_b(this.field_70165_t, this.field_70163_u + this.func_70042_X() + (double)this.antiSit + this.field_70153_n.func_70033_W() - Math.min(1.25, (double)Math.max(0.0f, this.deepFactor / 10.0f)) * 1.25, this.field_70161_v);
+296:         }
+297:     }
+298: 
+299:     protected void func_70626_be() {
+300:         this.func_70623_bb();
+301:         EntityPlayer var1 = null;
+302:         if (this.field_70153_n == null) {
+303:             var1 = this.field_70170_p.func_72856_b((Entity)this, 16.0);
+304:         }
+305:         if (var1 != null) {
+306:             this.func_70625_a((Entity)var1, 10.0f, 20.0f);
+307:         }
+308:         if (this.field_70122_E && this.slimeJumpDelay-- <= 0) {
+309:             this.slimeJumpDelay = this.getJumpDelay();
+310:             if (var1 != null) {
+311:                 this.slimeJumpDelay /= 3;
+312:             }
+313:             if (this.field_70153_n == null) {
+314:                 this.field_70703_bu = true;
+315:                 if (this.makesSoundOnJump()) {
+316:                     this.func_85030_a(this.getJumpSound(), this.func_70599_aP(), ((this.field_70146_Z.nextFloat() - this.field_70146_Z.nextFloat()) * 0.2f + 1.0f) * 0.8f);
+317:                 }
+318:                 this.field_70702_br = 1.0f - this.field_70146_Z.nextFloat() * 2.0f;
+319:                 this.field_70701_bs = 1 * this.getSlimeSize();
+320:             } else {
+321:                 this.slimeJumpDelay = 10;
+322:             }
+323:         } else {
+324:             this.field_70703_bu = false;
+325:             if (this.field_70122_E) {
+326:                 this.field_70701_bs = 0.0f;
+327:                 this.field_70702_br = 0.0f;
+328:             }
+329:         }
+330:     }
+331: 
+332:     public void func_70100_b_(EntityPlayer p_70100_1_) {
+333:         if (p_70100_1_.field_71075_bZ.field_75102_a) {
+334:             return;
+335:         }
+336:         if (this.canDamagePlayer()) {
+337:             int var2 = this.getSlimeSize();
+338:             float opMul = Math.max(p_70100_1_.func_110138_aP() / 20.0f, 1.0f);
+339:             if (!(p_70100_1_.field_70154_o instanceof EntityVoreSlime || p_70100_1_.field_70154_o instanceof EntityMuddyBlob || p_70100_1_.field_70154_o instanceof EntityTarSlime || p_70100_1_.field_70154_o instanceof EntitySandBlob)) {
+340:                 float sizeCoof = 2.0f;
+341:                 if (this.func_70685_l((Entity)p_70100_1_) && this.func_70068_e((Entity)p_70100_1_) < (double)var2 * (double)sizeCoof) {
+342:                     boolean inv = false;
+343:                     if (this.field_70153_n == null) {
+344:                         if (p_70100_1_.func_110143_aJ() < 10.0f * opMul) {
+345:                             inv = true;
+346:                             if (this.field_70146_Z.nextInt(10) == 0) {
+347:                                 p_70100_1_.func_70097_a(DamageSource.func_76358_a((EntityLivingBase)this), (float)this.getAttackStrength());
+348:                             }
+349:                         } else {
+350:                             inv = p_70100_1_.func_70097_a(DamageSource.func_76358_a((EntityLivingBase)this), (float)this.getAttackStrength());
+351:                         }
+352:                     }
+353:                     if (inv) {
+354:                         float hp;
+355:                         if (!this.func_70055_a(Material.field_151586_h) && ((hp = p_70100_1_.func_110143_aJ() / opMul / 5.0f) < 1.0f || this.field_70146_Z.nextInt((int)Math.floor(Math.max(1.0f, hp))) == 0)) {
+356:                             this.field_70153_n = p_70100_1_;
+357:                             p_70100_1_.func_70078_a((Entity)this);
+358:                             if (this.field_70146_Z.nextInt(5) == 0) {
+359:                                 this.func_85030_a("mob.slime.attack", 0.55f, this.field_70146_Z.nextFloat() * 0.25f + 0.25f);
+360:                                 this.TdeepFactor += 2.0f;
+361:                             }
+362:                             this.syncronizeDepth();
+363:                         }
+364:                         this.func_85030_a("mob.attack", 1.0f, (this.field_70146_Z.nextFloat() - this.field_70146_Z.nextFloat()) * 0.2f + 1.0f);
+365:                         if (!this.field_70170_p.field_72995_K) {
+366:                             p_70100_1_.func_70690_d(new PotionEffect(2, 100, 0, false));
+367:                             this.checkPlayerMuddy(p_70100_1_, 0.0, p_70100_1_.field_70163_u - 0.25 + (double)(this.field_70146_Z.nextFloat() * 0.5f), 0.0, this.field_70170_p);
+368:                         }
+369:                     }
+370:                     return;
+371:                 }
+372:             }
+373:         }
+374:     }
+375: 
+376:     public boolean func_70097_a(DamageSource dmgs, float power) {
+377:         Entity ent;
+378:         Entity ply = dmgs.func_76346_g();
+379:         boolean Stopper = false;
+380:         if (ply != null && ply instanceof EntityPlayer && (ent = dmgs.func_76364_f()) == ply && ply.func_70089_S() && ply.field_70140_Q > 0.0f) {
+381:             Iterator var2;
+382:             Item item;
+383:             Multimap var1;
+384:             boolean Weapon = false;
+385:             if (((EntityPlayer)ply).func_71045_bC() != null && (var1 = (item = ((EntityPlayer)ply).func_71045_bC().func_77973_b()).func_111205_h()) != null && (var2 = var1.entries().iterator()) != null) {
+386:                 while (var2.hasNext()) {
+387:                     AttributeModifier atr;
+388:                     Map.Entry var3 = (Map.Entry)var2.next();
+389:                     if (var3 == null || (atr = (AttributeModifier)var3.getValue()) == null) continue;
+390:                     if (atr.func_111166_b() == "Weapon modifier") {
+391:                         Weapon = true;
+392:                         break;
+393:                     }
+394:                     if (atr.func_111166_b() != "Tool modifier") continue;
+395:                     Weapon = true;
+396:                     break;
+397:                 }
+398:             }
+399:             if (!Weapon) {
+400:                 if (!this.field_70170_p.field_72995_K) {
+401:                     // empty if block
+402:                 }
+403:             } else if (!this.field_70170_p.field_72995_K) {
+404:                 boolean canStuck = true;
+405:                 float opMul = Math.max(this.func_110138_aP() / 25.0f, 1.0f);
+406:                 if (this.field_70170_p.field_73013_u != EnumDifficulty.HARD) {
+407:                     canStuck = false;
+408:                 }
+409:                 if (EnchantmentHelper.func_90036_a((EntityLivingBase)((EntityPlayer)ply)) > 0) {
+410:                     canStuck = false;
+411:                 }
+412:                 if (EnchantmentHelper.func_77507_b((EntityLivingBase)((EntityPlayer)ply), null) > 0) {
+413:                     canStuck = false;
+414:                 }
+415:                 if (this.func_110143_aJ() <= power) {
+416:                     canStuck = false;
+417:                 }
+418:                 PotionEffect PEWeak = ((EntityLivingBase)ply).func_70660_b(Potion.field_76437_t);
+419:                 PotionEffect PESlow = ((EntityLivingBase)ply).func_70660_b(Potion.field_76419_f);
+420:                 int weakLevel = -1;
+421:                 int slowLevel = -1;
+422:                 if (PEWeak != null) {
+423:                     weakLevel = PEWeak.func_76458_c();
+424:                 }
+425:                 if (PESlow != null) {
+426:                     slowLevel = PESlow.func_76458_c();
+427:                 }
+428:                 if (canStuck) {
+429:                     if (power < 3.0f * opMul) {
+430:                         for (int i = 0; i < this.inv.length; ++i) {
+431:                             if (this.inv[i] != null) continue;
+432:                             this.inv[i] = ((EntityPlayer)ply).func_71045_bC();
+433:                             ((EntityPlayer)ply).field_71071_by.func_70299_a(((EntityPlayer)ply).field_71071_by.field_70461_c, (ItemStack)null);
+434:                             this.func_85030_a("mob.slime.attack", 0.35f, this.field_70146_Z.nextFloat() * 0.5f + 0.5f);
+435:                             this.func_110163_bv();
+436:                             ((EntityLivingBase)ply).func_70690_d(new PotionEffect(2, 100, 0, false));
+437:                             this.checkPlayerMuddy((EntityPlayer)ply, 0.0, ply.field_70163_u - 0.25 + (double)(this.field_70146_Z.nextFloat() * 0.5f), 0.0, this.field_70170_p);
+438:                             Stopper = true;
+439:                             ((EntityLivingBase)ply).func_70110_aj();
+440:                             break;
+441:                         }
+442:                     }
+443:                     ((EntityLivingBase)ply).func_70690_d(new PotionEffect(4, 100 + Math.max(slowLevel * 20, 0), Math.min(slowLevel + 1, 5), false));
+444:                     ((EntityLivingBase)ply).func_70690_d(new PotionEffect(18, 100 + Math.max(weakLevel * 20, 0), Math.min(weakLevel + 1, 5), false));
+445:                 }
+446:             }
+447:         }
+448:         boolean Result2 = super.func_70097_a(dmgs, power);
+449:         if (Stopper) {
+450:             this.func_70110_aj();
+451:         }
+452:         return Result2;
+453:     }
+454: 
+455:     protected void func_70628_a(boolean par1, int par2) {
+456:         int var4;
+457:         int var3 = this.field_70146_Z.nextInt(8) + this.field_70146_Z.nextInt(1 + par2);
+458:         for (var4 = 0; var4 < var3; ++var4) {
+459:             this.func_70099_a(new ItemStack(Items.field_151123_aH, 1, 0), 0.0f);
+460:         }
+461:         this.func_145779_a(Items.field_151123_aH, 4);
+462:         if (MFQM.MudBallID != 0) {
+463:             var3 = this.field_70146_Z.nextInt(4) + this.field_70146_Z.nextInt(1 + par2);
+464:             for (var4 = 0; var4 < var3 * 2; ++var4) {
+465:                 this.func_70099_a(new ItemStack(MFQM.MudBall, 1, 0), 0.0f);
+466:             }
+467:             this.func_145779_a(MFQM.MudBall, 8);
+468:         }
+469:         if (!this.field_70170_p.field_72995_K) {
+470:             for (int i = 0; i < this.inv.length; ++i) {
+471:                 if (this.inv[i] == null) continue;
+472:                 this.func_70099_a(this.inv[i], 0.0f);
+473:             }
+474:         }
+475:         var3 = this.field_70146_Z.nextInt(2) + this.field_70146_Z.nextInt(1 + par2);
+476:         for (var4 = 0; var4 < var3; ++var4) {
+477:             this.func_70099_a(new ItemStack(MFQM.PeatItem, 1, 0), 0.0f);
+478:         }
+479:     }
+480: 
+481:     protected Item func_146068_u() {
+482:         return Items.field_151123_aH;
+483:     }
+484: 
+485:     protected boolean func_70692_ba() {
+486:         for (int i = 0; i < this.inv.length; ++i) {
+487:             if (this.inv[i] == null) continue;
+488:             return false;
+489:         }
+490:         return true;
+491:     }
+492: 
+493:     public boolean func_70601_bi() {
+494:         if (this.field_70170_p.field_73011_w.field_76574_g != 0) {
+495:             return false;
+496:         }
+497:         Chunk var1 = this.field_70170_p.func_72938_d(MathHelper.func_76128_c((double)this.field_70165_t), MathHelper.func_76128_c((double)this.field_70161_v));
+498:         if (this.field_70170_p.func_72912_H().func_76067_t() == WorldType.field_77138_c) {
+499:             return false;
+500:         }
+501:         if (this.field_70170_p.field_73013_u != EnumDifficulty.PEACEFUL && this.field_70163_u > 50.0 && this.field_70163_u < 70.0) {
+502:             return super.func_70601_bi();
+503:         }
+504:         return false;
+505:     }
+506: 
+507:     protected int getAttackStrength() {
+508:         return 2;
+509:     }
+510: 
+511:     protected int getSpawnHp() {
+512:         return 25;
+513:     }
+514: 
+515:     protected void alterSquishAmount() {
+516:         this.squishAmount *= 0.8f;
+517:     }
+518: 
+519:     protected String getSlimeParticle() {
+520:         return "splash";
+521:     }
+522: 
+523:     protected int getJumpDelay() {
+524:         return this.field_70146_Z.nextInt(20) + 20;
+525:     }
+526: 
+527:     public boolean shouldRiderSit() {
+528:         return false;
+529:     }
+530: }
+531: 

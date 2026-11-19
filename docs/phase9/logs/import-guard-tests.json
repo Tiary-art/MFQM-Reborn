@@ -1,0 +1,120 @@
+{
+  "status": "PASS",
+  "checks": [
+    "dry-run no output",
+    "idempotent full hashes",
+    "verify original bytes/references",
+    "edited-file import refusal",
+    "edited-file atomic cleanup refusal",
+    "unmanaged file preserved",
+    "source-tree output denied",
+    "symlink escape import/cleanup denied"
+  ],
+  "commands": [
+    {
+      "args": [
+        "--output",
+        "/workspace/work/mfqm-phase9/local-original-assets/guard-z373akp7/resources",
+        "--dry-run"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"mode\": \"DRY_RUN\",\n  \"files\": 88,\n  \"pngs\": 36,\n  \"confirmed_registry_ids\": 25,\n  \"output\": \"/workspace/work/mfqm-phase9/local-original-assets/guard-z373akp7/resources\",\n  \"private_artifact\": \"NOT_FOR_PUBLIC_DISTRIBUTION\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--output",
+        "/workspace/work/mfqm-phase9/local-original-assets/guard-z373akp7/resources"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"mode\": \"PRIVATE_IMPORT\",\n  \"files\": 88,\n  \"pngs\": 36,\n  \"confirmed_registry_ids\": 25,\n  \"output\": \"/workspace/work/mfqm-phase9/local-original-assets/guard-z373akp7/resources\",\n  \"private_artifact\": \"NOT_FOR_PUBLIC_DISTRIBUTION\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--output",
+        "/workspace/work/mfqm-phase9/local-original-assets/guard-z373akp7/resources"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"mode\": \"PRIVATE_IMPORT\",\n  \"files\": 88,\n  \"pngs\": 36,\n  \"confirmed_registry_ids\": 25,\n  \"output\": \"/workspace/work/mfqm-phase9/local-original-assets/guard-z373akp7/resources\",\n  \"private_artifact\": \"NOT_FOR_PUBLIC_DISTRIBUTION\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--output",
+        "/workspace/work/mfqm-phase9/local-original-assets/guard-z373akp7/resources",
+        "--verify"
+      ],
+      "exit": 0,
+      "stdout": "{\"status\": \"VERIFIED_ORIGINAL_BYTES_AND_REFERENCES\", \"files\": 88, \"original_jar_unchanged\": true}\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--output",
+        "/workspace/work/mfqm-phase9/local-original-assets/guard-z373akp7/resources"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/workspace/work/mfqm-phase9/docs/phase9/tools/asset_pipeline.py\", line 149, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"/workspace/work/mfqm-phase9/docs/phase9/tools/asset_pipeline.py\", line 141, in main\n    if conflicts:raise ValueError('UNMANAGED_OR_USER_EDITED_FILES_PRESERVED: '+str(conflicts))\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: UNMANAGED_OR_USER_EDITED_FILES_PRESERVED: ['assets/mfqm/models/block/quicksand.json']\n"
+    },
+    {
+      "args": [
+        "--output",
+        "/workspace/work/mfqm-phase9/local-original-assets/guard-z373akp7/resources",
+        "--clean-generated"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/workspace/work/mfqm-phase9/docs/phase9/tools/asset_pipeline.py\", line 149, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"/workspace/work/mfqm-phase9/docs/phase9/tools/asset_pipeline.py\", line 110, in main\n    if conflicts:raise ValueError('USER_EDITED_FILES_PRESERVED: '+str(conflicts))\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: USER_EDITED_FILES_PRESERVED: ['assets/mfqm/models/block/quicksand.json']\n"
+    },
+    {
+      "args": [
+        "--output",
+        "/workspace/work/mfqm-phase9/local-original-assets/guard-z373akp7/resources",
+        "--clean-generated"
+      ],
+      "exit": 0,
+      "stdout": "{\"mode\": \"CLEAN_GENERATED\", \"owned_files\": 88, \"unmanaged_files\": \"untouched\"}\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--output",
+        "/workspace/work/mfqm-phase9/forge-1.20.1/src/main/resources",
+        "--dry-run"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/workspace/work/mfqm-phase9/docs/phase9/tools/asset_pipeline.py\", line 149, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"/workspace/work/mfqm-phase9/docs/phase9/tools/asset_pipeline.py\", line 100, in main\n    ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--jar',type=Path,default=os.environ.get('MFQM_ORIGINAL_JAR'));ap.add_argument('--output',type=Path,default=ROOT/'local-original-assets/resources');ap.add_argument('--dry-run',action='store_true');ap.add_argument('--verify',action='store_true');ap.add_argument('--clean-generated',action='store_true');ap.add_argument('--audit',action='store_true');a=ap.parse_args();dest=output_root(a.output);manifest=dest/'.mfqm-import-manifest.json';prior=json.loads(manifest.read_text())if manifest.exists()else{'files':{}}\n                                                                                                                                                                                                                                                                                                                                                                                                                                                        ^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/work/mfqm-phase9/docs/phase9/tools/asset_pipeline.py\", line 92, in output_root\n    if p!=private and private not in p.parents:raise ValueError('In-repo private output must be under ignored local-original-assets/')\n                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: In-repo private output must be under ignored local-original-assets/\n"
+    },
+    {
+      "args": [
+        "--output",
+        "/workspace/work/mfqm-phase9/local-original-assets/guard-z373akp7/resources"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"mode\": \"PRIVATE_IMPORT\",\n  \"files\": 88,\n  \"pngs\": 36,\n  \"confirmed_registry_ids\": 25,\n  \"output\": \"/workspace/work/mfqm-phase9/local-original-assets/guard-z373akp7/resources\",\n  \"private_artifact\": \"NOT_FOR_PUBLIC_DISTRIBUTION\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--output",
+        "/workspace/work/mfqm-phase9/local-original-assets/guard-z373akp7/resources"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/workspace/work/mfqm-phase9/docs/phase9/tools/asset_pipeline.py\", line 149, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"/workspace/work/mfqm-phase9/docs/phase9/tools/asset_pipeline.py\", line 107, in main\n    if dest not in target.parents:raise ValueError('SYMLINK_ESCAPE_PRESERVED: '+rel)\n                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: SYMLINK_ESCAPE_PRESERVED: assets/mfqm/models/block/quicksand.json\n"
+    },
+    {
+      "args": [
+        "--output",
+        "/workspace/work/mfqm-phase9/local-original-assets/guard-z373akp7/resources",
+        "--clean-generated"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/workspace/work/mfqm-phase9/docs/phase9/tools/asset_pipeline.py\", line 149, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"/workspace/work/mfqm-phase9/docs/phase9/tools/asset_pipeline.py\", line 107, in main\n    if dest not in target.parents:raise ValueError('SYMLINK_ESCAPE_PRESERVED: '+rel)\n                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: SYMLINK_ESCAPE_PRESERVED: assets/mfqm/models/block/quicksand.json\n"
+    }
+  ]
+}

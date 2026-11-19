@@ -1,0 +1,492 @@
+260:     public static CommonProxy proxy;
+261:     @Mod.Instance(value="MFQM")
+262:     public static MFQM instance;
+263:     public static SimpleNetworkWrapper network;
+264:     public CustomRegister customRegister;
+265:     public static ItemArmor.ArmorMaterial armorMaterialUnprotective;
+266:     public static CreativeTabs tabMFQM;
+597:         int ix2;
+598:         ItemStack multiBlockStack3;
+599:         int ix3;
+600:         Configuration config2;
+601:         network = NetworkRegistry.INSTANCE.newSimpleChannel("MFQM_REC");
+602:         network.registerMessage(RopeMessage.Handler.class, RopeMessage.class, 0, Side.SERVER);
+603:         network.registerMessage(HookMessage.Handler.class, HookMessage.class, 1, Side.SERVER);
+604:         network.registerMessage(RescueMessage.Handler.class, RescueMessage.class, 2, Side.SERVER);
+605:         this.customRegister = new CustomRegister();
+606:         tabMFQM = new CreativeTabsMFQM(CreativeTabs.getNextID(), "tabMFQM");
+607:         MinecraftForge.EVENT_BUS.register((Object)new CustomPotionEvent());
+950:                 EUD = false;
+951:                 EUDDim = -999999;
+952:             }
+953:         }
+954:         FluidRegistry.registerFluid((Fluid)MireFluid);
+955:         FluidRegistry.registerFluid((Fluid)MireFluidS);
+956:         FluidRegistry.registerFluid((Fluid)BogFluid);
+957:         FluidRegistry.registerFluid((Fluid)SlurryFluid);
+958:         FluidRegistry.registerFluid((Fluid)QuicksandFluid);
+959:         FluidRegistry.registerFluid((Fluid)SandFluid);
+960:         FluidRegistry.registerFluid((Fluid)TarFluid);
+961:         FluidRegistry.registerFluid((Fluid)SlimeFluid);
+962:         FluidRegistry.registerFluid((Fluid)AcidFluid);
+963:         FluidRegistry.registerFluid((Fluid)MucusFluid);
+964:         FluidRegistry.registerFluid((Fluid)ChocolateFluid);
+965:         FluidRegistry.registerFluid((Fluid)HoneyFluid);
+966:         FluidRegistry.registerFluid((Fluid)SinkyFluid);
+967:         MudBlock = new BlockMud();
+968:         GameRegistry.registerBlock((Block)MudBlock, ItemMud.class, (String)"Mud");
+969:         LanguageRegistry.addName((Object)new ItemStack(MudBlock, 1, 0), (String)"Mud");
+970:         LanguageRegistry.addName((Object)new ItemStack(MudBlock, 1, 1), (String)"Mud");
+971:         LanguageRegistry.addName((Object)new ItemStack(MudBlock, 1, 2), (String)"Mud");
+972:         LanguageRegistry.addName((Object)new ItemStack(MudBlock, 1, 3), (String)"Mud");
+973:         BogBlock = new BlockBog(mudMaxOpacity[0], mudLastOpacity[0], mudIncOpacity[0]);
+974:         GameRegistry.registerBlock((Block)BogBlock, (String)"Bog");
+975:         LanguageRegistry.addName((Object)BogBlock, (String)"Bog");
+976:         BogFluid.setBlock(BogBlock);
+977:         SoftSnowBlock = new BlockSoftSnow();
+978:         GameRegistry.registerBlock((Block)SoftSnowBlock, ItemMeta.class, (String)"SoftSnow");
+979:         LanguageRegistry.addName((Object)new ItemStack(SoftSnowBlock, 1, 0), (String)"Soft Snow");
+980:         LanguageRegistry.addName((Object)new ItemStack(SoftSnowBlock, 1, 1), (String)"Soft Ash");
+981:         SandBlock = new BlockSand();
+982:         GameRegistry.registerBlock((Block)SandBlock, (String)"DryQuicksand");
+983:         LanguageRegistry.addName((Object)SandBlock, (String)"Dry Quicksand");
+984:         SandFluid.setBlock(SandBlock);
+985:         SoftQuicksandBlock = new BlockSoftQuicksand(mudMaxOpacity[17], mudLastOpacity[17], mudIncOpacity[17]);
+986:         GameRegistry.registerBlock((Block)SoftQuicksandBlock, (String)"SoftQuicksand");
+987:         LanguageRegistry.addName((Object)SoftQuicksandBlock, (String)"Soft Quicksand");
+988:         MorassBlock = new BlockMorass(mudMaxOpacity[3], mudLastOpacity[3], mudIncOpacity[3]);
+989:         GameRegistry.registerBlock((Block)MorassBlock, ItemMeta.class, (String)"Morass");
+990:         for (int ix4 = 0; ix4 < 8; ++ix4) {
+991:             ItemStack multiBlockStack4 = new ItemStack(MorassBlock, 1, ix4);
+992:             LanguageRegistry.addName((Object)multiBlockStack4, (String)"Morass");
+993:         }
+994:         WetPeatBlock = new BlockWetPeat(mudMaxOpacity[25], mudLastOpacity[25], mudIncOpacity[25]);
+995:         GameRegistry.registerBlock((Block)WetPeatBlock, (String)"WetPeat");
+996:         LanguageRegistry.addName((Object)WetPeatBlock, (String)"Wet Peat");
+997:         PeatBlock = new BlockPeat();
+998:         GameRegistry.registerBlock((Block)PeatBlock, (String)"HPeat");
+999:         LanguageRegistry.addName((Object)PeatBlock, (String)"Peat");
+1000:         Blocks.field_150480_ab.setFireInfo(PeatBlock, 5, 5);
+1001:         BrownClayBlock = new BlockBrownClay(mudMaxOpacity[23], mudLastOpacity[23], mudIncOpacity[23]);
+1002:         String[] ClayNames = new String[]{"Brown Clay", "Brown Clay", "Brown Clay", "Brown Clay", "Mineral Clay", "Mineral Clay", "Mineral Clay", "Mineral Clay"};
+1003:         GameRegistry.registerBlock((Block)BrownClayBlock, ItemMeta.class, (String)"BrownClay");
+1004:         for (ix3 = 0; ix3 < 8; ++ix3) {
+1005:             multiBlockStack3 = new ItemStack(BrownClayBlock, 1, ix3);
+1006:             LanguageRegistry.addName((Object)multiBlockStack3, (String)ClayNames[ix3]);
+1007:         }
+1008:         WaxBlock = new BlockWax(mudMaxOpacity[26], mudLastOpacity[26], mudIncOpacity[26]);
+1009:         GameRegistry.registerBlock((Block)WaxBlock, (String)"Wax");
+1010:         LanguageRegistry.addName((Object)WaxBlock, (String)"Wax");
+1011:         QuicksandBlock = new BlockQuicksand(mudMaxOpacity[4], mudLastOpacity[4], mudIncOpacity[4]);
+1012:         GameRegistry.registerBlock((Block)QuicksandBlock, (String)"Quicksand");
+1013:         LanguageRegistry.addName((Object)QuicksandBlock, (String)"Quicksand");
+1014:         SandstoneTrapBlock = new BlockSandstoneTrap();
+1015:         GameRegistry.registerBlock((Block)SandstoneTrapBlock, (String)"SandstoneTrapBlock");
+1016:         LanguageRegistry.addName((Object)SandstoneTrapBlock, (String)"Sandstone Trap");
+1017:         JungleQuicksandBlock = new BlockJungleQuicksand(mudMaxOpacity[5], mudLastOpacity[5], mudIncOpacity[5]);
+1018:         GameRegistry.registerBlock((Block)JungleQuicksandBlock, (String)"JungleQuicksand");
+1019:         LanguageRegistry.addName((Object)JungleQuicksandBlock, (String)"Jungle Quicksand");
+1020:         QuicksandFluid.setBlock(JungleQuicksandBlock);
+1021:         LiquidMireBlock = new BlockLiquidMire(mudMaxOpacity[6], mudLastOpacity[6], mudIncOpacity[6]);
+1022:         GameRegistry.registerBlock((Block)LiquidMireBlock, (String)"LiquidMire0");
+1023:         LanguageRegistry.addName((Object)LiquidMireBlock, (String)"Liquid Mire");
+1024:         MireFluid.setBlock(LiquidMireBlock);
+1025:         StableLiquidMireBlock = new BlockStableLiquidMire(mudMaxOpacity[7], mudLastOpacity[7], mudIncOpacity[7]);
+1026:         GameRegistry.registerBlock((Block)StableLiquidMireBlock, (String)"LiquidMire1");
+1027:         LanguageRegistry.addName((Object)StableLiquidMireBlock, (String)"Liquid Mire");
+1028:         MireFluidS.setBlock(StableLiquidMireBlock);
+1029:         SinkyLiquidBlock = new BlockSinkyLiquid(mudMaxOpacity[7], mudLastOpacity[7], mudIncOpacity[7]);
+1030:         GameRegistry.registerBlock((Block)SinkyLiquidBlock, (String)"SinkyLiquid");
+1031:         LanguageRegistry.addName((Object)SinkyLiquidBlock, (String)"Sinky Liquid");
+1032:         SinkyFluid.setBlock(SinkyLiquidBlock);
+1033:         EntityRegistry.registerModEntity(EntitySlimeHole.class, (String)"EntitySlimeHole", (int)102, (Object)instance, (int)120, (int)2, (boolean)false);
+1034:         SlimeBlock = new BlockSlime(mudMaxOpacity[8], mudLastOpacity[8], mudIncOpacity[8]);
+1035:         GameRegistry.registerBlock((Block)SlimeBlock, (String)"SinkingSlime");
+1036:         LanguageRegistry.addName((Object)SlimeBlock, (String)"Sinking Slime");
+1037:         SlimeFluid.setBlock(SlimeBlock);
+1038:         MucusBlock = new BlockMucus(mudMaxOpacity[20], mudLastOpacity[20], mudIncOpacity[20]);
+1039:         GameRegistry.registerBlock((Block)MucusBlock, (String)"Mucus");
+1040:         LanguageRegistry.addName((Object)MucusBlock, (String)"Mucus");
+1041:         MucusFluid.setBlock(MucusBlock);
+1042:         MireBlock = new BlockMire(mudMaxOpacity[9], mudLastOpacity[9], mudIncOpacity[9]);
+1043:         GameRegistry.registerBlock((Block)MireBlock, (String)"Mire");
+1044:         LanguageRegistry.addName((Object)MireBlock, (String)"Mire");
+1045:         MoorBlock = new BlockMoor(mudMaxOpacity[10], mudLastOpacity[10], mudIncOpacity[10]);
+1046:         GameRegistry.registerBlock((Block)MoorBlock, (String)"Moor");
+1047:         LanguageRegistry.addName((Object)MoorBlock, (String)"Moor");
+1048:         HClayBlock = new BlockHardenedClay();
+1049:         GameRegistry.registerBlock((Block)HClayBlock, (String)"HardenedClay");
+1050:         LanguageRegistry.addName((Object)HClayBlock, (String)"Hardened Clay");
+1051:         SClayBlock = new BlockSinkingClay(mudMaxOpacity[11], mudLastOpacity[11], mudIncOpacity[11]);
+1052:         GameRegistry.registerBlock((Block)SClayBlock, (String)"SinkingClay");
+1053:         LanguageRegistry.addName((Object)SClayBlock, (String)"Sinking Clay");
+1054:         MossBlock = new BlockMoss(mudMaxOpacity[22], mudLastOpacity[22], mudIncOpacity[22]);
+1055:         GameRegistry.registerBlock((Block)MossBlock, (String)"TangleRootMoss");
+1056:         LanguageRegistry.addName((Object)MossBlock, (String)"Tangleroot Moss");
+1057:         DenseWebBlock = new BlockDenseWeb(mudMaxOpacity[18], mudLastOpacity[18], mudIncOpacity[18]);
+1058:         GameRegistry.registerBlock((Block)DenseWebBlock, (String)"DenseWebbing");
+1059:         LanguageRegistry.addName((Object)DenseWebBlock, (String)"Dense Webbing");
+1060:         Blocks.field_150480_ab.setFireInfo(DenseWebBlock, 30, 60);
+1061:         TarBlock = new BlockTar(mudMaxOpacity[12], mudLastOpacity[12], mudIncOpacity[12]);
+1062:         GameRegistry.registerBlock((Block)TarBlock, (String)"Tar");
+1063:         LanguageRegistry.addName((Object)TarBlock, (String)"Tar");
+1064:         TarFluid.setBlock(TarBlock);
+1065:         LarvaeBlock = new BlockLarvae();
+1066:         GameRegistry.registerBlock((Block)LarvaeBlock, (String)"Larvae");
+1067:         LanguageRegistry.addName((Object)LarvaeBlock, (String)"Larvae");
+1068:         Blocks.field_150480_ab.setFireInfo(LarvaeBlock, 30, 60);
+1069:         CSandBlock = new BlockCorruptedSand();
+1070:         GameRegistry.registerBlock((Block)CSandBlock, (String)"CorruptedSand");
+1071:         LanguageRegistry.addName((Object)CSandBlock, (String)"Corrupted Sand");
+1072:         if (QSTentacles) {
+1073:             EntityRegistry.registerModEntity(EntityTentacles.class, (String)"EntityTentacles", (int)109, (Object)instance, (int)120, (int)2, (boolean)false);
+1074:         }
+1075:         if (QSMudTentacles) {
+1076:             EntityRegistry.registerModEntity(EntityMudTentacles.class, (String)"EntityMudTentacles", (int)98, (Object)instance, (int)120, (int)2, (boolean)false);
+1077:         }
+1078:         SwFleshBlock = new BlockSwallowingFlesh(mudMaxOpacity[19], mudLastOpacity[19], mudIncOpacity[19]);
+1079:         GameRegistry.registerBlock((Block)SwFleshBlock, (String)"SwallowingFlesh");
+1080:         LanguageRegistry.addName((Object)SwFleshBlock, (String)"Swallowing Flesh");
+1081:         AcidBlock = new BlockAcid();
+1082:         GameRegistry.registerBlock((Block)AcidBlock, (String)"Acid");
+1083:         LanguageRegistry.addName((Object)AcidBlock, (String)"Acid");
+1084:         AcidFluid.setBlock(AcidBlock);
+1085:         SlurryBlock = new BlockSlurry(mudMaxOpacity[28], mudLastOpacity[28], mudIncOpacity[28]);
+1086:         GameRegistry.registerBlock((Block)SlurryBlock, (String)"Slurry");
+1087:         LanguageRegistry.addName((Object)SlurryBlock, (String)"Slurry");
+1088:         SlurryFluid.setBlock(SlurryBlock);
+1089:         GasBlock = new BlockGas();
+1090:         GameRegistry.registerBlock((Block)GasBlock, (String)"Gas");
+1091:         LanguageRegistry.addName((Object)GasBlock, (String)"Gas");
+1092:         SoftGravelBlock = new BlockSoftGravel(mudMaxOpacity[30], mudLastOpacity[30], mudIncOpacity[30]);
+1093:         GameRegistry.registerBlock((Block)SoftGravelBlock, ItemMeta.class, (String)"SoftGravel");
+1094:         LanguageRegistry.addName((Object)new ItemStack(SoftGravelBlock, 1, 0), (String)"SoftGravel");
+1095:         LanguageRegistry.addName((Object)new ItemStack(SoftGravelBlock, 1, 1), (String)"SoftGravel");
+1096:         HoneyBlock = new BlockHoney(mudMaxOpacity[31], mudLastOpacity[31], mudIncOpacity[31]);
+1097:         GameRegistry.registerBlock((Block)HoneyBlock, (String)"Honey");
+1098:         LanguageRegistry.addName((Object)HoneyBlock, (String)"Honey");
+1099:         HoneyFluid.setBlock(HoneyBlock);
+1100:         SolidHoneyBlock = new BlockSolidHoney();
+1101:         GameRegistry.registerBlock((Block)SolidHoneyBlock, (String)"SolidHoney");
+1102:         LanguageRegistry.addName((Object)SolidHoneyBlock, (String)"Solid Honey");
+1103:         HoneycombBlock = new BlockHoneycomb();
+1104:         GameRegistry.registerBlock((Block)HoneycombBlock, ItemMeta.class, (String)"Honeycomb");
+1105:         LanguageRegistry.addName((Object)new ItemStack(HoneycombBlock, 1, 0), (String)"Honeycomb");
+1106:         LanguageRegistry.addName((Object)new ItemStack(HoneycombBlock, 1, 1), (String)"Honeycomb Empty");
+1107:         LanguageRegistry.addName((Object)new ItemStack(HoneycombBlock, 1, 2), (String)"Honeycomb Filled");
+1108:         LiquidChocolateBlock = new BlockLiquidChocolate(mudMaxOpacity[27], mudLastOpacity[27], mudIncOpacity[27]);
+1109:         GameRegistry.registerBlock((Block)LiquidChocolateBlock, (String)"LiquidChocolate");
+1110:         LanguageRegistry.addName((Object)LiquidChocolateBlock, (String)"Liquid Chocolate");
+1111:         ChocolateFluid.setBlock(LiquidChocolateBlock);
+1112:         ChocolateBlock = new BlockChocolate();
+1113:         GameRegistry.registerBlock((Block)ChocolateBlock, (String)"ChocolateBlock");
+1114:         LanguageRegistry.addName((Object)ChocolateBlock, (String)"Solid Chocolate");
+1115:         SinkingWoolBlock = new BlockSinkingWool();
+1116:         GameRegistry.registerBlock((Block)SinkingWoolBlock, ItemMetaColor.class, (String)"SinkingRug");
+1117:         for (ix3 = 0; ix3 < 16; ++ix3) {
+1118:             multiBlockStack3 = new ItemStack(SinkingWoolBlock, 1, ix3);
+1119:             LanguageRegistry.addName((Object)multiBlockStack3, (String)"Sinking Rug");
+1120:         }
+1121:         LureBlock = new BlockLure();
+1122:         GameRegistry.registerBlock((Block)LureBlock, (String)"LureBlock");
+1123:         LanguageRegistry.addName((Object)LureBlock, (String)"Smelling Blossom");
+1124:         GameRegistry.registerTileEntity(TileEntityLure.class, (String)"tileEntityLure");
+1125:         Blocks.field_150480_ab.setFireInfo(LureBlock, 5, 5);
+1126:         BlossomBlock = new BlockBlossom();
+1127:         GameRegistry.registerBlock((Block)BlossomBlock, ItemMeta.class, (String)"BlossomBlock");
+1128:         for (ix3 = 0; ix3 < 12; ++ix3) {
+1129:             multiBlockStack3 = new ItemStack(BlossomBlock, 1, ix3);
+1130:             LanguageRegistry.addName((Object)multiBlockStack3, (String)"Plant Wall");
+1131:         }
+1132:         Blocks.field_150480_ab.setFireInfo(BlossomBlock, 5, 5);
+1133:         BlossomSlabBlock = new BlockBlossomSlab();
+1134:         GameRegistry.registerBlock((Block)BlossomSlabBlock, ItemMeta.class, (String)"BlossomBlockSlab");
+1135:         for (ix3 = 0; ix3 < 6; ++ix3) {
+1136:             multiBlockStack3 = new ItemStack(BlossomSlabBlock, 1, ix3);
+1137:             LanguageRegistry.addName((Object)multiBlockStack3, (String)"Plant Wall");
+1138:         }
+1139:         Blocks.field_150480_ab.setFireInfo(BlossomSlabBlock, 5, 5);
+1140:         VoreHoleBlock = new BlockVoreHole(mudMaxOpacity[21], mudLastOpacity[21], mudIncOpacity[21]);
+1141:         GameRegistry.registerBlock((Block)VoreHoleBlock, (String)"TempVore");
+1142:         LanguageRegistry.addName((Object)VoreHoleBlock, (String)"Temp Vore Hole");
+1143:         MeatBlock = new BlockMeat();
+1144:         String[] MeatTypes = new String[]{"Empty", "Bottom", "Conner1", "Conner2", "Conner3", "Conner4", "Side1", "Side2", "Side3", "Side4", "Anus"};
+1145:         String[] MeatNames = new String[]{"", "Bottom", "Conner", "Conner", "Conner", "Conner", "Side", "Side", "Side", "Side", "Anus"};
+1146:         GameRegistry.registerBlock((Block)MeatBlock, ItemMeta.class, (String)"MeatWall");
+1147:         for (ix2 = 0; ix2 < 11; ++ix2) {
+1148:             multiBlockStack2 = new ItemStack(MeatBlock, 1, ix2);
+1149:             LanguageRegistry.addName((Object)multiBlockStack2, (String)("Meat Wall " + MeatNames[ix2]));
+1150:         }
+1151:         MeatHoleBlock = new BlockMeatHole(mudMaxOpacity[15], mudLastOpacity[15], mudIncOpacity[15]);
+1152:         GameRegistry.registerBlock((Block)MeatHoleBlock, (String)"TempMeat");
+1153:         LanguageRegistry.addName((Object)MeatHoleBlock, (String)"Temp Meat");
+1154:         WaxWoodBlock = new BlockWaxWood();
+1155:         GameRegistry.registerBlock((Block)WaxWoodBlock, ItemMeta.class, (String)"WaxWood");
+1156:         for (ix2 = 0; ix2 < 8; ++ix2) {
+1157:             multiBlockStack2 = new ItemStack(WaxWoodBlock, 1, ix2);
+1158:             LanguageRegistry.addName((Object)multiBlockStack2, (String)"Wax Jungle Log");
+1159:         }
+1160:         Blocks.field_150480_ab.setFireInfo(WaxWoodBlock, 5, 5);
+1161:         CustomLilyPadBlock = new BlockCustomLilyPad();
+1162:         GameRegistry.registerBlock((Block)CustomLilyPadBlock, (String)"CustomLilyPad");
+1163:         LanguageRegistry.addName((Object)CustomLilyPadBlock, (String)"waterlily");
+1164:         MoorGrassBlock = new BlockMoorGrass();
+1165:         String[] MoorGrassNames = new String[]{"Moor Grass", "Moor Grass", "Moor Grass", "Bog Grass", "Bog Grass", "Cranberry Grass"};
+1166:         GameRegistry.registerBlock((Block)MoorGrassBlock, ItemMetaColor.class, (String)"MoorGrass");
+1167:         for (ix = 0; ix < 6; ++ix) {
+1168:             multiBlockStack = new ItemStack(MoorGrassBlock, 1, ix);
+1169:             LanguageRegistry.addName((Object)multiBlockStack, (String)MoorGrassNames[ix]);
+1170:         }
+1171:         TentBlock = new BlockTent();
+1172:         GameRegistry.registerBlock((Block)TentBlock, ItemMeta.class, (String)"Tendrils");
+1173:         for (ix = 0; ix < 4; ++ix) {
+1174:             multiBlockStack = new ItemStack(TentBlock, 1, ix);
+1175:             LanguageRegistry.addName((Object)multiBlockStack, (String)"Tendrils");
+1176:         }
+1177:         LeavesBlock = new BlockLeaves();
+1178:         GameRegistry.registerBlock((Block)LeavesBlock, (String)"LeavesPile");
+1179:         LanguageRegistry.addName((Object)LeavesBlock, (String)"Dead Leaves Pile");
+1180:         BogBucketItem = new ItemBogBucket(BogBlock);
+1181:         GameRegistry.registerItem((Item)BogBucketItem, (String)"BucketOfLiquidBog");
+1182:         LanguageRegistry.addName((Object)BogBucketItem, (String)"Bucket of Liquid Bog");
+1183:         ClayBucketItem = new ItemClayBucket(BrownClayBlock);
+1184:         GameRegistry.registerItem((Item)ClayBucketItem, (String)"Bucket of Clay");
+1185:         QuicksandBucketItem = new ItemQuicksandBucket(JungleQuicksandBlock);
+1186:         GameRegistry.registerItem((Item)QuicksandBucketItem, (String)"BucketOfQuicksand");
+1187:         LanguageRegistry.addName((Object)QuicksandBucketItem, (String)"Bucket of Quicksand");
+1188:         SandBucketItem = new ItemSandBucket((Block)Blocks.field_150354_m);
+1189:         GameRegistry.registerItem((Item)SandBucketItem, (String)"BucketOfSand");
+1190:         LanguageRegistry.addName((Object)SandBucketItem, (String)"Bucket of Sand");
+1191:         MireBucketItem = new ItemMireBucket(StableLiquidMireBlock);
+1192:         GameRegistry.registerItem((Item)MireBucketItem, (String)"BucketOfMire");
+1193:         LanguageRegistry.addName((Object)MireBucketItem, (String)"Bucket of Mire");
+1194:         SlimeBucketItem = new ItemSlimeBucket(SlimeBlock).func_77642_a(Items.field_151133_ar);
+1195:         GameRegistry.registerItem((Item)SlimeBucketItem, (String)"BucketOfSlime");
+1196:         LanguageRegistry.addName((Object)SlimeBucketItem, (String)"Bucket of Slime");
+1197:         MucusBucketItem = new ItemMucusBucket(MucusBlock).func_77642_a(Items.field_151133_ar);
+1198:         GameRegistry.registerItem((Item)MucusBucketItem, (String)"BucketOfMucus");
+1199:         LanguageRegistry.addName((Object)MucusBucketItem, (String)"Bucket of Mucus");
+1200:         TarBucketItem = new ItemTarBucket(TarBlock).func_77642_a(Items.field_151133_ar);
+1201:         GameRegistry.registerItem((Item)TarBucketItem, (String)"BucketOfTar");
+1202:         LanguageRegistry.addName((Object)TarBucketItem, (String)"Bucket of Tar");
+1203:         AcidBucketItem = new ItemAcidBucket(AcidBlock).func_77642_a(Items.field_151133_ar);
+1204:         GameRegistry.registerItem((Item)AcidBucketItem, (String)"BucketOfAcid");
+1205:         LanguageRegistry.addName((Object)AcidBucketItem, (String)"Bucket of Acid");
+1206:         ChocolateBucketItem = new ItemChocolateBucket(LiquidChocolateBlock).func_77642_a(Items.field_151133_ar);
+1207:         GameRegistry.registerItem((Item)ChocolateBucketItem, (String)"BucketOfChocolate");
+1208:         LanguageRegistry.addName((Object)ChocolateBucketItem, (String)"Bucket of Chocolate");
+1209:         ChocolatePowderBucketItem = new ItemChocolatePowderBucket();
+1210:         GameRegistry.registerItem((Item)ChocolatePowderBucketItem, (String)"BucketOfChocolatePowder");
+1211:         LanguageRegistry.addName((Object)ChocolatePowderBucketItem, (String)"Bucket of Chocolate Powder");
+1212:         ItemStack sugarStk = new ItemStack(Items.field_151102_aT);
+1214:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(ChocolatePowderBucketItem), (Object[])new Object[]{new ItemStack(Items.field_151133_ar), sugarStk, sugarStk, cocaoStk, cocaoStk, cocaoStk, cocaoStk, cocaoStk, cocaoStk});
+1215:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(ChocolatePowderBucketItem), (Object[])new Object[]{new ItemStack(Items.field_151133_ar), new ItemStack(ChocolateBlock)});
+1216:         GameRegistry.addSmelting((Item)ChocolatePowderBucketItem, (ItemStack)new ItemStack(ChocolateBucketItem), (float)0.0f);
+1217:         HoneyBucketItem = new ItemHoneyBucket(HoneyBlock).func_77642_a(Items.field_151133_ar);
+1218:         GameRegistry.registerItem((Item)HoneyBucketItem, (String)"BucketOfHoney");
+1219:         LanguageRegistry.addName((Object)HoneyBucketItem, (String)"Bucket of Honey");
+1220:         SlurryBucketItem = new ItemSlurryBucket(SlurryBlock).func_77642_a(Items.field_151133_ar);
+1221:         GameRegistry.registerItem((Item)SlurryBucketItem, (String)"BucketOfSlurry");
+1222:         LanguageRegistry.addName((Object)SlurryBucketItem, (String)"Bucket of Slurry");
+1223:         FertilizerItem = new ItemFertilizer();
+1224:         GameRegistry.registerItem((Item)FertilizerItem, (String)"Fertilizer");
+1225:         LanguageRegistry.addName((Object)FertilizerItem, (String)"Fertilizer");
+1226:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(FertilizerItem, 4), (Object[])new Object[]{new ItemStack(SlurryBucketItem)});
+1227:         EntityRegistry.registerModEntity(EntityLongStick.class, (String)"EntityLongStick", (int)106, (Object)instance, (int)120, (int)2, (boolean)true);
+1228:         LongStickItem = new ItemLongStick();
+1229:         GameRegistry.registerItem((Item)LongStickItem, (String)"LongStick");
+1230:         LanguageRegistry.addName((Object)LongStickItem, (String)"Long Stick");
+1231:         RescueItem = new ItemRescue();
+1232:         GameRegistry.registerItem((Item)RescueItem, (String)"Rescuing");
+1233:         LanguageRegistry.addName((Object)RescueItem, (String)"Rescuing");
+1234:         RopeItem = new ItemRope();
+1235:         GameRegistry.registerItem((Item)RopeItem, (String)"Rope");
+1236:         LanguageRegistry.addName((Object)RopeItem, (String)"Rope");
+1237:         CableItem = new ItemCable();
+1238:         GameRegistry.registerItem((Item)CableItem, (String)"Cable");
+1239:         LanguageRegistry.addName((Object)CableItem, (String)"Cable");
+1240:         CoilItem = new Item().func_77655_b("Coil").func_77637_a(tabMFQM).func_111206_d("morefunquicksandmod:Coil");
+1241:         GameRegistry.registerItem((Item)CoilItem, (String)"Coil");
+1242:         LanguageRegistry.addName((Object)CoilItem, (String)"Coil");
+1243:         HookItem = new Item().func_77655_b("Hook").func_77637_a(tabMFQM).func_111206_d("morefunquicksandmod:Hook");
+1244:         GameRegistry.registerItem((Item)HookItem, (String)"Hook");
+1245:         LanguageRegistry.addName((Object)HookItem, (String)"Hook");
+1246:         FilterItem = new Item().func_77655_b("Filter").func_77637_a(tabMFQM).func_111206_d("morefunquicksandmod:Filter");
+1247:         GameRegistry.registerItem((Item)FilterItem, (String)"Filter");
+1248:         LanguageRegistry.addName((Object)FilterItem, (String)"Filter");
+1249:         GasMaskItem = new ItemGasMask(armorMaterialUnprotective, proxy.addArmor("gasMask"), 0);
+1250:         GameRegistry.registerItem((Item)GasMaskItem, (String)"GasMask");
+1251:         LanguageRegistry.addName((Object)GasMaskItem, (String)"Gas Mask");
+1252:         if (TurnGasMask) {
+1253:             GameRegistry.addRecipe((ItemStack)new ItemStack(FilterItem, 2), (Object[])new Object[]{" w ", "ici", " w ", Character.valueOf('i'), Items.field_151042_j, Character.valueOf('w'), Blocks.field_150325_L, Character.valueOf('c'), new ItemStack(Items.field_151044_h, 1, 1)});
+1254:             GameRegistry.addRecipe((ItemStack)new ItemStack(GasMaskItem, 1), (Object[])new Object[]{"lll", "lgl", "fif", Character.valueOf('f'), FilterItem, Character.valueOf('l'), Items.field_151116_aA, Character.valueOf('g'), Blocks.field_150410_aZ, Character.valueOf('i'), Items.field_151042_j});
+1255:         }
+1256:         GrapplingHookItem = new ItemGrapplingHook();
+1257:         GameRegistry.registerItem((Item)GrapplingHookItem, (String)"GrapplingHook");
+1258:         LanguageRegistry.addName((Object)GrapplingHookItem, (String)"Grappling Hook");
+1259:         GrapplingHookBRKItem = new ItemGrapplingHookBRK();
+1260:         GameRegistry.registerItem((Item)GrapplingHookBRKItem, (String)"GrapplingHookBroken");
+1261:         LanguageRegistry.addName((Object)GrapplingHookBRKItem, (String)"Grappling Hook Broken");
+1262:         if (TurnHook) {
+1266:             GameRegistry.addRecipe((ItemStack)new ItemStack(GrapplingHookItem, 1), (Object[])new Object[]{"ri ", "csh", "ii ", Character.valueOf('i'), Items.field_151042_j, Character.valueOf('r'), Items.field_151137_ax, Character.valueOf('c'), CoilItem, Character.valueOf('s'), CableItem, Character.valueOf('h'), HookItem});
+1267:             GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(GrapplingHookItem), (Object[])new Object[]{new ItemStack(GrapplingHookBRKItem), new ItemStack(HookItem), new ItemStack(CableItem)});
+1268:         }
+1269:         LiqGunItem = new ItemLiqGun();
+1270:         GameRegistry.registerItem((Item)LiqGunItem, (String)"LiqGunItem");
+1271:         LanguageRegistry.addName((Object)LiqGunItem, (String)"Liquid Gun");
+1272:         if (TurnLiqGun) {
+1273:             GameRegistry.addRecipe((ItemStack)new ItemStack(LiqGunItem, 1), (Object[])new Object[]{"ipl", "gge", "g  ", Character.valueOf('i'), Items.field_151131_as, Character.valueOf('p'), Blocks.field_150331_J, Character.valueOf('g'), Items.field_151043_k, Character.valueOf('l'), new ItemStack(Items.field_151100_aR, 1, 4), Character.valueOf('e'), Items.field_151166_bC});
+1274:         }
+1275:         WaxItem = new ItemWaxPiece();
+1276:         GameRegistry.registerItem((Item)WaxItem, (String)"WaxPiece");
+1277:         LanguageRegistry.addName((Object)WaxItem, (String)"Wax");
+1278:         GameRegistry.addRecipe((ItemStack)new ItemStack(WaxBlock, 1), (Object[])new Object[]{"xxx", "xxx", "xxx", Character.valueOf('x'), WaxItem});
+1289:         GameRegistry.addRecipe((ItemStack)new ItemStack(WaxItem, 6), (Object[])new Object[]{"hh ", " w ", Character.valueOf('h'), Blocks.field_150325_L, Character.valueOf('w'), Items.field_151131_as});
+1290:         GameRegistry.addRecipe((ItemStack)new ItemStack(WaxItem, 9), (Object[])new Object[]{"hhh", "w  ", Character.valueOf('h'), Blocks.field_150325_L, Character.valueOf('w'), Items.field_151131_as});
+1291:         GameRegistry.addRecipe((ItemStack)new ItemStack(WaxItem, 9), (Object[])new Object[]{"hhh", " w ", Character.valueOf('h'), Blocks.field_150325_L, Character.valueOf('w'), Items.field_151131_as});
+1292:         LifeJacketItem = new ItemLifeJacket(armorMaterialUnprotective, proxy.addArmor("lifeJacket"), 1);
+1293:         GameRegistry.registerItem((Item)LifeJacketItem, (String)"LifeJacket");
+1294:         LanguageRegistry.addName((Object)LifeJacketItem, (String)"Life Jacket");
+1295:         if (TurnJacket) {
+1296:             GameRegistry.addRecipe((ItemStack)new ItemStack(LifeJacketItem, 1), (Object[])new Object[]{"lxl", "wlw", "nln", Character.valueOf('l'), Items.field_151116_aA, Character.valueOf('w'), WaxItem, Character.valueOf('n'), Items.field_151007_F});
+1297:         }
+1298:         PeatItem = new Item().func_77655_b("PeatItem").func_77637_a(tabMFQM).func_111206_d("morefunquicksandmod:Peat");
+1299:         GameRegistry.registerItem((Item)PeatItem, (String)"PeatItem");
+1300:         LanguageRegistry.addName((Object)PeatItem, (String)"Peat");
+1301:         GameRegistry.addRecipe((ItemStack)new ItemStack(PeatBlock, 1), (Object[])new Object[]{"xxx", "xxx", "xxx", Character.valueOf('x'), PeatItem});
+1302:         GameRegistry.addRecipe((ItemStack)new ItemStack(WetPeatBlock, 1), (Object[])new Object[]{"ppp", "xwx", "xxx", Character.valueOf('p'), PeatItem, Character.valueOf('w'), Items.field_151131_as});
+1303:         GameRegistry.addRecipe((ItemStack)new ItemStack(WetPeatBlock, 3), (Object[])new Object[]{"xpx", "www", "xxx", Character.valueOf('p'), PeatBlock, Character.valueOf('w'), Items.field_151131_as});
+1304:         LarvaRawItem = (ItemFood)new ItemFood(2, 0.1f, false).func_77844_a(Potion.field_76438_s.field_76415_H, 30, 0, 0.5f).func_77655_b("LarvaRaw").func_111206_d("morefunquicksandmod:LarvaRaw").func_77637_a(tabMFQM);
+1305:         GameRegistry.registerItem((Item)LarvaRawItem, (String)"LarvaRaw");
+1306:         LanguageRegistry.addName((Object)LarvaRawItem, (String)"Larva Raw");
+1307:         LarvaCookedItem = (ItemFood)new ItemFood(3, 0.15f, false).func_77844_a(Potion.field_76438_s.field_76415_H, 30, 0, 0.25f).func_77655_b("LarvaCooked").func_111206_d("morefunquicksandmod:LarvaCooked").func_77637_a(tabMFQM);
+1308:         GameRegistry.registerItem((Item)LarvaCookedItem, (String)"LarvaCooked");
+1309:         LanguageRegistry.addName((Object)LarvaCookedItem, (String)"Larva Cooked");
+1310:         GameRegistry.addSmelting((Item)LarvaRawItem, (ItemStack)new ItemStack((Item)LarvaCookedItem), (float)0.1f);
+1311:         CberryItem = new ItemCranberry(1, 0.1f, false).func_77655_b("Cranberry").func_111206_d("morefunquicksandmod:cranberry").func_77637_a(CreativeTabs.field_78039_h);
+1312:         GameRegistry.registerItem((Item)CberryItem, (String)"Cranberry");
+1313:         LanguageRegistry.addName((Object)CberryItem, (String)"Cranberry");
+1314:         DonutItem0 = (ItemFood)new ItemFood(3, 0.4f, true).func_77655_b("Donut0").func_111206_d("morefunquicksandmod:Donut0").func_77637_a(CreativeTabs.field_78039_h);
+1315:         GameRegistry.registerItem((Item)DonutItem0, (String)"Donut0");
+1316:         LanguageRegistry.addName((Object)DonutItem0, (String)"Donut");
+1317:         GameRegistry.addRecipe((ItemStack)new ItemStack(DonutItem0, 4), (Object[])new Object[]{"_x_", "xsx", "_x_", Character.valueOf('x'), Items.field_151015_O, Character.valueOf('s'), sugarStk});
+1318:         DonutItem1 = (ItemFood)new ItemFood(4, 0.5f, true).func_77655_b("Donut1").func_111206_d("morefunquicksandmod:Donut1").func_77637_a(CreativeTabs.field_78039_h);
+1319:         GameRegistry.registerItem((Item)DonutItem1, (String)"Donut1");
+1320:         LanguageRegistry.addName((Object)DonutItem1, (String)"Glazed Donut");
+1321:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(DonutItem1, 1), (Object[])new Object[]{DonutItem0, ChocolateBucketItem});
+1326:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(DonutItem1, 6), (Object[])new Object[]{DonutItem0, DonutItem0, DonutItem0, DonutItem0, DonutItem0, DonutItem0, ChocolateBucketItem});
+1327:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(DonutItem1, 7), (Object[])new Object[]{DonutItem0, DonutItem0, DonutItem0, DonutItem0, DonutItem0, DonutItem0, DonutItem0, ChocolateBucketItem});
+1328:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(DonutItem1, 8), (Object[])new Object[]{DonutItem0, DonutItem0, DonutItem0, DonutItem0, DonutItem0, DonutItem0, DonutItem0, DonutItem0, ChocolateBucketItem});
+1329:         DonutItem2 = (ItemFood)new ItemFood(5, 0.5f, true).func_77655_b("Donut2").func_111206_d("morefunquicksandmod:Donut2").func_77637_a(CreativeTabs.field_78039_h);
+1330:         GameRegistry.registerItem((Item)DonutItem2, (String)"Donut2");
+1331:         LanguageRegistry.addName((Object)DonutItem2, (String)"Glazed Donut With Sprinkles");
+1332:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(DonutItem2, 1), (Object[])new Object[]{DonutItem1, sugarStk, new ItemStack(Items.field_151100_aR, 1, 1)});
+1333:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(DonutItem2, 1), (Object[])new Object[]{DonutItem1, sugarStk, new ItemStack(Items.field_151100_aR, 1, 11)});
+1334:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(DonutItem2, 1), (Object[])new Object[]{DonutItem1, sugarStk, new ItemStack(Items.field_151100_aR, 1, 4)});
+1335:         DonutItem3 = (ItemFood)new ItemFood(8, 0.5f, true).func_77655_b("Donut3").func_111206_d("morefunquicksandmod:Donut3").func_77637_a(CreativeTabs.field_78039_h);
+1336:         GameRegistry.registerItem((Item)DonutItem3, (String)"Donut3");
+1337:         LanguageRegistry.addName((Object)DonutItem3, (String)"Pink Donut With Sprinkles");
+1338:         GameRegistry.addRecipe((ItemStack)new ItemStack(DonutItem3, 4), (Object[])new Object[]{"cxs", "xax", "sxv", Character.valueOf('x'), Items.field_151015_O, Character.valueOf('a'), new ItemStack(Items.field_151100_aR, 1, 9), Character.valueOf('c'), new ItemStack(Items.field_151100_aR, 1, 1), Character.valueOf('v'), new ItemStack(Items.field_151100_aR, 1, 11), Character.valueOf('s'), sugarStk});
+1347:         GameRegistry.addRecipe((ItemStack)new ItemStack(DonutItem3, 4), (Object[])new Object[]{"cxs", "xax", "sxv", Character.valueOf('x'), Items.field_151015_O, Character.valueOf('a'), CberryItem, Character.valueOf('c'), new ItemStack(Items.field_151100_aR, 1, 11), Character.valueOf('v'), new ItemStack(Items.field_151100_aR, 1, 4), Character.valueOf('s'), sugarStk});
+1348:         GameRegistry.addRecipe((ItemStack)new ItemStack(DonutItem3, 4), (Object[])new Object[]{"cxs", "xax", "sxv", Character.valueOf('x'), Items.field_151015_O, Character.valueOf('a'), CberryItem, Character.valueOf('c'), new ItemStack(Items.field_151100_aR, 1, 4), Character.valueOf('v'), new ItemStack(Items.field_151100_aR, 1, 1), Character.valueOf('s'), sugarStk});
+1349:         GameRegistry.addRecipe((ItemStack)new ItemStack(DonutItem3, 4), (Object[])new Object[]{"cxs", "xax", "sxv", Character.valueOf('x'), Items.field_151015_O, Character.valueOf('a'), CberryItem, Character.valueOf('c'), new ItemStack(Items.field_151100_aR, 1, 4), Character.valueOf('v'), new ItemStack(Items.field_151100_aR, 1, 11), Character.valueOf('s'), sugarStk});
+1350:         DonutItem4 = (ItemFood)new ItemFood(8, 0.6f, true).func_77655_b("Donut4").func_111206_d("morefunquicksandmod:Donut4").func_77637_a(CreativeTabs.field_78039_h);
+1351:         GameRegistry.registerItem((Item)DonutItem4, (String)"Donut4");
+1352:         LanguageRegistry.addName((Object)DonutItem4, (String)"Chocolate Donut");
+1353:         GameRegistry.addRecipe((ItemStack)new ItemStack(DonutItem4, 4), (Object[])new Object[]{"sxc", "xbx", "cxs", Character.valueOf('x'), Items.field_151015_O, Character.valueOf('c'), cocaoStk, Character.valueOf('b'), ChocolateBucketItem, Character.valueOf('s'), sugarStk});
+1354:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(Items.field_151123_aH, 4), (Object[])new Object[]{new ItemStack(SlimeBucketItem)});
+1355:         SoftSnowBlock.setHarvestLevel("shovel", 0);
+1356:         GameRegistry.registerFuelHandler((IFuelHandler)new CustomFuelHandler());
+1357:         MyPotionItem = new ItemMyPotion();
+1358:         GameRegistry.registerItem((Item)MyPotionItem, (String)"Potion");
+1359:         ThrPotionItem = new ItemSPotion();
+1360:         GameRegistry.registerItem((Item)ThrPotionItem, (String)"SPotion");
+1361:         if (TurnPotion) {
+1362:             GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(MyPotionItem, 1, 1), (Object[])new Object[]{new ItemStack(MyPotionItem, 1, 0), new ItemStack(Blocks.field_150425_aM)});
+1376:             GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(SinkingWoolBlock, 6, ix5), (Object[])new Object[]{woolStk, woolStk, woolStk, woolStk, woolStk, woolStk, potionStk});
+1377:             GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(SinkingWoolBlock, 7, ix5), (Object[])new Object[]{woolStk, woolStk, woolStk, woolStk, woolStk, woolStk, woolStk, potionStk});
+1378:             GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(SinkingWoolBlock, 8, ix5), (Object[])new Object[]{woolStk, woolStk, woolStk, woolStk, woolStk, woolStk, woolStk, woolStk, potionStk});
+1379:         }
+1380:         EntityRegistry.registerModEntity(EntityRope.class, (String)"EntityRope", (int)100, (Object)instance, (int)120, (int)2, (boolean)true);
+1381:         EntityRegistry.registerModEntity(EntityHook.class, (String)"EntityHook", (int)101, (Object)instance, (int)120, (int)2, (boolean)true);
+1382:         EntityRegistry.registerModEntity(EntityRescue.class, (String)"EntityRescue", (int)108, (Object)instance, (int)120, (int)2, (boolean)true);
+1383:         EntityRegistry.registerModEntity(EntityLiqBall.class, (String)"EntityLiqBall", (int)112, (Object)instance, (int)120, (int)2, (boolean)true);
+1384:         EntityRegistry.registerModEntity(EntitySPotion.class, (String)"EntitySPotion", (int)113, (Object)instance, (int)120, (int)2, (boolean)true);
+1385:         MinecraftForge.EVENT_BUS.register((Object)new CustomBucketEvent());
+1386:         if (QSCover) {
+1422:         int foregroundEggColour = 0;
+1423:         if (InitMobs) {
+1424:             backgroundEggColour = 10205416;
+1425:             foregroundEggColour = 10993884;
+1426:             EntityRegistry.registerGlobalEntityID(EntityVoreSlime.class, (String)"VoreSlime", (int)EntityRegistry.findGlobalUniqueEntityId(), (int)backgroundEggColour, (int)foregroundEggColour);
+1427:             EntityRegistry.registerModEntity(EntityVoreSlime.class, (String)"VoreSlime", (int)103, (Object)instance, (int)80, (int)3, (boolean)true);
+1428:             if (SpawnVS) {
+1429:                 EntityRegistry.addSpawn(EntityVoreSlime.class, (int)2, (int)1, (int)1, (EnumCreatureType)EnumCreatureType.monster, (BiomeGenBase[])allBiomes);
+1430:             }
+1431:             LanguageRegistry.instance().addStringLocalization("entity.VoreSlime.name", "en_US", "Vore Slime");
+1432:             backgroundEggColour = 7428915;
+1433:             foregroundEggColour = 5787429;
+1434:             EntityRegistry.registerGlobalEntityID(EntityMuddyBlob.class, (String)"MuddyBlob", (int)EntityRegistry.findGlobalUniqueEntityId(), (int)backgroundEggColour, (int)foregroundEggColour);
+1435:             EntityRegistry.registerModEntity(EntityMuddyBlob.class, (String)"MuddyBlob", (int)104, (Object)instance, (int)80, (int)3, (boolean)true);
+1436:             if (SpawnMB) {
+1437:                 EntityRegistry.addSpawn(EntityMuddyBlob.class, (int)2, (int)1, (int)1, (EnumCreatureType)EnumCreatureType.monster, (BiomeGenBase[])swampBiomes);
+1438:             }
+1439:             LanguageRegistry.instance().addStringLocalization("entity.MuddyBlob.name", "en_US", "Muddy Blob");
+1440:             backgroundEggColour = 16049320;
+1441:             foregroundEggColour = 14858107;
+1442:             EntityRegistry.registerGlobalEntityID(EntitySandBlob.class, (String)"SandBlob", (int)EntityRegistry.findGlobalUniqueEntityId(), (int)backgroundEggColour, (int)foregroundEggColour);
+1443:             EntityRegistry.registerModEntity(EntitySandBlob.class, (String)"SandBlob", (int)99, (Object)instance, (int)80, (int)3, (boolean)true);
+1444:             if (SpawnSB) {
+1445:                 EntityRegistry.addSpawn(EntitySandBlob.class, (int)2, (int)1, (int)1, (EnumCreatureType)EnumCreatureType.monster, (BiomeGenBase[])desertBiomes);
+1446:             }
+1447:             LanguageRegistry.instance().addStringLocalization("entity.SandBlob.name", "en_US", "Sandy Blob");
+1448:             backgroundEggColour = 1973277;
+1449:             foregroundEggColour = 0x292424;
+1450:             EntityRegistry.registerGlobalEntityID(EntityTarSlime.class, (String)"TarSlime", (int)EntityRegistry.findGlobalUniqueEntityId(), (int)backgroundEggColour, (int)foregroundEggColour);
+1451:             EntityRegistry.registerModEntity(EntityTarSlime.class, (String)"TarSlime", (int)105, (Object)instance, (int)80, (int)3, (boolean)true);
+1452:             if (SpawnTS) {
+1453:                 EntityRegistry.addSpawn(EntityTarSlime.class, (int)12, (int)1, (int)1, (EnumCreatureType)EnumCreatureType.monster, (BiomeGenBase[])allBiomes);
+1454:             }
+1455:             LanguageRegistry.instance().addStringLocalization("entity.TarSlime.name", "en_US", "Tar Slime");
+1456:         }
+1457:         backgroundEggColour = 13603621;
+1458:         foregroundEggColour = 2566696;
+1459:         EntityRegistry.registerModEntity(EntityBee.class, (String)"Bee", (int)111, (Object)instance, (int)80, (int)3, (boolean)true);
+1460:         MFQM.registerEntityEgg(EntityBee.class, backgroundEggColour, foregroundEggColour);
+1461:         LanguageRegistry.instance().addStringLocalization("entity.Bee.name", "en_US", "Bee");
+1462:         EntityRegistry.registerModEntity(EntityBubble.class, (String)"EntityBubble", (int)107, (Object)instance, (int)120, (int)2, (boolean)false);
+1463:         EntityRegistry.registerModEntity(EntityTarTreads.class, (String)"EntityTarTreads", (int)110, (Object)instance, (int)120, (int)2, (boolean)false);
+1464:     }
+1465: 
+1476:     }
+1477: 
+1478:     @Mod.EventHandler
+1479:     public void Init(FMLPostInitializationEvent event) {
+1480:         GameRegistry.registerWorldGenerator((IWorldGenerator)new CustomWorldGen(), (int)9999999);
+1481:         System.out.println("(MFQM)Registered World Generation!");
+1482:     }
+1844:                 GameRegistry.addSmelting((ItemStack)new ItemStack(FoodItem, 1, 9), (ItemStack)new ItemStack(WaxItem, 3), (float)0.1f);
+1845:             }
+1846:         } else {
+1847:             EmptycombItem = new Item().func_77655_b("Emptycomb").func_77637_a(tabMFQM).func_111206_d("morefunquicksandmod:emptyhoneycomb");
+1848:             GameRegistry.registerItem((Item)EmptycombItem, (String)"Emptycomb");
+1849:             LanguageRegistry.addName((Object)EmptycombItem, (String)"Empty Honeycomb");
+1850:             GameRegistry.addSmelting((ItemStack)new ItemStack(EmptycombItem, 1, 0), (ItemStack)new ItemStack(WaxItem, 3), (float)0.1f);
+1851:             HoneycombItem = (ItemFood)new ItemFood(3, 0.4f, false).func_77655_b("HoneycombItem").func_111206_d("morefunquicksandmod:filledhoneycomb").func_77637_a(CreativeTabs.field_78039_h);
+1852:             GameRegistry.registerItem((Item)HoneycombItem, (String)"HoneycombItem");
+1853:             LanguageRegistry.addName((Object)HoneycombItem, (String)"Filled Honeycomb");
+1854:             GameRegistry.addSmelting((ItemStack)new ItemStack(HoneycombItem, 1, 0), (ItemStack)new ItemStack(WaxItem, 3), (float)0.1f);
+1855:         }
+1856:         if (BootsID == 1) {
+1857:             WadingBoots = new ItemWadingBoots(armorMaterialUnprotective, proxy.addArmor("wadingBoots"), 3);
+1858:             GameRegistry.registerItem((Item)WadingBoots, (String)"wadingBoots");
+1859:             LanguageRegistry.addName((Object)WadingBoots, (String)"Wading Boots");
+1860:             BootsID = Item.func_150891_b((Item)WadingBoots);
+1861:         }
+1862:         PreWadingBoots0 = new ItemPreWadingBoots0(armorMaterialUnprotective, proxy.addArmor("preWadingBoots0"), 3);
+1863:         GameRegistry.registerItem((Item)PreWadingBoots0, (String)"preWadingBoots0");
+1864:         LanguageRegistry.addName((Object)PreWadingBoots0, (String)"Tall Leather Boots");
+1865:         PreWadingBoots1 = new ItemPreWadingBoots1(armorMaterialUnprotective, proxy.addArmor("preWadingBoots1"), 3);
+1866:         GameRegistry.registerItem((Item)PreWadingBoots1, (String)"preWadingBoots1");
+1867:         LanguageRegistry.addName((Object)PreWadingBoots1, (String)"Slimy Tall Leather Boots");
+1868:         GameRegistry.addRecipe((ItemStack)new ItemStack(QuicksandBlock, 4), (Object[])new Object[]{"wsw", "sws", "wsw", Character.valueOf('s'), Blocks.field_150354_m, Character.valueOf('w'), Items.field_151131_as});

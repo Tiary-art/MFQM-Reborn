@@ -1,0 +1,2733 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.common.FMLCommonHandler
+6:  *  cpw.mods.fml.common.IFuelHandler
+7:  *  cpw.mods.fml.common.IWorldGenerator
+8:  *  cpw.mods.fml.common.Loader
+9:  *  cpw.mods.fml.common.Mod
+10:  *  cpw.mods.fml.common.Mod$EventHandler
+11:  *  cpw.mods.fml.common.Mod$Instance
+12:  *  cpw.mods.fml.common.SidedProxy
+13:  *  cpw.mods.fml.common.event.FMLInitializationEvent
+14:  *  cpw.mods.fml.common.event.FMLPostInitializationEvent
+15:  *  cpw.mods.fml.common.event.FMLPreInitializationEvent
+16:  *  cpw.mods.fml.common.network.NetworkRegistry
+17:  *  cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper
+18:  *  cpw.mods.fml.common.registry.EntityRegistry
+19:  *  cpw.mods.fml.common.registry.GameRegistry
+20:  *  cpw.mods.fml.common.registry.GameRegistry$UniqueIdentifier
+21:  *  cpw.mods.fml.common.registry.LanguageRegistry
+22:  *  cpw.mods.fml.relauncher.Side
+23:  *  cpw.mods.fml.relauncher.SideOnly
+24:  *  net.minecraft.block.Block
+25:  *  net.minecraft.block.material.Material
+26:  *  net.minecraft.client.Minecraft
+27:  *  net.minecraft.client.settings.GameSettings
+28:  *  net.minecraft.client.settings.KeyBinding
+29:  *  net.minecraft.creativetab.CreativeTabs
+30:  *  net.minecraft.entity.Entity
+31:  *  net.minecraft.entity.EntityList
+32:  *  net.minecraft.entity.EntityList$EntityEggInfo
+33:  *  net.minecraft.entity.EntityLivingBase
+34:  *  net.minecraft.entity.EnumCreatureType
+35:  *  net.minecraft.entity.item.EntityItem
+36:  *  net.minecraft.entity.player.EntityPlayer
+37:  *  net.minecraft.init.Blocks
+38:  *  net.minecraft.init.Items
+39:  *  net.minecraft.item.Item
+40:  *  net.minecraft.item.ItemArmor
+41:  *  net.minecraft.item.ItemArmor$ArmorMaterial
+42:  *  net.minecraft.item.ItemBlock
+43:  *  net.minecraft.item.ItemFood
+44:  *  net.minecraft.item.ItemStack
+45:  *  net.minecraft.item.crafting.CraftingManager
+46:  *  net.minecraft.item.crafting.ShapedRecipes
+47:  *  net.minecraft.potion.Potion
+48:  *  net.minecraft.potion.PotionEffect
+49:  *  net.minecraft.util.AxisAlignedBB
+50:  *  net.minecraft.util.DamageSource
+51:  *  net.minecraft.util.MathHelper
+52:  *  net.minecraft.util.ResourceLocation
+53:  *  net.minecraft.world.World
+54:  *  net.minecraft.world.biome.BiomeGenBase
+55:  *  net.minecraft.world.chunk.Chunk
+56:  *  net.minecraftforge.common.BiomeDictionary
+57:  *  net.minecraftforge.common.BiomeDictionary$Type
+58:  *  net.minecraftforge.common.MinecraftForge
+59:  *  net.minecraftforge.common.config.Configuration
+60:  *  net.minecraftforge.common.util.EnumHelper
+61:  *  net.minecraftforge.fluids.BlockFluidClassic
+62:  *  net.minecraftforge.fluids.Fluid
+63:  *  net.minecraftforge.fluids.FluidRegistry
+64:  */
+65: package MoreFunQuicksandMod.main;
+66: 
+67: import MoreFunQuicksandMod.main.AirEvent;
+68: import MoreFunQuicksandMod.main.CommonProxy;
+69: import MoreFunQuicksandMod.main.CreativeTabsMFQM;
+70: import MoreFunQuicksandMod.main.CustomBucketEvent;
+71: import MoreFunQuicksandMod.main.CustomFuelHandler;
+72: import MoreFunQuicksandMod.main.CustomGenerationEvent;
+73: import MoreFunQuicksandMod.main.CustomPotionEvent;
+74: import MoreFunQuicksandMod.main.CustomRegister;
+75: import MoreFunQuicksandMod.main.CustomWorldGen;
+76: import MoreFunQuicksandMod.main.Fields;
+77: import MoreFunQuicksandMod.main.HandEvent;
+78: import MoreFunQuicksandMod.main.HookMessage;
+79: import MoreFunQuicksandMod.main.MuddyEvent;
+80: import MoreFunQuicksandMod.main.PotionStuck;
+81: import MoreFunQuicksandMod.main.RescueMessage;
+82: import MoreFunQuicksandMod.main.RopeMessage;
+83: import MoreFunQuicksandMod.main.Tileentity.TileEntityLure;
+84: import MoreFunQuicksandMod.main.blocks.BlockBlossom;
+85: import MoreFunQuicksandMod.main.blocks.BlockBlossomSlab;
+86: import MoreFunQuicksandMod.main.blocks.BlockBrownClay;
+87: import MoreFunQuicksandMod.main.blocks.BlockChocolate;
+88: import MoreFunQuicksandMod.main.blocks.BlockCorruptedSand;
+89: import MoreFunQuicksandMod.main.blocks.BlockCustomLilyPad;
+90: import MoreFunQuicksandMod.main.blocks.BlockDenseWeb;
+91: import MoreFunQuicksandMod.main.blocks.BlockGas;
+92: import MoreFunQuicksandMod.main.blocks.BlockHardenedClay;
+93: import MoreFunQuicksandMod.main.blocks.BlockHoneycomb;
+94: import MoreFunQuicksandMod.main.blocks.BlockLarvae;
+95: import MoreFunQuicksandMod.main.blocks.BlockLeaves;
+96: import MoreFunQuicksandMod.main.blocks.BlockLure;
+97: import MoreFunQuicksandMod.main.blocks.BlockMeat;
+98: import MoreFunQuicksandMod.main.blocks.BlockMeatHole;
+99: import MoreFunQuicksandMod.main.blocks.BlockMire;
+100: import MoreFunQuicksandMod.main.blocks.BlockMoor;
+101: import MoreFunQuicksandMod.main.blocks.BlockMoorGrass;
+102: import MoreFunQuicksandMod.main.blocks.BlockMorass;
+103: import MoreFunQuicksandMod.main.blocks.BlockMoss;
+104: import MoreFunQuicksandMod.main.blocks.BlockMud;
+105: import MoreFunQuicksandMod.main.blocks.BlockPeat;
+106: import MoreFunQuicksandMod.main.blocks.BlockQuicksand;
+107: import MoreFunQuicksandMod.main.blocks.BlockSandstoneTrap;
+108: import MoreFunQuicksandMod.main.blocks.BlockSinkingClay;
+109: import MoreFunQuicksandMod.main.blocks.BlockSinkingWool;
+110: import MoreFunQuicksandMod.main.blocks.BlockSoftGravel;
+111: import MoreFunQuicksandMod.main.blocks.BlockSoftQuicksand;
+112: import MoreFunQuicksandMod.main.blocks.BlockSoftSnow;
+113: import MoreFunQuicksandMod.main.blocks.BlockSolidHoney;
+114: import MoreFunQuicksandMod.main.blocks.BlockSwallowingFlesh;
+115: import MoreFunQuicksandMod.main.blocks.BlockTent;
+116: import MoreFunQuicksandMod.main.blocks.BlockVoreHole;
+117: import MoreFunQuicksandMod.main.blocks.BlockWax;
+118: import MoreFunQuicksandMod.main.blocks.BlockWaxWood;
+119: import MoreFunQuicksandMod.main.blocks.BlockWetPeat;
+120: import MoreFunQuicksandMod.main.blocks.ItemMeta;
+121: import MoreFunQuicksandMod.main.blocks.ItemMetaColor;
+122: import MoreFunQuicksandMod.main.blocks.ItemMud;
+123: import MoreFunQuicksandMod.main.client.CustomRenderOverlayEvent;
+124: import MoreFunQuicksandMod.main.client.CustomRenderPlayerEvent;
+125: import MoreFunQuicksandMod.main.entity.EntityBee;
+126: import MoreFunQuicksandMod.main.entity.EntityBubble;
+127: import MoreFunQuicksandMod.main.entity.EntityHook;
+128: import MoreFunQuicksandMod.main.entity.EntityLiqBall;
+129: import MoreFunQuicksandMod.main.entity.EntityLongStick;
+130: import MoreFunQuicksandMod.main.entity.EntityMudTentacles;
+131: import MoreFunQuicksandMod.main.entity.EntityMuddyBlob;
+132: import MoreFunQuicksandMod.main.entity.EntityRescue;
+133: import MoreFunQuicksandMod.main.entity.EntityRope;
+134: import MoreFunQuicksandMod.main.entity.EntitySPotion;
+135: import MoreFunQuicksandMod.main.entity.EntitySandBlob;
+136: import MoreFunQuicksandMod.main.entity.EntitySlimeHole;
+137: import MoreFunQuicksandMod.main.entity.EntityTarSlime;
+138: import MoreFunQuicksandMod.main.entity.EntityTarTreads;
+139: import MoreFunQuicksandMod.main.entity.EntityTentacles;
+140: import MoreFunQuicksandMod.main.entity.EntityVoreSlime;
+141: import MoreFunQuicksandMod.main.items.ItemAcidBucket;
+142: import MoreFunQuicksandMod.main.items.ItemBogBucket;
+143: import MoreFunQuicksandMod.main.items.ItemCable;
+144: import MoreFunQuicksandMod.main.items.ItemChocolateBucket;
+145: import MoreFunQuicksandMod.main.items.ItemChocolatePowderBucket;
+146: import MoreFunQuicksandMod.main.items.ItemClayBucket;
+147: import MoreFunQuicksandMod.main.items.ItemCranberry;
+148: import MoreFunQuicksandMod.main.items.ItemFertilizer;
+149: import MoreFunQuicksandMod.main.items.ItemGasMask;
+150: import MoreFunQuicksandMod.main.items.ItemGrapplingHook;
+151: import MoreFunQuicksandMod.main.items.ItemGrapplingHookBRK;
+152: import MoreFunQuicksandMod.main.items.ItemHoneyBucket;
+153: import MoreFunQuicksandMod.main.items.ItemLifeJacket;
+154: import MoreFunQuicksandMod.main.items.ItemLiqGun;
+155: import MoreFunQuicksandMod.main.items.ItemLongStick;
+156: import MoreFunQuicksandMod.main.items.ItemMireBucket;
+157: import MoreFunQuicksandMod.main.items.ItemMucusBucket;
+158: import MoreFunQuicksandMod.main.items.ItemMyPotion;
+159: import MoreFunQuicksandMod.main.items.ItemPreWadingBoots0;
+160: import MoreFunQuicksandMod.main.items.ItemPreWadingBoots1;
+161: import MoreFunQuicksandMod.main.items.ItemQuicksandBucket;
+162: import MoreFunQuicksandMod.main.items.ItemRescue;
+163: import MoreFunQuicksandMod.main.items.ItemRope;
+164: import MoreFunQuicksandMod.main.items.ItemSPotion;
+165: import MoreFunQuicksandMod.main.items.ItemSandBucket;
+166: import MoreFunQuicksandMod.main.items.ItemSlimeBucket;
+167: import MoreFunQuicksandMod.main.items.ItemSlurryBucket;
+168: import MoreFunQuicksandMod.main.items.ItemTarBucket;
+169: import MoreFunQuicksandMod.main.items.ItemWadingBoots;
+170: import MoreFunQuicksandMod.main.items.ItemWaxPiece;
+171: import MoreFunQuicksandMod.main.liquids.AcidFluid;
+172: import MoreFunQuicksandMod.main.liquids.BlockAcid;
+173: import MoreFunQuicksandMod.main.liquids.BlockBog;
+174: import MoreFunQuicksandMod.main.liquids.BlockHoney;
+175: import MoreFunQuicksandMod.main.liquids.BlockJungleQuicksand;
+176: import MoreFunQuicksandMod.main.liquids.BlockLiquidChocolate;
+177: import MoreFunQuicksandMod.main.liquids.BlockLiquidMire;
+178: import MoreFunQuicksandMod.main.liquids.BlockMucus;
+179: import MoreFunQuicksandMod.main.liquids.BlockSand;
+180: import MoreFunQuicksandMod.main.liquids.BlockSinkyLiquid;
+181: import MoreFunQuicksandMod.main.liquids.BlockSlime;
+182: import MoreFunQuicksandMod.main.liquids.BlockSlurry;
+183: import MoreFunQuicksandMod.main.liquids.BlockStableLiquidMire;
+184: import MoreFunQuicksandMod.main.liquids.BlockTar;
+185: import MoreFunQuicksandMod.main.liquids.BogFluid;
+186: import MoreFunQuicksandMod.main.liquids.ChocolateFluid;
+187: import MoreFunQuicksandMod.main.liquids.HoneyFluid;
+188: import MoreFunQuicksandMod.main.liquids.MireFluid;
+189: import MoreFunQuicksandMod.main.liquids.MucusFluid;
+190: import MoreFunQuicksandMod.main.liquids.QuicksandFluid;
+191: import MoreFunQuicksandMod.main.liquids.SandFluid;
+192: import MoreFunQuicksandMod.main.liquids.SinkyFluid;
+193: import MoreFunQuicksandMod.main.liquids.SlimeFluid;
+194: import MoreFunQuicksandMod.main.liquids.SlurryFluid;
+195: import MoreFunQuicksandMod.main.liquids.TarFluid;
+196: import cpw.mods.fml.common.FMLCommonHandler;
+197: import cpw.mods.fml.common.IFuelHandler;
+198: import cpw.mods.fml.common.IWorldGenerator;
+199: import cpw.mods.fml.common.Loader;
+200: import cpw.mods.fml.common.Mod;
+201: import cpw.mods.fml.common.SidedProxy;
+202: import cpw.mods.fml.common.event.FMLInitializationEvent;
+203: import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+204: import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+205: import cpw.mods.fml.common.network.NetworkRegistry;
+206: import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+207: import cpw.mods.fml.common.registry.EntityRegistry;
+208: import cpw.mods.fml.common.registry.GameRegistry;
+209: import cpw.mods.fml.common.registry.LanguageRegistry;
+210: import cpw.mods.fml.relauncher.Side;
+211: import cpw.mods.fml.relauncher.SideOnly;
+212: import java.io.File;
+213: import java.lang.reflect.Field;
+214: import java.util.ArrayList;
+215: import java.util.Iterator;
+216: import java.util.List;
+217: import java.util.Map;
+218: import java.util.UUID;
+219: import net.minecraft.block.Block;
+220: import net.minecraft.block.material.Material;
+221: import net.minecraft.client.Minecraft;
+222: import net.minecraft.client.settings.GameSettings;
+223: import net.minecraft.client.settings.KeyBinding;
+224: import net.minecraft.creativetab.CreativeTabs;
+225: import net.minecraft.entity.Entity;
+226: import net.minecraft.entity.EntityList;
+227: import net.minecraft.entity.EntityLivingBase;
+228: import net.minecraft.entity.EnumCreatureType;
+229: import net.minecraft.entity.item.EntityItem;
+230: import net.minecraft.entity.player.EntityPlayer;
+231: import net.minecraft.init.Blocks;
+232: import net.minecraft.init.Items;
+233: import net.minecraft.item.Item;
+234: import net.minecraft.item.ItemArmor;
+235: import net.minecraft.item.ItemBlock;
+236: import net.minecraft.item.ItemFood;
+237: import net.minecraft.item.ItemStack;
+238: import net.minecraft.item.crafting.CraftingManager;
+239: import net.minecraft.item.crafting.ShapedRecipes;
+240: import net.minecraft.potion.Potion;
+241: import net.minecraft.potion.PotionEffect;
+242: import net.minecraft.util.AxisAlignedBB;
+243: import net.minecraft.util.DamageSource;
+244: import net.minecraft.util.MathHelper;
+245: import net.minecraft.util.ResourceLocation;
+246: import net.minecraft.world.World;
+247: import net.minecraft.world.biome.BiomeGenBase;
+248: import net.minecraft.world.chunk.Chunk;
+249: import net.minecraftforge.common.BiomeDictionary;
+250: import net.minecraftforge.common.MinecraftForge;
+251: import net.minecraftforge.common.config.Configuration;
+252: import net.minecraftforge.common.util.EnumHelper;
+253: import net.minecraftforge.fluids.BlockFluidClassic;
+254: import net.minecraftforge.fluids.Fluid;
+255: import net.minecraftforge.fluids.FluidRegistry;
+256: 
+257: @Mod(modid="MFQM", name="MoreFunQuicksandMod", version="1.1.1")
+258: public class MFQM {
+259:     @SidedProxy(clientSide="MoreFunQuicksandMod.main.client.ClientProxy", serverSide="MoreFunQuicksandMod.main.CommonProxy", modId="MFQM")
+260:     public static CommonProxy proxy;
+261:     @Mod.Instance(value="MFQM")
+262:     public static MFQM instance;
+263:     public static SimpleNetworkWrapper network;
+264:     public CustomRegister customRegister;
+265:     public static ItemArmor.ArmorMaterial armorMaterialUnprotective;
+266:     public static CreativeTabs tabMFQM;
+267:     public static int eggIdCounter;
+268:     public static final ResourceLocation[] mudTextures;
+269:     public static final ResourceLocation[] slimeTextures;
+270:     public static final int[] mudTypesColors;
+271:     public static final int[] mudMaxOpacity;
+272:     public static final int[] mudLastOpacity;
+273:     public static final int[] mudIncOpacity;
+274:     public static int BootsID;
+275:     public static int BOPMudBlockID;
+276:     public static int MudBlockID;
+277:     public static int AshBlockID;
+278:     public static int FleshBlockID;
+279:     public static int HiveBlockID;
+280:     public static int HoneyBlockID;
+281:     public static int SolidHoneyBlockID;
+282:     public static int TBLMudBlockID;
+283:     public static int TBLTarBlockID;
+284:     public static int TBLSolidTarBlockID;
+285:     public static int TBLSludgeBlockID;
+286:     public static int ABCSludgeBlockID;
+287:     public static int WLDAshBlockID;
+288:     public static int WLDSwampBlockID;
+289:     public static int AOAToxicBlockID;
+290:     public static int AOAToxicWasteID;
+291:     public static int FleshItemID;
+292:     public static int FoodItemID;
+293:     public static int FertilizerItemID;
+294:     public static int WLDDruidPouchItemID;
+295:     public static int AOAFaceMaskItemID;
+296:     public static int AOADoomStoneItemID;
+297:     public static int AOAToxicLumpItemID;
+298:     public static int MireBucketItemID;
+299:     public static int BogBucketItemID;
+300:     public static int QuicksandBucketItemID;
+301:     public static int SandBucketItemID;
+302:     public static int TarBucketItemID;
+303:     public static int SlimeBucketItemID;
+304:     public static int AcidBucketItemID;
+305:     public static int RopeItemID;
+306:     public static int CableItemID;
+307:     public static int CoilItemID;
+308:     public static int HookItemID;
+309:     public static int GrapplingHookItemID;
+310:     public static int GrapplingHookBRKItemID;
+311:     public static Entity[] arrayRopes;
+312:     public static String[] arrayPlayers;
+313:     public static Entity[] arrayHooks;
+314:     public static String[] arrayPlayersHooks;
+315:     public static Entity[] arrayRescue;
+316:     public static String[] arrayPlayersRescue;
+317:     public static int LarvaRawItemID;
+318:     public static int LarvaCookedItemID;
+319:     public static int CberryItemID;
+320:     public static int MudBallID;
+321:     public static boolean GenMud;
+322:     public static boolean GenMire;
+323:     public static boolean GenDeep;
+324:     public static boolean GenLiqMire;
+325:     public static boolean GenMoor;
+326:     public static boolean GenBog;
+327:     public static boolean GenMorass;
+328:     public static boolean GenQS;
+329:     public static boolean GenSQS;
+330:     public static boolean GenSQSF;
+331:     public static boolean GenJQS;
+332:     public static boolean GenSSand;
+333:     public static boolean GenSSnow;
+334:     public static boolean GenHClay;
+335:     public static boolean GenHPClay;
+336:     public static boolean GenSClay;
+337:     public static boolean GenWebU;
+338:     public static boolean GenWeb;
+339:     public static boolean GenLarv;
+340:     public static boolean GenTar;
+341:     public static boolean GenSlime;
+342:     public static boolean GenCSand;
+343:     public static boolean GenMeat;
+344:     public static boolean GenMeatS;
+345:     public static boolean GenMeatAss;
+346:     public static boolean GenMucBl;
+347:     public static boolean GenMoss;
+348:     public static boolean GenBClay;
+349:     public static boolean GenMClay;
+350:     public static boolean GenWax;
+351:     public static boolean GenHoney;
+352:     public static boolean GenHoney2;
+353:     public static boolean GenGP;
+354:     public static boolean GenWastePit;
+355:     public static boolean GenTempleQS;
+356:     public static boolean GenMarshOver;
+357:     public static boolean GenWaterColor;
+358:     public static boolean GenDesertTombs;
+359:     public static boolean InitMobs;
+360:     public static boolean SpawnVS;
+361:     public static boolean SpawnMB;
+362:     public static boolean SpawnSB;
+363:     public static boolean SpawnTS;
+364:     public static boolean TurnBoots;
+365:     public static boolean TurnStick;
+366:     public static boolean TurnRope;
+367:     public static boolean TurnHook;
+368:     public static boolean TurnJacket;
+369:     public static boolean TurnGasMask;
+370:     public static boolean TurnPotion;
+371:     public static boolean TurnLiqGun;
+372:     public static boolean CFR;
+373:     public static boolean BoP;
+374:     public static boolean PBoP;
+375:     public static boolean CWG;
+376:     public static boolean LiqFixer;
+377:     public static int AltitudeShift;
+378:     public static boolean TF;
+379:     public static int TFDim;
+380:     public static boolean TBL;
+381:     public static int TBLDim;
+382:     public static boolean ABC;
+383:     public static int ABCDim1;
+384:     public static int ABCDim2;
+385:     public static int ABCDim3;
+386:     public static int ABCDim4;
+387:     public static boolean WLD;
+388:     public static int WLDDim;
+389:     public static boolean AOA;
+390:     public static int AOADimHeaven;
+391:     public static int AOADimAbyss;
+392:     public static int AOADimDeeplands;
+393:     public static int AOADimPrecasia;
+394:     public static int AOADimLunalus;
+395:     public static int AOADimIromine;
+396:     public static int AOADimGardencia;
+397:     public static int AOADimGreckon;
+398:     public static int AOADimLBorean;
+399:     public static int AOADimBarathos;
+400:     public static int AOADimDustopia;
+401:     public static int AOADimVoxPonds;
+402:     public static int AOADimLandsLelyetia;
+403:     public static int AOADimCeleve;
+404:     public static int AOADimCreeponia;
+405:     public static int AOADimShyrelands;
+406:     public static int AOADimCrystevia;
+407:     public static int AOADimCandyland;
+408:     public static int AOADimMysterium;
+409:     public static boolean EUD;
+410:     public static int EUDDim;
+411:     public static boolean TBL_MIC;
+412:     public static boolean ABC_MIC;
+413:     public static boolean WLD_MIC;
+414:     public static boolean AOA_MIC;
+415:     public static ArrayList<Class> TBLMobs;
+416:     public static ArrayList<Class> TBLMobsTar;
+417:     public static Class TBLTarBeast;
+418:     public static boolean HookAsRider;
+419:     public static boolean QSOpacity;
+420:     public static boolean QSThirdPerson;
+421:     public static boolean QSCover;
+422:     public static boolean QSTarTreads;
+423:     public static boolean QSAir;
+424:     public static boolean QSMAir;
+425:     public static boolean QSCAir;
+426:     public static boolean QSBubble;
+427:     public static boolean QSGas;
+428:     public static boolean QSTentacles;
+429:     public static boolean QSMudTentacles;
+430:     public static boolean QSHandRescue;
+431:     public static boolean QSBootsCalc;
+432:     public static boolean QSArmorCalc;
+433:     public static boolean QSWeightCalc;
+434:     public static boolean QSHotTar;
+435:     public static float DmgMul;
+436:     public static int[] SwampBiomes;
+437:     public static int[] TarBiomes;
+438:     public static int[] QSJungleBiomes;
+439:     public static int[] SQSBiomes;
+440:     public static int[] JungleBiomes;
+441:     public static int[] DesertBiomes;
+442:     public static int[] SnowBiomes;
+443:     public static int[] LarvBiomes;
+444:     public static int[] CorruptedSands;
+445:     public static int[] BloodHeaps;
+446:     public static int[] PeatBogBiomes;
+447:     public static int[] MineralBiomes;
+448:     public static int[] WastelandBiomes;
+449:     public static int[] ABCBiomes;
+450:     public static int[] WLDBiomes;
+451:     public static int[] AOABiomes;
+452:     public static Block AshBlock;
+453:     public static Block FleshBlock;
+454:     public static Block MudBlock;
+455:     public static Block HiveBlock;
+456:     public static Block BOPMudBlock;
+457:     public static Block BOPHoneyBlock;
+458:     public static Block BOPSolidHoneyBlock;
+459:     public static Block TBLMudBlock;
+460:     public static Block TBLTarBlock;
+461:     public static Block TBLSolidTarBlock;
+462:     public static Block TBLSludgeBlock;
+463:     public static Block ABCSludgeBlock;
+464:     public static Block WLDAshBlock;
+465:     public static Block WLDSwampBlock;
+466:     public static Block AOAToxicBlock;
+467:     public static Block AOAToxicWaste;
+468:     public static Block MireBlock;
+469:     public static Block MoorBlock;
+470:     public static Block MorassBlock;
+471:     public static Block MoorGrassBlock;
+472:     public static Block CustomLilyPadBlock;
+473:     public static Block LiquidMireBlock;
+474:     public static Block StableLiquidMireBlock;
+475:     public static Block SinkyLiquidBlock;
+476:     public static Block BogBlock;
+477:     public static Block SlurryBlock;
+478:     public static Block GasBlock;
+479:     public static Block JungleQuicksandBlock;
+480:     public static Block SandBlock;
+481:     public static Block TarBlock;
+482:     public static Block SlimeBlock;
+483:     public static Block QuicksandBlock;
+484:     public static Block SoftSnowBlock;
+485:     public static Block HClayBlock;
+486:     public static Block SClayBlock;
+487:     public static Block LarvaeBlock;
+488:     public static Block DenseWebBlock;
+489:     public static Block CSandBlock;
+490:     public static Block MeatBlock;
+491:     public static Block MeatHoleBlock;
+492:     public static Block AcidBlock;
+493:     public static Block SinkingWoolBlock;
+494:     public static Block SoftQuicksandBlock;
+495:     public static Block SwFleshBlock;
+496:     public static Block TentBlock;
+497:     public static Block MucusBlock;
+498:     public static Block BlossomBlock;
+499:     public static Block BlossomSlabBlock;
+500:     public static Block LureBlock;
+501:     public static Block VoreHoleBlock;
+502:     public static Block MossBlock;
+503:     public static Block BrownClayBlock;
+504:     public static Block WetPeatBlock;
+505:     public static Block PeatBlock;
+506:     public static Block WaxBlock;
+507:     public static Block SoftGravelBlock;
+508:     public static Block LiquidChocolateBlock;
+509:     public static Block ChocolateBlock;
+510:     public static Block HoneyBlock;
+511:     public static Block SolidHoneyBlock;
+512:     public static Block HoneycombBlock;
+513:     public static Block WaxWoodBlock;
+514:     public static Block LeavesBlock;
+515:     public static Block SandstoneTrapBlock;
+516:     public static final Fluid MireFluid;
+517:     public static final Fluid MireFluidS;
+518:     public static final Fluid BogFluid;
+519:     public static final Fluid SlurryFluid;
+520:     public static final Fluid QuicksandFluid;
+521:     public static final Fluid SandFluid;
+522:     public static final Fluid TarFluid;
+523:     public static final Fluid SlimeFluid;
+524:     public static final Fluid AcidFluid;
+525:     public static final Fluid MucusFluid;
+526:     public static final Fluid ChocolateFluid;
+527:     public static final Fluid HoneyFluid;
+528:     public static final Fluid SinkyFluid;
+529:     public static Item CustFishRod;
+530:     public static Item MudBall;
+531:     public static Item FleshItem;
+532:     public static Item FoodItem;
+533:     public static Item IC2FertilizerItem;
+534:     public static Item WLDDruidPouchItem;
+535:     public static Item AOAFaceMaskItem;
+536:     public static Item AOADoomStoneItem;
+537:     public static Item AOAToxicLumpItem;
+538:     public static Item MireBucketItem;
+539:     public static Item BogBucketItem;
+540:     public static Item QuicksandBucketItem;
+541:     public static Item SandBucketItem;
+542:     public static Item TarBucketItem;
+543:     public static Item SlimeBucketItem;
+544:     public static Item AcidBucketItem;
+545:     public static Item MucusBucketItem;
+546:     public static Item ClayBucketItem;
+547:     public static Item ChocolateBucketItem;
+548:     public static Item ChocolatePowderBucketItem;
+549:     public static Item SlurryBucketItem;
+550:     public static Item HoneyBucketItem;
+551:     public static Item RescueItem;
+552:     public static Item RopeItem;
+553:     public static Item CableItem;
+554:     public static Item CoilItem;
+555:     public static Item HookItem;
+556:     public static Item FilterItem;
+557:     public static Item GasMaskItem;
+558:     public static Item GrapplingHookItem;
+559:     public static Item GrapplingHookBRKItem;
+560:     public static Item LiqGunItem;
+561:     public static Item MyPotionItem;
+562:     public static Item ThrPotionItem;
+563:     public static Item PeatItem;
+564:     public static Item WaxItem;
+565:     public static Item HoneycombItem;
+566:     public static Item EmptycombItem;
+567:     public static Item FertilizerItem;
+568:     public static ItemFood LarvaRawItem;
+569:     public static ItemFood LarvaCookedItem;
+570:     public static Item CberryItem;
+571:     public static Item DonutItem0;
+572:     public static Item DonutItem1;
+573:     public static Item DonutItem2;
+574:     public static Item DonutItem3;
+575:     public static Item DonutItem4;
+576:     public static Item LongStickItem;
+577:     public static Item LifeJacketItem;
+578:     public static Item WadingBoots;
+579:     public static Item PreWadingBoots0;
+580:     public static Item PreWadingBoots1;
+581:     public static int MuddyLevel;
+582:     public static int MuddyAir;
+583:     public static int MuddyMobsAir;
+584:     public static int MuddyLevelEcp;
+585:     public static int MuddyAirEcp;
+586:     public static int MuddyMobsAirEcp;
+587:     public static double SIWeight;
+588:     public static double SIFOV;
+589:     public static double SIRenderYaw;
+590:     public static double SIRenderYawPre;
+591: 
+592:     @Mod.EventHandler
+593:     public void preInit(FMLPreInitializationEvent event) {
+594:         ItemStack multiBlockStack;
+595:         int ix;
+596:         ItemStack multiBlockStack2;
+597:         int ix2;
+598:         ItemStack multiBlockStack3;
+599:         int ix3;
+600:         Configuration config2;
+601:         network = NetworkRegistry.INSTANCE.newSimpleChannel("MFQM_REC");
+602:         network.registerMessage(RopeMessage.Handler.class, RopeMessage.class, 0, Side.SERVER);
+603:         network.registerMessage(HookMessage.Handler.class, HookMessage.class, 1, Side.SERVER);
+604:         network.registerMessage(RescueMessage.Handler.class, RescueMessage.class, 2, Side.SERVER);
+605:         this.customRegister = new CustomRegister();
+606:         tabMFQM = new CreativeTabsMFQM(CreativeTabs.getNextID(), "tabMFQM");
+607:         MinecraftForge.EVENT_BUS.register((Object)new CustomPotionEvent());
+608:         Configuration config = new Configuration(new File(event.getModConfigurationDirectory() + "/MFQM.cfg"));
+609:         config.load();
+610:         BoP = config.get("Mods", "Checking BiomesOPlenty", true).getBoolean(false);
+611:         PBoP = config.get("Mods", "Forced using default world", true).getBoolean(false);
+612:         TF = config.get("Mods", "Checking TwilightForest", true).getBoolean(false);
+613:         TBL = config.get("Mods", "Checking TheBetweenLands", true).getBoolean(false);
+614:         ABC = config.get("Mods", "Checking TheAbyssalCraft", true).getBoolean(false);
+615:         WLD = config.get("Mods", "Checking Wildycraft", true).getBoolean(false);
+616:         AOA = config.get("Mods", "Checking AdventOfAscension", true).getBoolean(false);
+617:         EUD = config.get("Mods", "Checking ExtraUtilities", true).getBoolean(false);
+618:         CWG = config.get("Mods", "Forced custom world gen", false).getBoolean(false);
+619:         GenMud = config.get("Terrain Generator", "Generate Mud in swamps", true).getBoolean(false);
+620:         GenMire = config.get("Terrain Generator", "Generate Mire in swamps", true).getBoolean(false);
+621:         GenDeep = config.get("Terrain Generator", "Generate Deep mud in swamps", true).getBoolean(false);
+622:         GenLiqMire = config.get("Terrain Generator", "Generate Liquid Mire in swamps", true).getBoolean(false);
+623:         GenMoor = config.get("Terrain Generator", "Generate Moor in marsh", true).getBoolean(false);
+624:         GenBog = config.get("Terrain Generator", "Generate Bog in swamps", true).getBoolean(false);
+625:         GenMorass = config.get("Terrain Generator", "Generate Peat Bogs", true).getBoolean(false);
+626:         GenJQS = config.get("Terrain Generator", "Generate Quicksand in jungle", true).getBoolean(false);
+627:         GenQS = config.get("Terrain Generator", "Generate Quicksand in desert", true).getBoolean(false);
+628:         GenSQS = config.get("Terrain Generator", "Generate Soft Quicksand in jungle", true).getBoolean(false);
+629:         GenSQSF = config.get("Terrain Generator", "Generate rare Soft Quicksand in forest", true).getBoolean(false);
+630:         GenSSand = config.get("Terrain Generator", "Generate Dry Quicksand pits in desert", true).getBoolean(false);
+631:         GenSSnow = config.get("Terrain Generator", "Generate Soft Snow", true).getBoolean(false);
+632:         GenHClay = config.get("Terrain Generator", "Generate Hardened Clay", true).getBoolean(false);
+633:         GenHPClay = config.get("Terrain Generator", "Generate Hardened Clay path in jungle", true).getBoolean(false);
+634:         GenSClay = config.get("Terrain Generator", "Generate Sinking Clay pits", true).getBoolean(false);
+635:         GenLarv = config.get("Terrain Generator", "Generate Larvae Pits", true).getBoolean(false);
+636:         GenWeb = config.get("Terrain Generator", "Generate Webbing Nest", true).getBoolean(false);
+637:         GenWebU = config.get("Terrain Generator", "Generate Spider Spawner in nests", true).getBoolean(false);
+638:         GenTar = config.get("Terrain Generator", "Generate Tar pits", true).getBoolean(false);
+639:         GenSlime = config.get("Terrain Generator", "Generate Sinking Slime pits", true).getBoolean(false);
+640:         GenCSand = config.get("Terrain Generator", "Generate Corrupted Sands in Nether", true).getBoolean(false);
+641:         GenMeat = config.get("Terrain Generator", "Generate Fleshy Pits in Nether", true).getBoolean(false);
+642:         GenMeatS = config.get("Terrain Generator", "Generate Swallowing Flesh in Nether", true).getBoolean(false);
+643:         GenMeatAss = config.get("Terrain Generator", "Generate Waste pits in Nether", true).getBoolean(false);
+644:         GenMucBl = config.get("Terrain Generator", "Generate Mucus Blossom in jungle and roofed forest", true).getBoolean(false);
+645:         GenMoss = config.get("Terrain Generator", "Generate Tangleroot Moss in swamps", true).getBoolean(false);
+646:         GenBClay = config.get("Terrain Generator", "Generate Brown Clay pits", true).getBoolean(false);
+647:         GenMClay = config.get("Terrain Generator", "Generate Mineral Clay pits", true).getBoolean(false);
+648:         GenWax = config.get("Terrain Generator", "Generate Wax Trees in jungle", true).getBoolean(false);
+649:         GenHoney = config.get("Terrain Generator", "Generate Bee Hives", true).getBoolean(false);
+650:         GenHoney2 = config.get("Terrain Generator", "Generate new Honey in Nether", true).getBoolean(false);
+651:         GenGP = config.get("Terrain Generator", "Generate natural gravel pits", true).getBoolean(false);
+652:         GenWastePit = config.get("Terrain Generator", "Generate slurry pits in Wasteland", true).getBoolean(false);
+653:         GenTempleQS = config.get("Terrain Generator", "Generate replace TNT with Dry QS", true).getBoolean(false);
+654:         AltitudeShift = config.get("Terrain Generator", "Water level (62 Default, 144 TerraFirmaCraft)", 62).getInt(62);
+655:         GenMarshOver = config.get("Terrain Generator", "Reforming marsh (BoP only)", true).getBoolean(false);
+656:         GenWaterColor = config.get("Terrain Generator", "Customize water color in swamps", true).getBoolean(false);
+657:         GenDesertTombs = config.get("Terrain Generator", "Generate Desert Tombs", true).getBoolean(false);
+658:         InitMobs = config.get("Mobs spawn", "Add custom Slimes", true).getBoolean(true);
+659:         SpawnVS = config.get("Mobs spawn", "Spawn Vore Slime in caves", true).getBoolean(false);
+660:         SpawnMB = config.get("Mobs spawn", "Spawn Muddy Blob in swamps", true).getBoolean(false);
+661:         SpawnSB = config.get("Mobs spawn", "Spawn Sandy Blob in desert", true).getBoolean(false);
+662:         SpawnTS = config.get("Mobs spawn", "Spawn Tar Slime near tar pits", true).getBoolean(false);
+663:         TurnBoots = config.get("Items receipts", "Add wading boots", true).getBoolean(true);
+664:         TurnStick = config.get("Items receipts", "Add long stick", true).getBoolean(true);
+665:         TurnRope = config.get("Items receipts", "Add rope", true).getBoolean(true);
+666:         TurnHook = config.get("Items receipts", "Add grappling hook", true).getBoolean(true);
+667:         TurnJacket = config.get("Items receipts", "Add life jacket", true).getBoolean(true);
+668:         TurnGasMask = config.get("Items receipts", "Add gasmask", true).getBoolean(true);
+669:         TurnPotion = config.get("Items receipts", "Add sinking potion", true).getBoolean(true);
+670:         TurnLiqGun = config.get("Items receipts", "Add liquid gun", true).getBoolean(true);
+671:         QSHotTar = config.get("Options", "Make Tar been hot", true).getBoolean(true);
+672:         QSTentacles = config.get("Options", "Add tentacles in fleshy pits", true).getBoolean(false);
+673:         QSMudTentacles = config.get("Options", "Add tentacles in mud and quicksand pits", true).getBoolean(false);
+674:         QSGas = config.get("Options", "Allow gasify for Slurry", true).getBoolean(false);
+675:         QSBubble = config.get("Options", "Spawn bubbles on surface of quicksands", true).getBoolean(false);
+676:         QSTarTreads = config.get("Options", "Add tar threads effect", true).getBoolean(false);
+677:         HookAsRider = config.get("Options", "Hooks used ride script", true).getBoolean(false);
+678:         QSOpacity = config.get("Options", "Makes Quicksands is opacity", false).getBoolean(false);
+679:         QSThirdPerson = config.get("Options", "Force camera to firstperson in deep", true).getBoolean(false);
+680:         QSCover = config.get("Options", "Covering player with mud", true).getBoolean(false);
+681:         QSHandRescue = config.get("Options", "Allow players rescue each other by hands", true).getBoolean(false);
+682:         QSAir = config.get("Options", "More realistic suffocation players", true).getBoolean(false);
+683:         QSMAir = config.get("Options", "More realistic suffocation mobs", true).getBoolean(false);
+684:         QSBootsCalc = config.get("Options", "More realistic boots relations", true).getBoolean(false);
+685:         QSArmorCalc = config.get("Options", "More realistic armor relations", true).getBoolean(false);
+686:         QSWeightCalc = config.get("Options", "Calculate inventory weight", true).getBoolean(false);
+687:         QSCAir = config.get("Options", "Use custom Air HUD", true).getBoolean(false);
+688:         MuddyLevel = config.get("Options", "Muddy Level Datawatcher", 25).getInt(25);
+689:         MuddyAir = config.get("Options", "Muddy Air Datawatcher", 29, "Must be different in range between 20 and 31").getInt(29);
+690:         MuddyMobsAir = config.get("Options", "Muddy Mobs Air Datawatcher", 29).getInt(29);
+691:         DmgMul = (float)config.get("Options", "Drowning damage multiplier", 1.0).getDouble(1.0);
+692:         config.save();
+693:         if (QSCover && (MuddyLevel < 20 || MuddyLevel > 31)) {
+694:             MuddyLevel = 25;
+695:             System.out.println("(MFQM)Incorrect MuddyLevel DataWatcher, changed to default");
+696:         }
+697:         if (QSAir) {
+698:             if (MuddyAir < 20 || MuddyAir > 31) {
+699:                 MuddyAir = 29;
+700:                 System.out.println("(MFQM)Incorrect MuddyAir DataWatcher, changed to default");
+701:             }
+702:             if (MuddyLevel == MuddyAir) {
+703:                 MuddyLevel = 25;
+704:                 MuddyAir = 29;
+705:                 System.out.println("(MFQM)Conflict MuddyLevel and MuddyAir DataWatchers, changed to default");
+706:             }
+707:         } else {
+708:             QSCAir = false;
+709:         }
+710:         if (QSMAir && (MuddyMobsAir < 20 || MuddyMobsAir > 31)) {
+711:             MuddyMobsAir = 29;
+712:             System.out.println("(MFQM)Incorrect MuddyMobsAir DataWatchers, changed to default");
+713:         }
+714:         if (BoP) {
+715:             if (Loader.isModLoaded((String)"BiomesOPlenty")) {
+716:                 config2 = new Configuration(new File(event.getModConfigurationDirectory() + "/biomesoplenty/ids.cfg"));
+717:                 MFQM.SwampBiomes[0] = config2.get("biome ids", "Bayou ID", -1).getInt();
+718:                 MFQM.SwampBiomes[1] = config2.get("biome ids", "Blessed Bog (Promised Land) ID", -1).getInt();
+719:                 MFQM.SwampBiomes[2] = config2.get("biome ids", "Bog ID", -1).getInt();
+720:                 MFQM.SwampBiomes[3] = config2.get("biome ids", "Dead Swamp ID", -1).getInt();
+721:                 MFQM.SwampBiomes[4] = config2.get("biome ids", "Fen ID", -1).getInt();
+722:                 MFQM.SwampBiomes[5] = config2.get("biome ids", "Lush Swamp ID", -1).getInt();
+723:                 MFQM.SwampBiomes[6] = config2.get("biome ids", "Mangrove ID", -1).getInt();
+724:                 MFQM.SwampBiomes[7] = config2.get("biome ids", "Marsh ID", -1).getInt();
+725:                 MFQM.SwampBiomes[8] = config2.get("biome ids", "Moor ID", -1).getInt();
+726:                 MFQM.SwampBiomes[9] = config2.get("biome ids", "Quagmire ID", -1).getInt();
+727:                 MFQM.SwampBiomes[10] = config2.get("biome ids", "Sludgepit ID", -1).getInt();
+728:                 MFQM.SwampBiomes[11] = 6;
+729:                 MFQM.SwampBiomes[12] = config2.get("biome ids", "Wetland ID", -1).getInt();
+730:                 MFQM.PeatBogBiomes[0] = config2.get("biome ids", "Shrubland ID", -1).getInt();
+731:                 MFQM.PeatBogBiomes[1] = 1;
+732:                 MFQM.PeatBogBiomes[2] = config2.get("biome ids", "Orchard ID", -1).getInt();
+733:                 MFQM.PeatBogBiomes[3] = config2.get("biome ids", "Fen ID", -1).getInt();
+734:                 MFQM.PeatBogBiomes[4] = 27;
+735:                 MFQM.PeatBogBiomes[5] = 4;
+736:                 MFQM.PeatBogBiomes[6] = config2.get("biome ids", "Woodland ID", -1).getInt();
+737:                 MFQM.TarBiomes[0] = config2.get("biome ids", "Volcano ID", -1).getInt();
+738:                 MFQM.TarBiomes[1] = config2.get("biome ids", "Deadlands ID", -1).getInt();
+739:                 MFQM.TarBiomes[2] = config2.get("biome ids", "Ominous Woods ID", -1).getInt();
+740:                 MFQM.TarBiomes[3] = config2.get("biome ids", "Phantasmagoric Inferno ID", -1).getInt();
+741:                 MFQM.QSJungleBiomes[0] = config2.get("biome ids", "Tropical Rainforest ID", -1).getInt();
+742:                 MFQM.DesertBiomes[0] = config2.get("biome ids", "Brushland ID", -1).getInt();
+743:                 MFQM.DesertBiomes[1] = config2.get("biome ids", "Xeric Shrubland ID", -1).getInt();
+744:                 MFQM.DesertBiomes[2] = config2.get("biome ids", "Oasis ID", -1).getInt();
+745:                 MFQM.DesertBiomes[3] = 130;
+746:                 MFQM.DesertBiomes[4] = 2;
+747:                 MFQM.JungleBiomes[0] = 21;
+748:                 MFQM.JungleBiomes[1] = config2.get("biome ids", "Lush Swamp ID", -1).getInt();
+749:                 MFQM.JungleBiomes[2] = config2.get("biome ids", "Tropical Rainforest ID", -1).getInt();
+750:                 MFQM.SnowBiomes[0] = config2.get("biome ids", "Arctic ID", -1).getInt();
+751:                 MFQM.SnowBiomes[1] = 12;
+752:                 MFQM.SQSBiomes[0] = config2.get("biome ids", "Bamboo Forest ID", -1).getInt();
+753:                 MFQM.SQSBiomes[1] = config2.get("biome ids", "Boreal Forest ID", -1).getInt();
+754:                 MFQM.SQSBiomes[2] = config2.get("biome ids", "Deciduous Forest ID", -1).getInt();
+755:                 MFQM.SQSBiomes[3] = config2.get("biome ids", "Seasonal Forest ID", -1).getInt();
+756:                 MFQM.SQSBiomes[4] = config2.get("biome ids", "Temperate Rainforest ID", -1).getInt();
+757:                 MFQM.SQSBiomes[5] = config2.get("biome ids", "Woodland ID", -1).getInt();
+758:                 MFQM.SQSBiomes[6] = config2.get("biome ids", "Spruce Woods ID", -1).getInt();
+759:                 MFQM.SQSBiomes[7] = 4;
+760:                 MFQM.SQSBiomes[8] = 27;
+761:                 MFQM.SQSBiomes[9] = 29;
+762:                 MFQM.LarvBiomes[0] = config2.get("biome ids", "Dead Forest ID", -1).getInt();
+763:                 MFQM.LarvBiomes[1] = config2.get("biome ids", "Silkglades ID", -1).getInt();
+764:                 MFQM.LarvBiomes[2] = 29;
+765:                 MFQM.CorruptedSands[0] = config2.get("biome ids", "Corrupted Sands ID", -1).getInt();
+766:                 MFQM.BloodHeaps[0] = config2.get("biome ids", "Visceral Heap ID", -1).getInt();
+767:                 MFQM.MineralBiomes[0] = config2.get("biome ids", "Highland ID", -1).getInt();
+768:                 MFQM.MineralBiomes[1] = config2.get("biome ids", "Jade Cliffs ID", -1).getInt();
+769:                 MFQM.MineralBiomes[2] = config2.get("biome ids", "Mountain ID", -1).getInt();
+770:                 MFQM.MineralBiomes[3] = 3;
+771:                 MFQM.MineralBiomes[4] = 131;
+772:                 MFQM.MineralBiomes[5] = 162;
+773:                 MFQM.WastelandBiomes[0] = config2.get("biome ids", "Wasteland ID", -1).getInt();
+774:             } else {
+775:                 MFQM.SwampBiomes[11] = 6;
+776:                 MFQM.PeatBogBiomes[1] = 1;
+777:                 MFQM.PeatBogBiomes[4] = 27;
+778:                 MFQM.PeatBogBiomes[5] = 4;
+779:                 MFQM.DesertBiomes[3] = 130;
+780:                 MFQM.DesertBiomes[4] = 2;
+781:                 MFQM.JungleBiomes[0] = 21;
+782:                 MFQM.SnowBiomes[1] = 12;
+783:                 MFQM.SQSBiomes[7] = 4;
+784:                 MFQM.SQSBiomes[8] = 27;
+785:                 MFQM.SQSBiomes[9] = 29;
+786:                 MFQM.LarvBiomes[2] = 29;
+787:                 MFQM.MineralBiomes[3] = 3;
+788:                 MFQM.MineralBiomes[4] = 131;
+789:                 MFQM.MineralBiomes[5] = 162;
+790:                 System.out.println("(MFQM)BiomesOPlenty not found");
+791:                 BoP = false;
+792:             }
+793:         }
+794:         if (TF) {
+795:             if (Loader.isModLoaded((String)"TwilightForest")) {
+796:                 config2 = new Configuration(new File(event.getModConfigurationDirectory() + "/TwilightForest.cfg"));
+797:                 TFDim = config2.get("dimension", "dimensionID", -999999).getInt(-999999);
+798:             } else {
+799:                 TF = false;
+800:                 TFDim = -999999;
+801:             }
+802:         }
+803:         if (TBL) {
+804:             if (Loader.isModLoaded((String)"thebetweenlands")) {
+805:                 config2 = new Configuration(new File(event.getModConfigurationDirectory() + "/thebetweenlands/mainConfig.cfg"));
+806:                 TBLDim = config2.get("world and dimension", "The Betweenlands Dimension ID", -999999).getInt(-999999);
+807:             } else {
+808:                 TBL = false;
+809:                 TBLDim = -999999;
+810:             }
+811:         }
+812:         if (ABC) {
+813:             if (Loader.isModLoaded((String)"abyssalcraft")) {
+814:                 config2 = new Configuration(new File(event.getModConfigurationDirectory() + "/abyssalcraft.cfg"));
+815:                 ABCDim1 = config2.get("dimensions", "The Abyssal Wasteland", -999999, "The first dimension, full of undead monsters.").getInt(-999999);
+816:                 ABCDim2 = config2.get("dimensions", "The Dreadlands", -999999, "The second dimension, infested with mutated monsters.").getInt(-999999);
+817:                 ABCDim3 = config2.get("dimensions", "Omothol", -999999, "The third dimension, also known as \u00a7oThe Realm of J'zahar\u00a7r.").getInt(-999999);
+818:                 ABCDim4 = config2.get("dimensions", "The Dark Realm", -999999, "Hidden fourth dimension, reached by falling down from Omothol").getInt(-999999);
+819:                 MFQM.ABCBiomes[0] = config2.get("biomes", "Coralium Infested Swamp", -1).getInt();
+820:                 MFQM.ABCBiomes[1] = config2.get("biomes", "Darklands Forest", -1).getInt();
+821:                 MFQM.ABCBiomes[2] = config2.get("biomes", "Darklands Highland", -1).getInt();
+822:                 MFQM.ABCBiomes[3] = config2.get("biomes", "Darklands Mountains", -1).getInt();
+823:                 MFQM.ABCBiomes[4] = config2.get("biomes", "Darklands Plains", -1).getInt();
+824:                 MFQM.ABCBiomes[5] = config2.get("biomes", "Darklands", -1).getInt();
+825:                 MFQM.ABCBiomes[6] = config2.get("biomes", "Coralium Infested Swamp", -1).getInt();
+826:                 MFQM.ABCBiomes[7] = config2.get("biomes", "Darklands Forest", -1).getInt();
+827:                 MFQM.ABCBiomes[8] = config2.get("biomes", "Darklands Highland", -1).getInt();
+828:                 MFQM.ABCBiomes[9] = config2.get("biomes", "Dreadlands", -1).getInt();
+829:                 MFQM.ABCBiomes[10] = config2.get("biomes", "Dreadlands Mountains", -1).getInt();
+830:                 MFQM.ABCBiomes[11] = config2.get("biomes", "Dreadlands Forest", -1).getInt();
+831:                 MFQM.ABCBiomes[12] = config2.get("biomes", "Purified Dreadlands", -1).getInt();
+832:             } else {
+833:                 ABC = false;
+834:                 ABCDim1 = -999999;
+835:                 ABCDim2 = -999999;
+836:                 ABCDim3 = -999999;
+837:                 ABCDim4 = -999999;
+838:             }
+839:         }
+840:         if (WLD) {
+841:             if (Loader.isModLoaded((String)"nolpfij_wildycraft")) {
+842:                 config2 = new Configuration(new File(event.getModConfigurationDirectory() + "/nolpfij_wildycraft.cfg"));
+843:                 WLDDim = config2.get("general", "Runescape Dimension ID", -999999).getInt(-999999);
+844:                 MFQM.WLDBiomes[0] = config2.get("general", "Forest Biome ID", -1).getInt();
+845:                 MFQM.WLDBiomes[1] = config2.get("general", "Desert Biome ID", -1).getInt();
+846:                 MFQM.WLDBiomes[2] = config2.get("general", "Fremennik Biome ID", -1).getInt();
+847:                 MFQM.WLDBiomes[3] = config2.get("general", "Morytania Biome ID", -1).getInt();
+848:                 MFQM.WLDBiomes[4] = config2.get("general", "Wildy Biome ID", -1).getInt();
+849:                 MFQM.WLDBiomes[5] = config2.get("general", "Volcanic Biome ID", -1).getInt();
+850:             } else {
+851:                 WLD = false;
+852:                 WLDDim = -999999;
+853:             }
+854:         }
+855:         if (AOA) {
+856:             if (Loader.isModLoaded((String)"nevermine")) {
+857:                 config2 = new Configuration(new File(event.getModConfigurationDirectory() + "/AoA.cfg"));
+858:                 AOADimHeaven = config2.get("dimension", "Haven ID", -999999).getInt(-999999);
+859:                 AOADimAbyss = config2.get("dimension", "Abyss ID", -999999).getInt(-999999);
+860:                 AOADimDeeplands = config2.get("dimension", "Deeplands ID", -999999).getInt(-999999);
+861:                 AOADimPrecasia = config2.get("dimension", "Precasia ID", -999999).getInt(-999999);
+862:                 AOADimLunalus = config2.get("dimension", "Lunalus ID", -999999).getInt(-999999);
+863:                 AOADimIromine = config2.get("dimension", "Iromine ID", -999999).getInt(-999999);
+864:                 AOADimGardencia = config2.get("dimension", "Gardencia ID", -999999).getInt(-999999);
+865:                 AOADimGreckon = config2.get("dimension", "Greckon ID", -999999).getInt(-999999);
+866:                 AOADimLBorean = config2.get("dimension", "L'borean ID", -999999).getInt(-999999);
+867:                 AOADimBarathos = config2.get("dimension", "Barathos ID", -999999).getInt(-999999);
+868:                 AOADimDustopia = config2.get("dimension", "Dustopia ID", -999999).getInt(-999999);
+869:                 AOADimVoxPonds = config2.get("dimension", "Voxponds ID", -999999).getInt(-999999);
+870:                 AOADimLandsLelyetia = config2.get("dimension", "Lelyetia ID", -999999).getInt(-999999);
+871:                 AOADimCeleve = config2.get("dimension", "Celeve ID", -999999).getInt(-999999);
+872:                 AOADimCreeponia = config2.get("dimension", "Creeponia ID", -999999).getInt(-999999);
+873:                 AOADimShyrelands = config2.get("dimension", "Shyrelands ID", -999999).getInt(-999999);
+874:                 AOADimCrystevia = config2.get("dimension", "Crystevia ID", -999999).getInt(-999999);
+875:                 AOADimCandyland = config2.get("dimension", "Candyland ID", -999999).getInt(-999999);
+876:                 AOADimMysterium = config2.get("dimension", "Mysterium ID", -999999).getInt(-999999);
+877:                 MFQM.AOABiomes[0] = config2.get("biome", "Abyss Biome ID", -1).getInt();
+878:                 MFQM.AOABiomes[1] = config2.get("biome", "Abyss Eye Biome ID", -1).getInt();
+879:                 MFQM.AOABiomes[2] = config2.get("biome", "Abyss Shadow Biome ID", -1).getInt();
+880:                 MFQM.AOABiomes[3] = config2.get("biome", "Ancient Cavern Biome ID", -1).getInt();
+881:                 MFQM.AOABiomes[4] = config2.get("biome", "Barathos Biome ID", -1).getInt();
+882:                 MFQM.AOABiomes[5] = config2.get("biome", "Baron Forest Biome ID", -1).getInt();
+883:                 MFQM.AOABiomes[6] = config2.get("biome", "Candyland Biome ID", -1).getInt();
+884:                 MFQM.AOABiomes[7] = config2.get("biome", "Celeve Biome ID", -1).getInt();
+885:                 MFQM.AOABiomes[8] = config2.get("biome", "Chocolate Forest Biome ID", -1).getInt();
+886:                 MFQM.AOABiomes[9] = config2.get("biome", "Creeponia Biome ID", -1).getInt();
+887:                 MFQM.AOABiomes[10] = config2.get("biome", "Crystevia Biome ID", -1).getInt();
+888:                 MFQM.AOABiomes[11] = config2.get("biome", "Deeplands Biome ID", -1).getInt();
+889:                 MFQM.AOABiomes[12] = config2.get("biome", "Deeplands Fungal Biome ID", -1).getInt();
+890:                 MFQM.AOABiomes[13] = config2.get("biome", "Deeplands Shine Biome ID", -1).getInt();
+891:                 MFQM.AOABiomes[14] = config2.get("biome", "Dustopia Biome ID", -1).getInt();
+892:                 MFQM.AOABiomes[15] = config2.get("biome", "Dustopian Marsh Biome ID", -1).getInt();
+893:                 MFQM.AOABiomes[16] = config2.get("biome", "Dustopian Plains Biome ID", -1).getInt();
+894:                 MFQM.AOABiomes[17] = config2.get("biome", "Gardencia Biome ID", -1).getInt();
+895:                 MFQM.AOABiomes[18] = config2.get("biome", "Gardencia Fungal Biome ID", -1).getInt();
+896:                 MFQM.AOABiomes[19] = config2.get("biome", "Gardencian Marsh Biome ID", -1).getInt();
+897:                 MFQM.AOABiomes[20] = config2.get("biome", "Greckon Biome ID", -1).getInt();
+898:                 MFQM.AOABiomes[21] = config2.get("biome", "Haunted Forest Biome ID", -1).getInt();
+899:                 MFQM.AOABiomes[22] = config2.get("biome", "Haunted Skulls Biome ID", -1).getInt();
+900:                 MFQM.AOABiomes[23] = config2.get("biome", "Haven Biome ID", -1).getInt();
+901:                 MFQM.AOABiomes[24] = config2.get("biome", "Immortallis Biome ID", -1).getInt();
+902:                 MFQM.AOABiomes[25] = config2.get("biome", "Iro-Tech Biome ID", -1).getInt();
+903:                 MFQM.AOABiomes[26] = config2.get("biome", "Iromine Biome ID", -1).getInt();
+904:                 MFQM.AOABiomes[27] = config2.get("biome", "L'Borean Bubble Forest Biome ID", -1).getInt();
+905:                 MFQM.AOABiomes[28] = config2.get("biome", "L'Borean Forest Biome ID", -1).getInt();
+906:                 MFQM.AOABiomes[29] = config2.get("biome", "L'Borean Reds Biome ID", -1).getInt();
+907:                 MFQM.AOABiomes[30] = config2.get("biome", "L'borean Biome ID", -1).getInt();
+908:                 MFQM.AOABiomes[31] = config2.get("biome", "Labricon Biome ID", -1).getInt();
+909:                 MFQM.AOABiomes[32] = config2.get("biome", "Lelyetia Biome ID", -1).getInt();
+910:                 MFQM.AOABiomes[33] = config2.get("biome", "Lunalus Biome ID", -1).getInt();
+911:                 MFQM.AOABiomes[34] = config2.get("biome", "Marshmallow Hills Biome ID", -1).getInt();
+912:                 MFQM.AOABiomes[35] = config2.get("biome", "Mysterium Biome ID", -1).getInt();
+913:                 MFQM.AOABiomes[36] = config2.get("biome", "Precasia Biome ID", -1).getInt();
+914:                 MFQM.AOABiomes[37] = config2.get("biome", "Precasian Desert Biome ID", -1).getInt();
+915:                 MFQM.AOABiomes[38] = config2.get("biome", "Precasian Field Biome ID", -1).getInt();
+916:                 MFQM.AOABiomes[39] = config2.get("biome", "Precasian Tall Forest Biome ID", -1).getInt();
+917:                 MFQM.AOABiomes[40] = config2.get("biome", "Rock Candy Hills Biome ID", -1).getInt();
+918:                 MFQM.AOABiomes[41] = config2.get("biome", "Rocky Maze Biome ID", -1).getInt();
+919:                 MFQM.AOABiomes[42] = config2.get("biome", "Runandor Biome ID", -1).getInt();
+920:                 MFQM.AOABiomes[43] = config2.get("biome", "Shyrelands Biome ID", -1).getInt();
+921:                 MFQM.AOABiomes[44] = config2.get("biome", "Silvro Biome ID", -1).getInt();
+922:                 MFQM.AOABiomes[45] = config2.get("biome", "Voxponds Biome ID", -1).getInt();
+923:             } else {
+924:                 AOA = false;
+925:                 AOADimHeaven = -999999;
+926:                 AOADimAbyss = -999999;
+927:                 AOADimDeeplands = -999999;
+928:                 AOADimPrecasia = -999999;
+929:                 AOADimLunalus = -999999;
+930:                 AOADimIromine = -999999;
+931:                 AOADimGardencia = -999999;
+932:                 AOADimGreckon = -999999;
+933:                 AOADimLBorean = -999999;
+934:                 AOADimBarathos = -999999;
+935:                 AOADimDustopia = -999999;
+936:                 AOADimVoxPonds = -999999;
+937:                 AOADimLandsLelyetia = -999999;
+938:                 AOADimCeleve = -999999;
+939:                 AOADimCreeponia = -999999;
+940:                 AOADimShyrelands = -999999;
+941:                 AOADimCrystevia = -999999;
+942:                 AOADimCandyland = -999999;
+943:             }
+944:         }
+945:         if (EUD) {
+946:             if (Loader.isModLoaded((String)"ExtraUtilities")) {
+947:                 config2 = new Configuration(new File(event.getModConfigurationDirectory() + "/ExtraUtilities.cfg"));
+948:                 EUDDim = config2.get("options", "deepDarkDimensionID", -999999).getInt(-999999);
+949:             } else {
+950:                 EUD = false;
+951:                 EUDDim = -999999;
+952:             }
+953:         }
+954:         FluidRegistry.registerFluid((Fluid)MireFluid);
+955:         FluidRegistry.registerFluid((Fluid)MireFluidS);
+956:         FluidRegistry.registerFluid((Fluid)BogFluid);
+957:         FluidRegistry.registerFluid((Fluid)SlurryFluid);
+958:         FluidRegistry.registerFluid((Fluid)QuicksandFluid);
+959:         FluidRegistry.registerFluid((Fluid)SandFluid);
+960:         FluidRegistry.registerFluid((Fluid)TarFluid);
+961:         FluidRegistry.registerFluid((Fluid)SlimeFluid);
+962:         FluidRegistry.registerFluid((Fluid)AcidFluid);
+963:         FluidRegistry.registerFluid((Fluid)MucusFluid);
+964:         FluidRegistry.registerFluid((Fluid)ChocolateFluid);
+965:         FluidRegistry.registerFluid((Fluid)HoneyFluid);
+966:         FluidRegistry.registerFluid((Fluid)SinkyFluid);
+967:         MudBlock = new BlockMud();
+968:         GameRegistry.registerBlock((Block)MudBlock, ItemMud.class, (String)"Mud");
+969:         LanguageRegistry.addName((Object)new ItemStack(MudBlock, 1, 0), (String)"Mud");
+970:         LanguageRegistry.addName((Object)new ItemStack(MudBlock, 1, 1), (String)"Mud");
+971:         LanguageRegistry.addName((Object)new ItemStack(MudBlock, 1, 2), (String)"Mud");
+972:         LanguageRegistry.addName((Object)new ItemStack(MudBlock, 1, 3), (String)"Mud");
+973:         BogBlock = new BlockBog(mudMaxOpacity[0], mudLastOpacity[0], mudIncOpacity[0]);
+974:         GameRegistry.registerBlock((Block)BogBlock, (String)"Bog");
+975:         LanguageRegistry.addName((Object)BogBlock, (String)"Bog");
+976:         BogFluid.setBlock(BogBlock);
+977:         SoftSnowBlock = new BlockSoftSnow();
+978:         GameRegistry.registerBlock((Block)SoftSnowBlock, ItemMeta.class, (String)"SoftSnow");
+979:         LanguageRegistry.addName((Object)new ItemStack(SoftSnowBlock, 1, 0), (String)"Soft Snow");
+980:         LanguageRegistry.addName((Object)new ItemStack(SoftSnowBlock, 1, 1), (String)"Soft Ash");
+981:         SandBlock = new BlockSand();
+982:         GameRegistry.registerBlock((Block)SandBlock, (String)"DryQuicksand");
+983:         LanguageRegistry.addName((Object)SandBlock, (String)"Dry Quicksand");
+984:         SandFluid.setBlock(SandBlock);
+985:         SoftQuicksandBlock = new BlockSoftQuicksand(mudMaxOpacity[17], mudLastOpacity[17], mudIncOpacity[17]);
+986:         GameRegistry.registerBlock((Block)SoftQuicksandBlock, (String)"SoftQuicksand");
+987:         LanguageRegistry.addName((Object)SoftQuicksandBlock, (String)"Soft Quicksand");
+988:         MorassBlock = new BlockMorass(mudMaxOpacity[3], mudLastOpacity[3], mudIncOpacity[3]);
+989:         GameRegistry.registerBlock((Block)MorassBlock, ItemMeta.class, (String)"Morass");
+990:         for (int ix4 = 0; ix4 < 8; ++ix4) {
+991:             ItemStack multiBlockStack4 = new ItemStack(MorassBlock, 1, ix4);
+992:             LanguageRegistry.addName((Object)multiBlockStack4, (String)"Morass");
+993:         }
+994:         WetPeatBlock = new BlockWetPeat(mudMaxOpacity[25], mudLastOpacity[25], mudIncOpacity[25]);
+995:         GameRegistry.registerBlock((Block)WetPeatBlock, (String)"WetPeat");
+996:         LanguageRegistry.addName((Object)WetPeatBlock, (String)"Wet Peat");
+997:         PeatBlock = new BlockPeat();
+998:         GameRegistry.registerBlock((Block)PeatBlock, (String)"HPeat");
+999:         LanguageRegistry.addName((Object)PeatBlock, (String)"Peat");
+1000:         Blocks.field_150480_ab.setFireInfo(PeatBlock, 5, 5);
+1001:         BrownClayBlock = new BlockBrownClay(mudMaxOpacity[23], mudLastOpacity[23], mudIncOpacity[23]);
+1002:         String[] ClayNames = new String[]{"Brown Clay", "Brown Clay", "Brown Clay", "Brown Clay", "Mineral Clay", "Mineral Clay", "Mineral Clay", "Mineral Clay"};
+1003:         GameRegistry.registerBlock((Block)BrownClayBlock, ItemMeta.class, (String)"BrownClay");
+1004:         for (ix3 = 0; ix3 < 8; ++ix3) {
+1005:             multiBlockStack3 = new ItemStack(BrownClayBlock, 1, ix3);
+1006:             LanguageRegistry.addName((Object)multiBlockStack3, (String)ClayNames[ix3]);
+1007:         }
+1008:         WaxBlock = new BlockWax(mudMaxOpacity[26], mudLastOpacity[26], mudIncOpacity[26]);
+1009:         GameRegistry.registerBlock((Block)WaxBlock, (String)"Wax");
+1010:         LanguageRegistry.addName((Object)WaxBlock, (String)"Wax");
+1011:         QuicksandBlock = new BlockQuicksand(mudMaxOpacity[4], mudLastOpacity[4], mudIncOpacity[4]);
+1012:         GameRegistry.registerBlock((Block)QuicksandBlock, (String)"Quicksand");
+1013:         LanguageRegistry.addName((Object)QuicksandBlock, (String)"Quicksand");
+1014:         SandstoneTrapBlock = new BlockSandstoneTrap();
+1015:         GameRegistry.registerBlock((Block)SandstoneTrapBlock, (String)"SandstoneTrapBlock");
+1016:         LanguageRegistry.addName((Object)SandstoneTrapBlock, (String)"Sandstone Trap");
+1017:         JungleQuicksandBlock = new BlockJungleQuicksand(mudMaxOpacity[5], mudLastOpacity[5], mudIncOpacity[5]);
+1018:         GameRegistry.registerBlock((Block)JungleQuicksandBlock, (String)"JungleQuicksand");
+1019:         LanguageRegistry.addName((Object)JungleQuicksandBlock, (String)"Jungle Quicksand");
+1020:         QuicksandFluid.setBlock(JungleQuicksandBlock);
+1021:         LiquidMireBlock = new BlockLiquidMire(mudMaxOpacity[6], mudLastOpacity[6], mudIncOpacity[6]);
+1022:         GameRegistry.registerBlock((Block)LiquidMireBlock, (String)"LiquidMire0");
+1023:         LanguageRegistry.addName((Object)LiquidMireBlock, (String)"Liquid Mire");
+1024:         MireFluid.setBlock(LiquidMireBlock);
+1025:         StableLiquidMireBlock = new BlockStableLiquidMire(mudMaxOpacity[7], mudLastOpacity[7], mudIncOpacity[7]);
+1026:         GameRegistry.registerBlock((Block)StableLiquidMireBlock, (String)"LiquidMire1");
+1027:         LanguageRegistry.addName((Object)StableLiquidMireBlock, (String)"Liquid Mire");
+1028:         MireFluidS.setBlock(StableLiquidMireBlock);
+1029:         SinkyLiquidBlock = new BlockSinkyLiquid(mudMaxOpacity[7], mudLastOpacity[7], mudIncOpacity[7]);
+1030:         GameRegistry.registerBlock((Block)SinkyLiquidBlock, (String)"SinkyLiquid");
+1031:         LanguageRegistry.addName((Object)SinkyLiquidBlock, (String)"Sinky Liquid");
+1032:         SinkyFluid.setBlock(SinkyLiquidBlock);
+1033:         EntityRegistry.registerModEntity(EntitySlimeHole.class, (String)"EntitySlimeHole", (int)102, (Object)instance, (int)120, (int)2, (boolean)false);
+1034:         SlimeBlock = new BlockSlime(mudMaxOpacity[8], mudLastOpacity[8], mudIncOpacity[8]);
+1035:         GameRegistry.registerBlock((Block)SlimeBlock, (String)"SinkingSlime");
+1036:         LanguageRegistry.addName((Object)SlimeBlock, (String)"Sinking Slime");
+1037:         SlimeFluid.setBlock(SlimeBlock);
+1038:         MucusBlock = new BlockMucus(mudMaxOpacity[20], mudLastOpacity[20], mudIncOpacity[20]);
+1039:         GameRegistry.registerBlock((Block)MucusBlock, (String)"Mucus");
+1040:         LanguageRegistry.addName((Object)MucusBlock, (String)"Mucus");
+1041:         MucusFluid.setBlock(MucusBlock);
+1042:         MireBlock = new BlockMire(mudMaxOpacity[9], mudLastOpacity[9], mudIncOpacity[9]);
+1043:         GameRegistry.registerBlock((Block)MireBlock, (String)"Mire");
+1044:         LanguageRegistry.addName((Object)MireBlock, (String)"Mire");
+1045:         MoorBlock = new BlockMoor(mudMaxOpacity[10], mudLastOpacity[10], mudIncOpacity[10]);
+1046:         GameRegistry.registerBlock((Block)MoorBlock, (String)"Moor");
+1047:         LanguageRegistry.addName((Object)MoorBlock, (String)"Moor");
+1048:         HClayBlock = new BlockHardenedClay();
+1049:         GameRegistry.registerBlock((Block)HClayBlock, (String)"HardenedClay");
+1050:         LanguageRegistry.addName((Object)HClayBlock, (String)"Hardened Clay");
+1051:         SClayBlock = new BlockSinkingClay(mudMaxOpacity[11], mudLastOpacity[11], mudIncOpacity[11]);
+1052:         GameRegistry.registerBlock((Block)SClayBlock, (String)"SinkingClay");
+1053:         LanguageRegistry.addName((Object)SClayBlock, (String)"Sinking Clay");
+1054:         MossBlock = new BlockMoss(mudMaxOpacity[22], mudLastOpacity[22], mudIncOpacity[22]);
+1055:         GameRegistry.registerBlock((Block)MossBlock, (String)"TangleRootMoss");
+1056:         LanguageRegistry.addName((Object)MossBlock, (String)"Tangleroot Moss");
+1057:         DenseWebBlock = new BlockDenseWeb(mudMaxOpacity[18], mudLastOpacity[18], mudIncOpacity[18]);
+1058:         GameRegistry.registerBlock((Block)DenseWebBlock, (String)"DenseWebbing");
+1059:         LanguageRegistry.addName((Object)DenseWebBlock, (String)"Dense Webbing");
+1060:         Blocks.field_150480_ab.setFireInfo(DenseWebBlock, 30, 60);
+1061:         TarBlock = new BlockTar(mudMaxOpacity[12], mudLastOpacity[12], mudIncOpacity[12]);
+1062:         GameRegistry.registerBlock((Block)TarBlock, (String)"Tar");
+1063:         LanguageRegistry.addName((Object)TarBlock, (String)"Tar");
+1064:         TarFluid.setBlock(TarBlock);
+1065:         LarvaeBlock = new BlockLarvae();
+1066:         GameRegistry.registerBlock((Block)LarvaeBlock, (String)"Larvae");
+1067:         LanguageRegistry.addName((Object)LarvaeBlock, (String)"Larvae");
+1068:         Blocks.field_150480_ab.setFireInfo(LarvaeBlock, 30, 60);
+1069:         CSandBlock = new BlockCorruptedSand();
+1070:         GameRegistry.registerBlock((Block)CSandBlock, (String)"CorruptedSand");
+1071:         LanguageRegistry.addName((Object)CSandBlock, (String)"Corrupted Sand");
+1072:         if (QSTentacles) {
+1073:             EntityRegistry.registerModEntity(EntityTentacles.class, (String)"EntityTentacles", (int)109, (Object)instance, (int)120, (int)2, (boolean)false);
+1074:         }
+1075:         if (QSMudTentacles) {
+1076:             EntityRegistry.registerModEntity(EntityMudTentacles.class, (String)"EntityMudTentacles", (int)98, (Object)instance, (int)120, (int)2, (boolean)false);
+1077:         }
+1078:         SwFleshBlock = new BlockSwallowingFlesh(mudMaxOpacity[19], mudLastOpacity[19], mudIncOpacity[19]);
+1079:         GameRegistry.registerBlock((Block)SwFleshBlock, (String)"SwallowingFlesh");
+1080:         LanguageRegistry.addName((Object)SwFleshBlock, (String)"Swallowing Flesh");
+1081:         AcidBlock = new BlockAcid();
+1082:         GameRegistry.registerBlock((Block)AcidBlock, (String)"Acid");
+1083:         LanguageRegistry.addName((Object)AcidBlock, (String)"Acid");
+1084:         AcidFluid.setBlock(AcidBlock);
+1085:         SlurryBlock = new BlockSlurry(mudMaxOpacity[28], mudLastOpacity[28], mudIncOpacity[28]);
+1086:         GameRegistry.registerBlock((Block)SlurryBlock, (String)"Slurry");
+1087:         LanguageRegistry.addName((Object)SlurryBlock, (String)"Slurry");
+1088:         SlurryFluid.setBlock(SlurryBlock);
+1089:         GasBlock = new BlockGas();
+1090:         GameRegistry.registerBlock((Block)GasBlock, (String)"Gas");
+1091:         LanguageRegistry.addName((Object)GasBlock, (String)"Gas");
+1092:         SoftGravelBlock = new BlockSoftGravel(mudMaxOpacity[30], mudLastOpacity[30], mudIncOpacity[30]);
+1093:         GameRegistry.registerBlock((Block)SoftGravelBlock, ItemMeta.class, (String)"SoftGravel");
+1094:         LanguageRegistry.addName((Object)new ItemStack(SoftGravelBlock, 1, 0), (String)"SoftGravel");
+1095:         LanguageRegistry.addName((Object)new ItemStack(SoftGravelBlock, 1, 1), (String)"SoftGravel");
+1096:         HoneyBlock = new BlockHoney(mudMaxOpacity[31], mudLastOpacity[31], mudIncOpacity[31]);
+1097:         GameRegistry.registerBlock((Block)HoneyBlock, (String)"Honey");
+1098:         LanguageRegistry.addName((Object)HoneyBlock, (String)"Honey");
+1099:         HoneyFluid.setBlock(HoneyBlock);
+1100:         SolidHoneyBlock = new BlockSolidHoney();
+1101:         GameRegistry.registerBlock((Block)SolidHoneyBlock, (String)"SolidHoney");
+1102:         LanguageRegistry.addName((Object)SolidHoneyBlock, (String)"Solid Honey");
+1103:         HoneycombBlock = new BlockHoneycomb();
+1104:         GameRegistry.registerBlock((Block)HoneycombBlock, ItemMeta.class, (String)"Honeycomb");
+1105:         LanguageRegistry.addName((Object)new ItemStack(HoneycombBlock, 1, 0), (String)"Honeycomb");
+1106:         LanguageRegistry.addName((Object)new ItemStack(HoneycombBlock, 1, 1), (String)"Honeycomb Empty");
+1107:         LanguageRegistry.addName((Object)new ItemStack(HoneycombBlock, 1, 2), (String)"Honeycomb Filled");
+1108:         LiquidChocolateBlock = new BlockLiquidChocolate(mudMaxOpacity[27], mudLastOpacity[27], mudIncOpacity[27]);
+1109:         GameRegistry.registerBlock((Block)LiquidChocolateBlock, (String)"LiquidChocolate");
+1110:         LanguageRegistry.addName((Object)LiquidChocolateBlock, (String)"Liquid Chocolate");
+1111:         ChocolateFluid.setBlock(LiquidChocolateBlock);
+1112:         ChocolateBlock = new BlockChocolate();
+1113:         GameRegistry.registerBlock((Block)ChocolateBlock, (String)"ChocolateBlock");
+1114:         LanguageRegistry.addName((Object)ChocolateBlock, (String)"Solid Chocolate");
+1115:         SinkingWoolBlock = new BlockSinkingWool();
+1116:         GameRegistry.registerBlock((Block)SinkingWoolBlock, ItemMetaColor.class, (String)"SinkingRug");
+1117:         for (ix3 = 0; ix3 < 16; ++ix3) {
+1118:             multiBlockStack3 = new ItemStack(SinkingWoolBlock, 1, ix3);
+1119:             LanguageRegistry.addName((Object)multiBlockStack3, (String)"Sinking Rug");
+1120:         }
+1121:         LureBlock = new BlockLure();
+1122:         GameRegistry.registerBlock((Block)LureBlock, (String)"LureBlock");
+1123:         LanguageRegistry.addName((Object)LureBlock, (String)"Smelling Blossom");
+1124:         GameRegistry.registerTileEntity(TileEntityLure.class, (String)"tileEntityLure");
+1125:         Blocks.field_150480_ab.setFireInfo(LureBlock, 5, 5);
+1126:         BlossomBlock = new BlockBlossom();
+1127:         GameRegistry.registerBlock((Block)BlossomBlock, ItemMeta.class, (String)"BlossomBlock");
+1128:         for (ix3 = 0; ix3 < 12; ++ix3) {
+1129:             multiBlockStack3 = new ItemStack(BlossomBlock, 1, ix3);
+1130:             LanguageRegistry.addName((Object)multiBlockStack3, (String)"Plant Wall");
+1131:         }
+1132:         Blocks.field_150480_ab.setFireInfo(BlossomBlock, 5, 5);
+1133:         BlossomSlabBlock = new BlockBlossomSlab();
+1134:         GameRegistry.registerBlock((Block)BlossomSlabBlock, ItemMeta.class, (String)"BlossomBlockSlab");
+1135:         for (ix3 = 0; ix3 < 6; ++ix3) {
+1136:             multiBlockStack3 = new ItemStack(BlossomSlabBlock, 1, ix3);
+1137:             LanguageRegistry.addName((Object)multiBlockStack3, (String)"Plant Wall");
+1138:         }
+1139:         Blocks.field_150480_ab.setFireInfo(BlossomSlabBlock, 5, 5);
+1140:         VoreHoleBlock = new BlockVoreHole(mudMaxOpacity[21], mudLastOpacity[21], mudIncOpacity[21]);
+1141:         GameRegistry.registerBlock((Block)VoreHoleBlock, (String)"TempVore");
+1142:         LanguageRegistry.addName((Object)VoreHoleBlock, (String)"Temp Vore Hole");
+1143:         MeatBlock = new BlockMeat();
+1144:         String[] MeatTypes = new String[]{"Empty", "Bottom", "Conner1", "Conner2", "Conner3", "Conner4", "Side1", "Side2", "Side3", "Side4", "Anus"};
+1145:         String[] MeatNames = new String[]{"", "Bottom", "Conner", "Conner", "Conner", "Conner", "Side", "Side", "Side", "Side", "Anus"};
+1146:         GameRegistry.registerBlock((Block)MeatBlock, ItemMeta.class, (String)"MeatWall");
+1147:         for (ix2 = 0; ix2 < 11; ++ix2) {
+1148:             multiBlockStack2 = new ItemStack(MeatBlock, 1, ix2);
+1149:             LanguageRegistry.addName((Object)multiBlockStack2, (String)("Meat Wall " + MeatNames[ix2]));
+1150:         }
+1151:         MeatHoleBlock = new BlockMeatHole(mudMaxOpacity[15], mudLastOpacity[15], mudIncOpacity[15]);
+1152:         GameRegistry.registerBlock((Block)MeatHoleBlock, (String)"TempMeat");
+1153:         LanguageRegistry.addName((Object)MeatHoleBlock, (String)"Temp Meat");
+1154:         WaxWoodBlock = new BlockWaxWood();
+1155:         GameRegistry.registerBlock((Block)WaxWoodBlock, ItemMeta.class, (String)"WaxWood");
+1156:         for (ix2 = 0; ix2 < 8; ++ix2) {
+1157:             multiBlockStack2 = new ItemStack(WaxWoodBlock, 1, ix2);
+1158:             LanguageRegistry.addName((Object)multiBlockStack2, (String)"Wax Jungle Log");
+1159:         }
+1160:         Blocks.field_150480_ab.setFireInfo(WaxWoodBlock, 5, 5);
+1161:         CustomLilyPadBlock = new BlockCustomLilyPad();
+1162:         GameRegistry.registerBlock((Block)CustomLilyPadBlock, (String)"CustomLilyPad");
+1163:         LanguageRegistry.addName((Object)CustomLilyPadBlock, (String)"waterlily");
+1164:         MoorGrassBlock = new BlockMoorGrass();
+1165:         String[] MoorGrassNames = new String[]{"Moor Grass", "Moor Grass", "Moor Grass", "Bog Grass", "Bog Grass", "Cranberry Grass"};
+1166:         GameRegistry.registerBlock((Block)MoorGrassBlock, ItemMetaColor.class, (String)"MoorGrass");
+1167:         for (ix = 0; ix < 6; ++ix) {
+1168:             multiBlockStack = new ItemStack(MoorGrassBlock, 1, ix);
+1169:             LanguageRegistry.addName((Object)multiBlockStack, (String)MoorGrassNames[ix]);
+1170:         }
+1171:         TentBlock = new BlockTent();
+1172:         GameRegistry.registerBlock((Block)TentBlock, ItemMeta.class, (String)"Tendrils");
+1173:         for (ix = 0; ix < 4; ++ix) {
+1174:             multiBlockStack = new ItemStack(TentBlock, 1, ix);
+1175:             LanguageRegistry.addName((Object)multiBlockStack, (String)"Tendrils");
+1176:         }
+1177:         LeavesBlock = new BlockLeaves();
+1178:         GameRegistry.registerBlock((Block)LeavesBlock, (String)"LeavesPile");
+1179:         LanguageRegistry.addName((Object)LeavesBlock, (String)"Dead Leaves Pile");
+1180:         BogBucketItem = new ItemBogBucket(BogBlock);
+1181:         GameRegistry.registerItem((Item)BogBucketItem, (String)"BucketOfLiquidBog");
+1182:         LanguageRegistry.addName((Object)BogBucketItem, (String)"Bucket of Liquid Bog");
+1183:         ClayBucketItem = new ItemClayBucket(BrownClayBlock);
+1184:         GameRegistry.registerItem((Item)ClayBucketItem, (String)"Bucket of Clay");
+1185:         QuicksandBucketItem = new ItemQuicksandBucket(JungleQuicksandBlock);
+1186:         GameRegistry.registerItem((Item)QuicksandBucketItem, (String)"BucketOfQuicksand");
+1187:         LanguageRegistry.addName((Object)QuicksandBucketItem, (String)"Bucket of Quicksand");
+1188:         SandBucketItem = new ItemSandBucket((Block)Blocks.field_150354_m);
+1189:         GameRegistry.registerItem((Item)SandBucketItem, (String)"BucketOfSand");
+1190:         LanguageRegistry.addName((Object)SandBucketItem, (String)"Bucket of Sand");
+1191:         MireBucketItem = new ItemMireBucket(StableLiquidMireBlock);
+1192:         GameRegistry.registerItem((Item)MireBucketItem, (String)"BucketOfMire");
+1193:         LanguageRegistry.addName((Object)MireBucketItem, (String)"Bucket of Mire");
+1194:         SlimeBucketItem = new ItemSlimeBucket(SlimeBlock).func_77642_a(Items.field_151133_ar);
+1195:         GameRegistry.registerItem((Item)SlimeBucketItem, (String)"BucketOfSlime");
+1196:         LanguageRegistry.addName((Object)SlimeBucketItem, (String)"Bucket of Slime");
+1197:         MucusBucketItem = new ItemMucusBucket(MucusBlock).func_77642_a(Items.field_151133_ar);
+1198:         GameRegistry.registerItem((Item)MucusBucketItem, (String)"BucketOfMucus");
+1199:         LanguageRegistry.addName((Object)MucusBucketItem, (String)"Bucket of Mucus");
+1200:         TarBucketItem = new ItemTarBucket(TarBlock).func_77642_a(Items.field_151133_ar);
+1201:         GameRegistry.registerItem((Item)TarBucketItem, (String)"BucketOfTar");
+1202:         LanguageRegistry.addName((Object)TarBucketItem, (String)"Bucket of Tar");
+1203:         AcidBucketItem = new ItemAcidBucket(AcidBlock).func_77642_a(Items.field_151133_ar);
+1204:         GameRegistry.registerItem((Item)AcidBucketItem, (String)"BucketOfAcid");
+1205:         LanguageRegistry.addName((Object)AcidBucketItem, (String)"Bucket of Acid");
+1206:         ChocolateBucketItem = new ItemChocolateBucket(LiquidChocolateBlock).func_77642_a(Items.field_151133_ar);
+1207:         GameRegistry.registerItem((Item)ChocolateBucketItem, (String)"BucketOfChocolate");
+1208:         LanguageRegistry.addName((Object)ChocolateBucketItem, (String)"Bucket of Chocolate");
+1209:         ChocolatePowderBucketItem = new ItemChocolatePowderBucket();
+1210:         GameRegistry.registerItem((Item)ChocolatePowderBucketItem, (String)"BucketOfChocolatePowder");
+1211:         LanguageRegistry.addName((Object)ChocolatePowderBucketItem, (String)"Bucket of Chocolate Powder");
+1212:         ItemStack sugarStk = new ItemStack(Items.field_151102_aT);
+1213:         ItemStack cocaoStk = new ItemStack(Items.field_151100_aR, 1, 3);
+1214:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(ChocolatePowderBucketItem), (Object[])new Object[]{new ItemStack(Items.field_151133_ar), sugarStk, sugarStk, cocaoStk, cocaoStk, cocaoStk, cocaoStk, cocaoStk, cocaoStk});
+1215:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(ChocolatePowderBucketItem), (Object[])new Object[]{new ItemStack(Items.field_151133_ar), new ItemStack(ChocolateBlock)});
+1216:         GameRegistry.addSmelting((Item)ChocolatePowderBucketItem, (ItemStack)new ItemStack(ChocolateBucketItem), (float)0.0f);
+1217:         HoneyBucketItem = new ItemHoneyBucket(HoneyBlock).func_77642_a(Items.field_151133_ar);
+1218:         GameRegistry.registerItem((Item)HoneyBucketItem, (String)"BucketOfHoney");
+1219:         LanguageRegistry.addName((Object)HoneyBucketItem, (String)"Bucket of Honey");
+1220:         SlurryBucketItem = new ItemSlurryBucket(SlurryBlock).func_77642_a(Items.field_151133_ar);
+1221:         GameRegistry.registerItem((Item)SlurryBucketItem, (String)"BucketOfSlurry");
+1222:         LanguageRegistry.addName((Object)SlurryBucketItem, (String)"Bucket of Slurry");
+1223:         FertilizerItem = new ItemFertilizer();
+1224:         GameRegistry.registerItem((Item)FertilizerItem, (String)"Fertilizer");
+1225:         LanguageRegistry.addName((Object)FertilizerItem, (String)"Fertilizer");
+1226:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(FertilizerItem, 4), (Object[])new Object[]{new ItemStack(SlurryBucketItem)});
+1227:         EntityRegistry.registerModEntity(EntityLongStick.class, (String)"EntityLongStick", (int)106, (Object)instance, (int)120, (int)2, (boolean)true);
+1228:         LongStickItem = new ItemLongStick();
+1229:         GameRegistry.registerItem((Item)LongStickItem, (String)"LongStick");
+1230:         LanguageRegistry.addName((Object)LongStickItem, (String)"Long Stick");
+1231:         RescueItem = new ItemRescue();
+1232:         GameRegistry.registerItem((Item)RescueItem, (String)"Rescuing");
+1233:         LanguageRegistry.addName((Object)RescueItem, (String)"Rescuing");
+1234:         RopeItem = new ItemRope();
+1235:         GameRegistry.registerItem((Item)RopeItem, (String)"Rope");
+1236:         LanguageRegistry.addName((Object)RopeItem, (String)"Rope");
+1237:         CableItem = new ItemCable();
+1238:         GameRegistry.registerItem((Item)CableItem, (String)"Cable");
+1239:         LanguageRegistry.addName((Object)CableItem, (String)"Cable");
+1240:         CoilItem = new Item().func_77655_b("Coil").func_77637_a(tabMFQM).func_111206_d("morefunquicksandmod:Coil");
+1241:         GameRegistry.registerItem((Item)CoilItem, (String)"Coil");
+1242:         LanguageRegistry.addName((Object)CoilItem, (String)"Coil");
+1243:         HookItem = new Item().func_77655_b("Hook").func_77637_a(tabMFQM).func_111206_d("morefunquicksandmod:Hook");
+1244:         GameRegistry.registerItem((Item)HookItem, (String)"Hook");
+1245:         LanguageRegistry.addName((Object)HookItem, (String)"Hook");
+1246:         FilterItem = new Item().func_77655_b("Filter").func_77637_a(tabMFQM).func_111206_d("morefunquicksandmod:Filter");
+1247:         GameRegistry.registerItem((Item)FilterItem, (String)"Filter");
+1248:         LanguageRegistry.addName((Object)FilterItem, (String)"Filter");
+1249:         GasMaskItem = new ItemGasMask(armorMaterialUnprotective, proxy.addArmor("gasMask"), 0);
+1250:         GameRegistry.registerItem((Item)GasMaskItem, (String)"GasMask");
+1251:         LanguageRegistry.addName((Object)GasMaskItem, (String)"Gas Mask");
+1252:         if (TurnGasMask) {
+1253:             GameRegistry.addRecipe((ItemStack)new ItemStack(FilterItem, 2), (Object[])new Object[]{" w ", "ici", " w ", Character.valueOf('i'), Items.field_151042_j, Character.valueOf('w'), Blocks.field_150325_L, Character.valueOf('c'), new ItemStack(Items.field_151044_h, 1, 1)});
+1254:             GameRegistry.addRecipe((ItemStack)new ItemStack(GasMaskItem, 1), (Object[])new Object[]{"lll", "lgl", "fif", Character.valueOf('f'), FilterItem, Character.valueOf('l'), Items.field_151116_aA, Character.valueOf('g'), Blocks.field_150410_aZ, Character.valueOf('i'), Items.field_151042_j});
+1255:         }
+1256:         GrapplingHookItem = new ItemGrapplingHook();
+1257:         GameRegistry.registerItem((Item)GrapplingHookItem, (String)"GrapplingHook");
+1258:         LanguageRegistry.addName((Object)GrapplingHookItem, (String)"Grappling Hook");
+1259:         GrapplingHookBRKItem = new ItemGrapplingHookBRK();
+1260:         GameRegistry.registerItem((Item)GrapplingHookBRKItem, (String)"GrapplingHookBroken");
+1261:         LanguageRegistry.addName((Object)GrapplingHookBRKItem, (String)"Grappling Hook Broken");
+1262:         if (TurnHook) {
+1263:             GameRegistry.addRecipe((ItemStack)new ItemStack(CableItem, 1), (Object[])new Object[]{"x", "x", "x", Character.valueOf('x'), Items.field_151042_j});
+1264:             GameRegistry.addRecipe((ItemStack)new ItemStack(CoilItem, 1), (Object[])new Object[]{"x", "s", "x", Character.valueOf('x'), Items.field_151042_j, Character.valueOf('s'), Blocks.field_150343_Z});
+1265:             GameRegistry.addRecipe((ItemStack)new ItemStack(HookItem, 1), (Object[])new Object[]{" i ", "iri", "i i", Character.valueOf('i'), Items.field_151042_j, Character.valueOf('r'), Items.field_151137_ax});
+1266:             GameRegistry.addRecipe((ItemStack)new ItemStack(GrapplingHookItem, 1), (Object[])new Object[]{"ri ", "csh", "ii ", Character.valueOf('i'), Items.field_151042_j, Character.valueOf('r'), Items.field_151137_ax, Character.valueOf('c'), CoilItem, Character.valueOf('s'), CableItem, Character.valueOf('h'), HookItem});
+1267:             GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(GrapplingHookItem), (Object[])new Object[]{new ItemStack(GrapplingHookBRKItem), new ItemStack(HookItem), new ItemStack(CableItem)});
+1268:         }
+1269:         LiqGunItem = new ItemLiqGun();
+1270:         GameRegistry.registerItem((Item)LiqGunItem, (String)"LiqGunItem");
+1271:         LanguageRegistry.addName((Object)LiqGunItem, (String)"Liquid Gun");
+1272:         if (TurnLiqGun) {
+1273:             GameRegistry.addRecipe((ItemStack)new ItemStack(LiqGunItem, 1), (Object[])new Object[]{"ipl", "gge", "g  ", Character.valueOf('i'), Items.field_151131_as, Character.valueOf('p'), Blocks.field_150331_J, Character.valueOf('g'), Items.field_151043_k, Character.valueOf('l'), new ItemStack(Items.field_151100_aR, 1, 4), Character.valueOf('e'), Items.field_151166_bC});
+1274:         }
+1275:         WaxItem = new ItemWaxPiece();
+1276:         GameRegistry.registerItem((Item)WaxItem, (String)"WaxPiece");
+1277:         LanguageRegistry.addName((Object)WaxItem, (String)"Wax");
+1278:         GameRegistry.addRecipe((ItemStack)new ItemStack(WaxBlock, 1), (Object[])new Object[]{"xxx", "xxx", "xxx", Character.valueOf('x'), WaxItem});
+1279:         if (TurnStick) {
+1280:             GameRegistry.addRecipe((ItemStack)new ItemStack(LongStickItem), (Object[])new Object[]{"xxt", "xsx", "txx", Character.valueOf('t'), Items.field_151055_y, Character.valueOf('s'), Items.field_151123_aH});
+1281:         }
+1282:         if (TurnRope) {
+1283:             GameRegistry.addRecipe((ItemStack)new ItemStack(RopeItem, 1), (Object[])new Object[]{"xxs", "xxs", "xx ", Character.valueOf('x'), Items.field_151007_F, Character.valueOf('s'), Items.field_151123_aH});
+1284:             GameRegistry.addRecipe((ItemStack)new ItemStack(RopeItem, 1), (Object[])new Object[]{"xx ", "xxs", "xxs", Character.valueOf('x'), Items.field_151007_F, Character.valueOf('s'), Items.field_151123_aH});
+1285:             GameRegistry.addRecipe((ItemStack)new ItemStack(RopeItem, 1), (Object[])new Object[]{"xxs", "xx ", "xxs", Character.valueOf('x'), Items.field_151007_F, Character.valueOf('s'), Items.field_151123_aH});
+1286:         }
+1287:         GameRegistry.addRecipe((ItemStack)new ItemStack(WaxItem, 3), (Object[])new Object[]{"h", "w", Character.valueOf('h'), Blocks.field_150325_L, Character.valueOf('w'), Items.field_151131_as});
+1288:         GameRegistry.addRecipe((ItemStack)new ItemStack(WaxItem, 6), (Object[])new Object[]{"hh ", "w  ", Character.valueOf('h'), Blocks.field_150325_L, Character.valueOf('w'), Items.field_151131_as});
+1289:         GameRegistry.addRecipe((ItemStack)new ItemStack(WaxItem, 6), (Object[])new Object[]{"hh ", " w ", Character.valueOf('h'), Blocks.field_150325_L, Character.valueOf('w'), Items.field_151131_as});
+1290:         GameRegistry.addRecipe((ItemStack)new ItemStack(WaxItem, 9), (Object[])new Object[]{"hhh", "w  ", Character.valueOf('h'), Blocks.field_150325_L, Character.valueOf('w'), Items.field_151131_as});
+1291:         GameRegistry.addRecipe((ItemStack)new ItemStack(WaxItem, 9), (Object[])new Object[]{"hhh", " w ", Character.valueOf('h'), Blocks.field_150325_L, Character.valueOf('w'), Items.field_151131_as});
+1292:         LifeJacketItem = new ItemLifeJacket(armorMaterialUnprotective, proxy.addArmor("lifeJacket"), 1);
+1293:         GameRegistry.registerItem((Item)LifeJacketItem, (String)"LifeJacket");
+1294:         LanguageRegistry.addName((Object)LifeJacketItem, (String)"Life Jacket");
+1295:         if (TurnJacket) {
+1296:             GameRegistry.addRecipe((ItemStack)new ItemStack(LifeJacketItem, 1), (Object[])new Object[]{"lxl", "wlw", "nln", Character.valueOf('l'), Items.field_151116_aA, Character.valueOf('w'), WaxItem, Character.valueOf('n'), Items.field_151007_F});
+1297:         }
+1298:         PeatItem = new Item().func_77655_b("PeatItem").func_77637_a(tabMFQM).func_111206_d("morefunquicksandmod:Peat");
+1299:         GameRegistry.registerItem((Item)PeatItem, (String)"PeatItem");
+1300:         LanguageRegistry.addName((Object)PeatItem, (String)"Peat");
+1301:         GameRegistry.addRecipe((ItemStack)new ItemStack(PeatBlock, 1), (Object[])new Object[]{"xxx", "xxx", "xxx", Character.valueOf('x'), PeatItem});
+1302:         GameRegistry.addRecipe((ItemStack)new ItemStack(WetPeatBlock, 1), (Object[])new Object[]{"ppp", "xwx", "xxx", Character.valueOf('p'), PeatItem, Character.valueOf('w'), Items.field_151131_as});
+1303:         GameRegistry.addRecipe((ItemStack)new ItemStack(WetPeatBlock, 3), (Object[])new Object[]{"xpx", "www", "xxx", Character.valueOf('p'), PeatBlock, Character.valueOf('w'), Items.field_151131_as});
+1304:         LarvaRawItem = (ItemFood)new ItemFood(2, 0.1f, false).func_77844_a(Potion.field_76438_s.field_76415_H, 30, 0, 0.5f).func_77655_b("LarvaRaw").func_111206_d("morefunquicksandmod:LarvaRaw").func_77637_a(tabMFQM);
+1305:         GameRegistry.registerItem((Item)LarvaRawItem, (String)"LarvaRaw");
+1306:         LanguageRegistry.addName((Object)LarvaRawItem, (String)"Larva Raw");
+1307:         LarvaCookedItem = (ItemFood)new ItemFood(3, 0.15f, false).func_77844_a(Potion.field_76438_s.field_76415_H, 30, 0, 0.25f).func_77655_b("LarvaCooked").func_111206_d("morefunquicksandmod:LarvaCooked").func_77637_a(tabMFQM);
+1308:         GameRegistry.registerItem((Item)LarvaCookedItem, (String)"LarvaCooked");
+1309:         LanguageRegistry.addName((Object)LarvaCookedItem, (String)"Larva Cooked");
+1310:         GameRegistry.addSmelting((Item)LarvaRawItem, (ItemStack)new ItemStack((Item)LarvaCookedItem), (float)0.1f);
+1311:         CberryItem = new ItemCranberry(1, 0.1f, false).func_77655_b("Cranberry").func_111206_d("morefunquicksandmod:cranberry").func_77637_a(CreativeTabs.field_78039_h);
+1312:         GameRegistry.registerItem((Item)CberryItem, (String)"Cranberry");
+1313:         LanguageRegistry.addName((Object)CberryItem, (String)"Cranberry");
+1314:         DonutItem0 = (ItemFood)new ItemFood(3, 0.4f, true).func_77655_b("Donut0").func_111206_d("morefunquicksandmod:Donut0").func_77637_a(CreativeTabs.field_78039_h);
+1315:         GameRegistry.registerItem((Item)DonutItem0, (String)"Donut0");
+1316:         LanguageRegistry.addName((Object)DonutItem0, (String)"Donut");
+1317:         GameRegistry.addRecipe((ItemStack)new ItemStack(DonutItem0, 4), (Object[])new Object[]{"_x_", "xsx", "_x_", Character.valueOf('x'), Items.field_151015_O, Character.valueOf('s'), sugarStk});
+1318:         DonutItem1 = (ItemFood)new ItemFood(4, 0.5f, true).func_77655_b("Donut1").func_111206_d("morefunquicksandmod:Donut1").func_77637_a(CreativeTabs.field_78039_h);
+1319:         GameRegistry.registerItem((Item)DonutItem1, (String)"Donut1");
+1320:         LanguageRegistry.addName((Object)DonutItem1, (String)"Glazed Donut");
+1321:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(DonutItem1, 1), (Object[])new Object[]{DonutItem0, ChocolateBucketItem});
+1322:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(DonutItem1, 2), (Object[])new Object[]{DonutItem0, DonutItem0, ChocolateBucketItem});
+1323:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(DonutItem1, 3), (Object[])new Object[]{DonutItem0, DonutItem0, DonutItem0, ChocolateBucketItem});
+1324:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(DonutItem1, 4), (Object[])new Object[]{DonutItem0, DonutItem0, DonutItem0, DonutItem0, ChocolateBucketItem});
+1325:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(DonutItem1, 5), (Object[])new Object[]{DonutItem0, DonutItem0, DonutItem0, DonutItem0, DonutItem0, ChocolateBucketItem});
+1326:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(DonutItem1, 6), (Object[])new Object[]{DonutItem0, DonutItem0, DonutItem0, DonutItem0, DonutItem0, DonutItem0, ChocolateBucketItem});
+1327:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(DonutItem1, 7), (Object[])new Object[]{DonutItem0, DonutItem0, DonutItem0, DonutItem0, DonutItem0, DonutItem0, DonutItem0, ChocolateBucketItem});
+1328:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(DonutItem1, 8), (Object[])new Object[]{DonutItem0, DonutItem0, DonutItem0, DonutItem0, DonutItem0, DonutItem0, DonutItem0, DonutItem0, ChocolateBucketItem});
+1329:         DonutItem2 = (ItemFood)new ItemFood(5, 0.5f, true).func_77655_b("Donut2").func_111206_d("morefunquicksandmod:Donut2").func_77637_a(CreativeTabs.field_78039_h);
+1330:         GameRegistry.registerItem((Item)DonutItem2, (String)"Donut2");
+1331:         LanguageRegistry.addName((Object)DonutItem2, (String)"Glazed Donut With Sprinkles");
+1332:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(DonutItem2, 1), (Object[])new Object[]{DonutItem1, sugarStk, new ItemStack(Items.field_151100_aR, 1, 1)});
+1333:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(DonutItem2, 1), (Object[])new Object[]{DonutItem1, sugarStk, new ItemStack(Items.field_151100_aR, 1, 11)});
+1334:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(DonutItem2, 1), (Object[])new Object[]{DonutItem1, sugarStk, new ItemStack(Items.field_151100_aR, 1, 4)});
+1335:         DonutItem3 = (ItemFood)new ItemFood(8, 0.5f, true).func_77655_b("Donut3").func_111206_d("morefunquicksandmod:Donut3").func_77637_a(CreativeTabs.field_78039_h);
+1336:         GameRegistry.registerItem((Item)DonutItem3, (String)"Donut3");
+1337:         LanguageRegistry.addName((Object)DonutItem3, (String)"Pink Donut With Sprinkles");
+1338:         GameRegistry.addRecipe((ItemStack)new ItemStack(DonutItem3, 4), (Object[])new Object[]{"cxs", "xax", "sxv", Character.valueOf('x'), Items.field_151015_O, Character.valueOf('a'), new ItemStack(Items.field_151100_aR, 1, 9), Character.valueOf('c'), new ItemStack(Items.field_151100_aR, 1, 1), Character.valueOf('v'), new ItemStack(Items.field_151100_aR, 1, 11), Character.valueOf('s'), sugarStk});
+1339:         GameRegistry.addRecipe((ItemStack)new ItemStack(DonutItem3, 4), (Object[])new Object[]{"cxs", "xax", "sxv", Character.valueOf('x'), Items.field_151015_O, Character.valueOf('a'), new ItemStack(Items.field_151100_aR, 1, 9), Character.valueOf('c'), new ItemStack(Items.field_151100_aR, 1, 1), Character.valueOf('v'), new ItemStack(Items.field_151100_aR, 1, 4), Character.valueOf('s'), sugarStk});
+1340:         GameRegistry.addRecipe((ItemStack)new ItemStack(DonutItem3, 4), (Object[])new Object[]{"cxs", "xax", "sxv", Character.valueOf('x'), Items.field_151015_O, Character.valueOf('a'), new ItemStack(Items.field_151100_aR, 1, 9), Character.valueOf('c'), new ItemStack(Items.field_151100_aR, 1, 11), Character.valueOf('v'), new ItemStack(Items.field_151100_aR, 1, 1), Character.valueOf('s'), sugarStk});
+1341:         GameRegistry.addRecipe((ItemStack)new ItemStack(DonutItem3, 4), (Object[])new Object[]{"cxs", "xax", "sxv", Character.valueOf('x'), Items.field_151015_O, Character.valueOf('a'), new ItemStack(Items.field_151100_aR, 1, 9), Character.valueOf('c'), new ItemStack(Items.field_151100_aR, 1, 11), Character.valueOf('v'), new ItemStack(Items.field_151100_aR, 1, 4), Character.valueOf('s'), sugarStk});
+1342:         GameRegistry.addRecipe((ItemStack)new ItemStack(DonutItem3, 4), (Object[])new Object[]{"cxs", "xax", "sxv", Character.valueOf('x'), Items.field_151015_O, Character.valueOf('a'), new ItemStack(Items.field_151100_aR, 1, 9), Character.valueOf('c'), new ItemStack(Items.field_151100_aR, 1, 4), Character.valueOf('v'), new ItemStack(Items.field_151100_aR, 1, 1), Character.valueOf('s'), sugarStk});
+1343:         GameRegistry.addRecipe((ItemStack)new ItemStack(DonutItem3, 4), (Object[])new Object[]{"cxs", "xax", "sxv", Character.valueOf('x'), Items.field_151015_O, Character.valueOf('a'), new ItemStack(Items.field_151100_aR, 1, 9), Character.valueOf('c'), new ItemStack(Items.field_151100_aR, 1, 4), Character.valueOf('v'), new ItemStack(Items.field_151100_aR, 1, 11), Character.valueOf('s'), sugarStk});
+1344:         GameRegistry.addRecipe((ItemStack)new ItemStack(DonutItem3, 4), (Object[])new Object[]{"cxs", "xax", "sxv", Character.valueOf('x'), Items.field_151015_O, Character.valueOf('a'), CberryItem, Character.valueOf('c'), new ItemStack(Items.field_151100_aR, 1, 1), Character.valueOf('v'), new ItemStack(Items.field_151100_aR, 1, 11), Character.valueOf('s'), sugarStk});
+1345:         GameRegistry.addRecipe((ItemStack)new ItemStack(DonutItem3, 4), (Object[])new Object[]{"cxs", "xax", "sxv", Character.valueOf('x'), Items.field_151015_O, Character.valueOf('a'), CberryItem, Character.valueOf('c'), new ItemStack(Items.field_151100_aR, 1, 1), Character.valueOf('v'), new ItemStack(Items.field_151100_aR, 1, 4), Character.valueOf('s'), sugarStk});
+1346:         GameRegistry.addRecipe((ItemStack)new ItemStack(DonutItem3, 4), (Object[])new Object[]{"cxs", "xax", "sxv", Character.valueOf('x'), Items.field_151015_O, Character.valueOf('a'), CberryItem, Character.valueOf('c'), new ItemStack(Items.field_151100_aR, 1, 11), Character.valueOf('v'), new ItemStack(Items.field_151100_aR, 1, 1), Character.valueOf('s'), sugarStk});
+1347:         GameRegistry.addRecipe((ItemStack)new ItemStack(DonutItem3, 4), (Object[])new Object[]{"cxs", "xax", "sxv", Character.valueOf('x'), Items.field_151015_O, Character.valueOf('a'), CberryItem, Character.valueOf('c'), new ItemStack(Items.field_151100_aR, 1, 11), Character.valueOf('v'), new ItemStack(Items.field_151100_aR, 1, 4), Character.valueOf('s'), sugarStk});
+1348:         GameRegistry.addRecipe((ItemStack)new ItemStack(DonutItem3, 4), (Object[])new Object[]{"cxs", "xax", "sxv", Character.valueOf('x'), Items.field_151015_O, Character.valueOf('a'), CberryItem, Character.valueOf('c'), new ItemStack(Items.field_151100_aR, 1, 4), Character.valueOf('v'), new ItemStack(Items.field_151100_aR, 1, 1), Character.valueOf('s'), sugarStk});
+1349:         GameRegistry.addRecipe((ItemStack)new ItemStack(DonutItem3, 4), (Object[])new Object[]{"cxs", "xax", "sxv", Character.valueOf('x'), Items.field_151015_O, Character.valueOf('a'), CberryItem, Character.valueOf('c'), new ItemStack(Items.field_151100_aR, 1, 4), Character.valueOf('v'), new ItemStack(Items.field_151100_aR, 1, 11), Character.valueOf('s'), sugarStk});
+1350:         DonutItem4 = (ItemFood)new ItemFood(8, 0.6f, true).func_77655_b("Donut4").func_111206_d("morefunquicksandmod:Donut4").func_77637_a(CreativeTabs.field_78039_h);
+1351:         GameRegistry.registerItem((Item)DonutItem4, (String)"Donut4");
+1352:         LanguageRegistry.addName((Object)DonutItem4, (String)"Chocolate Donut");
+1353:         GameRegistry.addRecipe((ItemStack)new ItemStack(DonutItem4, 4), (Object[])new Object[]{"sxc", "xbx", "cxs", Character.valueOf('x'), Items.field_151015_O, Character.valueOf('c'), cocaoStk, Character.valueOf('b'), ChocolateBucketItem, Character.valueOf('s'), sugarStk});
+1354:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(Items.field_151123_aH, 4), (Object[])new Object[]{new ItemStack(SlimeBucketItem)});
+1355:         SoftSnowBlock.setHarvestLevel("shovel", 0);
+1356:         GameRegistry.registerFuelHandler((IFuelHandler)new CustomFuelHandler());
+1357:         MyPotionItem = new ItemMyPotion();
+1358:         GameRegistry.registerItem((Item)MyPotionItem, (String)"Potion");
+1359:         ThrPotionItem = new ItemSPotion();
+1360:         GameRegistry.registerItem((Item)ThrPotionItem, (String)"SPotion");
+1361:         if (TurnPotion) {
+1362:             GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(MyPotionItem, 1, 1), (Object[])new Object[]{new ItemStack(MyPotionItem, 1, 0), new ItemStack(Blocks.field_150425_aM)});
+1363:             GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(MyPotionItem, 1, 1), (Object[])new Object[]{new ItemStack((Item)Items.field_151068_bn, 1, 0), new ItemStack(CSandBlock)});
+1364:             GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(ThrPotionItem, 1, 0), (Object[])new Object[]{new ItemStack(MyPotionItem, 1, 1), new ItemStack(Items.field_151016_H)});
+1365:         }
+1366:         ItemStack bottle = new ItemStack(Items.field_151069_bo, 1, 0);
+1367:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(MyPotionItem, 3, 2), (Object[])new Object[]{new ItemStack(ChocolateBucketItem, 1, 0), bottle, bottle, bottle});
+1368:         for (int ix5 = 0; ix5 < 16; ++ix5) {
+1369:             ItemStack woolStk = new ItemStack(Blocks.field_150325_L, 1, ix5);
+1370:             ItemStack potionStk = new ItemStack(MyPotionItem, 1, 1);
+1371:             GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(SinkingWoolBlock, 1, ix5), (Object[])new Object[]{woolStk, potionStk});
+1372:             GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(SinkingWoolBlock, 2, ix5), (Object[])new Object[]{woolStk, woolStk, potionStk});
+1373:             GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(SinkingWoolBlock, 3, ix5), (Object[])new Object[]{woolStk, woolStk, woolStk, potionStk});
+1374:             GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(SinkingWoolBlock, 4, ix5), (Object[])new Object[]{woolStk, woolStk, woolStk, woolStk, potionStk});
+1375:             GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(SinkingWoolBlock, 5, ix5), (Object[])new Object[]{woolStk, woolStk, woolStk, woolStk, woolStk, potionStk});
+1376:             GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(SinkingWoolBlock, 6, ix5), (Object[])new Object[]{woolStk, woolStk, woolStk, woolStk, woolStk, woolStk, potionStk});
+1377:             GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(SinkingWoolBlock, 7, ix5), (Object[])new Object[]{woolStk, woolStk, woolStk, woolStk, woolStk, woolStk, woolStk, potionStk});
+1378:             GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(SinkingWoolBlock, 8, ix5), (Object[])new Object[]{woolStk, woolStk, woolStk, woolStk, woolStk, woolStk, woolStk, woolStk, potionStk});
+1379:         }
+1380:         EntityRegistry.registerModEntity(EntityRope.class, (String)"EntityRope", (int)100, (Object)instance, (int)120, (int)2, (boolean)true);
+1381:         EntityRegistry.registerModEntity(EntityHook.class, (String)"EntityHook", (int)101, (Object)instance, (int)120, (int)2, (boolean)true);
+1382:         EntityRegistry.registerModEntity(EntityRescue.class, (String)"EntityRescue", (int)108, (Object)instance, (int)120, (int)2, (boolean)true);
+1383:         EntityRegistry.registerModEntity(EntityLiqBall.class, (String)"EntityLiqBall", (int)112, (Object)instance, (int)120, (int)2, (boolean)true);
+1384:         EntityRegistry.registerModEntity(EntitySPotion.class, (String)"EntitySPotion", (int)113, (Object)instance, (int)120, (int)2, (boolean)true);
+1385:         MinecraftForge.EVENT_BUS.register((Object)new CustomBucketEvent());
+1386:         if (QSCover) {
+1387:             MinecraftForge.EVENT_BUS.register((Object)new MuddyEvent());
+1388:         }
+1389:         if (QSHandRescue) {
+1390:             MinecraftForge.EVENT_BUS.register((Object)new HandEvent());
+1391:         }
+1392:         MinecraftForge.EVENT_BUS.register((Object)new AirEvent());
+1393:         MinecraftForge.EVENT_BUS.register((Object)new CustomGenerationEvent());
+1394:         if (FMLCommonHandler.instance().getSide().equals((Object)Side.CLIENT)) {
+1395:             MinecraftForge.EVENT_BUS.register((Object)new CustomRenderOverlayEvent());
+1396:             if (QSCover) {
+1397:                 MinecraftForge.EVENT_BUS.register((Object)new CustomRenderPlayerEvent());
+1398:             }
+1399:         }
+1400:         ArrayList<BiomeGenBase> all_biomesList = new ArrayList<BiomeGenBase>();
+1401:         ArrayList<BiomeGenBase> swamp_biomesList = new ArrayList<BiomeGenBase>();
+1402:         ArrayList<BiomeGenBase> desert_biomesList = new ArrayList<BiomeGenBase>();
+1403:         for (BiomeGenBase biome : BiomeGenBase.func_150565_n()) {
+1404:             if (biome == null) continue;
+1405:             all_biomesList.add(biome);
+1406:             if (!(!BiomeDictionary.isBiomeOfType((BiomeGenBase)biome, (BiomeDictionary.Type)BiomeDictionary.Type.SWAMP) || BiomeDictionary.isBiomeOfType((BiomeGenBase)biome, (BiomeDictionary.Type)BiomeDictionary.Type.HILLS) || BiomeDictionary.isBiomeOfType((BiomeGenBase)biome, (BiomeDictionary.Type)BiomeDictionary.Type.MAGICAL) || BiomeDictionary.isBiomeOfType((BiomeGenBase)biome, (BiomeDictionary.Type)BiomeDictionary.Type.MUSHROOM) || BiomeDictionary.isBiomeOfType((BiomeGenBase)biome, (BiomeDictionary.Type)BiomeDictionary.Type.PLAINS) || BiomeDictionary.isBiomeOfType((BiomeGenBase)biome, (BiomeDictionary.Type)BiomeDictionary.Type.FOREST) && !BiomeDictionary.isBiomeOfType((BiomeGenBase)biome, (BiomeDictionary.Type)BiomeDictionary.Type.WET))) {
+1407:                 swamp_biomesList.add(biome);
+1408:             }
+1409:             if (!BiomeDictionary.isBiomeOfType((BiomeGenBase)biome, (BiomeDictionary.Type)BiomeDictionary.Type.DESERT)) continue;
+1410:             desert_biomesList.add(biome);
+1411:         }
+1412:         swamp_biomesList.add(BiomeGenBase.field_76780_h);
+1413:         desert_biomesList.add(BiomeGenBase.field_76769_d);
+1414:         desert_biomesList.add(BiomeGenBase.field_76786_s);
+1415:         BiomeGenBase[] all_biomes_array = new BiomeGenBase[all_biomesList.size()];
+1416:         BiomeGenBase[] allBiomes = all_biomesList.toArray(all_biomes_array);
+1417:         BiomeGenBase[] swamp_biomes_array = new BiomeGenBase[swamp_biomesList.size()];
+1418:         BiomeGenBase[] swampBiomes = swamp_biomesList.toArray(swamp_biomes_array);
+1419:         BiomeGenBase[] desert_biomes_array = new BiomeGenBase[desert_biomesList.size()];
+1420:         BiomeGenBase[] desertBiomes = desert_biomesList.toArray(desert_biomes_array);
+1421:         int backgroundEggColour = 0;
+1422:         int foregroundEggColour = 0;
+1423:         if (InitMobs) {
+1424:             backgroundEggColour = 10205416;
+1425:             foregroundEggColour = 10993884;
+1426:             EntityRegistry.registerGlobalEntityID(EntityVoreSlime.class, (String)"VoreSlime", (int)EntityRegistry.findGlobalUniqueEntityId(), (int)backgroundEggColour, (int)foregroundEggColour);
+1427:             EntityRegistry.registerModEntity(EntityVoreSlime.class, (String)"VoreSlime", (int)103, (Object)instance, (int)80, (int)3, (boolean)true);
+1428:             if (SpawnVS) {
+1429:                 EntityRegistry.addSpawn(EntityVoreSlime.class, (int)2, (int)1, (int)1, (EnumCreatureType)EnumCreatureType.monster, (BiomeGenBase[])allBiomes);
+1430:             }
+1431:             LanguageRegistry.instance().addStringLocalization("entity.VoreSlime.name", "en_US", "Vore Slime");
+1432:             backgroundEggColour = 7428915;
+1433:             foregroundEggColour = 5787429;
+1434:             EntityRegistry.registerGlobalEntityID(EntityMuddyBlob.class, (String)"MuddyBlob", (int)EntityRegistry.findGlobalUniqueEntityId(), (int)backgroundEggColour, (int)foregroundEggColour);
+1435:             EntityRegistry.registerModEntity(EntityMuddyBlob.class, (String)"MuddyBlob", (int)104, (Object)instance, (int)80, (int)3, (boolean)true);
+1436:             if (SpawnMB) {
+1437:                 EntityRegistry.addSpawn(EntityMuddyBlob.class, (int)2, (int)1, (int)1, (EnumCreatureType)EnumCreatureType.monster, (BiomeGenBase[])swampBiomes);
+1438:             }
+1439:             LanguageRegistry.instance().addStringLocalization("entity.MuddyBlob.name", "en_US", "Muddy Blob");
+1440:             backgroundEggColour = 16049320;
+1441:             foregroundEggColour = 14858107;
+1442:             EntityRegistry.registerGlobalEntityID(EntitySandBlob.class, (String)"SandBlob", (int)EntityRegistry.findGlobalUniqueEntityId(), (int)backgroundEggColour, (int)foregroundEggColour);
+1443:             EntityRegistry.registerModEntity(EntitySandBlob.class, (String)"SandBlob", (int)99, (Object)instance, (int)80, (int)3, (boolean)true);
+1444:             if (SpawnSB) {
+1445:                 EntityRegistry.addSpawn(EntitySandBlob.class, (int)2, (int)1, (int)1, (EnumCreatureType)EnumCreatureType.monster, (BiomeGenBase[])desertBiomes);
+1446:             }
+1447:             LanguageRegistry.instance().addStringLocalization("entity.SandBlob.name", "en_US", "Sandy Blob");
+1448:             backgroundEggColour = 1973277;
+1449:             foregroundEggColour = 0x292424;
+1450:             EntityRegistry.registerGlobalEntityID(EntityTarSlime.class, (String)"TarSlime", (int)EntityRegistry.findGlobalUniqueEntityId(), (int)backgroundEggColour, (int)foregroundEggColour);
+1451:             EntityRegistry.registerModEntity(EntityTarSlime.class, (String)"TarSlime", (int)105, (Object)instance, (int)80, (int)3, (boolean)true);
+1452:             if (SpawnTS) {
+1453:                 EntityRegistry.addSpawn(EntityTarSlime.class, (int)12, (int)1, (int)1, (EnumCreatureType)EnumCreatureType.monster, (BiomeGenBase[])allBiomes);
+1454:             }
+1455:             LanguageRegistry.instance().addStringLocalization("entity.TarSlime.name", "en_US", "Tar Slime");
+1456:         }
+1457:         backgroundEggColour = 13603621;
+1458:         foregroundEggColour = 2566696;
+1459:         EntityRegistry.registerModEntity(EntityBee.class, (String)"Bee", (int)111, (Object)instance, (int)80, (int)3, (boolean)true);
+1460:         MFQM.registerEntityEgg(EntityBee.class, backgroundEggColour, foregroundEggColour);
+1461:         LanguageRegistry.instance().addStringLocalization("entity.Bee.name", "en_US", "Bee");
+1462:         EntityRegistry.registerModEntity(EntityBubble.class, (String)"EntityBubble", (int)107, (Object)instance, (int)120, (int)2, (boolean)false);
+1463:         EntityRegistry.registerModEntity(EntityTarTreads.class, (String)"EntityTarTreads", (int)110, (Object)instance, (int)120, (int)2, (boolean)false);
+1464:     }
+1465: 
+1466:     public static void registerEntityEgg(Class<? extends Entity> entity, int primaryColor, int secondaryColor) {
+1467:         int id = MFQM.getUniqueEntityEggId();
+1468:         EntityList.field_75623_d.put(id, entity);
+1469:         EntityList.field_75627_a.put(id, new EntityList.EntityEggInfo(id, primaryColor, secondaryColor));
+1470:     }
+1471: 
+1472:     public static int getUniqueEntityEggId() {
+1473:         while (EntityList.func_75617_a((int)(++eggIdCounter)) != null) {
+1474:         }
+1475:         return eggIdCounter;
+1476:     }
+1477: 
+1478:     @Mod.EventHandler
+1479:     public void Init(FMLPostInitializationEvent event) {
+1480:         GameRegistry.registerWorldGenerator((IWorldGenerator)new CustomWorldGen(), (int)9999999);
+1481:         System.out.println("(MFQM)Registered World Generation!");
+1482:     }
+1483: 
+1484:     @Mod.EventHandler
+1485:     public void load(FMLInitializationEvent event) {
+1486:     }
+1487: 
+1488:     @Mod.EventHandler
+1489:     public void postInit(FMLPostInitializationEvent event) {
+1490:         if (BoP || TBL || ABC || WLD || AOA) {
+1491:             System.out.println("(MFQM)Scan blocks/items:");
+1492:             int mudID = 0;
+1493:             int fleshID = 0;
+1494:             int ashID = 0;
+1495:             int hiveID = 0;
+1496:             int honeyID = 0;
+1497:             int solidHoneyID = 0;
+1498:             int blMudID = 0;
+1499:             int blTarID = 0;
+1500:             int blSolidTarID = 0;
+1501:             int blSludgeID = 0;
+1502:             int acSludgeID = 0;
+1503:             int wdAshID = 0;
+1504:             int wdSwmID = 0;
+1505:             int aaToxicID = 0;
+1506:             int aaWasteID = 0;
+1507:             boolean DoneBoP = !BoP;
+1508:             boolean DoneBL = !TBL;
+1509:             boolean DoneABC = !ABC;
+1510:             boolean DoneWLD = !WLD;
+1511:             boolean DoneAOA = !AOA;
+1512:             for (int i = 4095; i > 0; --i) {
+1513:                 Block tmp = Block.func_149729_e((int)i);
+1514:                 if (tmp == null) continue;
+1515:                 GameRegistry.UniqueIdentifier untmp = GameRegistry.findUniqueIdentifierFor((Block)tmp);
+1516:                 String str1 = tmp.func_149739_a().toLowerCase();
+1517:                 int len = str1.length();
+1518:                 String str2 = str1.substring(Math.max(len - 3, 0)).toLowerCase();
+1519:                 String str3 = str1.substring(Math.max(len - 5, 0)).toLowerCase();
+1520:                 if (untmp != null && untmp.modId != null) {
+1521:                     if (untmp.modId.toLowerCase().matches("(.*)biomesoplenty(.*)")) {
+1522:                         if (str2.matches("(.*)mud(.*)")) {
+1523:                             System.out.println("(MFQM)BoP Mud founded in " + i);
+1524:                             BOPMudBlock = tmp;
+1525:                             mudID = i;
+1526:                         }
+1527:                         if (str2.matches("(.*)ash(.*)")) {
+1528:                             System.out.println("(MFQM)BoP Ash founded in " + i);
+1529:                             AshBlock = tmp;
+1530:                             ashID = i;
+1531:                         }
+1532:                         if (str1.matches("(.*)flesh(.*)")) {
+1533:                             System.out.println("(MFQM)BoP Flesh founded in " + i);
+1534:                             FleshBlock = tmp;
+1535:                             fleshID = i;
+1536:                         }
+1537:                         if (str1.matches("(.*)hive(.*)")) {
+1538:                             System.out.println("(MFQM)BoP Hive founded in " + i);
+1539:                             HiveBlock = tmp;
+1540:                             hiveID = i;
+1541:                         }
+1542:                         if (str3.matches("(.*)honey(.*)")) {
+1543:                             System.out.println("(MFQM)BoP honey founded in " + i);
+1544:                             BOPHoneyBlock = tmp;
+1545:                             honeyID = i;
+1546:                         }
+1547:                         if (str1.matches("(.*)honeyblock(.*)")) {
+1548:                             System.out.println("(MFQM)BoP solid honey founded in " + i);
+1549:                             BOPSolidHoneyBlock = tmp;
+1550:                             solidHoneyID = i;
+1551:                         }
+1552:                     }
+1553:                     if (untmp.modId.toLowerCase().matches("(.*)thebetweenlands(.*)")) {
+1554:                         if (str2.matches("(.*)mud(.*)")) {
+1555:                             System.out.println("(MFQM)TBL Mud founded in " + i);
+1556:                             TBLMudBlock = tmp;
+1557:                             TBL_MIC = true;
+1558:                             blMudID = i;
+1559:                         }
+1560:                         if (str1.matches("(.*)tarfluid(.*)")) {
+1561:                             System.out.println("(MFQM)TBL Tar founded in " + i);
+1562:                             TBLTarBlock = tmp;
+1563:                             blTarID = i;
+1564:                         }
+1565:                         if (str1.matches("(.*)solidtar")) {
+1566:                             System.out.println("(MFQM)TBL Solid Tar founded in " + i);
+1567:                             TBLSolidTarBlock = tmp;
+1568:                             blSolidTarID = i;
+1569:                         }
+1570:                         if (str1.matches("(.*)sludgydirt(.*)")) {
+1571:                             System.out.println("(MFQM)TBL Sludge founded in " + i);
+1572:                             TBLSludgeBlock = tmp;
+1573:                             blSludgeID = i;
+1574:                         }
+1575:                     }
+1576:                     if (untmp.modId.toLowerCase().matches("(.*)abyssalcraft(.*)") && str1.matches("(.*)shoggothblock(.*)")) {
+1577:                         System.out.println("(MFQM)ABC Shoggoth founded in " + i);
+1578:                         ABCSludgeBlock = tmp;
+1579:                         ABC_MIC = true;
+1580:                         acSludgeID = i;
+1581:                     }
+1582:                     if (untmp.modId.toLowerCase().matches("(.*)wildycraft(.*)")) {
+1583:                         if (str1.matches("(.*)rsash(.*)")) {
+1584:                             System.out.println("(MFQM)WLD Ash founded in " + i);
+1585:                             WLDAshBlock = tmp;
+1586:                             WLD_MIC = true;
+1587:                             wdAshID = i;
+1588:                         }
+1589:                         if (str1.matches("(.*)tain(.*)")) {
+1590:                             System.out.println("(MFQM)WLD Tained land founded in " + i);
+1591:                             WLDSwampBlock = tmp;
+1592:                             wdSwmID = i;
+1593:                         }
+1594:                     }
+1595:                     if (untmp.modId.toLowerCase().matches("(.*)nevermine(.*)")) {
+1596:                         if (str1.matches("(.*)toxicblock(.*)")) {
+1597:                             System.out.println("(MFQM)AoA ToxicBlock founded in " + i);
+1598:                             AOAToxicBlock = tmp;
+1599:                             AOA_MIC = true;
+1600:                             aaToxicID = i;
+1601:                         }
+1602:                         if (str1.matches("(.*)toxicwaste(.*)")) {
+1603:                             System.out.println("(MFQM)AoA ToxicWaste founded in " + i);
+1604:                             AOAToxicWaste = tmp;
+1605:                             AOA_MIC = true;
+1606:                             aaWasteID = i;
+1607:                         }
+1608:                     }
+1609:                 }
+1610:                 if (solidHoneyID != 0 && honeyID != 0 && hiveID != 0 && fleshID != 0 && ashID != 0 && mudID != 0) {
+1611:                     DoneBoP = true;
+1612:                 }
+1613:                 if (blMudID != 0 && blTarID != 0 && blSolidTarID != 0 && blSludgeID != 0) {
+1614:                     DoneBL = true;
+1615:                 }
+1616:                 if (acSludgeID != 0) {
+1617:                     DoneABC = true;
+1618:                 }
+1619:                 if (wdAshID != 0 && wdSwmID != 0) {
+1620:                     DoneWLD = true;
+1621:                 }
+1622:                 if (aaToxicID != 0 && aaWasteID != 0) {
+1623:                     DoneAOA = true;
+1624:                 }
+1625:                 if (DoneBoP && DoneBL && DoneABC && DoneWLD && DoneAOA) break;
+1626:             }
+1627:             if (BoP) {
+1628:                 if (honeyID == 0) {
+1629:                     System.out.println("(MFQM)BoP honey not founded");
+1630:                 } else {
+1631:                     HoneyBlockID = honeyID;
+1632:                 }
+1633:                 if (solidHoneyID == 0) {
+1634:                     System.out.println("(MFQM)BoP solid honey not founded");
+1635:                 } else {
+1636:                     SolidHoneyBlockID = solidHoneyID;
+1637:                 }
+1638:                 if (hiveID == 0) {
+1639:                     System.out.println("(MFQM)BoP Hive not founded");
+1640:                 } else {
+1641:                     HiveBlockID = hiveID;
+1642:                 }
+1643:                 if (fleshID == 0) {
+1644:                     System.out.println("(MFQM)BoP Flesh not founded");
+1645:                 } else {
+1646:                     FleshBlockID = fleshID;
+1647:                 }
+1648:                 if (ashID == 0) {
+1649:                     System.out.println("(MFQM)BoP Ash not founded");
+1650:                 } else {
+1651:                     AshBlockID = ashID;
+1652:                 }
+1653:                 if (mudID == 0) {
+1654:                     System.out.println("(MFQM)BoP Mud not founded");
+1655:                     System.out.println("(MFQM)BoP Wading Boots is not available");
+1656:                     BootsID = 1;
+1657:                 } else {
+1658:                     BOPMudBlockID = mudID;
+1659:                 }
+1660:             }
+1661:             if (TBL) {
+1662:                 if (blMudID == 0) {
+1663:                     System.out.println("(MFQM)TBL Mud not founded");
+1664:                 } else {
+1665:                     TBLMudBlockID = blMudID;
+1666:                 }
+1667:                 if (blTarID == 0) {
+1668:                     System.out.println("(MFQM)TBL Tar not founded");
+1669:                 } else {
+1670:                     TBLTarBlockID = blTarID;
+1671:                 }
+1672:                 if (blSolidTarID == 0) {
+1673:                     System.out.println("(MFQM)TBL Solid Tar not founded");
+1674:                 } else {
+1675:                     TBLSolidTarBlockID = blSolidTarID;
+1676:                 }
+1677:                 if (blSludgeID == 0) {
+1678:                     System.out.println("(MFQM)TBL Sludge not founded");
+1679:                 } else {
+1680:                     TBLSludgeBlockID = blSludgeID;
+1681:                 }
+1682:             }
+1683:             if (ABC) {
+1684:                 if (acSludgeID == 0) {
+1685:                     System.out.println("(MFQM)ABC Shoggoth not founded");
+1686:                 } else {
+1687:                     ABCSludgeBlockID = acSludgeID;
+1688:                 }
+1689:             }
+1690:             if (WLD) {
+1691:                 if (wdAshID == 0) {
+1692:                     System.out.println("(MFQM)WLD Ash not founded");
+1693:                 } else {
+1694:                     WLDAshBlockID = wdAshID;
+1695:                 }
+1696:                 if (wdSwmID == 0) {
+1697:                     System.out.println("(MFQM)WLD Tained land not founded");
+1698:                 } else {
+1699:                     WLDSwampBlockID = wdSwmID;
+1700:                 }
+1701:             }
+1702:             if (AOA) {
+1703:                 if (aaToxicID == 0) {
+1704:                     System.out.println("(MFQM)AoA ToxicBlock not founded");
+1705:                 } else {
+1706:                     AOAToxicBlockID = aaToxicID;
+1707:                 }
+1708:                 if (aaWasteID == 0) {
+1709:                     System.out.println("(MFQM)AoA ToxicWaste not founded");
+1710:                 } else {
+1711:                     AOAToxicWasteID = aaWasteID;
+1712:                 }
+1713:             }
+1714:         } else {
+1715:             BootsID = 1;
+1716:         }
+1717:         BootsID = 1;
+1718:         MudBallID = 0;
+1719:         FleshItemID = 0;
+1720:         FoodItemID = 0;
+1721:         FertilizerItemID = 0;
+1722:         WLDDruidPouchItemID = 0;
+1723:         AOAFaceMaskItemID = 0;
+1724:         AOADoomStoneItemID = 0;
+1725:         AOAToxicLumpItemID = 0;
+1726:         for (int i = 31999; i > 255; --i) {
+1727:             Item tmp2 = Item.func_150899_d((int)i);
+1728:             if (tmp2 == null) continue;
+1729:             String str1 = tmp2.func_77658_a();
+1730:             GameRegistry.UniqueIdentifier untmp = GameRegistry.findUniqueIdentifierFor((Item)tmp2);
+1731:             if (BOPMudBlockID != 0 && untmp != null && untmp.modId != null && untmp.modId.toLowerCase().matches("(.*)biomesoplenty(.*)")) {
+1732:                 if (str1.matches("(.*)mudball(.*)")) {
+1733:                     System.out.println("(MFQM)Mud ball founded in " + i);
+1734:                     MudBallID = i;
+1735:                     MudBall = tmp2;
+1736:                 }
+1737:                 if (str1.matches("(.*)misc(.*)")) {
+1738:                     System.out.println("(MFQM)Flesh part founded in " + i);
+1739:                     FleshItemID = i;
+1740:                     FleshItem = tmp2;
+1741:                 }
+1742:                 if (str1.matches("(.*)food(.*)")) {
+1743:                     System.out.println("(MFQM)BoP Food founded in " + i);
+1744:                     FoodItemID = i;
+1745:                     FoodItem = tmp2;
+1746:                 }
+1747:                 if (str1.matches("(.*)wadingBoots(.*)")) {
+1748:                     System.out.println("(MFQM)Wading Boots founded in " + i);
+1749:                     BootsID = i;
+1750:                     WadingBoots = tmp2;
+1751:                 }
+1752:             }
+1753:             if (WLDSwampBlockID != 0 && untmp != null && untmp.modId != null && untmp.modId.toLowerCase().matches("(.*)wildycraft(.*)") && str1.matches("(.*)druid(.*)")) {
+1754:                 System.out.println("(MFQM)WLD Druid pouch founded in " + i);
+1755:                 WLDDruidPouchItemID = i;
+1756:                 WLDDruidPouchItem = tmp2;
+1757:             }
+1758:             if (AOAToxicBlockID != 0 && untmp != null && untmp.modId != null && untmp.modId.toLowerCase().matches("(.*)nevermine(.*)")) {
+1759:                 if (str1.toLowerCase().matches("(.*)facemask(.*)")) {
+1760:                     System.out.println("(MFQM)AoA FaceMask founded in " + i);
+1761:                     AOAFaceMaskItemID = i;
+1762:                     AOAFaceMaskItem = tmp2;
+1763:                 }
+1764:                 if (str1.toLowerCase().matches("(.*)doomstone(.*)")) {
+1765:                     System.out.println("(MFQM)AoA DoomStone founded in " + i);
+1766:                     AOADoomStoneItemID = i;
+1767:                     AOADoomStoneItem = tmp2;
+1768:                 }
+1769:                 if (str1.toLowerCase().matches("(.*)toxiclump(.*)")) {
+1770:                     System.out.println("(MFQM)AoA ToxicLump founded in " + i);
+1771:                     AOAToxicLumpItemID = i;
+1772:                     AOAToxicLumpItem = tmp2;
+1773:                 }
+1774:             }
+1775:             if (str1.matches("(.*)Fertilizer(.*)") && tmp2 != FertilizerItem) {
+1776:                 System.out.println("(MFQM)Fertilizer founded in " + i);
+1777:                 FertilizerItemID = i;
+1778:                 IC2FertilizerItem = tmp2;
+1779:             }
+1780:             if (!(MudBallID == 0 || BootsID == 1 || FleshItemID == 0 || FoodItemID == 0 || FertilizerItemID == 0 || WLD && WLDDruidPouchItemID == 0 || AOA && AOAFaceMaskItemID == 0 && AOADoomStoneItemID == 0 && AOAToxicLumpItemID == 0)) break;
+1781:         }
+1782:         if (BoP) {
+1783:             if (MudBallID == 0) {
+1784:                 System.out.println("(MFQM)Mud ball not founded");
+1785:             }
+1786:             if (BootsID == 1) {
+1787:                 System.out.println("(MFQM)Wading Boots not founded");
+1788:             }
+1789:             if (FleshItemID == 0) {
+1790:                 System.out.println("(MFQM)Flesh part not founded");
+1791:             }
+1792:             if (FoodItemID == 0) {
+1793:                 System.out.println("(MFQM)BoP Food not founded");
+1794:             }
+1795:         }
+1796:         if (AOA) {
+1797:             if (AOAFaceMaskItemID == 0) {
+1798:                 System.out.println("(MFQM)AOA FaceMask not founded");
+1799:             }
+1800:             if (AOADoomStoneItemID == 0) {
+1801:                 System.out.println("(MFQM)AOA DoomStone not founded");
+1802:             }
+1803:             if (AOAToxicLumpItemID == 0) {
+1804:                 System.out.println("(MFQM)AOA ToxicLump not founded");
+1805:             }
+1806:         }
+1807:         if (WLD && WLDDruidPouchItemID == 0) {
+1808:             System.out.println("(MFQM)WLD Druid pouch not founded");
+1809:         }
+1810:         if (FertilizerItemID == 0) {
+1811:             System.out.println("(MFQM)Fertilizer not founded");
+1812:         } else {
+1813:             GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(IC2FertilizerItem, 1), (Object[])new Object[]{new ItemStack(FertilizerItem)});
+1814:         }
+1815:         if (TBL) {
+1816:             Map monsters = EntityList.field_75625_b;
+1817:             TBLMobs = new ArrayList();
+1818:             TBLMobsTar = new ArrayList();
+1819:             System.out.println("(MFQM)Scaning TBL Mobs...");
+1820:             for (Object key : monsters.keySet()) {
+1821:                 String[] parts;
+1822:                 if (!MFQM.isChildOf(EntityLivingBase.class, (Class)monsters.get(key)) || (parts = ((String)key).split("[.]")) == null || parts.length <= 0 || !parts[0].matches("(.*)thebetweenlands(.*)")) continue;
+1823:                 System.out.println("(MFQM)Entity " + monsters.get(key) + " added to Mobs");
+1824:                 TBLMobs.add((Class)monsters.get(key));
+1825:                 String[] parts2 = ((Class)monsters.get(key)).getName().split("[.]");
+1826:                 if (parts2 == null || parts2.length <= 0) continue;
+1827:                 if (parts2[parts2.length - 1].matches("(.*)Tar(.*)")) {
+1828:                     System.out.println("(MFQM)Entity " + monsters.get(key) + " added to TarMobs");
+1829:                     TBLMobsTar.add((Class)monsters.get(key));
+1830:                 }
+1831:                 if (!parts2[parts2.length - 1].matches("(.*)TarBeast(.*)")) continue;
+1832:                 TBLTarBeast = (Class)monsters.get(key);
+1833:             }
+1834:         }
+1835:         if (BoP) {
+1836:             System.out.println("(MFQM)BiomesOPlenty corrector init");
+1837:             if (HiveBlockID != 0) {
+1838:                 GameRegistry.addSmelting((Block)HiveBlock, (ItemStack)new ItemStack(WaxItem, 9), (float)0.1f);
+1839:             }
+1840:             if (FleshItemID != 0) {
+1841:                 GameRegistry.addSmelting((ItemStack)new ItemStack(FleshItem, 1, 2), (ItemStack)new ItemStack(WaxItem, 3), (float)0.1f);
+1842:             }
+1843:             if (FoodItemID != 0) {
+1844:                 GameRegistry.addSmelting((ItemStack)new ItemStack(FoodItem, 1, 9), (ItemStack)new ItemStack(WaxItem, 3), (float)0.1f);
+1845:             }
+1846:         } else {
+1847:             EmptycombItem = new Item().func_77655_b("Emptycomb").func_77637_a(tabMFQM).func_111206_d("morefunquicksandmod:emptyhoneycomb");
+1848:             GameRegistry.registerItem((Item)EmptycombItem, (String)"Emptycomb");
+1849:             LanguageRegistry.addName((Object)EmptycombItem, (String)"Empty Honeycomb");
+1850:             GameRegistry.addSmelting((ItemStack)new ItemStack(EmptycombItem, 1, 0), (ItemStack)new ItemStack(WaxItem, 3), (float)0.1f);
+1851:             HoneycombItem = (ItemFood)new ItemFood(3, 0.4f, false).func_77655_b("HoneycombItem").func_111206_d("morefunquicksandmod:filledhoneycomb").func_77637_a(CreativeTabs.field_78039_h);
+1852:             GameRegistry.registerItem((Item)HoneycombItem, (String)"HoneycombItem");
+1853:             LanguageRegistry.addName((Object)HoneycombItem, (String)"Filled Honeycomb");
+1854:             GameRegistry.addSmelting((ItemStack)new ItemStack(HoneycombItem, 1, 0), (ItemStack)new ItemStack(WaxItem, 3), (float)0.1f);
+1855:         }
+1856:         if (BootsID == 1) {
+1857:             WadingBoots = new ItemWadingBoots(armorMaterialUnprotective, proxy.addArmor("wadingBoots"), 3);
+1858:             GameRegistry.registerItem((Item)WadingBoots, (String)"wadingBoots");
+1859:             LanguageRegistry.addName((Object)WadingBoots, (String)"Wading Boots");
+1860:             BootsID = Item.func_150891_b((Item)WadingBoots);
+1861:         }
+1862:         PreWadingBoots0 = new ItemPreWadingBoots0(armorMaterialUnprotective, proxy.addArmor("preWadingBoots0"), 3);
+1863:         GameRegistry.registerItem((Item)PreWadingBoots0, (String)"preWadingBoots0");
+1864:         LanguageRegistry.addName((Object)PreWadingBoots0, (String)"Tall Leather Boots");
+1865:         PreWadingBoots1 = new ItemPreWadingBoots1(armorMaterialUnprotective, proxy.addArmor("preWadingBoots1"), 3);
+1866:         GameRegistry.registerItem((Item)PreWadingBoots1, (String)"preWadingBoots1");
+1867:         LanguageRegistry.addName((Object)PreWadingBoots1, (String)"Slimy Tall Leather Boots");
+1868:         GameRegistry.addRecipe((ItemStack)new ItemStack(QuicksandBlock, 4), (Object[])new Object[]{"wsw", "sws", "wsw", Character.valueOf('s'), Blocks.field_150354_m, Character.valueOf('w'), Items.field_151131_as});
+1869:         GameRegistry.addRecipe((ItemStack)new ItemStack(QuicksandBucketItem, 1), (Object[])new Object[]{"wdw", "sbd", "wsw", Character.valueOf('s'), Blocks.field_150354_m, Character.valueOf('w'), Items.field_151131_as, Character.valueOf('b'), Items.field_151133_ar, Character.valueOf('d'), Blocks.field_150346_d});
+1870:         if (BoP) {
+1871:             GameRegistry.addRecipe((ItemStack)new ItemStack(MudBlock, 4, 1), (Object[])new Object[]{" m ", "mwm", " m ", Character.valueOf('m'), new ItemStack(BOPMudBlock, 1, 0), Character.valueOf('w'), Items.field_151131_as});
+1872:             GameRegistry.addRecipe((ItemStack)new ItemStack(MireBucketItem, 1), (Object[])new Object[]{"wmw", "mbm", "wmw", Character.valueOf('m'), new ItemStack(BOPMudBlock, 1, 0), Character.valueOf('w'), Items.field_151131_as, Character.valueOf('b'), Items.field_151133_ar});
+1873:             GameRegistry.addRecipe((ItemStack)new ItemStack(MireBlock, 4), (Object[])new Object[]{"mwm", "wmw", "mwm", Character.valueOf('m'), new ItemStack(BOPMudBlock, 1, 0), Character.valueOf('w'), Items.field_151131_as, Character.valueOf('d'), Blocks.field_150346_d});
+1874:         }
+1875:         GameRegistry.addRecipe((ItemStack)new ItemStack(MudBlock, 4), (Object[])new Object[]{"dwd", "wdw", "dwd", Character.valueOf('d'), Blocks.field_150346_d, Character.valueOf('w'), Items.field_151131_as});
+1876:         GameRegistry.addRecipe((ItemStack)new ItemStack(MudBlock, 4, 1), (Object[])new Object[]{" m ", "mwm", " m ", Character.valueOf('m'), new ItemStack(MudBlock, 1, 0), Character.valueOf('w'), Items.field_151131_as});
+1877:         GameRegistry.addRecipe((ItemStack)new ItemStack(MudBlock, 4, 2), (Object[])new Object[]{" m ", "mwm", " m ", Character.valueOf('m'), new ItemStack(MudBlock, 1, 1), Character.valueOf('w'), Items.field_151131_as});
+1878:         GameRegistry.addRecipe((ItemStack)new ItemStack(MudBlock, 4, 3), (Object[])new Object[]{" m ", "mwm", " m ", Character.valueOf('m'), new ItemStack(MudBlock, 1, 2), Character.valueOf('w'), Items.field_151131_as});
+1879:         GameRegistry.addRecipe((ItemStack)new ItemStack(MireBucketItem, 1), (Object[])new Object[]{"wmw", "mbm", "wmw", Character.valueOf('m'), MudBlock, Character.valueOf('w'), Items.field_151131_as, Character.valueOf('b'), Items.field_151133_ar});
+1880:         GameRegistry.addRecipe((ItemStack)new ItemStack(MireBlock, 4), (Object[])new Object[]{"mwm", "wdw", "mwm", Character.valueOf('m'), MudBlock, Character.valueOf('w'), Items.field_151131_as, Character.valueOf('d'), Blocks.field_150346_d});
+1881:         GameRegistry.addRecipe((ItemStack)new ItemStack(BrownClayBlock, 4, 0), (Object[])new Object[]{"cwc", "wdw", "cwc", Character.valueOf('c'), Blocks.field_150435_aG, Character.valueOf('d'), Blocks.field_150346_d, Character.valueOf('w'), Items.field_151131_as});
+1882:         GameRegistry.addRecipe((ItemStack)new ItemStack(SoftQuicksandBlock, 4), (Object[])new Object[]{"wdw", "gwd", "wgw", Character.valueOf('d'), Blocks.field_150346_d, Character.valueOf('w'), Items.field_151131_as, Character.valueOf('g'), Blocks.field_150351_n});
+1883:         GameRegistry.addRecipe((ItemStack)new ItemStack(SoftGravelBlock, 4, 0), (Object[])new Object[]{"wdw", "gwd", "wgw", Character.valueOf('d'), Blocks.field_150354_m, Character.valueOf('w'), Items.field_151131_as, Character.valueOf('g'), Blocks.field_150351_n});
+1884:         GameRegistry.addRecipe((ItemStack)new ItemStack(SoftGravelBlock, 4, 1), (Object[])new Object[]{"cmc", "mwm", "cmc", Character.valueOf('c'), Items.field_151119_aD, Character.valueOf('m'), new ItemStack(SoftGravelBlock, 1, 0), Character.valueOf('w'), Items.field_151131_as});
+1885:         GameRegistry.addRecipe((ItemStack)new ItemStack(CSandBlock, 4), (Object[])new Object[]{"cdc", "dpd", "cdc", Character.valueOf('d'), Blocks.field_150346_d, Character.valueOf('c'), Blocks.field_150425_aM, Character.valueOf('p'), new ItemStack(MyPotionItem, 1, 1)});
+1886:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack(SandBucketItem, 1), (Object[])new Object[]{new ItemStack(Items.field_151133_ar), new ItemStack((Block)Blocks.field_150354_m)});
+1887:         GameRegistry.addShapelessRecipe((ItemStack)new ItemStack((Block)Blocks.field_150354_m, 1), (Object[])new Object[]{new ItemStack(SandBucketItem)});
+1888:         if (TurnBoots) {
+1889:             GameRegistry.addRecipe((ItemStack)new ItemStack(PreWadingBoots0, 1), (Object[])new Object[]{"i i", "i i", "i i", Character.valueOf('i'), Items.field_151116_aA});
+1890:             GameRegistry.addRecipe((ItemStack)new ItemStack(PreWadingBoots1, 1), (Object[])new Object[]{"sss", "sis", "sss", Character.valueOf('i'), PreWadingBoots0, Character.valueOf('s'), Items.field_151123_aH});
+1891:             GameRegistry.addSmelting((Item)PreWadingBoots1, (ItemStack)new ItemStack(WadingBoots), (float)0.1f);
+1892:         }
+1893:         if (AOA && AOAFaceMaskItemID != 0) {
+1894:             GameRegistry.addRecipe((ItemStack)new ItemStack(AOAFaceMaskItem), (Object[])new Object[]{" t ", "sgs", "   ", Character.valueOf('g'), GasMaskItem, Character.valueOf('s'), AOADoomStoneItem, Character.valueOf('t'), AOAToxicLumpItem});
+1895:         }
+1896:         if (BoP) {
+1897:             if (MudBallID != 0) {
+1898:                 CraftingManager cfm = CraftingManager.func_77594_a();
+1899:                 try {
+1900:                     Field field1 = Fields.findField(CraftingManager.class, List.class, 0);
+1901:                     field1.setAccessible(true);
+1902:                     List my_rec = cfm.func_77592_b();
+1903:                     boolean rcp_found = false;
+1904:                     Iterator it_rec = my_rec.iterator();
+1905:                     if (it_rec != null) {
+1906:                         while (it_rec.hasNext()) {
+1907:                             Object obj = it_rec.next();
+1908:                             if (obj == null || !(obj instanceof ShapedRecipes) || ((ShapedRecipes)obj).func_77571_b().func_77973_b() != Item.func_150898_a((Block)BOPMudBlock)) continue;
+1909:                             it_rec.remove();
+1910:                             rcp_found = true;
+1911:                             break;
+1912:                         }
+1913:                     }
+1914:                     if (rcp_found) {
+1915:                         System.out.println("(MFQM)BiomesOPlenty's mud receipt found");
+1916:                         field1.set(cfm, my_rec);
+1917:                         System.out.println("(MFQM)BiomesOPlenty's mud receipt successfully overrided");
+1918:                     } else {
+1919:                         System.out.println("(MFQM)BiomesOPlenty's mud receipt not found");
+1920:                     }
+1921:                 }
+1922:                 catch (Exception e) {
+1923:                     e.printStackTrace();
+1924:                 }
+1925:                 GameRegistry.addRecipe((ItemStack)new ItemStack(MudBlock, 1), (Object[])new Object[]{"MM", "MM", Character.valueOf('M'), MudBall});
+1926:             }
+1927:             if (FleshItemID != 0) {
+1928:                 CraftingManager cfm = CraftingManager.func_77594_a();
+1929:                 try {
+1930:                     Field field1 = Fields.findField(CraftingManager.class, List.class, 0);
+1931:                     field1.setAccessible(true);
+1932:                     List my_rec = cfm.func_77592_b();
+1933:                     boolean rcp_found = false;
+1934:                     Iterator it_rec = my_rec.iterator();
+1935:                     if (it_rec != null) {
+1936:                         while (it_rec.hasNext()) {
+1937:                             Object obj = it_rec.next();
+1938:                             if (obj == null || !(obj instanceof ShapedRecipes) || ((ShapedRecipes)obj).func_77571_b().func_77973_b() != Item.func_150898_a((Block)HiveBlock)) continue;
+1939:                             it_rec.remove();
+1940:                             rcp_found = true;
+1941:                             break;
+1942:                         }
+1943:                     }
+1944:                     if (rcp_found) {
+1945:                         System.out.println("(MFQM)BiomesOPlenty's honeycomb1 receipt found");
+1946:                         field1.set(cfm, my_rec);
+1947:                         System.out.println("(MFQM)BiomesOPlenty's honeycomb1 receipt successfully removed");
+1948:                     } else {
+1949:                         System.out.println("(MFQM)BiomesOPlenty's honeycomb1 receipt not found");
+1950:                     }
+1951:                 }
+1952:                 catch (Exception e) {
+1953:                     e.printStackTrace();
+1954:                 }
+1955:             }
+1956:             if (FoodItemID != 0) {
+1957:                 CraftingManager cfm = CraftingManager.func_77594_a();
+1958:                 try {
+1959:                     Field field1 = Fields.findField(CraftingManager.class, List.class, 0);
+1960:                     field1.setAccessible(true);
+1961:                     List my_rec = cfm.func_77592_b();
+1962:                     boolean rcp_found = false;
+1963:                     Iterator it_rec = my_rec.iterator();
+1964:                     if (it_rec != null) {
+1965:                         while (it_rec.hasNext()) {
+1966:                             Object obj = it_rec.next();
+1967:                             if (obj == null || !(obj instanceof ShapedRecipes) || ((ShapedRecipes)obj).func_77571_b().func_77973_b() != Item.func_150898_a((Block)HiveBlock)) continue;
+1968:                             it_rec.remove();
+1969:                             rcp_found = true;
+1970:                             break;
+1971:                         }
+1972:                     }
+1973:                     if (rcp_found) {
+1974:                         System.out.println("(MFQM)BiomesOPlenty's honeycomb2 receipt found");
+1975:                         field1.set(cfm, my_rec);
+1976:                         System.out.println("(MFQM)BiomesOPlenty's honeycomb2 receipt successfully removed");
+1977:                     } else {
+1978:                         System.out.println("(MFQM)BiomesOPlenty's honeycomb2 receipt not found");
+1979:                     }
+1980:                 }
+1981:                 catch (Exception e) {
+1982:                     e.printStackTrace();
+1983:                 }
+1984:             }
+1985:             if (GenMarshOver) {
+1986:                 System.out.println("(MFQM)Customizning Marsh Biome...");
+1987:                 BiomeGenBase biomegenbase = BiomeGenBase.func_150565_n()[SwampBiomes[7]];
+1988:                 try {
+1989:                     Field field1 = Fields.findField(BiomeGenBase.class, Float.TYPE, 0);
+1990:                     Field field2 = Fields.findField(BiomeGenBase.class, Float.TYPE, 1);
+1991:                     field1.setAccessible(true);
+1992:                     field2.setAccessible(true);
+1993:                     field1.setFloat(biomegenbase, -0.2f);
+1994:                     field2.setFloat(biomegenbase, -0.1f);
+1995:                 }
+1996:                 catch (Exception e) {
+1997:                     e.printStackTrace();
+1998:                 }
+1999:                 BiomeGenBase.func_150565_n()[MFQM.SwampBiomes[7]] = biomegenbase;
+2000:                 System.out.println("(MFQM)Customizning Complete");
+2001:             }
+2002:         }
+2003:         if (GenWaterColor) {
+2004:             BiomeGenBase[] swampBiomes;
+2005:             System.out.println("(MFQM)Customizning water color for swamps...");
+2006:             ArrayList<BiomeGenBase> all_biomesList = new ArrayList<BiomeGenBase>();
+2007:             ArrayList<BiomeGenBase> swamp_biomesList = new ArrayList<BiomeGenBase>();
+2008:             for (BiomeGenBase biome : BiomeGenBase.func_150565_n()) {
+2009:                 if (biome == null) continue;
+2010:                 String bioName = "" + biome;
+2011:                 boolean needAdd = true;
+2012:                 String[] parts = bioName.split("[.]");
+2013:                 if (parts != null && parts.length > 0 && parts[0].matches("(.*)thebetweenlands(.*)")) {
+2014:                     needAdd = false;
+2015:                 }
+2016:                 if (!needAdd) continue;
+2017:                 all_biomesList.add(biome);
+2018:                 if (!BiomeDictionary.isBiomeOfType((BiomeGenBase)biome, (BiomeDictionary.Type)BiomeDictionary.Type.SWAMP) || BiomeDictionary.isBiomeOfType((BiomeGenBase)biome, (BiomeDictionary.Type)BiomeDictionary.Type.HILLS) || BiomeDictionary.isBiomeOfType((BiomeGenBase)biome, (BiomeDictionary.Type)BiomeDictionary.Type.MAGICAL) || BiomeDictionary.isBiomeOfType((BiomeGenBase)biome, (BiomeDictionary.Type)BiomeDictionary.Type.MUSHROOM) || BiomeDictionary.isBiomeOfType((BiomeGenBase)biome, (BiomeDictionary.Type)BiomeDictionary.Type.PLAINS) || BiomeDictionary.isBiomeOfType((BiomeGenBase)biome, (BiomeDictionary.Type)BiomeDictionary.Type.FOREST) && !BiomeDictionary.isBiomeOfType((BiomeGenBase)biome, (BiomeDictionary.Type)BiomeDictionary.Type.WET)) continue;
+2019:                 swamp_biomesList.add(biome);
+2020:             }
+2021:             swamp_biomesList.add(BiomeGenBase.field_76780_h);
+2022:             BiomeGenBase[] swamp_biomes_array = new BiomeGenBase[swamp_biomesList.size()];
+2023:             for (BiomeGenBase biome : swampBiomes = swamp_biomesList.toArray(swamp_biomes_array)) {
+2024:                 try {
+2025:                     Field field1 = Fields.findField(BiomeGenBase.class, Integer.TYPE, 4);
+2026:                     field1.setAccessible(true);
+2027:                     int color = field1.getInt(biome);
+2028:                     float ColCof = 1.1f;
+2029:                     int tarColor = 13390080;
+2030:                     int tcB = tarColor & 0xFF;
+2031:                     int tcG = (tarColor & 0xFF00) / 256;
+2032:                     int tcR = (tarColor & 0xFF0000) / 65536;
+2033:                     int ccB = color & 0xFF;
+2034:                     int ccG = (color & 0xFF00) / 256;
+2035:                     int ccR = (color & 0xFF0000) / 65536;
+2036:                     if (ccR >= 254) {
+2037:                         ccR -= (int)Math.floor((double)(Math.abs(tcG - ccG) + Math.abs(tcB - ccB)) / 2.0);
+2038:                     }
+2039:                     int rescolor = color;
+2040:                     rescolor = Math.max(Math.min((int)Math.floor((float)(tcB - ccB) / ColCof + (float)(ccB / 2)), 255), 0);
+2041:                     rescolor += Math.max(Math.min((int)Math.floor((float)((tcG - ccG) / 2) / ColCof + (float)ccG), 255), 0) * 256;
+2042:                     field1.setInt(biome, rescolor += Math.max(Math.min((int)Math.floor((float)(tcR - ccR) / ColCof + (float)ccR), 255), 0) * 65536);
+2043:                 }
+2044:                 catch (Exception e) {
+2045:                     e.printStackTrace();
+2046:                 }
+2047:             }
+2048:         }
+2049:         proxy.registerRenderInformation();
+2050:         System.out.println("(MFQM)Init complete");
+2051:     }
+2052: 
+2053:     @SideOnly(value=Side.CLIENT)
+2054:     void registerClientEntity() {
+2055:     }
+2056: 
+2057:     public static void dropItem(World world, int x, int y, int z, ItemStack itm) {
+2058:         if (!world.field_72995_K) {
+2059:             float var6 = 0.7f;
+2060:             double d0 = (double)(world.field_73012_v.nextFloat() * var6) + (double)(1.0f - var6) * 0.5;
+2061:             double d1 = (double)(world.field_73012_v.nextFloat() * var6) + (double)(1.0f - var6) * 0.5;
+2062:             double d2 = (double)(world.field_73012_v.nextFloat() * var6) + (double)(1.0f - var6) * 0.5;
+2063:             EntityItem entityitem = new EntityItem(world, (double)x + d0, (double)y + d1, (double)z + d2, itm);
+2064:             entityitem.field_145804_b = 10;
+2065:             world.func_72838_d((Entity)entityitem);
+2066:         }
+2067:     }
+2068: 
+2069:     public static void dropItem(World world, double x, double y, double z, ItemStack itm) {
+2070:         if (!world.field_72995_K) {
+2071:             EntityItem entityitem = new EntityItem(world, x, y, z, itm);
+2072:             entityitem.field_145804_b = 10;
+2073:             world.func_72838_d((Entity)entityitem);
+2074:         }
+2075:     }
+2076: 
+2077:     public static boolean isEntityInsideOfBlock(Entity ent, Block bl) {
+2078:         Block var8;
+2079:         Block var7;
+2080:         double overCor = 0.0;
+2081:         if (bl.func_149688_o().func_76224_d() && bl instanceof BlockFluidClassic) {
+2082:             overCor = ((BlockFluidClassic)bl).getMaxRenderHeightMeta() == -1 ? 0.0 : 0.15;
+2083:         }
+2084:         double var2 = ent.field_70163_u + (double)ent.func_70047_e() + overCor;
+2085:         int var4 = MathHelper.func_76128_c((double)ent.field_70165_t);
+2086:         int var5 = MathHelper.func_76141_d((float)MathHelper.func_76128_c((double)var2));
+2087:         int var6 = MathHelper.func_76128_c((double)ent.field_70161_v);
+2088:         if (bl != MossBlock) {
+2089:             var7 = ent.field_70170_p.func_147439_a(var4, var5, var6);
+2090:             var8 = ent.field_70170_p.func_147439_a(var4, var5 + 1, var6);
+2091:         } else {
+2092:             var7 = ent.field_70170_p.func_147439_a(var4, var5 + 1, var6);
+2093:             var8 = ent.field_70170_p.func_147439_a(var4, var5 + 2, var6);
+2094:         }
+2095:         if (var7 == bl) {
+2096:             if (bl != MossBlock) {
+2097:                 if (var8.func_149688_o().func_76220_a() && (double)(var5 + 1) > var2) {
+2098:                     return true;
+2099:                 }
+2100:                 return (double)var5 + var7.func_149669_A() > var2;
+2101:             }
+2102:             return true;
+2103:         }
+2104:         return false;
+2105:     }
+2106: 
+2107:     public static boolean isEntityInsideOfBlockS(Entity ent, Block bl) {
+2108:         Block var8;
+2109:         Block var7;
+2110:         double overCor = 0.0;
+2111:         if (bl.func_149688_o().func_76224_d() && bl instanceof BlockFluidClassic) {
+2112:             overCor = ((BlockFluidClassic)bl).getMaxRenderHeightMeta() == -1 ? 0.0 : 0.15;
+2113:         }
+2114:         double var2 = ent.field_70163_u + (double)ent.func_70047_e() - 0.2 + overCor;
+2115:         int var4 = MathHelper.func_76128_c((double)ent.field_70165_t);
+2116:         int var5 = MathHelper.func_76141_d((float)MathHelper.func_76128_c((double)var2));
+2117:         int var6 = MathHelper.func_76128_c((double)ent.field_70161_v);
+2118:         if (bl != MossBlock) {
+2119:             var7 = ent.field_70170_p.func_147439_a(var4, var5, var6);
+2120:             var8 = ent.field_70170_p.func_147439_a(var4, var5 + 1, var6);
+2121:         } else {
+2122:             var7 = ent.field_70170_p.func_147439_a(var4, var5 + 1, var6);
+2123:             var8 = ent.field_70170_p.func_147439_a(var4, var5 + 2, var6);
+2124:         }
+2125:         if (var7 == bl) {
+2126:             if (bl != MossBlock) {
+2127:                 if (var8.func_149688_o().func_76220_a() && (double)(var5 + 1) > var2) {
+2128:                     return true;
+2129:                 }
+2130:                 return (double)var5 + var7.func_149669_A() > var2;
+2131:             }
+2132:             return true;
+2133:         }
+2134:         return false;
+2135:     }
+2136: 
+2137:     public static boolean isEntityInsideOfBlockM(Entity ent, Block bl) {
+2138:         int var6;
+2139:         int var5;
+2140:         double var2 = ent.field_70163_u + (double)ent.func_70047_e() - 0.2;
+2141:         int var4 = MathHelper.func_76128_c((double)ent.field_70165_t);
+2142:         Block var7 = ent.field_70170_p.func_147439_a(var4, (var5 = MathHelper.func_76141_d((float)MathHelper.func_76128_c((double)var2))) + 1, var6 = MathHelper.func_76128_c((double)ent.field_70161_v));
+2143:         return var7 == bl;
+2144:     }
+2145: 
+2146:     public static boolean isEntityInsideOfBlockL(Entity ent, Block bl) {
+2147:         int var6;
+2148:         int var5;
+2149:         double var2 = ent.field_70163_u;
+2150:         int var4 = MathHelper.func_76128_c((double)ent.field_70165_t);
+2151:         Block var7 = ent.field_70170_p.func_147439_a(var4, var5 = MathHelper.func_76141_d((float)MathHelper.func_76128_c((double)var2)), var6 = MathHelper.func_76128_c((double)ent.field_70161_v));
+2152:         if (var7 == bl) {
+2153:             if ((double)var5 + var7.func_149669_A() > var2) {
+2154:                 return true;
+2155:             }
+2156:             return MFQM.isEntityInsideOfBlockS(ent, bl);
+2157:         }
+2158:         return MFQM.isEntityInsideOfBlockS(ent, bl);
+2159:     }
+2160: 
+2161:     public static int getMuddyLevel(EntityPlayer ent, double y, World world) {
+2162:         double var2 = ent.field_70163_u + (double)ent.func_70047_e();
+2163:         double delta = var2 - y;
+2164:         if (delta < 0.7) {
+2165:             return 10;
+2166:         }
+2167:         if (delta < 1.04) {
+2168:             return 9;
+2169:         }
+2170:         if (delta < 1.1) {
+2171:             return 8;
+2172:         }
+2173:         if (delta < 1.21) {
+2174:             return 7;
+2175:         }
+2176:         if (delta < 1.32) {
+2177:             return 6;
+2178:         }
+2179:         if (delta < 1.53) {
+2180:             return 5;
+2181:         }
+2182:         if (delta < 1.67) {
+2183:             return 4;
+2184:         }
+2185:         if (delta < 1.98) {
+2186:             return 3;
+2187:         }
+2188:         if (delta < 2.14) {
+2189:             return 2;
+2190:         }
+2191:         if (delta < 2.4) {
+2192:             return 1;
+2193:         }
+2194:         return 0;
+2195:     }
+2196: 
+2197:     public static int getMuddyType(Block blc) {
+2198:         for (int i = 0; i < EntityRope.quicksandIDS.length; ++i) {
+2199:             if (EntityRope.quicksandIDS[i] != blc) continue;
+2200:             return i;
+2201:         }
+2202:         return -1;
+2203:     }
+2204: 
+2205:     public static int getLastMuddyType(int tp) {
+2206:         if (tp < 0) {
+2207:             return 0;
+2208:         }
+2209:         if (tp > EntityRope.quicksandIDS.length) {
+2210:             return 0;
+2211:         }
+2212:         return mudLastOpacity[tp];
+2213:     }
+2214: 
+2215:     public static boolean isTrulySink(Entity ent, double kofm) {
+2216:         if (ent instanceof EntityPlayer) {
+2217:             return ent.field_70170_p.field_72995_K;
+2218:         }
+2219:         return true;
+2220:     }
+2221: 
+2222:     public static boolean suctionWorldCheck(Entity ent, World world, double Vel) {
+2223:         double VelY = Math.max(Vel * 10.0, 0.25);
+2224:         if (ent instanceof EntityPlayer && QSBootsCalc && world.field_72995_K) {
+2225:             boolean boots = false;
+2226:             if (((EntityPlayer)ent).func_82169_q(0) != null) {
+2227:                 boots = true;
+2228:             }
+2229:             if (boots) {
+2230:                 VelY = Math.max(VelY / 2.0, 0.0);
+2231:             }
+2232:         }
+2233:         return (double)world.func_82737_E() % Math.floor(Math.max(10.0 * Math.pow(VelY, 2.0), 1.0)) == 0.0 && world.field_73012_v.nextInt(5) == 0;
+2234:     }
+2235: 
+2236:     public static void antiHoldJumpScript(Entity ent, double Kof, boolean Stuck) {
+2237:         if (!(ent instanceof EntityPlayer)) {
+2238:             return;
+2239:         }
+2240:         if (ent.field_70170_p.field_72995_K) {
+2241:             double weight = 0.0;
+2242:             double AWeight = 0.0;
+2243:             double IWeight = 0.0;
+2244:             if ((EntityPlayer)ent == Minecraft.func_71410_x().field_71439_g) {
+2245:                 String strName;
+2246:                 if (QSArmorCalc) {
+2247:                     double rdmg = 0.0;
+2248:                     double CWeight = 0.0;
+2249:                     strName = "";
+2250:                     if (((EntityPlayer)ent).func_82169_q(0) != null && ((EntityPlayer)ent).func_82169_q(0).func_77973_b() instanceof ItemArmor) {
+2251:                         rdmg = ((ItemArmor)((EntityPlayer)ent).func_82169_q(0).func_77973_b()).func_82812_d().func_78044_b(3);
+2252:                         strName = ((EntityPlayer)ent).func_82169_q(0).func_77973_b().func_77658_a();
+2253:                         if (strName.toLowerCase().matches("(.*)heavy(.*)")) {
+2254:                             rdmg += 100.0;
+2255:                         }
+2256:                         CWeight += Math.signum(Math.max(1.3 - Kof, 0.0)) * (rdmg + 10.0 / Math.max(rdmg, 1.0)) / 2.0 + Math.pow(rdmg, 2.0);
+2257:                     }
+2258:                     if (((EntityPlayer)ent).func_82169_q(1) != null && ((EntityPlayer)ent).func_82169_q(1).func_77973_b() instanceof ItemArmor) {
+2259:                         rdmg = ((ItemArmor)((EntityPlayer)ent).func_82169_q(1).func_77973_b()).func_82812_d().func_78044_b(2);
+2260:                         strName = ((EntityPlayer)ent).func_82169_q(1).func_77973_b().func_77658_a();
+2261:                         if (strName.toLowerCase().matches("(.*)heavy(.*)")) {
+2262:                             rdmg += 50.0;
+2263:                         }
+2264:                         CWeight += Math.signum(Math.max(0.9 - Kof, 0.0)) * (rdmg + 10.0 / Math.max(rdmg, 1.0)) / 2.0 + Math.pow(rdmg, 2.0);
+2265:                     }
+2266:                     if (((EntityPlayer)ent).func_82169_q(2) != null && ((EntityPlayer)ent).func_82169_q(2).func_77973_b() instanceof ItemArmor) {
+2267:                         rdmg = ((ItemArmor)((EntityPlayer)ent).func_82169_q(2).func_77973_b()).func_82812_d().func_78044_b(1);
+2268:                         strName = ((EntityPlayer)ent).func_82169_q(2).func_77973_b().func_77658_a();
+2269:                         if (strName.toLowerCase().matches("(.*)heavy(.*)")) {
+2270:                             rdmg += 50.0;
+2271:                         }
+2272:                         CWeight += Math.signum(Math.max(0.5 - Kof, 0.0)) * (rdmg + 10.0 / Math.max(rdmg, 1.0)) / 2.0 + Math.pow(rdmg, 2.0);
+2273:                     }
+2274:                     if (((EntityPlayer)ent).func_82169_q(3) != null && ((EntityPlayer)ent).func_82169_q(3).func_77973_b() instanceof ItemArmor) {
+2275:                         rdmg = ((ItemArmor)((EntityPlayer)ent).func_82169_q(3).func_77973_b()).func_82812_d().func_78044_b(0);
+2276:                         strName = ((EntityPlayer)ent).func_82169_q(3).func_77973_b().func_77658_a();
+2277:                         if (strName.toLowerCase().matches("(.*)heavy(.*)")) {
+2278:                             rdmg += 50.0;
+2279:                         }
+2280:                         CWeight += Math.signum(Math.max(0.1 - Kof, 0.0)) * (rdmg + 10.0 / Math.max(rdmg, 1.0)) / 2.0 + Math.pow(rdmg, 2.0);
+2281:                     }
+2282:                     AWeight += CWeight;
+2283:                 }
+2284:                 if (QSWeightCalc) {
+2285:                     IWeight = SIWeight;
+2286:                     if (ent.field_70170_p.func_82737_E() % 32L == 0L) {
+2287:                         IWeight = 0.0;
+2288:                         for (int i = 0; i <= 35; ++i) {
+2289:                             double CWeight = 0.0;
+2290:                             if (((EntityPlayer)ent).field_71071_by.field_70462_a[i] == null) continue;
+2291:                             ItemStack tpmItem = ((EntityPlayer)ent).field_71071_by.field_70462_a[i];
+2292:                             strName = tpmItem.func_77973_b().func_77658_a();
+2293:                             if (tpmItem.func_77973_b() instanceof ItemBlock) {
+2294:                                 Material mat;
+2295:                                 Block bl = Block.func_149634_a((Item)tpmItem.func_77973_b());
+2296:                                 CWeight = bl != null ? (bl.func_149716_u() ? (double)(10 * tpmItem.field_77994_a) : (2.5 + (double)(!(mat = bl.func_149688_o()).func_76217_h() ? 1 : 0) * 2.5 + (double)((float)(bl.func_149659_a(null) ? 1 : 0) * bl.func_149638_a(null)) / 2.0) / ((double)(!bl.func_149662_c() ? 1 : 0) + 1.0) * ((double)(mat.func_76227_m() == 2 ? 1 : 0) + 1.0) / 2.0 * (double)tpmItem.field_77994_a) : 0.5 * (double)tpmItem.field_77994_a;
+2297:                                 if (strName.toLowerCase().matches("(.*)heavy(.*)")) {
+2298:                                     CWeight *= 100.0;
+2299:                                 }
+2300:                             } else if (tpmItem.func_77973_b() instanceof ItemArmor) {
+2301:                                 double rdmg = ((ItemArmor)tpmItem.func_77973_b()).func_82812_d().func_78044_b(((ItemArmor)tpmItem.func_77973_b()).field_77881_a);
+2302:                                 strName = tpmItem.func_77973_b().func_77658_a();
+2303:                                 if (strName.toLowerCase().matches("(.*)heavy(.*)")) {
+2304:                                     rdmg += 50.0;
+2305:                                 }
+2306:                                 CWeight = Math.pow(rdmg, 2.0) * (double)tpmItem.field_77994_a;
+2307:                             } else {
+2308:                                 CWeight = tpmItem.func_77973_b().func_77645_m() ? (double)(5 * tpmItem.field_77994_a) : (tpmItem.func_77973_b().func_77639_j() == 1 ? 2.5 * (double)tpmItem.field_77994_a : 0.5 * (double)tpmItem.field_77994_a);
+2309:                                 if (strName.toLowerCase().matches("(.*)heavy(.*)")) {
+2310:                                     CWeight *= 100.0;
+2311:                                 }
+2312:                             }
+2313:                             IWeight += CWeight;
+2314:                         }
+2315:                         SIWeight = IWeight;
+2316:                     }
+2317:                 }
+2318:                 weight = Math.max(-250.0 + IWeight / 2.5 * (1.0 + Math.signum(Math.max(0.75 - Kof, 0.0)) * 1.5), 0.0) + AWeight;
+2319:                 ent.field_70181_x -= Math.min(weight, 2000.0 * Math.max((Kof - 0.25) * 5.0, 1.0)) / 300000.0;
+2320:             }
+2321:         }
+2322:         if (Stuck && QSBootsCalc) {
+2323:             boolean boots = false;
+2324:             boolean bootsIsFloat = false;
+2325:             if (((EntityPlayer)ent).func_82169_q(0) != null) {
+2326:                 if (((EntityPlayer)ent).func_82169_q(0).func_77973_b() == WadingBoots) {
+2327:                     bootsIsFloat = true;
+2328:                 } else {
+2329:                     String btsName = ((EntityPlayer)ent).func_82169_q(0).func_77973_b().func_77658_a();
+2330:                     if (btsName.toLowerCase().matches("(.*)heavy(.*)")) {
+2331:                         Kof *= 0.5;
+2332:                     }
+2333:                 }
+2334:                 boots = true;
+2335:             }
+2336:             if (Kof < 1.3) {
+2337:                 bootsIsFloat = false;
+2338:             }
+2339:             if (boots && Kof < 1.3 && !bootsIsFloat) {
+2340:                 boolean wasAtGround = ent.field_70122_E;
+2341:                 ent.field_70122_E = false | ent.field_70124_G;
+2342:                 if ((double)ent.field_70170_p.func_82737_E() % Math.max(1.0 + Math.floor(20.0 / Math.max(Kof * 5.0, 0.01)), 1.0) == 0.0) {
+2343:                     ent.field_70122_E = wasAtGround;
+2344:                 }
+2345:                 if (ent.field_70170_p.field_72995_K) {
+2346:                     PotionStuck props = PotionStuck.get((EntityLivingBase)ent);
+2347:                     int StLevel = -1;
+2348:                     if (props != null) {
+2349:                         StLevel = props.getLevel();
+2350:                     }
+2351:                     MFQM.setStuckEffect((EntityLivingBase)ent, Math.max(Math.max(Math.min((int)Math.floor(Math.pow(10.0 * Math.max(1.5 - Kof, 0.0), 2.0)) + StLevel, 255), 5), StLevel));
+2352:                 }
+2353:             }
+2354:         }
+2355:         if (MFQM.jumpKey((EntityPlayer)ent)) {
+2356:             ent.field_70122_E = false;
+2357:             return;
+2358:         }
+2359:     }
+2360: 
+2361:     public static boolean jumpKey(EntityPlayer curPlayer) {
+2362:         if (curPlayer.field_70170_p.field_72995_K && Minecraft.func_71410_x().field_71439_g == curPlayer) {
+2363:             GameSettings cfr_ignored_0 = Minecraft.func_71410_x().field_71474_y;
+2364:             return GameSettings.func_100015_a((KeyBinding)Minecraft.func_71410_x().field_71474_y.field_74314_A);
+2365:         }
+2366:         return false;
+2367:     }
+2368: 
+2369:     public static boolean crouchKey(EntityPlayer curPlayer) {
+2370:         if (curPlayer.field_70170_p.field_72995_K && Minecraft.func_71410_x().field_71439_g == curPlayer) {
+2371:             GameSettings cfr_ignored_0 = Minecraft.func_71410_x().field_71474_y;
+2372:             return GameSettings.func_100015_a((KeyBinding)Minecraft.func_71410_x().field_71474_y.field_74311_E);
+2373:         }
+2374:         return false;
+2375:     }
+2376: 
+2377:     public static double surfaceY(Block bl) {
+2378:         if (bl instanceof BlockFluidClassic) {
+2379:             if (((BlockFluidClassic)bl).getMaxRenderHeightMeta() != -1) {
+2380:                 return 0.85;
+2381:             }
+2382:             return 1.0;
+2383:         }
+2384:         return bl.func_149669_A();
+2385:     }
+2386: 
+2387:     public static Entity getEntityByUUID(World world, Entity ent, UUID uid, double radius) {
+2388:         AxisAlignedBB bbox = AxisAlignedBB.func_72330_a((double)(ent.field_70165_t - radius), (double)(ent.field_70163_u - radius), (double)(ent.field_70161_v - radius), (double)(ent.field_70165_t + radius), (double)(ent.field_70163_u + radius), (double)(ent.field_70161_v + radius));
+2389:         for (Object o : world.func_72839_b(ent, bbox)) {
+2390:             if (!uid.equals(((Entity)o).func_110124_au())) continue;
+2391:             return (Entity)o;
+2392:         }
+2393:         return null;
+2394:     }
+2395: 
+2396:     public static void SpawnMudTentacles(World world, Entity ent, int x, int y, int z, Block bl, int mt, int rate, int chance) {
+2397:         if (QSMudTentacles && !world.field_72995_K && ent != null && ent instanceof EntityLivingBase && ent.field_70130_N < 1.75f && !ent.field_70124_G && world.func_82737_E() % (long)rate == 0L && world.field_73012_v.nextInt(chance) == 0 && MFQM.CanBeMudTentacles(world, x, y, z, bl, mt)) {
+2398:             PotionEffect PEWeak = ((EntityLivingBase)ent).func_70660_b(Potion.field_76437_t);
+2399:             PotionEffect PESlow = ((EntityLivingBase)ent).func_70660_b(Potion.field_76419_f);
+2400:             int weakLevel = -1;
+2401:             int slowLevel = -1;
+2402:             if (PEWeak != null) {
+2403:                 weakLevel = PEWeak.func_76458_c();
+2404:             }
+2405:             if (PESlow != null) {
+2406:                 slowLevel = PESlow.func_76458_c();
+2407:             }
+2408:             if (weakLevel <= -1 || slowLevel <= 2) {
+2409:                 world.func_72838_d((Entity)new EntityMudTentacles(world, ent.field_70165_t, Math.min(ent.field_70163_u + 0.5, (double)(y + 1)), ent.field_70161_v, (Entity)((EntityLivingBase)ent), y + 1, 0));
+2410:             }
+2411:         }
+2412:     }
+2413: 
+2414:     public static void HandleMudTentacles(World world, Entity ent, int x, int y, int z, Block bl, int mt) {
+2415:         if (QSMudTentacles && !world.field_72995_K && ent != null && ent instanceof EntityItem && ((EntityItem)ent).func_92059_d().func_77973_b() instanceof ItemFood && !ent.field_70124_G && ((ItemFood)((EntityItem)ent).func_92059_d().func_77973_b()).func_77845_h() && world.func_82737_E() % 64L == 0L && world.field_73012_v.nextInt(5) == 0 && MFQM.CanBeMudTentacles(world, x, y, z, bl, mt)) {
+2416:             ent.func_70097_a(DamageSource.field_76377_j, 1000.0f);
+2417:             world.func_72838_d((Entity)new EntityLongStick(world, ent.field_70165_t, y + 1, ent.field_70161_v, null, x, y, z));
+2418:         }
+2419:     }
+2420: 
+2421:     public static boolean CanBeMudTentacles(World world, int x, int y, int z, Block bl, int mt) {
+2422:         if (QSMudTentacles && !world.field_72995_K) {
+2423:             if (AOA ? world.field_73011_w.field_76574_g != 0 && world.field_73011_w.field_76574_g != AOADimGardencia : world.field_73011_w.field_76574_g != 0) {
+2424:                 return false;
+2425:             }
+2426:             if (world.func_147439_a(x, y + 1, z) != bl && world.func_147439_a(x, y - 1, z) == bl && world.func_147439_a(x - 1, y, z) == bl && world.func_147439_a(x + 1, y, z) == bl && world.func_147439_a(x, y, z - 1) == bl && world.func_147439_a(x, y, z + 1) == bl) {
+2427:                 Chunk chn = world.func_72938_d(x, z);
+2428:                 int chance = 10;
+2429:                 chance = bl == JungleQuicksandBlock ? 10 : (bl == MudBlock ? 40 : 20);
+2430:                 if (chn.func_76617_a(987654321L).nextInt(chance) == 0 && CustomWorldGen.isAboveSky(x, y, z, world)) {
+2431:                     return true;
+2432:                 }
+2433:             }
+2434:         }
+2435:         return false;
+2436:     }
+2437: 
+2438:     public static void spawnBubble(World world, double x, double y, double z, Block bl, int mt, float sz, int tim) {
+2439:         world.func_72838_d((Entity)new EntityBubble(world, x, y, z, bl, mt, sz, tim));
+2440:     }
+2441: 
+2442:     public static void spawnBubbleDelay(World world, double x, double y, double z, Block bl, int mt, float sz, int tim, int dly) {
+2443:         world.func_72838_d((Entity)new EntityBubble(world, x, y, z, bl, mt, sz, tim, dly));
+2444:     }
+2445: 
+2446:     public static void spawnQSBubble(World world, double x, double y, double z, Block bl, int mt, float vol) {
+2447:         if (!world.field_72995_K) {
+2448:             return;
+2449:         }
+2450:         if (!QSBubble) {
+2451:             if (vol > 0.4f) {
+2452:                 for (int i = 0; i < 3; ++i) {
+2453:                     world.func_72869_a("blockcrack_" + Block.func_149682_b((Block)bl) + "_" + mt, x, y, z, 0.0, 0.0, 0.0);
+2454:                 }
+2455:             }
+2456:         } else if (vol > 0.4f) {
+2457:             float size = 2.5f - world.field_73012_v.nextFloat() * 1.75f;
+2458:             int time = (int)Math.floor((float)(1000 + world.field_73012_v.nextInt(500)) * size);
+2459:             MFQM.spawnBubble(world, x, y, z, bl, mt, size, time);
+2460:             return;
+2461:         }
+2462:         world.func_72980_b(x, y, z, "liquid.lavapop", vol + world.field_73012_v.nextFloat() * 0.25f, 0.25f + world.field_73012_v.nextFloat() * 0.5f, false);
+2463:     }
+2464: 
+2465:     public static void spawnBodyBubble(World world, Entity ent, int x, int y, int z, Block bl, int mt) {
+2466:         if (!world.field_72995_K) {
+2467:             return;
+2468:         }
+2469:         double xx = ent.field_70165_t + (double)(world.field_73012_v.nextFloat() * 2.0f) - 1.0;
+2470:         double zz = ent.field_70161_v + (double)(world.field_73012_v.nextFloat() * 2.0f) - 1.0;
+2471:         if (world.func_147439_a((int)Math.floor(xx), y, (int)Math.floor(zz)) != bl) {
+2472:             return;
+2473:         }
+2474:         if (mt == -1) {
+2475:             mt = world.func_72805_g((int)Math.floor(xx), y, (int)Math.floor(zz));
+2476:         }
+2477:         float size = 1.25f - world.field_73012_v.nextFloat() * 0.5f;
+2478:         int time = (int)Math.floor((float)(1000 + world.field_73012_v.nextInt(500)) * size);
+2479:         MFQM.spawnBubble(world, xx, (double)y + MFQM.surfaceY(bl), zz, bl, mt, size, time);
+2480:     }
+2481: 
+2482:     public static void spawnBodyBubbleRandom(World world, Entity ent, int x, int y, int z, Block bl, int mt) {
+2483:         if (!world.field_72995_K) {
+2484:             return;
+2485:         }
+2486:         double xx = ent.field_70165_t + (double)(world.field_73012_v.nextFloat() * 2.0f) - 1.0;
+2487:         double zz = ent.field_70161_v + (double)(world.field_73012_v.nextFloat() * 2.0f) - 1.0;
+2488:         if (world.func_147439_a((int)Math.floor(xx), y, (int)Math.floor(zz)) != bl) {
+2489:             return;
+2490:         }
+2491:         if (mt == -1) {
+2492:             mt = world.func_72805_g((int)Math.floor(xx), y, (int)Math.floor(zz));
+2493:         }
+2494:         float size = 1.25f - world.field_73012_v.nextFloat() * 0.5f;
+2495:         int time = (int)Math.floor((float)(1000 + world.field_73012_v.nextInt(500)) * size);
+2496:         MFQM.spawnBubbleDelay(world, xx, (double)y + MFQM.surfaceY(bl), zz, bl, mt, size, time, world.field_73012_v.nextInt(20) * 100);
+2497:     }
+2498: 
+2499:     public static void spawnDrowningBubble(World world, Entity ent, Block bl, int mt) {
+2500:         if (!world.field_72995_K) {
+2501:             return;
+2502:         }
+2503:         if (!ent.func_70089_S()) {
+2504:             return;
+2505:         }
+2506:         if (ent instanceof EntityPlayer && ((EntityPlayer)ent).field_71075_bZ.field_75102_a) {
+2507:             return;
+2508:         }
+2509:         if (world.func_82737_E() % 48L == 0L && world.field_73012_v.nextInt(2) == 0) {
+2510:             for (int i = 0; i < 4 + world.field_73012_v.nextInt(6); ++i) {
+2511:                 int zzz;
+2512:                 int yyy;
+2513:                 int xxx;
+2514:                 double xx = ent.field_70165_t + (double)(world.field_73012_v.nextFloat() * 1.0f) - 0.5;
+2515:                 double zz = ent.field_70161_v + (double)(world.field_73012_v.nextFloat() * 1.0f) - 0.5;
+2516:                 double yy = ent.field_70163_u + (double)ent.func_70047_e();
+2517:                 if (ent instanceof EntityPlayer) {
+2518:                     yy += -0.15;
+2519:                 }
+2520:                 if (world.func_147439_a(xxx = (int)Math.floor(xx), yyy = (int)Math.floor(yy), zzz = (int)Math.floor(zz)) != bl) {
+2521:                     return;
+2522:                 }
+2523:                 if (mt == -1) {
+2524:                     mt = world.func_72805_g(xxx, yyy, zzz);
+2525:                 }
+2526:                 float size = 1.25f - world.field_73012_v.nextFloat() * 1.0f;
+2527:                 int time = (int)Math.floor((float)(1000 + world.field_73012_v.nextInt(500)) * size);
+2528:                 MFQM.spawnBubbleDelay(world, xx, (double)yyy + MFQM.surfaceY(bl), zz, bl, mt, size, time, i * 100 + world.field_73012_v.nextInt(40) * 100);
+2529:             }
+2530:         }
+2531:     }
+2532: 
+2533:     public static void spawnStickBubble(World world, double x, double y, double z, Block bl, int mt, boolean deep) {
+2534:         if (!world.field_72995_K) {
+2535:             return;
+2536:         }
+2537:         int rnd = 4 + world.field_73012_v.nextInt(6);
+2538:         if (!deep) {
+2539:             rnd = 2 + world.field_73012_v.nextInt(3);
+2540:         }
+2541:         for (int i = 0; i < rnd; ++i) {
+2542:             int zzz;
+2543:             int yyy;
+2544:             double xx = x + (double)(world.field_73012_v.nextFloat() * 1.0f) - 0.5;
+2545:             double zz = z + (double)(world.field_73012_v.nextFloat() * 1.0f) - 0.5;
+2546:             double yy = y - 1.0;
+2547:             int xxx = (int)Math.floor(xx);
+2548:             if (world.func_147439_a(xxx, yyy = (int)Math.floor(yy), zzz = (int)Math.floor(zz)) != bl) {
+2549:                 return;
+2550:             }
+2551:             if (mt == -1) {
+2552:                 mt = world.func_72805_g(xxx, yyy, zzz);
+2553:             }
+2554:             float size = 1.25f - world.field_73012_v.nextFloat() * 1.0f;
+2555:             int time = (int)Math.floor((float)(1000 + world.field_73012_v.nextInt(500)) * size);
+2556:             MFQM.spawnBubbleDelay(world, xx, (double)yyy + MFQM.surfaceY(bl), zz, bl, mt, size, time, i * 200 + world.field_73012_v.nextInt(10) * 100);
+2557:         }
+2558:     }
+2559: 
+2560:     public static int getMuddyAir(Entity ent) {
+2561:         try {
+2562:             if (ent instanceof EntityPlayer) {
+2563:                 return ent.func_70096_w().func_75679_c(MuddyAir);
+2564:             }
+2565:             return ent.func_70096_w().func_75679_c(MuddyMobsAir);
+2566:         }
+2567:         catch (Exception e) {
+2568:             return 0;
+2569:         }
+2570:     }
+2571: 
+2572:     public static void setMuddyAir(Entity ent, int lvl) {
+2573:         try {
+2574:             if (ent instanceof EntityPlayer) {
+2575:                 ent.func_70096_w().func_75692_b(MuddyAir, (Object)lvl);
+2576:             } else {
+2577:                 ent.func_70096_w().func_75692_b(MuddyMobsAir, (Object)lvl);
+2578:             }
+2579:         }
+2580:         catch (Exception e) {
+2581:             return;
+2582:         }
+2583:     }
+2584: 
+2585:     public static void addMuddyAir(Entity ent, int tm) {
+2586:         try {
+2587:             if (ent instanceof EntityPlayer) {
+2588:                 ent.func_70096_w().func_75692_b(MuddyAir, (Object)(ent.func_70096_w().func_75679_c(MuddyAir) + tm));
+2589:             } else {
+2590:                 ent.func_70096_w().func_75692_b(MuddyMobsAir, (Object)(ent.func_70096_w().func_75679_c(MuddyMobsAir) + tm));
+2591:             }
+2592:         }
+2593:         catch (Exception e) {
+2594:             return;
+2595:         }
+2596:     }
+2597: 
+2598:     public static boolean isDrowning(Entity ent) {
+2599:         if (ent instanceof EntityPlayer ? !QSAir : !QSMAir) {
+2600:             return true;
+2601:         }
+2602:         if (ent instanceof EntityPlayer && ((EntityPlayer)ent).field_71075_bZ.field_75102_a) {
+2603:             return false;
+2604:         }
+2605:         int gma = MFQM.getMuddyAir(ent);
+2606:         if (!ent.field_70170_p.field_72995_K) {
+2607:             if (gma < 0 && ent.field_70170_p.func_82737_E() % 16L == 0L) {
+2608:                 MFQM.setMuddyAir(ent, 0);
+2609:                 return true;
+2610:             }
+2611:         } else if (gma < 1) {
+2612:             return true;
+2613:         }
+2614:         return false;
+2615:     }
+2616: 
+2617:     public static double minAbs(double calcValue, double minValue) {
+2618:         return Math.min(Math.abs(calcValue), minValue) * MFQM.Sign(calcValue);
+2619:     }
+2620: 
+2621:     public static double Sign(double value) {
+2622:         if (value > 0.0) {
+2623:             return 1.0;
+2624:         }
+2625:         if (value < 0.0) {
+2626:             return -1.0;
+2627:         }
+2628:         return 0.0;
+2629:     }
+2630: 
+2631:     public static boolean isChildOf(Class parent, Class child) {
+2632:         if (child.getSuperclass() == parent) {
+2633:             return true;
+2634:         }
+2635:         if (child.getSuperclass() != Entity.class) {
+2636:             return MFQM.isChildOf(parent, child.getSuperclass());
+2637:         }
+2638:         return false;
+2639:     }
+2640: 
+2641:     public static void setStuckEffect(EntityLivingBase elb, int level) {
+2642:         if (PotionStuck.get(elb) != null) {
+2643:             PotionStuck.get(elb).setStuckLevel(level);
+2644:         }
+2645:     }
+2646: 
+2647:     static {
+2648:         armorMaterialUnprotective = EnumHelper.addArmorMaterial((String)"UNPROTECTIVE", (int)-1, (int[])new int[]{0, 0, 0, 0}, (int)0);
+2649:         eggIdCounter = 300;
+2650:         mudTextures = new ResourceLocation[]{new ResourceLocation("morefunquicksandmod", "textures/entity/mudOverlays/MudOverlay0.png"), new ResourceLocation("morefunquicksandmod", "textures/entity/mudOverlays/MudOverlay1.png"), new ResourceLocation("morefunquicksandmod", "textures/entity/mudOverlays/MudOverlay2.png"), new ResourceLocation("morefunquicksandmod", "textures/entity/mudOverlays/MudOverlay3.png"), new ResourceLocation("morefunquicksandmod", "textures/entity/mudOverlays/MudOverlay4.png"), new ResourceLocation("morefunquicksandmod", "textures/entity/mudOverlays/MudOverlay5.png"), new ResourceLocation("morefunquicksandmod", "textures/entity/mudOverlays/MudOverlay6.png"), new ResourceLocation("morefunquicksandmod", "textures/entity/mudOverlays/MudOverlay7.png"), new ResourceLocation("morefunquicksandmod", "textures/entity/mudOverlays/MudOverlay8.png"), new ResourceLocation("morefunquicksandmod", "textures/entity/mudOverlays/MudOverlay9.png")};
+2651:         slimeTextures = new ResourceLocation[]{new ResourceLocation("morefunquicksandmod", "textures/entity/mudOverlays/SlimeOverlay0.png"), new ResourceLocation("morefunquicksandmod", "textures/entity/mudOverlays/SlimeOverlay1.png"), new ResourceLocation("morefunquicksandmod", "textures/entity/mudOverlays/SlimeOverlay2.png"), new ResourceLocation("morefunquicksandmod", "textures/entity/mudOverlays/SlimeOverlay3.png"), new ResourceLocation("morefunquicksandmod", "textures/entity/mudOverlays/SlimeOverlay4.png"), new ResourceLocation("morefunquicksandmod", "textures/entity/mudOverlays/SlimeOverlay5.png"), new ResourceLocation("morefunquicksandmod", "textures/entity/mudOverlays/SlimeOverlay6.png"), new ResourceLocation("morefunquicksandmod", "textures/entity/mudOverlays/SlimeOverlay7.png"), new ResourceLocation("morefunquicksandmod", "textures/entity/mudOverlays/SlimeOverlay8.png"), new ResourceLocation("morefunquicksandmod", "textures/entity/mudOverlays/SlimeOverlay9.png")};
+2652:         mudTypesColors = new int[]{0x454225, 14611967, 0xFFFFFF, 2431764, 6444596, 3089167, 2431764, 2431764, 15007713, 2431764, 2431764, 10197137, 1973277, 0xFFFFFF, 0xFFFFFF, 0xFFFFE5, 0xFFFFFF, 6180923, 0xE1E1E1, 0xFFFFE5, 14013598, 0xFFFFE5, 7041868, 10056782, 8554890, 2431764, 12298319, 3806471, 5720614, 2431764, 5389343, 16758567, 2431764};
+2653:         mudMaxOpacity = new int[]{2000, 500, 0, 1000, 5000, 5000, 500, 500, 500, 5000, 5000, 5000, 10000, 0, 0, 250, 0, 2000, 3000, 250, 500, 250, 1000, 5000, 5000, 1000, 10000, 7000, 2000, 2000, 5000, 600, 500};
+2654:         mudLastOpacity = new int[]{500, 0, 0, 1000, 1000, 1000, 500, 500, 0, 1000, 1000, 1000, 1000, 0, 0, 0, 0, 1000, 0, 0, 0, 0, 0, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 600, 250};
+2655:         mudIncOpacity = new int[]{50, 25, 0, 100, 100, 100, 50, 50, 50, 100, 100, 100, 500, 0, 0, 25, 0, 100, 75, 25, 50, 25, 100, 100, 100, 100, 500, 500, 50, 100, 100, 50, 50};
+2656:         arrayRopes = new Entity[64];
+2657:         arrayPlayers = new String[64];
+2658:         arrayHooks = new Entity[64];
+2659:         arrayPlayersHooks = new String[64];
+2660:         arrayRescue = new Entity[64];
+2661:         arrayPlayersRescue = new String[64];
+2662:         LiqFixer = false;
+2663:         TFDim = -999999;
+2664:         TBLDim = -999999;
+2665:         ABCDim1 = -999999;
+2666:         ABCDim2 = -999999;
+2667:         ABCDim3 = -999999;
+2668:         ABCDim4 = -999999;
+2669:         WLDDim = -999999;
+2670:         AOADimHeaven = -999999;
+2671:         AOADimAbyss = -999999;
+2672:         AOADimDeeplands = -999999;
+2673:         AOADimPrecasia = -999999;
+2674:         AOADimLunalus = -999999;
+2675:         AOADimIromine = -999999;
+2676:         AOADimGardencia = -999999;
+2677:         AOADimGreckon = -999999;
+2678:         AOADimLBorean = -999999;
+2679:         AOADimBarathos = -999999;
+2680:         AOADimDustopia = -999999;
+2681:         AOADimVoxPonds = -999999;
+2682:         AOADimLandsLelyetia = -999999;
+2683:         AOADimCeleve = -999999;
+2684:         AOADimCreeponia = -999999;
+2685:         AOADimShyrelands = -999999;
+2686:         AOADimCrystevia = -999999;
+2687:         AOADimCandyland = -999999;
+2688:         AOADimMysterium = -999999;
+2689:         EUDDim = -999999;
+2690:         TBL_MIC = false;
+2691:         ABC_MIC = false;
+2692:         WLD_MIC = false;
+2693:         AOA_MIC = false;
+2694:         DmgMul = 1.0f;
+2695:         SwampBiomes = new int[30];
+2696:         TarBiomes = new int[5];
+2697:         QSJungleBiomes = new int[1];
+2698:         SQSBiomes = new int[10];
+2699:         JungleBiomes = new int[5];
+2700:         DesertBiomes = new int[5];
+2701:         SnowBiomes = new int[5];
+2702:         LarvBiomes = new int[5];
+2703:         CorruptedSands = new int[1];
+2704:         BloodHeaps = new int[1];
+2705:         PeatBogBiomes = new int[7];
+2706:         MineralBiomes = new int[6];
+2707:         WastelandBiomes = new int[1];
+2708:         ABCBiomes = new int[13];
+2709:         WLDBiomes = new int[7];
+2710:         AOABiomes = new int[48];
+2711:         MireFluid = new MireFluid("LiquidMire");
+2712:         MireFluidS = new MireFluid("LiquidMireS");
+2713:         BogFluid = new BogFluid();
+2714:         SlurryFluid = new SlurryFluid();
+2715:         QuicksandFluid = new QuicksandFluid();
+2716:         SandFluid = new SandFluid();
+2717:         TarFluid = new TarFluid();
+2718:         SlimeFluid = new SlimeFluid();
+2719:         AcidFluid = new AcidFluid();
+2720:         MucusFluid = new MucusFluid();
+2721:         ChocolateFluid = new ChocolateFluid();
+2722:         HoneyFluid = new HoneyFluid();
+2723:         SinkyFluid = new SinkyFluid();
+2724:         MuddyLevelEcp = 0;
+2725:         MuddyAirEcp = 0;
+2726:         MuddyMobsAirEcp = 0;
+2727:         SIWeight = 0.0;
+2728:         SIFOV = 1.0;
+2729:         SIRenderYaw = 0.0;
+2730:         SIRenderYawPre = 0.0;
+2731:     }
+2732: }
+2733: 

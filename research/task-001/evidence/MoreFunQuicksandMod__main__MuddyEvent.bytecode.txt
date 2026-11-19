@@ -1,0 +1,168 @@
+Archive: MoreFunQuicksandMod/main/MuddyEvent.class
+SHA256: e1fedfef5a87cbf3952664102a8ea97507ba851ce2dc12d886fa09d46a6f986f
+Superclass: java/lang/Object
+Offsets are decimal byte offsets; branch operands are relative offsets.
+
+
+METHOD <init> ()V
+000000: aload_0 
+000001: invokespecial #19 java/lang/Object.<init>:()V
+000004: return 
+
+METHOD onEntityConstructing (Lnet/minecraftforge/event/entity/EntityEvent$EntityConstructing;)V
+000000: aload_1 
+000001: getfield #28 net/minecraftforge/event/entity/EntityEvent$EntityConstructing.entity:Lnet/minecraft/entity/Entity;
+000004: instanceof #30 net/minecraft/entity/player/EntityPlayer
+000007: ifeq 26
+000010: aload_1 
+000011: getfield #28 net/minecraftforge/event/entity/EntityEvent$EntityConstructing.entity:Lnet/minecraft/entity/Entity;
+000014: checkcast #30 net/minecraft/entity/player/EntityPlayer
+000017: invokestatic #36 MoreFunQuicksandMod/main/CustomVarPlayer.get:(Lnet/minecraft/entity/player/EntityPlayer;)LMoreFunQuicksandMod/main/CustomVarPlayer;
+000020: ifnonnull 13
+000023: aload_1 
+000024: getfield #28 net/minecraftforge/event/entity/EntityEvent$EntityConstructing.entity:Lnet/minecraft/entity/Entity;
+000027: checkcast #30 net/minecraft/entity/player/EntityPlayer
+000030: invokestatic #40 MoreFunQuicksandMod/main/CustomVarPlayer.register:(Lnet/minecraft/entity/player/EntityPlayer;)V
+000033: return 
+
+METHOD onLivingDeathEvent (Lnet/minecraftforge/event/entity/living/LivingDeathEvent;)V
+000000: aload_1 
+000001: getfield #50 net/minecraftforge/event/entity/living/LivingDeathEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000004: getfield #56 net/minecraft/entity/EntityLivingBase.field_70170_p:Lnet/minecraft/world/World;
+000007: getfield #62 net/minecraft/world/World.field_72995_K:Z
+000010: ifne 39
+000013: aload_1 
+000014: getfield #50 net/minecraftforge/event/entity/living/LivingDeathEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000017: instanceof #30 net/minecraft/entity/player/EntityPlayer
+000020: ifeq 29
+000023: aload_1 
+000024: getfield #50 net/minecraftforge/event/entity/living/LivingDeathEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000027: checkcast #30 net/minecraft/entity/player/EntityPlayer
+000030: invokestatic #36 MoreFunQuicksandMod/main/CustomVarPlayer.get:(Lnet/minecraft/entity/player/EntityPlayer;)LMoreFunQuicksandMod/main/CustomVarPlayer;
+000033: astore_2 
+000034: aload_2 
+000035: iconst_0 
+000036: invokevirtual #66 MoreFunQuicksandMod/main/CustomVarPlayer.setMuddyLevel:(I)V
+000039: aload_2 
+000040: iconst_m1 
+000041: invokevirtual #69 MoreFunQuicksandMod/main/CustomVarPlayer.setMuddyType:(I)V
+000044: aload_2 
+000045: iconst_0 
+000046: invokevirtual #72 MoreFunQuicksandMod/main/CustomVarPlayer.setMuddyTime:(I)V
+000049: return 
+
+METHOD onLivingUpdateEvent (Lnet/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent;)V
+000000: aload_1 
+000001: getfield #78 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000004: getfield #56 net/minecraft/entity/EntityLivingBase.field_70170_p:Lnet/minecraft/world/World;
+000007: getfield #62 net/minecraft/world/World.field_72995_K:Z
+000010: ifne 229
+000013: aload_1 
+000014: getfield #78 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000017: instanceof #30 net/minecraft/entity/player/EntityPlayer
+000020: ifeq 219
+000023: aload_1 
+000024: getfield #78 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000027: checkcast #30 net/minecraft/entity/player/EntityPlayer
+000030: invokestatic #36 MoreFunQuicksandMod/main/CustomVarPlayer.get:(Lnet/minecraft/entity/player/EntityPlayer;)LMoreFunQuicksandMod/main/CustomVarPlayer;
+000033: astore_2 
+000034: aload_2 
+000035: invokevirtual #82 MoreFunQuicksandMod/main/CustomVarPlayer.getMuddyLevel:()I
+000038: istore_3 
+000039: aload_2 
+000040: invokevirtual #85 MoreFunQuicksandMod/main/CustomVarPlayer.getMuddyType:()I
+000043: istore 4
+000045: aload_2 
+000046: invokevirtual #88 MoreFunQuicksandMod/main/CustomVarPlayer.getMuddyTime:()I
+000049: istore 5
+000051: iload 4
+000053: iflt 186
+000056: iload 5
+000058: ifle 181
+000061: aload_1 
+000062: getfield #78 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000065: invokevirtual #92 net/minecraft/entity/EntityLivingBase.func_70026_G:()Z
+000068: ifeq 96
+000071: aload_1 
+000072: getfield #78 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000075: getstatic #98 MoreFunQuicksandMod/main/MFQM.LiquidMireBlock:Lnet/minecraft/block/Block;
+000078: invokestatic #102 MoreFunQuicksandMod/main/MFQM.isEntityInsideOfBlockL:(Lnet/minecraft/entity/Entity;Lnet/minecraft/block/Block;)Z
+000081: ifne 158
+000084: aload_1 
+000085: getfield #78 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000088: getstatic #105 MoreFunQuicksandMod/main/MFQM.StableLiquidMireBlock:Lnet/minecraft/block/Block;
+000091: invokestatic #102 MoreFunQuicksandMod/main/MFQM.isEntityInsideOfBlockL:(Lnet/minecraft/entity/Entity;Lnet/minecraft/block/Block;)Z
+000094: ifne 145
+000097: aload_2 
+000098: invokevirtual #88 MoreFunQuicksandMod/main/CustomVarPlayer.getMuddyTime:()I
+000101: ifle 138
+000104: aload_2 
+000105: bipush -5
+000107: aload_2 
+000108: invokevirtual #88 MoreFunQuicksandMod/main/CustomVarPlayer.getMuddyTime:()I
+000111: bipush 100
+000113: idiv 
+000114: isub 
+000115: invokevirtual #108 MoreFunQuicksandMod/main/CustomVarPlayer.addMuddyTime:(I)V
+000118: aload_2 
+000119: aload_2 
+000120: invokevirtual #88 MoreFunQuicksandMod/main/CustomVarPlayer.getMuddyTime:()I
+000123: iconst_0 
+000124: invokestatic #114 java/lang/Math.max:(II)I
+000127: invokevirtual #72 MoreFunQuicksandMod/main/CustomVarPlayer.setMuddyTime:(I)V
+000130: aload_1 
+000131: getfield #78 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000134: getfield #56 net/minecraft/entity/EntityLivingBase.field_70170_p:Lnet/minecraft/world/World;
+000137: invokevirtual #118 net/minecraft/world/World.func_82737_E:()J
+000140: ldc2_w #119 16
+000143: lrem 
+000144: lconst_0 
+000145: lcmp 
+000146: ifne 93
+000149: iload_3 
+000150: iconst_5 
+000151: if_icmple 88
+000154: aload_2 
+000155: iload_3 
+000156: iconst_1 
+000157: isub 
+000158: invokevirtual #66 MoreFunQuicksandMod/main/CustomVarPlayer.setMuddyLevel:(I)V
+000161: goto 78
+000164: aload_1 
+000165: getfield #78 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000168: getfield #56 net/minecraft/entity/EntityLivingBase.field_70170_p:Lnet/minecraft/world/World;
+000171: invokevirtual #118 net/minecraft/world/World.func_82737_E:()J
+000174: ldc2_w #121 1024
+000177: lrem 
+000178: lconst_0 
+000179: lcmp 
+000180: ifne 23
+000183: iload_3 
+000184: iconst_5 
+000185: if_icmple 18
+000188: iload 5
+000190: sipush 1000
+000193: if_icmpge 10
+000196: aload_2 
+000197: iload_3 
+000198: iconst_1 
+000199: isub 
+000200: invokevirtual #66 MoreFunQuicksandMod/main/CustomVarPlayer.setMuddyLevel:(I)V
+000203: aload_1 
+000204: getfield #78 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000207: getfield #56 net/minecraft/entity/EntityLivingBase.field_70170_p:Lnet/minecraft/world/World;
+000210: invokevirtual #118 net/minecraft/world/World.func_82737_E:()J
+000213: ldc2_w #123 2
+000216: lrem 
+000217: lconst_0 
+000218: lcmp 
+000219: ifne 20
+000222: aload_2 
+000223: invokevirtual #88 MoreFunQuicksandMod/main/CustomVarPlayer.getMuddyTime:()I
+000226: iload 4
+000228: invokestatic #128 MoreFunQuicksandMod/main/MFQM.getLastMuddyType:(I)I
+000231: if_icmple 8
+000234: aload_2 
+000235: iconst_m1 
+000236: invokevirtual #108 MoreFunQuicksandMod/main/CustomVarPlayer.addMuddyTime:(I)V
+000239: return 

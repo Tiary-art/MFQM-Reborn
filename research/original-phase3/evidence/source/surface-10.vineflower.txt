@@ -1,0 +1,69 @@
+// Decompiled inference, NOT original source; semantic closure PARTIAL
+      if (MFQM.GenSSand && !blockGen) {
+         int dT = this.getDesertType(biomeId);
+         if (dT != 0 && this.T_BoP || biomegenbase instanceof BiomeGenDesert && !this.T_BoP) {
+            boolean canGen = false;
+            int genCount = 0;
+            int genPos = 0;
+            int genRad = 0;
+            int genRadP = 0;
+            boolean sandOnly = false;
+            int rad = 0;
+            switch (dT) {
+               case 0:
+                  genCount = 1 + random.nextInt(2);
+                  genRad = 4;
+                  sandOnly = true;
+                  genRadP = 15;
+                  genPos = 20;
+                  break;
+               case 1:
+                  genCount = 1 + random.nextInt(2);
+                  genRad = 4;
+                  sandOnly = true;
+                  genRadP = 15;
+                  genPos = 30;
+                  break;
+               case 6:
+                  genCount = 5 + random.nextInt(5);
+                  genRad = 4;
+                  sandOnly = true;
+                  genRadP = 15;
+                  genPos = 20;
+            }
+
+            if (genPos > 0 && random.nextInt(genPos) == 0) {
+               for (int ix = 0; ix < genCount && !blockGen; ix++) {
+                  firstBlockXCoord = chunkX + random.nextInt(16);
+                  firstBlockYCoord = 96 + dHeight;
+                  firstBlockZCoord = chunkZ + random.nextInt(16);
+                  rad = genRad + random.nextInt(genRadP);
+                  int countBlock = 0;
+
+                  for (canGen = false; firstBlockYCoord > 60 + dHeight; firstBlockYCoord--) {
+                     if (this.validSandMaterial(sandOnly, firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)
+                        && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                        if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                           canGen = true;
+                           break;
+                        }
+
+                        countBlock++;
+                     }
+
+                     if (countBlock > 10) {
+                        break;
+                     }
+                  }
+
+                  if (canGen
+                     && this.genIsFlat(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world)
+                     && this.genIsFlat(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad, world)) {
+                     this.generateSoftSand(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random);
+                     blockGen = true;
+                  }
+               }
+            }
+         }
+      }
+

@@ -1,0 +1,97 @@
+public class MoreFunQuicksandMod.main.blocks.BlockPeat extends net.minecraft.block.Block {
+  net.minecraft.util.IIcon theQIIcon;
+    descriptor: Lnet/minecraft/util/IIcon;
+
+  public MoreFunQuicksandMod.main.blocks.BlockPeat();
+    descriptor: ()V
+    Code:
+       0: aload_0
+       1: getstatic     #18                 // Field net/minecraft/block/material/Material.field_151576_e:Lnet/minecraft/block/material/Material;
+       4: invokespecial #21                 // Method net/minecraft/block/Block."<init>":(Lnet/minecraft/block/material/Material;)V
+       7: aload_0
+       8: ldc           #22                 // float 0.85f
+      10: invokevirtual #26                 // Method func_149711_c:(F)Lnet/minecraft/block/Block;
+      13: pop
+      14: aload_0
+      15: getstatic     #30                 // Field net/minecraft/block/Block.field_149769_e:Lnet/minecraft/block/Block$SoundType;
+      18: invokevirtual #34                 // Method func_149672_a:(Lnet/minecraft/block/Block$SoundType;)Lnet/minecraft/block/Block;
+      21: pop
+      22: aload_0
+      23: fconst_1
+      24: invokevirtual #37                 // Method func_149752_b:(F)Lnet/minecraft/block/Block;
+      27: pop
+      28: aload_0
+      29: ldc           #39                 // String HPeat
+      31: invokevirtual #43                 // Method func_149663_c:(Ljava/lang/String;)Lnet/minecraft/block/Block;
+      34: pop
+      35: aload_0
+      36: getstatic     #49                 // Field MoreFunQuicksandMod/main/MFQM.tabMFQM:Lnet/minecraft/creativetab/CreativeTabs;
+      39: invokevirtual #53                 // Method func_149647_a:(Lnet/minecraft/creativetab/CreativeTabs;)Lnet/minecraft/block/Block;
+      42: pop
+      43: return
+
+  public net.minecraft.util.IIcon func_149691_a(int, int);
+    descriptor: (II)Lnet/minecraft/util/IIcon;
+    Code:
+       0: aload_0
+       1: getfield      #63                 // Field theQIIcon:Lnet/minecraft/util/IIcon;
+       4: areturn
+
+  public net.minecraft.item.Item func_149650_a(int, java.util.Random, int);
+    descriptor: (ILjava/util/Random;I)Lnet/minecraft/item/Item;
+    Code:
+       0: getstatic     #72                 // Field MoreFunQuicksandMod/main/MFQM.PeatItem:Lnet/minecraft/item/Item;
+       3: areturn
+
+  public int func_149745_a(java.util.Random);
+    descriptor: (Ljava/util/Random;)I
+    Code:
+       0: bipush        8
+       2: aload_1
+       3: iconst_2
+       4: invokevirtual #83                 // Method java/util/Random.nextInt:(I)I
+       7: iadd
+       8: ireturn
+
+  public void func_149636_a(net.minecraft.world.World, net.minecraft.entity.player.EntityPlayer, int, int, int, int);
+    descriptor: (Lnet/minecraft/world/World;Lnet/minecraft/entity/player/EntityPlayer;IIII)V
+    Code:
+       0: aload_2
+       1: invokestatic  #92                 // Method net/minecraft/enchantment/EnchantmentHelper.func_77502_d:(Lnet/minecraft/entity/EntityLivingBase;)Z
+       4: ifeq          34
+       7: aload_1
+       8: iload_3
+       9: iload         4
+      11: iload         5
+      13: new           #94                 // class net/minecraft/item/ItemStack
+      16: dup
+      17: aload_0
+      18: invokespecial #97                 // Method net/minecraft/item/ItemStack."<init>":(Lnet/minecraft/block/Block;)V
+      21: invokestatic  #101                // Method MoreFunQuicksandMod/main/MFQM.dropItem:(Lnet/minecraft/world/World;IIILnet/minecraft/item/ItemStack;)V
+      24: aload_1
+      25: iload_3
+      26: iload         4
+      28: iload         5
+      30: invokevirtual #107                // Method net/minecraft/world/World.func_147471_g:(III)V
+      33: return
+      34: aload_0
+      35: aload_1
+      36: aload_2
+      37: iload_3
+      38: iload         4
+      40: iload         5
+      42: iload         6
+      44: invokespecial #109                // Method net/minecraft/block/Block.func_149636_a:(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/EntityPlayer;IIII)V
+      47: return
+
+  public void func_149651_a(net.minecraft.client.renderer.texture.IIconRegister);
+    descriptor: (Lnet/minecraft/client/renderer/texture/IIconRegister;)V
+    Code:
+       0: aload_0
+       1: aload_1
+       2: ldc           #121                // String morefunquicksandmod:Peat
+       4: invokeinterface #127,  2          // InterfaceMethod net/minecraft/client/renderer/texture/IIconRegister.func_94245_a:(Ljava/lang/String;)Lnet/minecraft/util/IIcon;
+       9: putfield      #63                 // Field theQIIcon:Lnet/minecraft/util/IIcon;
+      12: return
+}
+Compiled from "BlockQuicksand.java"

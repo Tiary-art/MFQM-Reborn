@@ -1,0 +1,311 @@
+Archive: MoreFunQuicksandMod/main/blocks/BlockHoneycomb.class
+SHA256: 29c4a513fc520e2802eea61b15c9bc38695236fc9652e8b2ceb5d6f0e259b33d
+Superclass: net/minecraft/block/Block
+Offsets are decimal byte offsets; branch operands are relative offsets.
+
+
+METHOD <init> ()V
+000000: aload_0 
+000001: getstatic #22 net/minecraft/block/material/Material.field_151580_n:Lnet/minecraft/block/material/Material;
+000004: invokespecial #25 net/minecraft/block/Block.<init>:(Lnet/minecraft/block/material/Material;)V
+000007: aload_0 
+000008: ldc #26 0.5
+000010: invokevirtual #30 MoreFunQuicksandMod/main/blocks/BlockHoneycomb.func_149711_c:(F)Lnet/minecraft/block/Block;
+000013: pop 
+000014: aload_0 
+000015: getstatic #34 net/minecraft/block/Block.field_149769_e:Lnet/minecraft/block/Block$SoundType;
+000018: invokevirtual #38 MoreFunQuicksandMod/main/blocks/BlockHoneycomb.func_149672_a:(Lnet/minecraft/block/Block$SoundType;)Lnet/minecraft/block/Block;
+000021: pop 
+000022: aload_0 
+000023: fconst_1 
+000024: invokevirtual #41 MoreFunQuicksandMod/main/blocks/BlockHoneycomb.func_149752_b:(F)Lnet/minecraft/block/Block;
+000027: pop 
+000028: aload_0 
+000029: ldc #43 'Honeycomb'
+000031: invokevirtual #47 MoreFunQuicksandMod/main/blocks/BlockHoneycomb.func_149663_c:(Ljava/lang/String;)Lnet/minecraft/block/Block;
+000034: pop 
+000035: aload_0 
+000036: iconst_1 
+000037: invokevirtual #51 MoreFunQuicksandMod/main/blocks/BlockHoneycomb.func_149675_a:(Z)Lnet/minecraft/block/Block;
+000040: pop 
+000041: aload_0 
+000042: getstatic #57 MoreFunQuicksandMod/main/MFQM.tabMFQM:Lnet/minecraft/creativetab/CreativeTabs;
+000045: invokevirtual #61 MoreFunQuicksandMod/main/blocks/BlockHoneycomb.func_149647_a:(Lnet/minecraft/creativetab/CreativeTabs;)Lnet/minecraft/block/Block;
+000048: pop 
+000049: return 
+
+METHOD func_149666_a (Lnet/minecraft/item/Item;Lnet/minecraft/creativetab/CreativeTabs;Ljava/util/List;)V
+000000: aload_3 
+000001: new #67 net/minecraft/item/ItemStack
+000004: dup 
+000005: aload_1 
+000006: iconst_1 
+000007: iconst_0 
+000008: invokespecial #70 net/minecraft/item/ItemStack.<init>:(Lnet/minecraft/item/Item;II)V
+000011: invokeinterface #76 java/util/List.add:(Ljava/lang/Object;)Z, 2, 0
+000016: pop 
+000017: aload_3 
+000018: new #67 net/minecraft/item/ItemStack
+000021: dup 
+000022: aload_1 
+000023: iconst_1 
+000024: iconst_1 
+000025: invokespecial #70 net/minecraft/item/ItemStack.<init>:(Lnet/minecraft/item/Item;II)V
+000028: invokeinterface #76 java/util/List.add:(Ljava/lang/Object;)Z, 2, 0
+000033: pop 
+000034: aload_3 
+000035: new #67 net/minecraft/item/ItemStack
+000038: dup 
+000039: aload_1 
+000040: iconst_1 
+000041: iconst_2 
+000042: invokespecial #70 net/minecraft/item/ItemStack.<init>:(Lnet/minecraft/item/Item;II)V
+000045: invokeinterface #76 java/util/List.add:(Ljava/lang/Object;)Z, 2, 0
+000050: pop 
+000051: return 
+
+METHOD func_149691_a (II)Lnet/minecraft/util/IIcon;
+000000: aload_0 
+000001: getfield #85 MoreFunQuicksandMod/main/blocks/BlockHoneycomb.IIconMArray:[Lnet/minecraft/util/IIcon;
+000004: iload_2 
+000005: iconst_2 
+000006: invokestatic #91 java/lang/Math.min:(II)I
+000009: aaload 
+000010: areturn 
+
+METHOD func_149650_a (ILjava/util/Random;I)Lnet/minecraft/item/Item;
+000000: iload_1 
+000001: iconst_2 
+000002: if_icmpeq 23
+000005: getstatic #100 MoreFunQuicksandMod/main/MFQM.BoP:Z
+000008: ifeq 13
+000011: getstatic #103 MoreFunQuicksandMod/main/MFQM.FleshItemID:I
+000014: ifeq 7
+000017: getstatic #106 MoreFunQuicksandMod/main/MFQM.FleshItem:Lnet/minecraft/item/Item;
+000020: areturn 
+000021: getstatic #109 MoreFunQuicksandMod/main/MFQM.EmptycombItem:Lnet/minecraft/item/Item;
+000024: areturn 
+000025: getstatic #100 MoreFunQuicksandMod/main/MFQM.BoP:Z
+000028: ifeq 13
+000031: getstatic #112 MoreFunQuicksandMod/main/MFQM.FoodItemID:I
+000034: ifeq 7
+000037: getstatic #115 MoreFunQuicksandMod/main/MFQM.FoodItem:Lnet/minecraft/item/Item;
+000040: areturn 
+000041: getstatic #118 MoreFunQuicksandMod/main/MFQM.HoneycombItem:Lnet/minecraft/item/Item;
+000044: areturn 
+
+METHOD quantityDropped (IILjava/util/Random;)I
+000000: iload_1 
+000001: iconst_2 
+000002: if_icmpeq 11
+000005: aload_3 
+000006: iconst_3 
+000007: invokevirtual #129 java/util/Random.nextInt:(I)I
+000010: iconst_1 
+000011: iadd 
+000012: ireturn 
+000013: iload_1 
+000014: iconst_3 
+000015: if_icmpge 9
+000018: aload_3 
+000019: iconst_2 
+000020: invokevirtual #129 java/util/Random.nextInt:(I)I
+000023: ireturn 
+000024: iconst_0 
+000025: ireturn 
+
+METHOD func_149692_a (I)I
+000000: iload_1 
+000001: iconst_2 
+000002: if_icmpeq 19
+000005: getstatic #100 MoreFunQuicksandMod/main/MFQM.BoP:Z
+000008: ifeq 11
+000011: getstatic #103 MoreFunQuicksandMod/main/MFQM.FleshItemID:I
+000014: ifeq 5
+000017: iconst_2 
+000018: ireturn 
+000019: iconst_0 
+000020: ireturn 
+000021: getstatic #100 MoreFunQuicksandMod/main/MFQM.BoP:Z
+000024: ifeq 12
+000027: getstatic #112 MoreFunQuicksandMod/main/MFQM.FoodItemID:I
+000030: ifeq 6
+000033: bipush 9
+000035: ireturn 
+000036: iconst_0 
+000037: ireturn 
+
+METHOD func_149674_a (Lnet/minecraft/world/World;IIILjava/util/Random;)V
+000000: aload_1 
+000001: iload_2 
+000002: iload_3 
+000003: iload 4
+000005: invokevirtual #141 net/minecraft/world/World.func_72805_g:(III)I
+000008: iconst_3 
+000009: if_icmpne 12
+000012: aload_1 
+000013: iload_2 
+000014: iload_3 
+000015: iload 4
+000017: invokevirtual #145 net/minecraft/world/World.func_147468_f:(III)Z
+000020: pop 
+000021: return 
+
+METHOD canHarvestBlock (Lnet/minecraft/entity/player/EntityPlayer;I)Z
+000000: iconst_1 
+000001: ireturn 
+
+METHOD func_149636_a (Lnet/minecraft/world/World;Lnet/minecraft/entity/player/EntityPlayer;IIII)V
+000000: iload 6
+000002: ifne 54
+000005: aload_1 
+000006: getfield #160 net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+000009: iconst_2 
+000010: invokevirtual #129 java/util/Random.nextInt:(I)I
+000013: ifne 43
+000016: new #162 MoreFunQuicksandMod/main/entity/EntityBee
+000019: dup 
+000020: aload_1 
+000021: invokespecial #165 MoreFunQuicksandMod/main/entity/EntityBee.<init>:(Lnet/minecraft/world/World;)V
+000024: astore 7
+000026: aload 7
+000028: iload_3 
+000029: i2d 
+000030: ldc2_w #166 0.5
+000033: dadd 
+000034: iload 4
+000036: i2d 
+000037: iload 5
+000039: i2d 
+000040: ldc2_w #166 0.5
+000043: dadd 
+000044: fconst_0 
+000045: fconst_0 
+000046: invokevirtual #171 MoreFunQuicksandMod/main/entity/EntityBee.func_70012_b:(DDDFF)V
+000049: aload_1 
+000050: aload 7
+000052: invokevirtual #175 net/minecraft/world/World.func_72838_d:(Lnet/minecraft/entity/Entity;)Z
+000055: pop 
+000056: aload_2 
+000057: invokestatic #181 net/minecraft/enchantment/EnchantmentHelper.func_77502_d:(Lnet/minecraft/entity/EntityLivingBase;)Z
+000060: ifeq 30
+000063: aload_1 
+000064: iload_3 
+000065: iload 4
+000067: iload 5
+000069: new #67 net/minecraft/item/ItemStack
+000072: dup 
+000073: aload_0 
+000074: invokespecial #184 net/minecraft/item/ItemStack.<init>:(Lnet/minecraft/block/Block;)V
+000077: invokestatic #188 MoreFunQuicksandMod/main/MFQM.dropItem:(Lnet/minecraft/world/World;IIILnet/minecraft/item/ItemStack;)V
+000080: aload_1 
+000081: iload_3 
+000082: iload 4
+000084: iload 5
+000086: invokevirtual #192 net/minecraft/world/World.func_147471_g:(III)V
+000089: return 
+000090: iload 6
+000092: iconst_2 
+000093: if_icmpne 66
+000096: aload_1 
+000097: iload_3 
+000098: i2f 
+000099: ldc #26 0.5
+000101: fadd 
+000102: f2d 
+000103: iload 4
+000105: i2f 
+000106: ldc #26 0.5
+000108: fadd 
+000109: f2d 
+000110: iload 5
+000112: i2f 
+000113: ldc #26 0.5
+000115: fadd 
+000116: f2d 
+000117: ldc #194 'mob.silverfish.step'
+000119: ldc #195 0.15000000596046448
+000121: aload_1 
+000122: getfield #160 net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+000125: invokevirtual #199 java/util/Random.nextFloat:()F
+000128: ldc #200 0.20000000298023224
+000130: fmul 
+000131: ldc #201 0.6000000238418579
+000133: fadd 
+000134: invokevirtual #205 net/minecraft/world/World.func_72908_a:(DDDLjava/lang/String;FF)V
+000137: aload_1 
+000138: getfield #208 net/minecraft/world/World.field_72995_K:Z
+000141: ifne 18
+000144: aload_1 
+000145: iload_3 
+000146: iload 4
+000148: iload 5
+000150: getstatic #212 MoreFunQuicksandMod/main/MFQM.HoneyBlock:Lnet/minecraft/block/Block;
+000153: iconst_0 
+000154: iconst_2 
+000155: invokevirtual #216 net/minecraft/world/World.func_147465_d:(IIILnet/minecraft/block/Block;II)Z
+000158: pop 
+000159: aload_0 
+000160: aload_1 
+000161: aload_2 
+000162: iload_3 
+000163: iload 4
+000165: iload 5
+000167: iload 6
+000169: invokespecial #218 net/minecraft/block/Block.func_149636_a:(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/EntityPlayer;IIII)V
+000172: return 
+
+METHOD func_149726_b (Lnet/minecraft/world/World;III)V
+000000: aload_1 
+000001: iload_2 
+000002: iload_3 
+000003: iload 4
+000005: invokevirtual #141 net/minecraft/world/World.func_72805_g:(III)I
+000008: iconst_3 
+000009: if_icmpne 17
+000012: aload_1 
+000013: iload_2 
+000014: iload_3 
+000015: iload 4
+000017: aload_0 
+000018: aload_0 
+000019: aload_1 
+000020: invokevirtual #228 MoreFunQuicksandMod/main/blocks/BlockHoneycomb.func_149738_a:(Lnet/minecraft/world/World;)I
+000023: invokevirtual #232 net/minecraft/world/World.func_147464_a:(IIILnet/minecraft/block/Block;I)V
+000026: return 
+
+METHOD func_149651_a (Lnet/minecraft/client/renderer/texture/IIconRegister;)V
+000000: aload_0 
+000001: iconst_3 
+000002: anewarray 238
+000005: putfield #85 MoreFunQuicksandMod/main/blocks/BlockHoneycomb.IIconMArray:[Lnet/minecraft/util/IIcon;
+000008: aload_0 
+000009: getfield #85 MoreFunQuicksandMod/main/blocks/BlockHoneycomb.IIconMArray:[Lnet/minecraft/util/IIcon;
+000012: iconst_0 
+000013: aload_1 
+000014: ldc #240 'morefunquicksandmod:honeycomb0'
+000016: invokeinterface #246 net/minecraft/client/renderer/texture/IIconRegister.func_94245_a:(Ljava/lang/String;)Lnet/minecraft/util/IIcon;, 2, 0
+000021: aastore 
+000022: aload_0 
+000023: getfield #85 MoreFunQuicksandMod/main/blocks/BlockHoneycomb.IIconMArray:[Lnet/minecraft/util/IIcon;
+000026: iconst_1 
+000027: aload_1 
+000028: ldc #248 'morefunquicksandmod:honeycomb1'
+000030: invokeinterface #246 net/minecraft/client/renderer/texture/IIconRegister.func_94245_a:(Ljava/lang/String;)Lnet/minecraft/util/IIcon;, 2, 0
+000035: aastore 
+000036: aload_0 
+000037: getfield #85 MoreFunQuicksandMod/main/blocks/BlockHoneycomb.IIconMArray:[Lnet/minecraft/util/IIcon;
+000040: iconst_2 
+000041: aload_1 
+000042: ldc #250 'morefunquicksandmod:honeycomb2'
+000044: invokeinterface #246 net/minecraft/client/renderer/texture/IIconRegister.func_94245_a:(Ljava/lang/String;)Lnet/minecraft/util/IIcon;, 2, 0
+000049: aastore 
+000050: return 
+
+METHOD func_149643_k (Lnet/minecraft/world/World;III)I
+000000: aload_1 
+000001: iload_2 
+000002: iload_3 
+000003: iload 4
+000005: invokevirtual #141 net/minecraft/world/World.func_72805_g:(III)I
+000008: ireturn 

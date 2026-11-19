@@ -1,0 +1,281 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  com.google.common.collect.Multimap
+6:  *  cpw.mods.fml.relauncher.Side
+7:  *  cpw.mods.fml.relauncher.SideOnly
+8:  *  net.minecraft.block.Block
+9:  *  net.minecraft.client.Minecraft
+10:  *  net.minecraft.client.renderer.texture.IIconRegister
+11:  *  net.minecraft.client.settings.GameSettings
+12:  *  net.minecraft.client.settings.KeyBinding
+13:  *  net.minecraft.entity.Entity
+14:  *  net.minecraft.entity.SharedMonsterAttributes
+15:  *  net.minecraft.entity.ai.attributes.AttributeModifier
+16:  *  net.minecraft.entity.player.EntityPlayer
+17:  *  net.minecraft.item.EnumAction
+18:  *  net.minecraft.item.Item
+19:  *  net.minecraft.item.ItemStack
+20:  *  net.minecraft.util.EnumChatFormatting
+21:  *  net.minecraft.util.IIcon
+22:  *  net.minecraft.util.MathHelper
+23:  *  net.minecraft.util.StatCollector
+24:  *  net.minecraft.world.World
+25:  */
+26: package MoreFunQuicksandMod.main.items;
+27: 
+28: import MoreFunQuicksandMod.main.MFQM;
+29: import MoreFunQuicksandMod.main.entity.EntityLongStick;
+30: import MoreFunQuicksandMod.main.entity.EntityRope;
+31: import com.google.common.collect.Multimap;
+32: import cpw.mods.fml.relauncher.Side;
+33: import cpw.mods.fml.relauncher.SideOnly;
+34: import java.util.List;
+35: import net.minecraft.block.Block;
+36: import net.minecraft.client.Minecraft;
+37: import net.minecraft.client.renderer.texture.IIconRegister;
+38: import net.minecraft.client.settings.GameSettings;
+39: import net.minecraft.client.settings.KeyBinding;
+40: import net.minecraft.entity.Entity;
+41: import net.minecraft.entity.SharedMonsterAttributes;
+42: import net.minecraft.entity.ai.attributes.AttributeModifier;
+43: import net.minecraft.entity.player.EntityPlayer;
+44: import net.minecraft.item.EnumAction;
+45: import net.minecraft.item.Item;
+46: import net.minecraft.item.ItemStack;
+47: import net.minecraft.util.EnumChatFormatting;
+48: import net.minecraft.util.IIcon;
+49: import net.minecraft.util.MathHelper;
+50: import net.minecraft.util.StatCollector;
+51: import net.minecraft.world.World;
+52: 
+53: public class ItemLongStick
+54: extends Item {
+55:     @SideOnly(value=Side.CLIENT)
+56:     private IIcon itemIcon;
+57:     @SideOnly(value=Side.CLIENT)
+58:     public IIcon itemL1Icon;
+59:     @SideOnly(value=Side.CLIENT)
+60:     public IIcon itemL2Icon;
+61:     public static int[] quicksandHardCoof = new int[]{1, 1, 1, 1, 2, 3, 10, 10, 5, 6, 7, 6, 9, 5, 10, 2, 2, 3, 10, 5, 5, 2, 10, 1, 1, 1, 6, 5, 3, 3, 5, 6, 1};
+62: 
+63:     public ItemLongStick() {
+64:         this.func_77625_d(1);
+65:         this.func_77655_b("LongStick");
+66:         this.func_77637_a(MFQM.tabMFQM);
+67:     }
+68: 
+69:     public EnumAction func_77661_b(ItemStack p_77661_1_) {
+70:         return EnumAction.bow;
+71:     }
+72: 
+73:     public int func_77626_a(ItemStack p_77626_1_) {
+74:         return 72000;
+75:     }
+76: 
+77:     public ItemStack func_77659_a(ItemStack item, World world, EntityPlayer ply) {
+78:         if (!ply.func_71039_bw()) {
+79:             ply.func_71008_a(item, this.func_77626_a(item));
+80:         }
+81:         this.FoodControl(item, world, ply);
+82:         return item;
+83:     }
+84: 
+85:     @SideOnly(value=Side.CLIENT)
+86:     public boolean func_77662_d() {
+87:         return true;
+88:     }
+89: 
+90:     @SideOnly(value=Side.CLIENT)
+91:     public boolean func_77629_n_() {
+92:         return false;
+93:     }
+94: 
+95:     public boolean func_77648_a(ItemStack item, EntityPlayer ply, World world, int x, int y, int z, int side, float px, float py, float pz) {
+96:         if (!ply.func_71039_bw()) {
+97:             ply.func_71008_a(item, this.func_77626_a(item));
+98:             if (!world.field_72995_K) {
+99:                 world.func_72838_d((Entity)new EntityLongStick(world, (float)x + px, y + 1, (float)z + pz, (Entity)ply, x, y, z));
+100:             } else {
+101:                 ply.func_71038_i();
+102:             }
+103:         }
+104:         return false;
+105:     }
+106: 
+107:     public void func_77663_a(ItemStack item, World world, Entity ply, int par4, boolean par5) {
+108:         if (!(ply instanceof EntityPlayer)) {
+109:             return;
+110:         }
+111:         EntityPlayer player = (EntityPlayer)ply;
+112:         if (player.func_71045_bC() == item) {
+113:             if (world.field_72995_K && player.func_71039_bw()) {
+114:                 boolean IsSucStr = false;
+115:                 int UC = player.func_71052_bv();
+116:                 int U_MAX = item.func_77988_m();
+117:                 int U_AL = 100;
+118:                 int U_HE = U_MAX - U_AL;
+119:                 int U_CRT = (int)Math.floor(item.func_77988_m() / 2);
+120:                 int U_HV = U_CRT - (int)Math.floor(U_AL / 4);
+121:                 int U_VH = U_MAX - (int)Math.floor(U_AL / 4);
+122:                 int U_VE = U_CRT - U_AL;
+123:                 if (ItemLongStick.CheckQS(world, player) > 1) {
+124:                     IsSucStr = true;
+125:                 }
+126:                 if (IsSucStr) {
+127:                     if (UC < U_CRT) {
+128:                         if (UC > U_HV) {
+129:                             player.func_71041_bz();
+130:                             player.func_71008_a(item, U_HE - 1);
+131:                         } else {
+132:                             player.func_71041_bz();
+133:                             player.func_71008_a(item, U_MAX);
+134:                         }
+135:                     }
+136:                 } else {
+137:                     if (UC < 2) {
+138:                         player.func_71041_bz();
+139:                         player.func_71008_a(item, U_VE - 1);
+140:                     }
+141:                     if (UC > U_VH) {
+142:                         player.func_71041_bz();
+143:                         player.func_71008_a(item, U_VE - 1);
+144:                     } else if (UC > U_CRT) {
+145:                         player.func_71041_bz();
+146:                         player.func_71008_a(item, U_CRT);
+147:                     }
+148:                 }
+149:             }
+150:             if (this.rightKey(player) || player.func_71039_bw()) {
+151:                 if (!world.field_72995_K) {
+152:                     this.FoodControl(item, world, player);
+153:                 } else {
+154:                     int Depth = 0;
+155:                     double deep = player.field_70163_u + (double)player.func_70047_e() - 1.5;
+156:                     int x = MathHelper.func_76128_c((double)player.field_70165_t);
+157:                     int y = MathHelper.func_76141_d((float)MathHelper.func_76128_c((double)deep));
+158:                     int z = MathHelper.func_76128_c((double)player.field_70161_v);
+159:                     Block blc = world.func_147439_a(x, y, z);
+160:                     int blc_dif = ItemLongStick.getQSDifficult(blc);
+161:                     Block blc_up = world.func_147439_a(x, y + 1, z);
+162:                     int blc_up_dif = ItemLongStick.getQSDifficult(blc_up);
+163:                     double surf = y + 1;
+164:                     if (blc_up_dif > 0) {
+165:                         surf = y + 2;
+166:                     }
+167:                     if (blc_up_dif > blc_dif) {
+168:                         blc_dif = blc_up_dif;
+169:                     }
+170:                     if (blc_dif > 0) {
+171:                         Depth = surf == (double)(y + 2) ? (deep < surf - 1.5 ? 4 : 3) : (deep < surf - 0.5 ? 2 : 1);
+172:                     }
+173:                     if (blc_dif >= 10) {
+174:                         Depth = 4;
+175:                     }
+176:                     if (Depth > 0 && player.func_71024_bL().func_75116_a() > 6) {
+177:                         if (Depth == 3 && player.field_70181_x < 0.0) {
+178:                             player.field_70181_x /= 2.25;
+179:                         }
+180:                         if (Depth < 4) {
+181:                             if (world.field_73012_v.nextInt(Math.max((int)Math.floor(Math.max(Math.min((surf - deep) * (double)blc_dif, 1.0) * 20.0, 0.0)), 1)) == 0) {
+182:                                 player.field_70122_E = true;
+183:                             }
+184:                         } else if (world.field_73012_v.nextInt(Math.max((int)Math.floor(Math.max(Math.min((surf - deep) * (double)blc_dif, 1.0) * 40.0, 0.0)), 1)) == 0) {
+185:                             player.field_70122_E = true;
+186:                         }
+187:                     }
+188:                 }
+189:             }
+190:         }
+191:     }
+192: 
+193:     public static int CheckQS(World world, EntityPlayer player) {
+194:         double deep = world.field_72995_K ? player.field_70163_u + (double)player.func_70047_e() - 1.5 : player.field_70163_u;
+195:         int x = MathHelper.func_76128_c((double)player.field_70165_t);
+196:         int y = MathHelper.func_76141_d((float)MathHelper.func_76128_c((double)deep));
+197:         int z = MathHelper.func_76128_c((double)player.field_70161_v);
+198:         Block blc = world.func_147439_a(x, y, z);
+199:         int blc_dif = ItemLongStick.getQSDifficult(blc);
+200:         Block blc_up = world.func_147439_a(x, y + 1, z);
+201:         int blc_up_dif = ItemLongStick.getQSDifficult(blc_up);
+202:         double surf = y + 1;
+203:         if (blc_up_dif > 0) {
+204:             surf = y + 2;
+205:         }
+206:         if (blc_up_dif > blc_dif) {
+207:             blc_dif = blc_up_dif;
+208:         }
+209:         if (blc_dif >= 10) {
+210:             return 4;
+211:         }
+212:         if (blc_dif > 0) {
+213:             if (surf == (double)(y + 2)) {
+214:                 if (deep < surf - 1.5) {
+215:                     return 4;
+216:                 }
+217:                 return 3;
+218:             }
+219:             if (deep < surf - 0.5) {
+220:                 return 2;
+221:             }
+222:             return 1;
+223:         }
+224:         return 0;
+225:     }
+226: 
+227:     public void FoodControl(ItemStack itemStack, World world, EntityPlayer player) {
+228:         int Depth;
+229:         if (!world.field_72995_K && world.func_82737_E() % 256L == 0L && (Depth = ItemLongStick.CheckQS(world, player)) > 0 && player.func_71024_bL().func_75116_a() > 6) {
+230:             player.func_71024_bL().func_75122_a(-1, 0.0f);
+231:         }
+232:     }
+233: 
+234:     public boolean rightKey(EntityPlayer curPlayer) {
+235:         if (curPlayer.field_70170_p.field_72995_K && Minecraft.func_71410_x().field_71439_g == curPlayer) {
+236:             GameSettings cfr_ignored_0 = Minecraft.func_71410_x().field_71474_y;
+237:             return GameSettings.func_100015_a((KeyBinding)Minecraft.func_71410_x().field_71474_y.field_74313_G);
+238:         }
+239:         return false;
+240:     }
+241: 
+242:     public static int getQSDifficult(Block blc) {
+243:         for (int i = 0; i < EntityRope.quicksandIDS.length; ++i) {
+244:             if (EntityRope.quicksandIDS[i] != blc) continue;
+245:             return quicksandHardCoof[i];
+246:         }
+247:         if (blc.func_149688_o().func_76224_d()) {
+248:             return 10;
+249:         }
+250:         return 0;
+251:     }
+252: 
+253:     @SideOnly(value=Side.CLIENT)
+254:     public void func_94581_a(IIconRegister iuconRegister) {
+255:         this.itemIcon = iuconRegister.func_94245_a("morefunquicksandmod:LongStick");
+256:         this.itemL1Icon = iuconRegister.func_94245_a("morefunquicksandmod:LongStick0");
+257:         this.itemL2Icon = iuconRegister.func_94245_a("morefunquicksandmod:LongStick1");
+258:     }
+259: 
+260:     @SideOnly(value=Side.CLIENT)
+261:     public IIcon func_77617_a(int par1) {
+262:         return this.itemIcon;
+263:     }
+264: 
+265:     public void func_77624_a(ItemStack item, EntityPlayer player, List list, boolean bool) {
+266:         list.add(StatCollector.func_74838_a((String)"itemLongStick.instruction1"));
+267:         list.add(StatCollector.func_74838_a((String)"itemLongStick.instruction2") + ".");
+268:         list.add(StatCollector.func_74838_a((String)"itemLongStick.instruction3"));
+269:         list.add(StatCollector.func_74838_a((String)"itemLongStick.instruction4") + ".");
+270:         list.add(EnumChatFormatting.BOLD + StatCollector.func_74838_a((String)"itemLongStick.instruction5") + ":");
+271:         list.add(EnumChatFormatting.GOLD + StatCollector.func_74838_a((String)"itemLongStick.instruction6") + EnumChatFormatting.GRAY + " - " + StatCollector.func_74838_a((String)"itemLongStick.instruction7"));
+272:         list.add(EnumChatFormatting.GOLD + StatCollector.func_74838_a((String)"itemLongStick.instruction8") + EnumChatFormatting.GRAY + " - " + StatCollector.func_74838_a((String)"itemLongStick.instruction9"));
+273:     }
+274: 
+275:     public Multimap func_111205_h() {
+276:         Multimap var1 = super.func_111205_h();
+277:         var1.put((Object)SharedMonsterAttributes.field_111264_e.func_111108_a(), (Object)new AttributeModifier(field_111210_e, "Weapon modifier", 4.0, 0));
+278:         return var1;
+279:     }
+280: }
+281: 

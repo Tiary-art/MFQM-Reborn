@@ -1,0 +1,148 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.common.eventhandler.SubscribeEvent
+6:  *  cpw.mods.fml.relauncher.Side
+7:  *  cpw.mods.fml.relauncher.SideOnly
+8:  *  net.minecraft.block.Block
+9:  *  net.minecraft.client.Minecraft
+10:  *  net.minecraft.client.gui.GuiIngame
+11:  *  net.minecraft.client.gui.ScaledResolution
+12:  *  net.minecraft.client.renderer.Tessellator
+13:  *  net.minecraft.client.renderer.texture.TextureMap
+14:  *  net.minecraft.entity.Entity
+15:  *  net.minecraft.entity.SharedMonsterAttributes
+16:  *  net.minecraft.entity.ai.attributes.IAttributeInstance
+17:  *  net.minecraft.util.IIcon
+18:  *  net.minecraft.util.MathHelper
+19:  *  net.minecraftforge.client.event.RenderGameOverlayEvent$ElementType
+20:  *  net.minecraftforge.client.event.RenderGameOverlayEvent$Pre
+21:  *  net.minecraftforge.client.event.RenderWorldLastEvent
+22:  *  org.lwjgl.opengl.GL11
+23:  */
+24: package MoreFunQuicksandMod.main.client;
+25: 
+26: import MoreFunQuicksandMod.main.MFQM;
+27: import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+28: import cpw.mods.fml.relauncher.Side;
+29: import cpw.mods.fml.relauncher.SideOnly;
+30: import net.minecraft.block.Block;
+31: import net.minecraft.client.Minecraft;
+32: import net.minecraft.client.gui.GuiIngame;
+33: import net.minecraft.client.gui.ScaledResolution;
+34: import net.minecraft.client.renderer.Tessellator;
+35: import net.minecraft.client.renderer.texture.TextureMap;
+36: import net.minecraft.entity.Entity;
+37: import net.minecraft.entity.SharedMonsterAttributes;
+38: import net.minecraft.entity.ai.attributes.IAttributeInstance;
+39: import net.minecraft.util.IIcon;
+40: import net.minecraft.util.MathHelper;
+41: import net.minecraftforge.client.event.RenderGameOverlayEvent;
+42: import net.minecraftforge.client.event.RenderWorldLastEvent;
+43: import org.lwjgl.opengl.GL11;
+44: 
+45: public class CustomRenderOverlayEvent {
+46:     private static Block[] quicksandIDS = new Block[]{MFQM.BogBlock, MFQM.SoftSnowBlock, MFQM.SandBlock, MFQM.MorassBlock, MFQM.QuicksandBlock, MFQM.JungleQuicksandBlock, MFQM.SlimeBlock, MFQM.MireBlock, MFQM.LiquidMireBlock, MFQM.StableLiquidMireBlock, MFQM.MoorBlock, MFQM.SClayBlock, MFQM.TarBlock, MFQM.CSandBlock, MFQM.SinkingWoolBlock, MFQM.SoftQuicksandBlock, MFQM.DenseWebBlock, MFQM.SwFleshBlock, MFQM.MucusBlock, MFQM.MossBlock, MFQM.BrownClayBlock, MFQM.WetPeatBlock, MFQM.WaxBlock, MFQM.LarvaeBlock, MFQM.LiquidChocolateBlock, MFQM.SlurryBlock, MFQM.MudBlock, MFQM.SoftGravelBlock, MFQM.HoneyBlock, MFQM.SinkyLiquidBlock};
+47: 
+48:     @SubscribeEvent
+49:     @SideOnly(value=Side.CLIENT)
+50:     public void renderAirGUI(RenderGameOverlayEvent.Pre event) {
+51:         if (event.type == RenderGameOverlayEvent.ElementType.AIR && MFQM.QSAir) {
+52:             Minecraft mc = Minecraft.func_71410_x();
+53:             int gma = MFQM.getMuddyAir((Entity)mc.field_71439_g);
+54:             if (gma < mc.field_71439_g.func_70086_ai()) {
+55:                 mc.field_71439_g.func_70050_g(gma);
+56:             }
+57:             if (MFQM.QSCAir) {
+58:                 event.setCanceled(true);
+59:                 if (mc.field_71439_g.func_70086_ai() < 300) {
+60:                     ScaledResolution resolution = new ScaledResolution(mc, mc.field_71443_c, mc.field_71440_d);
+61:                     int height = resolution.func_78328_b();
+62:                     int width = resolution.func_78326_a();
+63:                     GuiIngame cfr_ignored_0 = mc.field_71456_v;
+64:                     mc.func_110434_K().func_110577_a(GuiIngame.field_110324_m);
+65:                     GL11.glPushMatrix();
+66:                     GL11.glColor4f((float)1.0f, (float)1.0f, (float)1.0f, (float)0.9f);
+67:                     IAttributeInstance var10 = mc.field_71439_g.func_110148_a(SharedMonsterAttributes.field_111267_a);
+68:                     int var26 = 0;
+69:                     int var12 = width / 2 + 91;
+70:                     int var13 = height - 39;
+71:                     float var14 = (float)var10.func_111126_e();
+72:                     float var15 = mc.field_71439_g.func_110139_bj();
+73:                     int var16 = MathHelper.func_76123_f((float)((var14 + var15) / 2.0f / 10.0f));
+74:                     int var17 = Math.max(10 - (var16 - 2), 3);
+75:                     int var18 = var13 - (var16 - 1) * var17 - 10;
+76:                     int var23 = mc.field_71439_g.func_70086_ai();
+77:                     int var36 = MathHelper.func_76143_f((double)((double)(var23 - 2) * 10.0 / 300.0));
+78:                     int var25 = MathHelper.func_76143_f((double)((double)var23 * 10.0 / 300.0)) - var36;
+79:                     for (var26 = 0; var26 < var36 + var25; ++var26) {
+80:                         if (var26 < var36) {
+81:                             mc.field_71456_v.func_73729_b(var12 - var26 * 8 - 9, var18, 16, 18, 9, 9);
+82:                             continue;
+83:                         }
+84:                         mc.field_71456_v.func_73729_b(var12 - var26 * 8 - 9, var18, 25, 18, 9, 9);
+85:                     }
+86:                     GL11.glPopMatrix();
+87:                 }
+88:             }
+89:         }
+90:     }
+91: 
+92:     @SubscribeEvent
+93:     public void RenderOverlay(RenderWorldLastEvent event) {
+94:         for (int i = 0; i < quicksandIDS.length; ++i) {
+95:             if (!MFQM.isEntityInsideOfBlockS((Entity)Minecraft.func_71410_x().field_71439_g, quicksandIDS[i])) continue;
+96:             IIcon Icon = i == 19 ? quicksandIDS[i].func_149733_h(1) : quicksandIDS[i].func_149733_h(2);
+97:             if (MFQM.QSThirdPerson) {
+98:                 Minecraft.func_71410_x().field_71474_y.field_74320_O = 0;
+99:             }
+100:             GL11.glMatrixMode((int)5889);
+101:             GL11.glLoadIdentity();
+102:             float var3 = 0.07f;
+103:             GL11.glMatrixMode((int)5888);
+104:             GL11.glLoadIdentity();
+105:             if (Minecraft.func_71410_x().field_71474_y.field_74320_O == 0 && !Minecraft.func_71410_x().field_71451_h.func_70608_bn()) {
+106:                 this.renderInsideOfBlockR(0.0f, Icon);
+107:             }
+108:             return;
+109:         }
+110:     }
+111: 
+112:     public void renderInsideOfBlockR(float p_78446_1_, IIcon p_78446_2_) {
+113:         Minecraft.func_71410_x().func_110434_K().func_110577_a(TextureMap.field_110575_b);
+114:         Tessellator var3 = Tessellator.field_78398_a;
+115:         float var4 = 0.1f;
+116:         GL11.glColor4f((float)var4, (float)var4, (float)var4, (float)1.0f);
+117:         GL11.glDepthFunc((int)515);
+118:         GL11.glEnable((int)3008);
+119:         GL11.glEnable((int)3553);
+120:         GL11.glEnable((int)2977);
+121:         GL11.glEnable((int)3042);
+122:         GL11.glBlendFunc((int)770, (int)771);
+123:         GL11.glPushMatrix();
+124:         float var5 = -1.0f;
+125:         float var6 = 1.0f;
+126:         float var7 = -1.0f;
+127:         float var8 = 1.0f;
+128:         float var9 = -0.5f;
+129:         float var10 = p_78446_2_.func_94209_e();
+130:         float var11 = p_78446_2_.func_94212_f();
+131:         float var12 = p_78446_2_.func_94206_g();
+132:         float var13 = p_78446_2_.func_94210_h();
+133:         var3.func_78382_b();
+134:         var3.func_78374_a((double)var5, (double)var7, (double)var9, (double)var11, (double)var13);
+135:         var3.func_78374_a((double)var6, (double)var7, (double)var9, (double)var10, (double)var13);
+136:         var3.func_78374_a((double)var6, (double)var8, (double)var9, (double)var10, (double)var12);
+137:         var3.func_78374_a((double)var5, (double)var8, (double)var9, (double)var11, (double)var12);
+138:         var3.func_78381_a();
+139:         GL11.glPopMatrix();
+140:         GL11.glDisable((int)2977);
+141:         GL11.glDisable((int)3042);
+142:         GL11.glDepthFunc((int)515);
+143:         GL11.glEnable((int)3008);
+144:         GL11.glEnable((int)3553);
+145:         GL11.glColor4f((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
+146:     }
+147: }
+148: 

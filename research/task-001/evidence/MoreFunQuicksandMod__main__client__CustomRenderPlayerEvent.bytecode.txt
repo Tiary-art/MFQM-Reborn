@@ -1,0 +1,580 @@
+Archive: MoreFunQuicksandMod/main/client/CustomRenderPlayerEvent.class
+SHA256: 6f8fe7e1cfbe24044a73f7d8057cc024c1fa48034c26c0954fd6ffc66d9469b3
+Superclass: java/lang/Object
+Offsets are decimal byte offsets; branch operands are relative offsets.
+
+
+METHOD <init> ()V
+000000: aload_0 
+000001: invokespecial #14 java/lang/Object.<init>:()V
+000004: return 
+
+METHOD preRenderPlayer (Lnet/minecraftforge/client/event/RenderPlayerEvent$Pre;)V
+000000: aload_1 
+000001: getfield #28 net/minecraftforge/client/event/RenderPlayerEvent$Pre.entityPlayer:Lnet/minecraft/entity/player/EntityPlayer;
+000004: invokestatic #34 net/minecraft/client/Minecraft.func_71410_x:()Lnet/minecraft/client/Minecraft;
+000007: getfield #38 net/minecraft/client/Minecraft.field_71439_g:Lnet/minecraft/client/entity/EntityClientPlayerMP;
+000010: if_acmpne 28
+000013: aload_1 
+000014: getfield #28 net/minecraftforge/client/event/RenderPlayerEvent$Pre.entityPlayer:Lnet/minecraft/entity/player/EntityPlayer;
+000017: invokestatic #34 net/minecraft/client/Minecraft.func_71410_x:()Lnet/minecraft/client/Minecraft;
+000020: getfield #38 net/minecraft/client/Minecraft.field_71439_g:Lnet/minecraft/client/entity/EntityClientPlayerMP;
+000023: if_acmpne 43
+000026: invokestatic #34 net/minecraft/client/Minecraft.func_71410_x:()Lnet/minecraft/client/Minecraft;
+000029: getfield #42 net/minecraft/client/Minecraft.field_71474_y:Lnet/minecraft/client/settings/GameSettings;
+000032: getfield #48 net/minecraft/client/settings/GameSettings.field_74320_O:I
+000035: ifeq 31
+000038: aload_0 
+000039: aload_1 
+000040: getfield #52 net/minecraftforge/client/event/RenderPlayerEvent$Pre.renderer:Lnet/minecraft/client/renderer/entity/RenderPlayer;
+000043: aload_1 
+000044: getfield #28 net/minecraftforge/client/event/RenderPlayerEvent$Pre.entityPlayer:Lnet/minecraft/entity/player/EntityPlayer;
+000047: invokevirtual #56 MoreFunQuicksandMod/main/client/CustomRenderPlayerEvent.checkPlayerMuddyModel:(Lnet/minecraft/client/renderer/entity/RenderPlayer;Lnet/minecraft/entity/player/EntityPlayer;)Z
+000050: ifeq 16
+000053: aload_0 
+000054: aload_1 
+000055: getfield #52 net/minecraftforge/client/event/RenderPlayerEvent$Pre.renderer:Lnet/minecraft/client/renderer/entity/RenderPlayer;
+000058: aload_1 
+000059: getfield #28 net/minecraftforge/client/event/RenderPlayerEvent$Pre.entityPlayer:Lnet/minecraft/entity/player/EntityPlayer;
+000062: invokevirtual #59 MoreFunQuicksandMod/main/client/CustomRenderPlayerEvent.registerPlayerMuddyModel:(Lnet/minecraft/client/renderer/entity/RenderPlayer;Lnet/minecraft/entity/player/EntityPlayer;)Z
+000065: pop 
+000066: return 
+
+METHOD handRenderPlayer (Lnet/minecraftforge/client/event/RenderHandEvent;)V
+000000: aload_0 
+000001: getstatic #69 net/minecraft/client/renderer/entity/RenderManager.field_78727_a:Lnet/minecraft/client/renderer/entity/RenderManager;
+000004: invokestatic #34 net/minecraft/client/Minecraft.func_71410_x:()Lnet/minecraft/client/Minecraft;
+000007: getfield #38 net/minecraft/client/Minecraft.field_71439_g:Lnet/minecraft/client/entity/EntityClientPlayerMP;
+000010: invokevirtual #73 net/minecraft/client/renderer/entity/RenderManager.func_78713_a:(Lnet/minecraft/entity/Entity;)Lnet/minecraft/client/renderer/entity/Render;
+000013: checkcast #75 net/minecraft/client/renderer/entity/RenderPlayer
+000016: invokestatic #34 net/minecraft/client/Minecraft.func_71410_x:()Lnet/minecraft/client/Minecraft;
+000019: getfield #38 net/minecraft/client/Minecraft.field_71439_g:Lnet/minecraft/client/entity/EntityClientPlayerMP;
+000022: invokevirtual #56 MoreFunQuicksandMod/main/client/CustomRenderPlayerEvent.checkPlayerMuddyModel:(Lnet/minecraft/client/renderer/entity/RenderPlayer;Lnet/minecraft/entity/player/EntityPlayer;)Z
+000025: ifeq 29
+000028: aload_0 
+000029: getstatic #69 net/minecraft/client/renderer/entity/RenderManager.field_78727_a:Lnet/minecraft/client/renderer/entity/RenderManager;
+000032: invokestatic #34 net/minecraft/client/Minecraft.func_71410_x:()Lnet/minecraft/client/Minecraft;
+000035: getfield #38 net/minecraft/client/Minecraft.field_71439_g:Lnet/minecraft/client/entity/EntityClientPlayerMP;
+000038: invokevirtual #73 net/minecraft/client/renderer/entity/RenderManager.func_78713_a:(Lnet/minecraft/entity/Entity;)Lnet/minecraft/client/renderer/entity/Render;
+000041: checkcast #75 net/minecraft/client/renderer/entity/RenderPlayer
+000044: invokestatic #34 net/minecraft/client/Minecraft.func_71410_x:()Lnet/minecraft/client/Minecraft;
+000047: getfield #38 net/minecraft/client/Minecraft.field_71439_g:Lnet/minecraft/client/entity/EntityClientPlayerMP;
+000050: invokevirtual #59 MoreFunQuicksandMod/main/client/CustomRenderPlayerEvent.registerPlayerMuddyModel:(Lnet/minecraft/client/renderer/entity/RenderPlayer;Lnet/minecraft/entity/player/EntityPlayer;)Z
+000053: pop 
+000054: return 
+
+METHOD turnOnRenderMuddyModel (Lnet/minecraft/client/renderer/entity/RenderPlayer;Lnet/minecraft/entity/player/EntityPlayer;)Z
+000000: new #79 java/util/ArrayList
+000003: dup 
+000004: invokespecial #80 java/util/ArrayList.<init>:()V
+000007: astore_3 
+000008: aload_1 
+000009: getfield #84 net/minecraft/client/renderer/entity/RenderPlayer.field_77109_a:Lnet/minecraft/client/model/ModelBiped;
+000012: getfield #90 net/minecraft/client/model/ModelBiped.field_78092_r:Ljava/util/List;
+000015: invokeinterface #96 java/util/List.iterator:()Ljava/util/Iterator;, 1, 0
+000020: astore 4
+000022: aload 4
+000024: invokeinterface #102 java/util/Iterator.hasNext:()Z, 1, 0
+000029: ifeq 35
+000032: aload 4
+000034: invokeinterface #106 java/util/Iterator.next:()Ljava/lang/Object;, 1, 0
+000039: astore 5
+000041: aload 5
+000043: instanceof #108 net/minecraft/client/model/ModelRenderer
+000046: ifeq 15
+000049: aload_3 
+000050: aload 5
+000052: checkcast #108 net/minecraft/client/model/ModelRenderer
+000055: invokeinterface #112 java/util/List.add:(Ljava/lang/Object;)Z, 2, 0
+000060: pop 
+000061: goto -39
+000064: aload_3 
+000065: invokeinterface #96 java/util/List.iterator:()Ljava/util/Iterator;, 1, 0
+000070: astore 4
+000072: aload 4
+000074: invokeinterface #102 java/util/Iterator.hasNext:()Z, 1, 0
+000079: ifeq 25
+000082: aload 4
+000084: invokeinterface #106 java/util/Iterator.next:()Ljava/lang/Object;, 1, 0
+000089: checkcast #108 net/minecraft/client/model/ModelRenderer
+000092: astore 5
+000094: aload_0 
+000095: aload 5
+000097: aload_2 
+000098: invokevirtual #116 MoreFunQuicksandMod/main/client/CustomRenderPlayerEvent.turnOnChilds:(Lnet/minecraft/client/model/ModelRenderer;Lnet/minecraft/entity/player/EntityPlayer;)V
+000101: goto -29
+000104: iconst_1 
+000105: ireturn 
+
+METHOD turnOnRenderMuddyModelFirstPerson (Lnet/minecraft/client/renderer/entity/RenderPlayer;Lnet/minecraft/entity/player/EntityPlayer;)Z
+000000: aload_0 
+000001: aload_1 
+000002: getfield #84 net/minecraft/client/renderer/entity/RenderPlayer.field_77109_a:Lnet/minecraft/client/model/ModelBiped;
+000005: getfield #126 net/minecraft/client/model/ModelBiped.field_78112_f:Lnet/minecraft/client/model/ModelRenderer;
+000008: aload_2 
+000009: invokevirtual #116 MoreFunQuicksandMod/main/client/CustomRenderPlayerEvent.turnOnChilds:(Lnet/minecraft/client/model/ModelRenderer;Lnet/minecraft/entity/player/EntityPlayer;)V
+000012: iconst_1 
+000013: ireturn 
+
+METHOD registerPlayerMuddyModel (Lnet/minecraft/client/renderer/entity/RenderPlayer;Lnet/minecraft/entity/player/EntityPlayer;)Z
+000000: new #79 java/util/ArrayList
+000003: dup 
+000004: invokespecial #80 java/util/ArrayList.<init>:()V
+000007: astore_3 
+000008: aload_1 
+000009: getfield #84 net/minecraft/client/renderer/entity/RenderPlayer.field_77109_a:Lnet/minecraft/client/model/ModelBiped;
+000012: getfield #90 net/minecraft/client/model/ModelBiped.field_78092_r:Ljava/util/List;
+000015: invokeinterface #96 java/util/List.iterator:()Ljava/util/Iterator;, 1, 0
+000020: astore 4
+000022: aload 4
+000024: invokeinterface #102 java/util/Iterator.hasNext:()Z, 1, 0
+000029: ifeq 43
+000032: aload 4
+000034: invokeinterface #106 java/util/Iterator.next:()Ljava/lang/Object;, 1, 0
+000039: astore 5
+000041: aload 5
+000043: instanceof #108 net/minecraft/client/model/ModelRenderer
+000046: ifeq 23
+000049: aload 5
+000051: instanceof #128 MoreFunQuicksandMod/main/client/MudModelRenderer
+000054: ifne 15
+000057: aload_3 
+000058: aload 5
+000060: checkcast #108 net/minecraft/client/model/ModelRenderer
+000063: invokeinterface #112 java/util/List.add:(Ljava/lang/Object;)Z, 2, 0
+000068: pop 
+000069: goto -47
+000072: aload_3 
+000073: invokeinterface #96 java/util/List.iterator:()Ljava/util/Iterator;, 1, 0
+000078: astore 4
+000080: aload 4
+000082: invokeinterface #102 java/util/Iterator.hasNext:()Z, 1, 0
+000087: ifeq 25
+000090: aload 4
+000092: invokeinterface #106 java/util/Iterator.next:()Ljava/lang/Object;, 1, 0
+000097: checkcast #108 net/minecraft/client/model/ModelRenderer
+000100: astore 5
+000102: aload_0 
+000103: aload 5
+000105: aload_2 
+000106: invokevirtual #131 MoreFunQuicksandMod/main/client/CustomRenderPlayerEvent.scanChilds:(Lnet/minecraft/client/model/ModelRenderer;Lnet/minecraft/entity/player/EntityPlayer;)V
+000109: goto -29
+000112: getstatic #137 java/lang/System.out:Ljava/io/PrintStream;
+000115: new #139 java/lang/StringBuilder
+000118: dup 
+000119: invokespecial #140 java/lang/StringBuilder.<init>:()V
+000122: ldc #142 '(MFQM)REGISTERED CUSTOM MODEL to PLAYER: '
+000124: invokevirtual #146 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000127: aload_2 
+000128: invokevirtual #149 java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+000131: invokevirtual #153 java/lang/StringBuilder.toString:()Ljava/lang/String;
+000134: invokevirtual #159 java/io/PrintStream.println:(Ljava/lang/String;)V
+000137: iconst_1 
+000138: ireturn 
+
+METHOD checkPlayerMuddyModel (Lnet/minecraft/client/renderer/entity/RenderPlayer;Lnet/minecraft/entity/player/EntityPlayer;)Z
+000000: iconst_0 
+000001: istore_3 
+000002: iconst_0 
+000003: istore 4
+000005: new #79 java/util/ArrayList
+000008: dup 
+000009: aload_1 
+000010: getfield #84 net/minecraft/client/renderer/entity/RenderPlayer.field_77109_a:Lnet/minecraft/client/model/ModelBiped;
+000013: getfield #90 net/minecraft/client/model/ModelBiped.field_78092_r:Ljava/util/List;
+000016: invokespecial #162 java/util/ArrayList.<init>:(Ljava/util/Collection;)V
+000019: astore 5
+000021: aload_1 
+000022: getfield #84 net/minecraft/client/renderer/entity/RenderPlayer.field_77109_a:Lnet/minecraft/client/model/ModelBiped;
+000025: getfield #90 net/minecraft/client/model/ModelBiped.field_78092_r:Ljava/util/List;
+000028: invokeinterface #96 java/util/List.iterator:()Ljava/util/Iterator;, 1, 0
+000033: astore 6
+000035: aload 6
+000037: invokeinterface #102 java/util/Iterator.hasNext:()Z, 1, 0
+000042: ifeq 79
+000045: aload 6
+000047: invokeinterface #106 java/util/Iterator.next:()Ljava/lang/Object;, 1, 0
+000052: astore 7
+000054: aload 7
+000056: instanceof #108 net/minecraft/client/model/ModelRenderer
+000059: ifeq 59
+000062: aload_0 
+000063: aload 7
+000065: checkcast #108 net/minecraft/client/model/ModelRenderer
+000068: aload_2 
+000069: invokevirtual #168 MoreFunQuicksandMod/main/client/CustomRenderPlayerEvent.checkPlayerMuddyModelChild:(Lnet/minecraft/client/model/ModelRenderer;Lnet/minecraft/entity/player/EntityPlayer;)I
+000072: istore_3 
+000073: iload_3 
+000074: iload 4
+000076: if_icmple 6
+000079: iload_3 
+000080: istore 4
+000082: iload_3 
+000083: iconst_2 
+000084: if_icmpne 24
+000087: aload 7
+000089: instanceof #128 MoreFunQuicksandMod/main/client/MudModelRenderer
+000092: ifeq 26
+000095: aload 5
+000097: aload 7
+000099: invokeinterface #171 java/util/List.remove:(Ljava/lang/Object;)Z, 2, 0
+000104: pop 
+000105: goto 13
+000108: aload_0 
+000109: aload 7
+000111: checkcast #108 net/minecraft/client/model/ModelRenderer
+000114: aload_2 
+000115: invokevirtual #116 MoreFunQuicksandMod/main/client/CustomRenderPlayerEvent.turnOnChilds:(Lnet/minecraft/client/model/ModelRenderer;Lnet/minecraft/entity/player/EntityPlayer;)V
+000118: goto -83
+000121: iload 4
+000123: ifne 5
+000126: iconst_1 
+000127: ireturn 
+000128: iload 4
+000130: iconst_1 
+000131: if_icmpne 5
+000134: iconst_0 
+000135: ireturn 
+000136: aload_1 
+000137: getfield #84 net/minecraft/client/renderer/entity/RenderPlayer.field_77109_a:Lnet/minecraft/client/model/ModelBiped;
+000140: new #79 java/util/ArrayList
+000143: dup 
+000144: aload 5
+000146: invokespecial #162 java/util/ArrayList.<init>:(Ljava/util/Collection;)V
+000149: putfield #90 net/minecraft/client/model/ModelBiped.field_78092_r:Ljava/util/List;
+000152: aload_1 
+000153: getfield #84 net/minecraft/client/renderer/entity/RenderPlayer.field_77109_a:Lnet/minecraft/client/model/ModelBiped;
+000156: getfield #90 net/minecraft/client/model/ModelBiped.field_78092_r:Ljava/util/List;
+000159: invokeinterface #96 java/util/List.iterator:()Ljava/util/Iterator;, 1, 0
+000164: astore 6
+000166: aload 6
+000168: invokeinterface #102 java/util/Iterator.hasNext:()Z, 1, 0
+000173: ifeq 33
+000176: aload 6
+000178: invokeinterface #106 java/util/Iterator.next:()Ljava/lang/Object;, 1, 0
+000183: astore 7
+000185: aload 7
+000187: instanceof #108 net/minecraft/client/model/ModelRenderer
+000190: ifeq 13
+000193: aload_0 
+000194: aload 7
+000196: checkcast #108 net/minecraft/client/model/ModelRenderer
+000199: aload_2 
+000200: invokevirtual #174 MoreFunQuicksandMod/main/client/CustomRenderPlayerEvent.deleteChilds:(Lnet/minecraft/client/model/ModelRenderer;Lnet/minecraft/entity/player/EntityPlayer;)V
+000203: goto -37
+000206: getstatic #137 java/lang/System.out:Ljava/io/PrintStream;
+000209: new #139 java/lang/StringBuilder
+000212: dup 
+000213: invokespecial #140 java/lang/StringBuilder.<init>:()V
+000216: ldc #176 '(MFQM)DELETED CUSTOM MODEL from PLAYER: '
+000218: invokevirtual #146 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000221: aload_2 
+000222: invokevirtual #149 java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+000225: invokevirtual #153 java/lang/StringBuilder.toString:()Ljava/lang/String;
+000228: invokevirtual #159 java/io/PrintStream.println:(Ljava/lang/String;)V
+000231: iconst_1 
+000232: ireturn 
+
+METHOD checkPlayerMuddyModelChild (Lnet/minecraft/client/model/ModelRenderer;Lnet/minecraft/entity/player/EntityPlayer;)I
+000000: iconst_0 
+000001: istore_3 
+000002: aload_1 
+000003: ifnull 137
+000006: aload_1 
+000007: getfield #182 net/minecraft/client/model/ModelRenderer.field_78805_m:Ljava/util/List;
+000010: ifnull 62
+000013: aload_1 
+000014: getfield #182 net/minecraft/client/model/ModelRenderer.field_78805_m:Ljava/util/List;
+000017: invokeinterface #96 java/util/List.iterator:()Ljava/util/Iterator;, 1, 0
+000022: astore 4
+000024: aload 4
+000026: invokeinterface #102 java/util/Iterator.hasNext:()Z, 1, 0
+000031: ifeq 41
+000034: aload 4
+000036: invokeinterface #106 java/util/Iterator.next:()Ljava/lang/Object;, 1, 0
+000041: astore 5
+000043: aload 5
+000045: instanceof #108 net/minecraft/client/model/ModelRenderer
+000048: ifeq 21
+000051: aload_0 
+000052: aload 5
+000054: checkcast #108 net/minecraft/client/model/ModelRenderer
+000057: aload_2 
+000058: invokevirtual #168 MoreFunQuicksandMod/main/client/CustomRenderPlayerEvent.checkPlayerMuddyModelChild:(Lnet/minecraft/client/model/ModelRenderer;Lnet/minecraft/entity/player/EntityPlayer;)I
+000061: istore_3 
+000062: iload_3 
+000063: iconst_2 
+000064: if_icmpne 5
+000067: iconst_2 
+000068: ireturn 
+000069: goto -45
+000072: aload_1 
+000073: instanceof #128 MoreFunQuicksandMod/main/client/MudModelRenderer
+000076: ifeq 64
+000079: aload_1 
+000080: checkcast #128 MoreFunQuicksandMod/main/client/MudModelRenderer
+000083: getfield #186 MoreFunQuicksandMod/main/client/MudModelRenderer.currentPlayerNick:Ljava/lang/String;
+000086: aload_2 
+000087: invokevirtual #189 net/minecraft/entity/player/EntityPlayer.func_70005_c_:()Ljava/lang/String;
+000090: if_acmpne 50
+000093: aload_1 
+000094: checkcast #128 MoreFunQuicksandMod/main/client/MudModelRenderer
+000097: getfield #193 MoreFunQuicksandMod/main/client/MudModelRenderer.world:Lnet/minecraft/world/World;
+000100: aload_2 
+000101: getfield #196 net/minecraft/entity/player/EntityPlayer.field_70170_p:Lnet/minecraft/world/World;
+000104: if_acmpeq 5
+000107: iconst_2 
+000108: ireturn 
+000109: aload_1 
+000110: checkcast #128 MoreFunQuicksandMod/main/client/MudModelRenderer
+000113: getfield #200 MoreFunQuicksandMod/main/client/MudModelRenderer.currentPlayerUUID:Ljava/util/UUID;
+000116: aload_2 
+000117: invokevirtual #204 net/minecraft/entity/player/EntityPlayer.func_110124_au:()Ljava/util/UUID;
+000120: if_acmpeq 5
+000123: iconst_2 
+000124: ireturn 
+000125: aload_1 
+000126: checkcast #128 MoreFunQuicksandMod/main/client/MudModelRenderer
+000129: getfield #207 MoreFunQuicksandMod/main/client/MudModelRenderer.currentPlayer:Lnet/minecraft/entity/player/EntityPlayer;
+000132: aload_2 
+000133: if_acmpeq 5
+000136: iconst_2 
+000137: ireturn 
+000138: iconst_1 
+000139: ireturn 
+000140: iload_3 
+000141: ireturn 
+
+METHOD scanChilds (Lnet/minecraft/client/model/ModelRenderer;Lnet/minecraft/entity/player/EntityPlayer;)V
+000000: aload_1 
+000001: ifnull 309
+000004: aload_1 
+000005: getfield #182 net/minecraft/client/model/ModelRenderer.field_78805_m:Ljava/util/List;
+000008: ifnull 66
+000011: aload_1 
+000012: instanceof #128 MoreFunQuicksandMod/main/client/MudModelRenderer
+000015: ifne 59
+000018: aload_1 
+000019: getfield #182 net/minecraft/client/model/ModelRenderer.field_78805_m:Ljava/util/List;
+000022: invokeinterface #96 java/util/List.iterator:()Ljava/util/Iterator;, 1, 0
+000027: astore_3 
+000028: aload_3 
+000029: invokeinterface #102 java/util/Iterator.hasNext:()Z, 1, 0
+000034: ifeq 40
+000037: aload_3 
+000038: invokeinterface #106 java/util/Iterator.next:()Ljava/lang/Object;, 1, 0
+000043: astore 4
+000045: aload 4
+000047: instanceof #108 net/minecraft/client/model/ModelRenderer
+000050: ifeq 21
+000053: aload 4
+000055: instanceof #128 MoreFunQuicksandMod/main/client/MudModelRenderer
+000058: ifne 13
+000061: aload_0 
+000062: aload 4
+000064: checkcast #108 net/minecraft/client/model/ModelRenderer
+000067: aload_2 
+000068: invokevirtual #131 MoreFunQuicksandMod/main/client/CustomRenderPlayerEvent.scanChilds:(Lnet/minecraft/client/model/ModelRenderer;Lnet/minecraft/entity/player/EntityPlayer;)V
+000071: goto -43
+000074: aload_1 
+000075: getfield #213 net/minecraft/client/model/ModelRenderer.field_78804_l:Ljava/util/List;
+000078: invokeinterface #96 java/util/List.iterator:()Ljava/util/Iterator;, 1, 0
+000083: astore_3 
+000084: aload_3 
+000085: invokeinterface #102 java/util/Iterator.hasNext:()Z, 1, 0
+000090: ifeq 220
+000093: aload_3 
+000094: invokeinterface #106 java/util/Iterator.next:()Ljava/lang/Object;, 1, 0
+000099: astore 4
+000101: aload 4
+000103: instanceof #128 MoreFunQuicksandMod/main/client/MudModelRenderer
+000106: ifne 201
+000109: aload 4
+000111: instanceof #215 net/minecraft/client/model/ModelBox
+000114: ifeq 193
+000117: aload 4
+000119: checkcast #215 net/minecraft/client/model/ModelBox
+000122: astore 5
+000124: ldc #108 net/minecraft/client/model/ModelRenderer
+000126: ldc #217 net/minecraft/client/model/ModelBase
+000128: iconst_0 
+000129: invokestatic #223 MoreFunQuicksandMod/main/Fields.findField:(Ljava/lang/Class;Ljava/lang/Class;I)Ljava/lang/reflect/Field;
+000132: astore 6
+000134: aload 6
+000136: iconst_1 
+000137: invokevirtual #229 java/lang/reflect/Field.setAccessible:(Z)V
+000140: aload 6
+000142: aload_1 
+000143: invokevirtual #233 java/lang/reflect/Field.get:(Ljava/lang/Object;)Ljava/lang/Object;
+000146: checkcast #217 net/minecraft/client/model/ModelBase
+000149: astore 7
+000151: ldc #108 net/minecraft/client/model/ModelRenderer
+000153: getstatic #239 java/lang/Integer.TYPE:Ljava/lang/Class;
+000156: iconst_0 
+000157: invokestatic #223 MoreFunQuicksandMod/main/Fields.findField:(Ljava/lang/Class;Ljava/lang/Class;I)Ljava/lang/reflect/Field;
+000160: astore 8
+000162: aload 8
+000164: iconst_1 
+000165: invokevirtual #229 java/lang/reflect/Field.setAccessible:(Z)V
+000168: aload 8
+000170: aload_1 
+000171: invokevirtual #243 java/lang/reflect/Field.getInt:(Ljava/lang/Object;)I
+000174: istore 9
+000176: ldc #108 net/minecraft/client/model/ModelRenderer
+000178: getstatic #239 java/lang/Integer.TYPE:Ljava/lang/Class;
+000181: iconst_1 
+000182: invokestatic #223 MoreFunQuicksandMod/main/Fields.findField:(Ljava/lang/Class;Ljava/lang/Class;I)Ljava/lang/reflect/Field;
+000185: astore 10
+000187: aload 10
+000189: iconst_1 
+000190: invokevirtual #229 java/lang/reflect/Field.setAccessible:(Z)V
+000193: aload 10
+000195: aload_1 
+000196: invokevirtual #243 java/lang/reflect/Field.getInt:(Ljava/lang/Object;)I
+000199: istore 11
+000201: new #128 MoreFunQuicksandMod/main/client/MudModelRenderer
+000204: dup 
+000205: aload 7
+000207: iload 9
+000209: iload 11
+000211: aload_2 
+000212: invokespecial #246 MoreFunQuicksandMod/main/client/MudModelRenderer.<init>:(Lnet/minecraft/client/model/ModelBase;IILnet/minecraft/entity/player/EntityPlayer;)V
+000215: astore 12
+000217: aload 12
+000219: aload 5
+000221: getfield #250 net/minecraft/client/model/ModelBox.field_78252_a:F
+000224: aload 5
+000226: getfield #253 net/minecraft/client/model/ModelBox.field_78250_b:F
+000229: aload 5
+000231: getfield #256 net/minecraft/client/model/ModelBox.field_78251_c:F
+000234: aload 5
+000236: getfield #259 net/minecraft/client/model/ModelBox.field_78248_d:F
+000239: aload 5
+000241: getfield #250 net/minecraft/client/model/ModelBox.field_78252_a:F
+000244: fsub 
+000245: f2i 
+000246: aload 5
+000248: getfield #262 net/minecraft/client/model/ModelBox.field_78249_e:F
+000251: aload 5
+000253: getfield #253 net/minecraft/client/model/ModelBox.field_78250_b:F
+000256: fsub 
+000257: f2i 
+000258: aload 5
+000260: getfield #265 net/minecraft/client/model/ModelBox.field_78246_f:F
+000263: aload 5
+000265: getfield #256 net/minecraft/client/model/ModelBox.field_78251_c:F
+000268: fsub 
+000269: f2i 
+000270: ldc_w #266 0.20000000298023224
+000273: invokevirtual #270 MoreFunQuicksandMod/main/client/MudModelRenderer.func_78790_a:(FFFIIIF)V
+000276: aload_1 
+000277: aload 12
+000279: invokevirtual #274 net/minecraft/client/model/ModelRenderer.func_78792_a:(Lnet/minecraft/client/model/ModelRenderer;)V
+000282: aload 12
+000284: iconst_0 
+000285: putfield #278 MoreFunQuicksandMod/main/client/MudModelRenderer.eventShow:Z
+000288: goto 19
+000291: astore 6
+000293: getstatic #137 java/lang/System.out:Ljava/io/PrintStream;
+000296: ldc_w #280 '(MFQM)Cant get muddy model!'
+000299: invokevirtual #159 java/io/PrintStream.println:(Ljava/lang/String;)V
+000302: aload 6
+000304: invokevirtual #283 java/lang/Exception.printStackTrace:()V
+000307: goto -223
+000310: return 
+
+METHOD deleteChilds (Lnet/minecraft/client/model/ModelRenderer;Lnet/minecraft/entity/player/EntityPlayer;)V
+000000: aload_1 
+000001: ifnull 117
+000004: aload_1 
+000005: getfield #182 net/minecraft/client/model/ModelRenderer.field_78805_m:Ljava/util/List;
+000008: ifnull 110
+000011: new #79 java/util/ArrayList
+000014: dup 
+000015: aload_1 
+000016: getfield #182 net/minecraft/client/model/ModelRenderer.field_78805_m:Ljava/util/List;
+000019: invokespecial #162 java/util/ArrayList.<init>:(Ljava/util/Collection;)V
+000022: astore_3 
+000023: aload_1 
+000024: getfield #182 net/minecraft/client/model/ModelRenderer.field_78805_m:Ljava/util/List;
+000027: invokeinterface #96 java/util/List.iterator:()Ljava/util/Iterator;, 1, 0
+000032: astore 4
+000034: aload 4
+000036: invokeinterface #102 java/util/Iterator.hasNext:()Z, 1, 0
+000041: ifeq 65
+000044: aload 4
+000046: invokeinterface #106 java/util/Iterator.next:()Ljava/lang/Object;, 1, 0
+000051: astore 5
+000053: aload 5
+000055: instanceof #128 MoreFunQuicksandMod/main/client/MudModelRenderer
+000058: ifeq 27
+000061: aload 5
+000063: checkcast #128 MoreFunQuicksandMod/main/client/MudModelRenderer
+000066: getfield #186 MoreFunQuicksandMod/main/client/MudModelRenderer.currentPlayerNick:Ljava/lang/String;
+000069: aload_2 
+000070: invokevirtual #189 net/minecraft/entity/player/EntityPlayer.func_70005_c_:()Ljava/lang/String;
+000073: if_acmpne 12
+000076: aload_3 
+000077: aload 5
+000079: invokeinterface #171 java/util/List.remove:(Ljava/lang/Object;)Z, 2, 0
+000084: pop 
+000085: aload 5
+000087: instanceof #108 net/minecraft/client/model/ModelRenderer
+000090: ifeq 13
+000093: aload_0 
+000094: aload 5
+000096: checkcast #108 net/minecraft/client/model/ModelRenderer
+000099: aload_2 
+000100: invokevirtual #174 MoreFunQuicksandMod/main/client/CustomRenderPlayerEvent.deleteChilds:(Lnet/minecraft/client/model/ModelRenderer;Lnet/minecraft/entity/player/EntityPlayer;)V
+000103: goto -69
+000106: aload_1 
+000107: new #79 java/util/ArrayList
+000110: dup 
+000111: aload_3 
+000112: invokespecial #162 java/util/ArrayList.<init>:(Ljava/util/Collection;)V
+000115: putfield #182 net/minecraft/client/model/ModelRenderer.field_78805_m:Ljava/util/List;
+000118: return 
+
+METHOD turnOnChilds (Lnet/minecraft/client/model/ModelRenderer;Lnet/minecraft/entity/player/EntityPlayer;)V
+000000: aload_1 
+000001: ifnull 95
+000004: aload_1 
+000005: getfield #182 net/minecraft/client/model/ModelRenderer.field_78805_m:Ljava/util/List;
+000008: ifnull 51
+000011: aload_1 
+000012: getfield #182 net/minecraft/client/model/ModelRenderer.field_78805_m:Ljava/util/List;
+000015: invokeinterface #96 java/util/List.iterator:()Ljava/util/Iterator;, 1, 0
+000020: astore_3 
+000021: aload_3 
+000022: invokeinterface #102 java/util/Iterator.hasNext:()Z, 1, 0
+000027: ifeq 32
+000030: aload_3 
+000031: invokeinterface #106 java/util/Iterator.next:()Ljava/lang/Object;, 1, 0
+000036: astore 4
+000038: aload 4
+000040: instanceof #108 net/minecraft/client/model/ModelRenderer
+000043: ifeq 13
+000046: aload_0 
+000047: aload 4
+000049: checkcast #108 net/minecraft/client/model/ModelRenderer
+000052: aload_2 
+000053: invokevirtual #116 MoreFunQuicksandMod/main/client/CustomRenderPlayerEvent.turnOnChilds:(Lnet/minecraft/client/model/ModelRenderer;Lnet/minecraft/entity/player/EntityPlayer;)V
+000056: goto -35
+000059: aload_1 
+000060: instanceof #128 MoreFunQuicksandMod/main/client/MudModelRenderer
+000063: ifeq 33
+000066: aload_1 
+000067: checkcast #128 MoreFunQuicksandMod/main/client/MudModelRenderer
+000070: getfield #207 MoreFunQuicksandMod/main/client/MudModelRenderer.currentPlayer:Lnet/minecraft/entity/player/EntityPlayer;
+000073: aload_2 
+000074: if_acmpne 14
+000077: aload_1 
+000078: checkcast #128 MoreFunQuicksandMod/main/client/MudModelRenderer
+000081: iconst_1 
+000082: putfield #278 MoreFunQuicksandMod/main/client/MudModelRenderer.eventShow:Z
+000085: goto 11
+000088: aload_1 
+000089: checkcast #128 MoreFunQuicksandMod/main/client/MudModelRenderer
+000092: iconst_0 
+000093: putfield #278 MoreFunQuicksandMod/main/client/MudModelRenderer.eventShow:Z
+000096: return 

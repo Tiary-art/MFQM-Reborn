@@ -1,0 +1,375 @@
+Archive: MoreFunQuicksandMod/main/CustomRegister.class
+SHA256: 6134fd37860f2964628f6ff65dd2b6524257c3b05ea456e695f83caba03e5cff
+Superclass: java/lang/Object
+Offsets are decimal byte offsets; branch operands are relative offsets.
+
+
+METHOD <init> ()V
+000000: aload_0 
+000001: invokespecial #9 java/lang/Object.<init>:()V
+000004: return 
+
+METHOD registerItem (Ljava/lang/String;Lnet/minecraft/item/Item;Ljava/lang/String;)V
+000000: aload_1 
+000001: new #17 java/lang/StringBuilder
+000004: dup 
+000005: invokespecial #18 java/lang/StringBuilder.<init>:()V
+000008: aload_3 
+000009: invokevirtual #22 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000012: ldc #24 ':'
+000014: invokevirtual #22 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000017: invokevirtual #28 java/lang/StringBuilder.toString:()Ljava/lang/String;
+000020: invokevirtual #34 java/lang/String.startsWith:(Ljava/lang/String;)Z
+000023: ifne 11
+000026: aload_2 
+000027: aload_1 
+000028: invokestatic #39 cpw/mods/fml/common/registry/GameRegistry.registerItem:(Lnet/minecraft/item/Item;Ljava/lang/String;)V
+000031: goto 424
+000034: getstatic #45 net/minecraft/item/Item.field_150901_e:Lnet/minecraft/util/RegistryNamespaced;
+000037: astore 4
+000039: aload 4
+000041: aload_1 
+000042: invokevirtual #51 net/minecraft/util/RegistryNamespaced.func_82594_a:(Ljava/lang/String;)Ljava/lang/Object;
+000045: checkcast #41 net/minecraft/item/Item
+000048: astore 5
+000050: aload 4
+000052: aload 5
+000054: invokevirtual #55 net/minecraft/util/RegistryNamespaced.func_148757_b:(Ljava/lang/Object;)I
+000057: invokestatic #61 java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+000060: astore 6
+000062: aconst_null 
+000063: astore 7
+000065: aconst_null 
+000066: astore 8
+000068: ldc #63 net/minecraft/util/RegistrySimple
+000070: ldc #65 java/util/Map
+000072: iconst_0 
+000073: invokestatic #71 MoreFunQuicksandMod/main/Fields.findField:(Ljava/lang/Class;Ljava/lang/Class;I)Ljava/lang/reflect/Field;
+000076: astore 9
+000078: aload 9
+000080: iconst_1 
+000081: invokevirtual #77 java/lang/reflect/Field.setAccessible:(Z)V
+000084: ldc #47 net/minecraft/util/RegistryNamespaced
+000086: ldc #79 net/minecraft/util/ObjectIntIdentityMap
+000088: iconst_0 
+000089: invokestatic #71 MoreFunQuicksandMod/main/Fields.findField:(Ljava/lang/Class;Ljava/lang/Class;I)Ljava/lang/reflect/Field;
+000092: astore 10
+000094: aload 10
+000096: iconst_1 
+000097: invokevirtual #77 java/lang/reflect/Field.setAccessible:(Z)V
+000100: aload 9
+000102: aload 4
+000104: invokevirtual #83 java/lang/reflect/Field.get:(Ljava/lang/Object;)Ljava/lang/Object;
+000107: checkcast #65 java/util/Map
+000110: astore 7
+000112: aload 10
+000114: aload 4
+000116: invokevirtual #83 java/lang/reflect/Field.get:(Ljava/lang/Object;)Ljava/lang/Object;
+000119: checkcast #79 net/minecraft/util/ObjectIntIdentityMap
+000122: astore 8
+000124: aload 7
+000126: aload_1 
+000127: invokeinterface #86 java/util/Map.remove:(Ljava/lang/Object;)Ljava/lang/Object;, 2, 0
+000132: pop 
+000133: aload 8
+000135: aload_2 
+000136: aload 6
+000138: invokevirtual #90 java/lang/Integer.intValue:()I
+000141: invokevirtual #94 net/minecraft/util/ObjectIntIdentityMap.func_148746_a:(Ljava/lang/Object;I)V
+000144: aload 7
+000146: aload_1 
+000147: aload_2 
+000148: invokeinterface #98 java/util/Map.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;, 3, 0
+000153: pop 
+000154: aload 7
+000156: new #17 java/lang/StringBuilder
+000159: dup 
+000160: invokespecial #18 java/lang/StringBuilder.<init>:()V
+000163: ldc #100 'removed:'
+000165: invokevirtual #22 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000168: aload_1 
+000169: new #17 java/lang/StringBuilder
+000172: dup 
+000173: invokespecial #18 java/lang/StringBuilder.<init>:()V
+000176: aload_3 
+000177: invokevirtual #22 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000180: ldc #24 ':'
+000182: invokevirtual #22 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000185: invokevirtual #28 java/lang/StringBuilder.toString:()Ljava/lang/String;
+000188: ldc #102 ''
+000190: invokevirtual #106 java/lang/String.replace:(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
+000193: invokevirtual #22 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000196: invokevirtual #28 java/lang/StringBuilder.toString:()Ljava/lang/String;
+000199: aload 5
+000201: invokeinterface #98 java/util/Map.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;, 3, 0
+000206: pop 
+000207: aload 5
+000209: aconst_null 
+000210: invokevirtual #110 net/minecraft/item/Item.func_77637_a:(Lnet/minecraft/creativetab/CreativeTabs;)Lnet/minecraft/item/Item;
+000213: pop 
+000214: ldc #112 net/minecraft/init/Items
+000216: invokevirtual #118 java/lang/Class.getFields:()[Ljava/lang/reflect/Field;
+000219: astore 11
+000221: aload 11
+000223: arraylength 
+000224: istore 12
+000226: iconst_0 
+000227: istore 13
+000229: iload 13
+000231: iload 12
+000233: if_icmpge 98
+000236: aload 11
+000238: iload 13
+000240: aaload 
+000241: astore 14
+000243: aload 14
+000245: invokevirtual #123 java/lang/reflect/Field.getModifiers:()I
+000248: istore 15
+000250: iload 15
+000252: invokestatic #129 java/lang/reflect/Modifier.isStatic:(I)Z
+000255: ifeq 70
+000258: aload 14
+000260: aconst_null 
+000261: invokevirtual #83 java/lang/reflect/Field.get:(Ljava/lang/Object;)Ljava/lang/Object;
+000264: aload 5
+000266: invokevirtual #133 java/lang/Object.equals:(Ljava/lang/Object;)Z
+000269: ifeq 46
+000272: ldc #73 java/lang/reflect/Field
+000274: ldc #135 'modifiers'
+000276: invokevirtual #139 java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+000279: astore 16
+000281: aload 16
+000283: iconst_1 
+000284: invokevirtual #77 java/lang/reflect/Field.setAccessible:(Z)V
+000287: aload 16
+000289: aload 14
+000291: iload 15
+000293: bipush -17
+000295: iand 
+000296: invokestatic #61 java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+000299: invokevirtual #143 java/lang/reflect/Field.set:(Ljava/lang/Object;Ljava/lang/Object;)V
+000302: aload 14
+000304: iconst_1 
+000305: invokevirtual #77 java/lang/reflect/Field.setAccessible:(Z)V
+000308: aload 14
+000310: aconst_null 
+000311: aload_2 
+000312: invokevirtual #143 java/lang/reflect/Field.set:(Ljava/lang/Object;Ljava/lang/Object;)V
+000315: goto 10
+000318: astore 16
+000320: aload 16
+000322: invokevirtual #146 java/lang/Exception.printStackTrace:()V
+000325: iinc 13, 1
+000328: goto -99
+000331: ldc #148 net/minecraft/stats/StatCrafting
+000333: ldc #41 net/minecraft/item/Item
+000335: iconst_0 
+000336: invokestatic #71 MoreFunQuicksandMod/main/Fields.findField:(Ljava/lang/Class;Ljava/lang/Class;I)Ljava/lang/reflect/Field;
+000339: astore 11
+000341: aload 11
+000343: iconst_1 
+000344: invokevirtual #77 java/lang/reflect/Field.setAccessible:(Z)V
+000347: getstatic #154 net/minecraft/stats/StatList.field_75938_d:Ljava/util/List;
+000350: astore 12
+000352: aload 12
+000354: invokeinterface #160 java/util/List.iterator:()Ljava/util/Iterator;, 1, 0
+000359: astore 13
+000361: aload 13
+000363: invokeinterface #166 java/util/Iterator.hasNext:()Z, 1, 0
+000368: ifeq 77
+000371: aload 13
+000373: invokeinterface #170 java/util/Iterator.next:()Ljava/lang/Object;, 1, 0
+000378: checkcast #148 net/minecraft/stats/StatCrafting
+000381: astore 14
+000383: aload 11
+000385: aload 14
+000387: invokevirtual #83 java/lang/reflect/Field.get:(Ljava/lang/Object;)Ljava/lang/Object;
+000390: aload 5
+000392: if_acmpne 50
+000395: ldc #73 java/lang/reflect/Field
+000397: ldc #135 'modifiers'
+000399: invokevirtual #139 java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+000402: astore 15
+000404: aload 15
+000406: iconst_1 
+000407: invokevirtual #77 java/lang/reflect/Field.setAccessible:(Z)V
+000410: aload 15
+000412: aload 11
+000414: aload 11
+000416: invokevirtual #123 java/lang/reflect/Field.getModifiers:()I
+000419: bipush -17
+000421: iand 
+000422: invokestatic #61 java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+000425: invokevirtual #143 java/lang/reflect/Field.set:(Ljava/lang/Object;Ljava/lang/Object;)V
+000428: aload 11
+000430: iconst_1 
+000431: invokevirtual #77 java/lang/reflect/Field.setAccessible:(Z)V
+000434: aload 11
+000436: aload 14
+000438: aload_2 
+000439: invokevirtual #143 java/lang/reflect/Field.set:(Ljava/lang/Object;Ljava/lang/Object;)V
+000442: goto -81
+000445: goto 10
+000448: astore 5
+000450: aload 5
+000452: invokevirtual #146 java/lang/Exception.printStackTrace:()V
+000455: return 
+
+METHOD registerBlock (Ljava/lang/String;Lnet/minecraft/block/Block;Ljava/lang/String;)V
+000000: aload_1 
+000001: new #17 java/lang/StringBuilder
+000004: dup 
+000005: invokespecial #18 java/lang/StringBuilder.<init>:()V
+000008: aload_3 
+000009: invokevirtual #22 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000012: ldc #24 ':'
+000014: invokevirtual #22 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000017: invokevirtual #28 java/lang/StringBuilder.toString:()Ljava/lang/String;
+000020: invokevirtual #34 java/lang/String.startsWith:(Ljava/lang/String;)Z
+000023: ifne 12
+000026: aload_2 
+000027: aload_1 
+000028: invokestatic #205 cpw/mods/fml/common/registry/GameRegistry.registerBlock:(Lnet/minecraft/block/Block;Ljava/lang/String;)Lnet/minecraft/block/Block;
+000031: pop 
+000032: goto 310
+000035: getstatic #210 net/minecraft/block/Block.field_149771_c:Lnet/minecraft/util/RegistryNamespaced;
+000038: astore 4
+000040: aload 4
+000042: aload_1 
+000043: invokevirtual #51 net/minecraft/util/RegistryNamespaced.func_82594_a:(Ljava/lang/String;)Ljava/lang/Object;
+000046: checkcast #207 net/minecraft/block/Block
+000049: astore 5
+000051: aload 4
+000053: aload 5
+000055: invokevirtual #55 net/minecraft/util/RegistryNamespaced.func_148757_b:(Ljava/lang/Object;)I
+000058: invokestatic #61 java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+000061: astore 6
+000063: aconst_null 
+000064: astore 7
+000066: aconst_null 
+000067: astore 8
+000069: ldc #63 net/minecraft/util/RegistrySimple
+000071: ldc #65 java/util/Map
+000073: iconst_0 
+000074: invokestatic #71 MoreFunQuicksandMod/main/Fields.findField:(Ljava/lang/Class;Ljava/lang/Class;I)Ljava/lang/reflect/Field;
+000077: astore 9
+000079: aload 9
+000081: iconst_1 
+000082: invokevirtual #77 java/lang/reflect/Field.setAccessible:(Z)V
+000085: ldc #47 net/minecraft/util/RegistryNamespaced
+000087: ldc #79 net/minecraft/util/ObjectIntIdentityMap
+000089: iconst_0 
+000090: invokestatic #71 MoreFunQuicksandMod/main/Fields.findField:(Ljava/lang/Class;Ljava/lang/Class;I)Ljava/lang/reflect/Field;
+000093: astore 10
+000095: aload 10
+000097: iconst_1 
+000098: invokevirtual #77 java/lang/reflect/Field.setAccessible:(Z)V
+000101: aload 9
+000103: aload 4
+000105: invokevirtual #83 java/lang/reflect/Field.get:(Ljava/lang/Object;)Ljava/lang/Object;
+000108: checkcast #65 java/util/Map
+000111: astore 7
+000113: aload 10
+000115: aload 4
+000117: invokevirtual #83 java/lang/reflect/Field.get:(Ljava/lang/Object;)Ljava/lang/Object;
+000120: checkcast #79 net/minecraft/util/ObjectIntIdentityMap
+000123: astore 8
+000125: aload 7
+000127: aload_1 
+000128: invokeinterface #86 java/util/Map.remove:(Ljava/lang/Object;)Ljava/lang/Object;, 2, 0
+000133: pop 
+000134: aload 8
+000136: aload_2 
+000137: aload 6
+000139: invokevirtual #90 java/lang/Integer.intValue:()I
+000142: invokevirtual #94 net/minecraft/util/ObjectIntIdentityMap.func_148746_a:(Ljava/lang/Object;I)V
+000145: aload 7
+000147: aload_1 
+000148: aload_2 
+000149: invokeinterface #98 java/util/Map.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;, 3, 0
+000154: pop 
+000155: aload 7
+000157: new #17 java/lang/StringBuilder
+000160: dup 
+000161: invokespecial #18 java/lang/StringBuilder.<init>:()V
+000164: ldc #100 'removed:'
+000166: invokevirtual #22 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000169: aload_1 
+000170: new #17 java/lang/StringBuilder
+000173: dup 
+000174: invokespecial #18 java/lang/StringBuilder.<init>:()V
+000177: aload_3 
+000178: invokevirtual #22 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000181: ldc #24 ':'
+000183: invokevirtual #22 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000186: invokevirtual #28 java/lang/StringBuilder.toString:()Ljava/lang/String;
+000189: ldc #102 ''
+000191: invokevirtual #106 java/lang/String.replace:(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
+000194: invokevirtual #22 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000197: invokevirtual #28 java/lang/StringBuilder.toString:()Ljava/lang/String;
+000200: aload 5
+000202: invokeinterface #98 java/util/Map.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;, 3, 0
+000207: pop 
+000208: aload 5
+000210: aconst_null 
+000211: invokevirtual #214 net/minecraft/block/Block.func_149647_a:(Lnet/minecraft/creativetab/CreativeTabs;)Lnet/minecraft/block/Block;
+000214: pop 
+000215: ldc #216 net/minecraft/init/Blocks
+000217: invokevirtual #118 java/lang/Class.getFields:()[Ljava/lang/reflect/Field;
+000220: astore 11
+000222: aload 11
+000224: arraylength 
+000225: istore 12
+000227: iconst_0 
+000228: istore 13
+000230: iload 13
+000232: iload 12
+000234: if_icmpge 98
+000237: aload 11
+000239: iload 13
+000241: aaload 
+000242: astore 14
+000244: aload 14
+000246: invokevirtual #123 java/lang/reflect/Field.getModifiers:()I
+000249: istore 15
+000251: iload 15
+000253: invokestatic #129 java/lang/reflect/Modifier.isStatic:(I)Z
+000256: ifeq 70
+000259: aload 14
+000261: aconst_null 
+000262: invokevirtual #83 java/lang/reflect/Field.get:(Ljava/lang/Object;)Ljava/lang/Object;
+000265: aload 5
+000267: invokevirtual #133 java/lang/Object.equals:(Ljava/lang/Object;)Z
+000270: ifeq 46
+000273: ldc #73 java/lang/reflect/Field
+000275: ldc #135 'modifiers'
+000277: invokevirtual #139 java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+000280: astore 16
+000282: aload 16
+000284: iconst_1 
+000285: invokevirtual #77 java/lang/reflect/Field.setAccessible:(Z)V
+000288: aload 16
+000290: aload 14
+000292: iload 15
+000294: bipush -17
+000296: iand 
+000297: invokestatic #61 java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+000300: invokevirtual #143 java/lang/reflect/Field.set:(Ljava/lang/Object;Ljava/lang/Object;)V
+000303: aload 14
+000305: iconst_1 
+000306: invokevirtual #77 java/lang/reflect/Field.setAccessible:(Z)V
+000309: aload 14
+000311: aconst_null 
+000312: aload_2 
+000313: invokevirtual #143 java/lang/reflect/Field.set:(Ljava/lang/Object;Ljava/lang/Object;)V
+000316: goto 10
+000319: astore 16
+000321: aload 16
+000323: invokevirtual #146 java/lang/Exception.printStackTrace:()V
+000326: iinc 13, 1
+000329: goto -99
+000332: goto 10
+000335: astore 5
+000337: aload 5
+000339: invokevirtual #146 java/lang/Exception.printStackTrace:()V
+000342: return 

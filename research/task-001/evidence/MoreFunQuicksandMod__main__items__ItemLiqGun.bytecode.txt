@@ -1,0 +1,356 @@
+Archive: MoreFunQuicksandMod/main/items/ItemLiqGun.class
+SHA256: 1cc361a000cd404ee7210970f76368b1ff33b262867413471d5fce9253ad6e38
+Superclass: net/minecraft/item/Item
+Offsets are decimal byte offsets; branch operands are relative offsets.
+
+
+METHOD <init> ()V
+000000: aload_0 
+000001: invokespecial #20 net/minecraft/item/Item.<init>:()V
+000004: aload_0 
+000005: iconst_1 
+000006: invokevirtual #24 MoreFunQuicksandMod/main/items/ItemLiqGun.func_77625_d:(I)Lnet/minecraft/item/Item;
+000009: pop 
+000010: aload_0 
+000011: bipush 32
+000013: invokevirtual #27 MoreFunQuicksandMod/main/items/ItemLiqGun.func_77656_e:(I)Lnet/minecraft/item/Item;
+000016: pop 
+000017: aload_0 
+000018: ldc #29 'LiqGunItem'
+000020: invokevirtual #33 MoreFunQuicksandMod/main/items/ItemLiqGun.func_77655_b:(Ljava/lang/String;)Lnet/minecraft/item/Item;
+000023: pop 
+000024: aload_0 
+000025: getstatic #39 MoreFunQuicksandMod/main/MFQM.tabMFQM:Lnet/minecraft/creativetab/CreativeTabs;
+000028: invokevirtual #43 MoreFunQuicksandMod/main/items/ItemLiqGun.func_77637_a:(Lnet/minecraft/creativetab/CreativeTabs;)Lnet/minecraft/item/Item;
+000031: pop 
+000032: return 
+
+METHOD func_77661_b (Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/EnumAction;
+000000: getstatic #53 net/minecraft/item/EnumAction.bow:Lnet/minecraft/item/EnumAction;
+000003: areturn 
+
+METHOD func_77645_m ()Z
+000000: iconst_0 
+000001: ireturn 
+
+METHOD func_77626_a (Lnet/minecraft/item/ItemStack;)I
+000000: ldc #60 72000
+000002: ireturn 
+
+METHOD func_77662_d ()Z
+000000: iconst_1 
+000001: ireturn 
+
+METHOD func_77629_n_ ()Z
+000000: iconst_0 
+000001: ireturn 
+
+METHOD func_77615_a (Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/player/EntityPlayer;I)V
+000000: aload_3 
+000001: getfield #71 net/minecraft/entity/player/EntityPlayer.field_71075_bZ:Lnet/minecraft/entity/player/PlayerCapabilities;
+000004: getfield #77 net/minecraft/entity/player/PlayerCapabilities.field_75098_d:Z
+000007: ifne 14
+000010: aload_1 
+000011: invokevirtual #83 net/minecraft/item/ItemStack.func_77960_j:()I
+000014: aload_1 
+000015: invokevirtual #86 net/minecraft/item/ItemStack.func_77958_k:()I
+000018: if_icmpge 167
+000021: aconst_null 
+000022: astore 5
+000024: aload_1 
+000025: invokevirtual #89 net/minecraft/item/ItemStack.func_77942_o:()Z
+000028: ifeq 29
+000031: aload_1 
+000032: getfield #93 net/minecraft/item/ItemStack.field_77990_d:Lnet/minecraft/nbt/NBTTagCompound;
+000035: ldc #95 'liqBlockID'
+000037: invokevirtual #101 net/minecraft/nbt/NBTTagCompound.func_74764_b:(Ljava/lang/String;)Z
+000040: ifeq 17
+000043: aload_1 
+000044: getfield #93 net/minecraft/item/ItemStack.field_77990_d:Lnet/minecraft/nbt/NBTTagCompound;
+000047: ldc #95 'liqBlockID'
+000049: invokevirtual #105 net/minecraft/nbt/NBTTagCompound.func_74762_e:(Ljava/lang/String;)I
+000052: invokestatic #111 net/minecraft/block/Block.func_149729_e:(I)Lnet/minecraft/block/Block;
+000055: astore 5
+000057: aload 5
+000059: ifnull 19
+000062: new #113 MoreFunQuicksandMod/main/entity/EntityLiqBall
+000065: dup 
+000066: aload_2 
+000067: aload_3 
+000068: aload 5
+000070: invokespecial #116 MoreFunQuicksandMod/main/entity/EntityLiqBall.<init>:(Lnet/minecraft/world/World;Lnet/minecraft/entity/EntityLivingBase;Lnet/minecraft/block/Block;)V
+000073: astore 6
+000075: goto 14
+000078: new #113 MoreFunQuicksandMod/main/entity/EntityLiqBall
+000081: dup 
+000082: aload_2 
+000083: aload_3 
+000084: invokespecial #119 MoreFunQuicksandMod/main/entity/EntityLiqBall.<init>:(Lnet/minecraft/world/World;Lnet/minecraft/entity/EntityLivingBase;)V
+000087: astore 6
+000089: aload_1 
+000090: iconst_1 
+000091: aload_3 
+000092: invokevirtual #123 net/minecraft/item/ItemStack.func_77972_a:(ILnet/minecraft/entity/EntityLivingBase;)V
+000095: aload_2 
+000096: aload_3 
+000097: ldc #125 'random.bow'
+000099: fconst_1 
+000100: fconst_1 
+000101: getstatic #129 MoreFunQuicksandMod/main/items/ItemLiqGun.field_77697_d:Ljava/util/Random;
+000104: invokevirtual #135 java/util/Random.nextFloat:()F
+000107: ldc #136 0.4000000059604645
+000109: fmul 
+000110: ldc #137 1.2000000476837158
+000112: fadd 
+000113: fdiv 
+000114: ldc #138 0.5
+000116: fadd 
+000117: invokevirtual #144 net/minecraft/world/World.func_72956_a:(Lnet/minecraft/entity/Entity;Ljava/lang/String;FF)V
+000120: aload_2 
+000121: getfield #147 net/minecraft/world/World.field_72995_K:Z
+000124: ifne 10
+000127: aload_2 
+000128: aload 6
+000130: invokevirtual #151 net/minecraft/world/World.func_72838_d:(Lnet/minecraft/entity/Entity;)Z
+000133: pop 
+000134: aload_1 
+000135: invokevirtual #83 net/minecraft/item/ItemStack.func_77960_j:()I
+000138: aload_1 
+000139: invokevirtual #86 net/minecraft/item/ItemStack.func_77958_k:()I
+000142: if_icmplt 43
+000145: aload_1 
+000146: invokevirtual #89 net/minecraft/item/ItemStack.func_77942_o:()Z
+000149: ifne 14
+000152: aload_1 
+000153: new #97 net/minecraft/nbt/NBTTagCompound
+000156: dup 
+000157: invokespecial #152 net/minecraft/nbt/NBTTagCompound.<init>:()V
+000160: invokevirtual #156 net/minecraft/item/ItemStack.func_77982_d:(Lnet/minecraft/nbt/NBTTagCompound;)V
+000163: aload_1 
+000164: getfield #93 net/minecraft/item/ItemStack.field_77990_d:Lnet/minecraft/nbt/NBTTagCompound;
+000167: ldc #95 'liqBlockID'
+000169: bipush 8
+000171: invokevirtual #160 net/minecraft/nbt/NBTTagCompound.func_74768_a:(Ljava/lang/String;I)V
+000174: aload_1 
+000175: getfield #93 net/minecraft/item/ItemStack.field_77990_d:Lnet/minecraft/nbt/NBTTagCompound;
+000178: ldc #162 'liqDisplayName'
+000180: ldc #164 ''
+000182: invokevirtual #168 net/minecraft/nbt/NBTTagCompound.func_74778_a:(Ljava/lang/String;Ljava/lang/String;)V
+000185: return 
+
+METHOD func_77622_d (Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/player/EntityPlayer;)V
+000000: aload_1 
+000001: invokevirtual #89 net/minecraft/item/ItemStack.func_77942_o:()Z
+000004: ifne 14
+000007: aload_1 
+000008: new #97 net/minecraft/nbt/NBTTagCompound
+000011: dup 
+000012: invokespecial #152 net/minecraft/nbt/NBTTagCompound.<init>:()V
+000015: invokevirtual #156 net/minecraft/item/ItemStack.func_77982_d:(Lnet/minecraft/nbt/NBTTagCompound;)V
+000018: bipush 8
+000020: invokestatic #111 net/minecraft/block/Block.func_149729_e:(I)Lnet/minecraft/block/Block;
+000023: astore 4
+000025: aload 4
+000027: invokevirtual #185 net/minecraft/block/Block.func_149732_F:()Ljava/lang/String;
+000030: astore 5
+000032: aload_1 
+000033: getfield #93 net/minecraft/item/ItemStack.field_77990_d:Lnet/minecraft/nbt/NBTTagCompound;
+000036: ldc #95 'liqBlockID'
+000038: bipush 8
+000040: invokevirtual #160 net/minecraft/nbt/NBTTagCompound.func_74768_a:(Ljava/lang/String;I)V
+000043: aload_1 
+000044: getfield #93 net/minecraft/item/ItemStack.field_77990_d:Lnet/minecraft/nbt/NBTTagCompound;
+000047: ldc #162 'liqDisplayName'
+000049: aload 5
+000051: invokevirtual #168 net/minecraft/nbt/NBTTagCompound.func_74778_a:(Ljava/lang/String;Ljava/lang/String;)V
+000054: return 
+
+METHOD func_77659_a (Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/player/EntityPlayer;)Lnet/minecraft/item/ItemStack;
+000000: aload_3 
+000001: invokevirtual #193 net/minecraft/entity/player/EntityPlayer.func_70093_af:()Z
+000004: ifne 27
+000007: aload_1 
+000008: invokevirtual #83 net/minecraft/item/ItemStack.func_77960_j:()I
+000011: aload_1 
+000012: invokevirtual #86 net/minecraft/item/ItemStack.func_77958_k:()I
+000015: if_icmpge 16
+000018: aload_3 
+000019: aload_1 
+000020: aload_0 
+000021: aload_1 
+000022: invokevirtual #195 MoreFunQuicksandMod/main/items/ItemLiqGun.func_77626_a:(Lnet/minecraft/item/ItemStack;)I
+000025: invokevirtual #199 net/minecraft/entity/player/EntityPlayer.func_71008_a:(Lnet/minecraft/item/ItemStack;I)V
+000028: goto 206
+000031: aload_0 
+000032: aload_2 
+000033: aload_3 
+000034: iconst_1 
+000035: invokevirtual #203 MoreFunQuicksandMod/main/items/ItemLiqGun.func_77621_a:(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/EntityPlayer;Z)Lnet/minecraft/util/MovingObjectPosition;
+000038: astore 4
+000040: aload 4
+000042: ifnonnull 5
+000045: aload_1 
+000046: areturn 
+000047: aload 4
+000049: getfield #207 net/minecraft/util/MovingObjectPosition.field_72313_a:Lnet/minecraft/util/MovingObjectPosition$MovingObjectType;
+000052: getstatic #210 net/minecraft/util/MovingObjectPosition$MovingObjectType.BLOCK:Lnet/minecraft/util/MovingObjectPosition$MovingObjectType;
+000055: if_acmpne 179
+000058: aload 4
+000060: getfield #213 net/minecraft/util/MovingObjectPosition.field_72311_b:I
+000063: istore 5
+000065: aload 4
+000067: getfield #216 net/minecraft/util/MovingObjectPosition.field_72312_c:I
+000070: istore 6
+000072: aload 4
+000074: getfield #219 net/minecraft/util/MovingObjectPosition.field_72309_d:I
+000077: istore 7
+000079: aload_2 
+000080: aload_3 
+000081: iload 5
+000083: iload 6
+000085: iload 7
+000087: invokevirtual #223 net/minecraft/world/World.func_72962_a:(Lnet/minecraft/entity/player/EntityPlayer;III)Z
+000090: ifne 5
+000093: aload_1 
+000094: areturn 
+000095: aload_3 
+000096: iload 5
+000098: iload 6
+000100: iload 7
+000102: aload 4
+000104: getfield #226 net/minecraft/util/MovingObjectPosition.field_72310_e:I
+000107: aload_1 
+000108: invokevirtual #230 net/minecraft/entity/player/EntityPlayer.func_82247_a:(IIIILnet/minecraft/item/ItemStack;)Z
+000111: ifne 5
+000114: aload_1 
+000115: areturn 
+000116: aload_2 
+000117: iload 5
+000119: iload 6
+000121: iload 7
+000123: invokevirtual #234 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+000126: invokevirtual #238 net/minecraft/block/Block.func_149688_o:()Lnet/minecraft/block/material/Material;
+000129: invokevirtual #243 net/minecraft/block/material/Material.func_76224_d:()Z
+000132: ifeq 102
+000135: aload_2 
+000136: iload 5
+000138: iload 6
+000140: iload 7
+000142: invokevirtual #234 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+000145: astore 8
+000147: aload_2 
+000148: iload 5
+000150: iload 6
+000152: iload 7
+000154: invokevirtual #247 net/minecraft/world/World.func_72805_g:(III)I
+000157: istore 9
+000159: iload 9
+000161: ifne 73
+000164: aload 8
+000166: invokestatic #251 net/minecraft/block/Block.func_149682_b:(Lnet/minecraft/block/Block;)I
+000169: istore 10
+000171: aload 8
+000173: invokevirtual #185 net/minecraft/block/Block.func_149732_F:()Ljava/lang/String;
+000176: astore 11
+000178: aload_1 
+000179: invokevirtual #89 net/minecraft/item/ItemStack.func_77942_o:()Z
+000182: ifne 14
+000185: aload_1 
+000186: new #97 net/minecraft/nbt/NBTTagCompound
+000189: dup 
+000190: invokespecial #152 net/minecraft/nbt/NBTTagCompound.<init>:()V
+000193: invokevirtual #156 net/minecraft/item/ItemStack.func_77982_d:(Lnet/minecraft/nbt/NBTTagCompound;)V
+000196: aload_1 
+000197: getfield #93 net/minecraft/item/ItemStack.field_77990_d:Lnet/minecraft/nbt/NBTTagCompound;
+000200: ldc #95 'liqBlockID'
+000202: iload 10
+000204: invokevirtual #160 net/minecraft/nbt/NBTTagCompound.func_74768_a:(Ljava/lang/String;I)V
+000207: aload_1 
+000208: getfield #93 net/minecraft/item/ItemStack.field_77990_d:Lnet/minecraft/nbt/NBTTagCompound;
+000211: ldc #162 'liqDisplayName'
+000213: aload 11
+000215: invokevirtual #168 net/minecraft/nbt/NBTTagCompound.func_74778_a:(Ljava/lang/String;Ljava/lang/String;)V
+000218: aload_1 
+000219: iconst_0 
+000220: invokevirtual #257 net/minecraft/item/ItemStack.func_77964_b:(I)V
+000223: aload_2 
+000224: iload 5
+000226: iload 6
+000228: iload 7
+000230: invokevirtual #261 net/minecraft/world/World.func_147468_f:(III)Z
+000233: pop 
+000234: aload_1 
+000235: areturn 
+
+METHOD func_94581_a (Lnet/minecraft/client/renderer/texture/IIconRegister;)V
+000000: aload_0 
+000001: aload_1 
+000002: ldc_w #272 'morefunquicksandmod:LiqGun'
+000005: invokeinterface #278 net/minecraft/client/renderer/texture/IIconRegister.func_94245_a:(Ljava/lang/String;)Lnet/minecraft/util/IIcon;, 2, 0
+000010: putfield #280 MoreFunQuicksandMod/main/items/ItemLiqGun.itemIcon:Lnet/minecraft/util/IIcon;
+000013: return 
+
+METHOD func_77617_a (I)Lnet/minecraft/util/IIcon;
+000000: aload_0 
+000001: getfield #280 MoreFunQuicksandMod/main/items/ItemLiqGun.itemIcon:Lnet/minecraft/util/IIcon;
+000004: areturn 
+
+METHOD func_77624_a (Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V
+000000: ldc_w #289 'itemLiqGun.maybewater'
+000003: astore 5
+000005: aload_1 
+000006: invokevirtual #89 net/minecraft/item/ItemStack.func_77942_o:()Z
+000009: ifeq 40
+000012: aload_1 
+000013: getfield #93 net/minecraft/item/ItemStack.field_77990_d:Lnet/minecraft/nbt/NBTTagCompound;
+000016: ldc #162 'liqDisplayName'
+000018: invokevirtual #101 net/minecraft/nbt/NBTTagCompound.func_74764_b:(Ljava/lang/String;)Z
+000021: ifeq 28
+000024: aload_1 
+000025: getfield #93 net/minecraft/item/ItemStack.field_77990_d:Lnet/minecraft/nbt/NBTTagCompound;
+000028: ldc #162 'liqDisplayName'
+000030: invokevirtual #293 net/minecraft/nbt/NBTTagCompound.func_74779_i:(Ljava/lang/String;)Ljava/lang/String;
+000033: ldc #164 ''
+000035: if_acmpeq 14
+000038: aload_1 
+000039: getfield #93 net/minecraft/item/ItemStack.field_77990_d:Lnet/minecraft/nbt/NBTTagCompound;
+000042: ldc #162 'liqDisplayName'
+000044: invokevirtual #293 net/minecraft/nbt/NBTTagCompound.func_74779_i:(Ljava/lang/String;)Ljava/lang/String;
+000047: astore 5
+000049: aload_1 
+000050: invokevirtual #83 net/minecraft/item/ItemStack.func_77960_j:()I
+000053: aload_1 
+000054: invokevirtual #86 net/minecraft/item/ItemStack.func_77958_k:()I
+000057: if_icmplt 8
+000060: ldc_w #295 'itemLiqGun.empty'
+000063: astore 5
+000065: aload_3 
+000066: new #297 java/lang/StringBuilder
+000069: dup 
+000070: invokespecial #298 java/lang/StringBuilder.<init>:()V
+000073: getstatic #304 net/minecraft/util/EnumChatFormatting.BOLD:Lnet/minecraft/util/EnumChatFormatting;
+000076: invokevirtual #308 java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+000079: aload 5
+000081: invokestatic #313 net/minecraft/util/StatCollector.func_74838_a:(Ljava/lang/String;)Ljava/lang/String;
+000084: invokevirtual #316 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000087: invokevirtual #319 java/lang/StringBuilder.toString:()Ljava/lang/String;
+000090: invokeinterface #325 java/util/List.add:(Ljava/lang/Object;)Z, 2, 0
+000095: pop 
+000096: aload_3 
+000097: ldc_w #327 'itemLiqGun.instruction1'
+000100: invokestatic #313 net/minecraft/util/StatCollector.func_74838_a:(Ljava/lang/String;)Ljava/lang/String;
+000103: invokeinterface #325 java/util/List.add:(Ljava/lang/Object;)Z, 2, 0
+000108: pop 
+000109: aload_3 
+000110: new #297 java/lang/StringBuilder
+000113: dup 
+000114: invokespecial #298 java/lang/StringBuilder.<init>:()V
+000117: ldc_w #329 'itemLiqGun.instruction2'
+000120: invokestatic #313 net/minecraft/util/StatCollector.func_74838_a:(Ljava/lang/String;)Ljava/lang/String;
+000123: invokevirtual #316 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000126: ldc_w #331 '.'
+000129: invokevirtual #316 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000132: invokevirtual #319 java/lang/StringBuilder.toString:()Ljava/lang/String;
+000135: invokeinterface #325 java/util/List.add:(Ljava/lang/Object;)Z, 2, 0
+000140: pop 
+000141: return 

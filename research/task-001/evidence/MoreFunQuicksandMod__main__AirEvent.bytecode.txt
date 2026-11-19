@@ -1,0 +1,437 @@
+Archive: MoreFunQuicksandMod/main/AirEvent.class
+SHA256: d85ffb7d39ea3c2999adf068be110f10b2897a471af944b25e773f33e033e580
+Superclass: java/lang/Object
+Offsets are decimal byte offsets; branch operands are relative offsets.
+
+
+METHOD <init> ()V
+000000: aload_0 
+000001: invokespecial #19 java/lang/Object.<init>:()V
+000004: return 
+
+METHOD onEntityConstructing (Lnet/minecraftforge/event/entity/EntityEvent$EntityConstructing;)V
+000000: aload_1 
+000001: getfield #30 net/minecraftforge/event/entity/EntityEvent$EntityConstructing.entity:Lnet/minecraft/entity/Entity;
+000004: instanceof #32 net/minecraft/entity/player/EntityPlayer
+000007: ifeq 10
+000010: getstatic #38 MoreFunQuicksandMod/main/MFQM.QSAir:Z
+000013: ifne 11
+000016: return 
+000017: getstatic #41 MoreFunQuicksandMod/main/MFQM.QSMAir:Z
+000020: ifne 4
+000023: return 
+000024: aload_1 
+000025: getfield #30 net/minecraftforge/event/entity/EntityEvent$EntityConstructing.entity:Lnet/minecraft/entity/Entity;
+000028: instanceof #43 net/minecraft/entity/EntityLivingBase
+000031: ifeq 172
+000034: aload_1 
+000035: getfield #30 net/minecraftforge/event/entity/EntityEvent$EntityConstructing.entity:Lnet/minecraft/entity/Entity;
+000038: instanceof #32 net/minecraft/entity/player/EntityPlayer
+000041: ifeq 84
+000044: aload_1 
+000045: getfield #30 net/minecraftforge/event/entity/EntityEvent$EntityConstructing.entity:Lnet/minecraft/entity/Entity;
+000048: invokevirtual #49 net/minecraft/entity/Entity.func_70096_w:()Lnet/minecraft/entity/DataWatcher;
+000051: getstatic #53 MoreFunQuicksandMod/main/MFQM.MuddyAir:I
+000054: sipush 300
+000057: invokestatic #59 java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+000060: invokevirtual #65 net/minecraft/entity/DataWatcher.func_75682_a:(ILjava/lang/Object;)V
+000063: goto 140
+000066: astore_2 
+000067: getstatic #68 MoreFunQuicksandMod/main/MFQM.MuddyAirEcp:I
+000070: iconst_5 
+000071: if_icmpge 51
+000074: getstatic #68 MoreFunQuicksandMod/main/MFQM.MuddyAirEcp:I
+000077: iconst_1 
+000078: iadd 
+000079: putstatic #68 MoreFunQuicksandMod/main/MFQM.MuddyAirEcp:I
+000082: aload_2 
+000083: new #70 java/lang/StringBuilder
+000086: dup 
+000087: invokespecial #71 java/lang/StringBuilder.<init>:()V
+000090: ldc #73 'Error initializing Oxygen System. Muddy Air DataWatcher ID conflict: '
+000092: invokevirtual #77 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000095: getstatic #53 MoreFunQuicksandMod/main/MFQM.MuddyAir:I
+000098: invokevirtual #80 java/lang/StringBuilder.append:(I)Ljava/lang/StringBuilder;
+000101: ldc #82 ' with entity player '
+000103: invokevirtual #77 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000106: invokevirtual #86 java/lang/StringBuilder.toString:()Ljava/lang/String;
+000109: invokestatic #92 net/minecraft/crash/CrashReport.func_85055_a:(Ljava/lang/Throwable;Ljava/lang/String;)Lnet/minecraft/crash/CrashReport;
+000112: astore_3 
+000113: new #94 net/minecraft/util/ReportedException
+000116: dup 
+000117: aload_3 
+000118: invokespecial #97 net/minecraft/util/ReportedException.<init>:(Lnet/minecraft/crash/CrashReport;)V
+000121: athrow 
+000122: goto 81
+000125: aload_1 
+000126: getfield #30 net/minecraftforge/event/entity/EntityEvent$EntityConstructing.entity:Lnet/minecraft/entity/Entity;
+000129: invokevirtual #49 net/minecraft/entity/Entity.func_70096_w:()Lnet/minecraft/entity/DataWatcher;
+000132: getstatic #100 MoreFunQuicksandMod/main/MFQM.MuddyMobsAir:I
+000135: sipush 300
+000138: invokestatic #59 java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+000141: invokevirtual #65 net/minecraft/entity/DataWatcher.func_75682_a:(ILjava/lang/Object;)V
+000144: goto 59
+000147: astore_2 
+000148: getstatic #103 MoreFunQuicksandMod/main/MFQM.MuddyMobsAirEcp:I
+000151: iconst_5 
+000152: if_icmpge 51
+000155: getstatic #103 MoreFunQuicksandMod/main/MFQM.MuddyMobsAirEcp:I
+000158: iconst_1 
+000159: iadd 
+000160: putstatic #103 MoreFunQuicksandMod/main/MFQM.MuddyMobsAirEcp:I
+000163: aload_2 
+000164: new #70 java/lang/StringBuilder
+000167: dup 
+000168: invokespecial #71 java/lang/StringBuilder.<init>:()V
+000171: ldc #105 'Error initializing Oxygen System. Muddy Mobs Air DataWatcher ID conflict: '
+000173: invokevirtual #77 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000176: getstatic #100 MoreFunQuicksandMod/main/MFQM.MuddyMobsAir:I
+000179: invokevirtual #80 java/lang/StringBuilder.append:(I)Ljava/lang/StringBuilder;
+000182: ldc #107 ' with entity living '
+000184: invokevirtual #77 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000187: invokevirtual #86 java/lang/StringBuilder.toString:()Ljava/lang/String;
+000190: invokestatic #92 net/minecraft/crash/CrashReport.func_85055_a:(Ljava/lang/Throwable;Ljava/lang/String;)Lnet/minecraft/crash/CrashReport;
+000193: astore_3 
+000194: new #94 net/minecraft/util/ReportedException
+000197: dup 
+000198: aload_3 
+000199: invokespecial #97 net/minecraft/util/ReportedException.<init>:(Lnet/minecraft/crash/CrashReport;)V
+000202: athrow 
+000203: return 
+
+METHOD onLivingUpdateEvent (Lnet/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent;)V
+000000: aload_1 
+000001: getfield #119 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000004: instanceof #32 net/minecraft/entity/player/EntityPlayer
+000007: ifeq 291
+000010: aload_1 
+000011: getfield #119 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000014: checkcast #32 net/minecraft/entity/player/EntityPlayer
+000017: astore_2 
+000018: aload_2 
+000019: getfield #123 net/minecraft/entity/player/EntityPlayer.field_70170_p:Lnet/minecraft/world/World;
+000022: getfield #128 net/minecraft/world/World.field_72995_K:Z
+000025: ifeq 263
+000028: aload_2 
+000029: invokestatic #134 net/minecraft/client/Minecraft.func_71410_x:()Lnet/minecraft/client/Minecraft;
+000032: getfield #138 net/minecraft/client/Minecraft.field_71439_g:Lnet/minecraft/client/entity/EntityClientPlayerMP;
+000035: if_acmpeq 236
+000038: aload_2 
+000039: invokevirtual #142 net/minecraft/entity/player/EntityPlayer.func_71045_bC:()Lnet/minecraft/item/ItemStack;
+000042: ifnull 246
+000045: aload_2 
+000046: invokevirtual #142 net/minecraft/entity/player/EntityPlayer.func_71045_bC:()Lnet/minecraft/item/ItemStack;
+000049: invokevirtual #148 net/minecraft/item/ItemStack.func_77973_b:()Lnet/minecraft/item/Item;
+000052: getstatic #152 MoreFunQuicksandMod/main/MFQM.LongStickItem:Lnet/minecraft/item/Item;
+000055: if_acmpne 233
+000058: aload_2 
+000059: invokevirtual #142 net/minecraft/entity/player/EntityPlayer.func_71045_bC:()Lnet/minecraft/item/ItemStack;
+000062: astore_3 
+000063: aload_2 
+000064: invokevirtual #156 net/minecraft/entity/player/EntityPlayer.func_71039_bw:()Z
+000067: ifeq 201
+000070: iconst_0 
+000071: istore 4
+000073: aload_2 
+000074: invokevirtual #160 net/minecraft/entity/player/EntityPlayer.func_71052_bv:()I
+000077: istore 5
+000079: aload_3 
+000080: invokevirtual #163 net/minecraft/item/ItemStack.func_77988_m:()I
+000083: istore 6
+000085: bipush 100
+000087: istore 7
+000089: iload 6
+000091: iload 7
+000093: isub 
+000094: istore 8
+000096: aload_3 
+000097: invokevirtual #163 net/minecraft/item/ItemStack.func_77988_m:()I
+000100: iconst_2 
+000101: idiv 
+000102: i2d 
+000103: invokestatic #169 java/lang/Math.floor:(D)D
+000106: d2i 
+000107: istore 9
+000109: iload 9
+000111: iload 7
+000113: iconst_4 
+000114: idiv 
+000115: i2d 
+000116: invokestatic #169 java/lang/Math.floor:(D)D
+000119: d2i 
+000120: isub 
+000121: istore 10
+000123: iload 6
+000125: iload 7
+000127: iconst_4 
+000128: idiv 
+000129: i2d 
+000130: invokestatic #169 java/lang/Math.floor:(D)D
+000133: d2i 
+000134: isub 
+000135: istore 11
+000137: iload 9
+000139: iload 7
+000141: isub 
+000142: istore 12
+000144: aload_2 
+000145: getfield #123 net/minecraft/entity/player/EntityPlayer.field_70170_p:Lnet/minecraft/world/World;
+000148: aload_2 
+000149: invokestatic #175 MoreFunQuicksandMod/main/items/ItemLongStick.CheckQS:(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/EntityPlayer;)I
+000152: iconst_1 
+000153: if_icmple 6
+000156: iconst_1 
+000157: istore 4
+000159: iload 4
+000161: ifeq 47
+000164: iload 5
+000166: iload 9
+000168: if_icmpge 100
+000171: iload 5
+000173: iload 10
+000175: if_icmple 19
+000178: aload_2 
+000179: invokevirtual #178 net/minecraft/entity/player/EntityPlayer.func_71041_bz:()V
+000182: aload_2 
+000183: aload_3 
+000184: iload 8
+000186: iconst_1 
+000187: isub 
+000188: invokevirtual #182 net/minecraft/entity/player/EntityPlayer.func_71008_a:(Lnet/minecraft/item/ItemStack;I)V
+000191: goto 77
+000194: aload_2 
+000195: invokevirtual #178 net/minecraft/entity/player/EntityPlayer.func_71041_bz:()V
+000198: aload_2 
+000199: aload_3 
+000200: iload 6
+000202: invokevirtual #182 net/minecraft/entity/player/EntityPlayer.func_71008_a:(Lnet/minecraft/item/ItemStack;I)V
+000205: goto 63
+000208: iload 5
+000210: iconst_2 
+000211: if_icmpge 16
+000214: aload_2 
+000215: invokevirtual #178 net/minecraft/entity/player/EntityPlayer.func_71041_bz:()V
+000218: aload_2 
+000219: aload_3 
+000220: iload 12
+000222: iconst_1 
+000223: isub 
+000224: invokevirtual #182 net/minecraft/entity/player/EntityPlayer.func_71008_a:(Lnet/minecraft/item/ItemStack;I)V
+000227: iload 5
+000229: iload 11
+000231: if_icmple 19
+000234: aload_2 
+000235: invokevirtual #178 net/minecraft/entity/player/EntityPlayer.func_71041_bz:()V
+000238: aload_2 
+000239: aload_3 
+000240: iload 12
+000242: iconst_1 
+000243: isub 
+000244: invokevirtual #182 net/minecraft/entity/player/EntityPlayer.func_71008_a:(Lnet/minecraft/item/ItemStack;I)V
+000247: goto 21
+000250: iload 5
+000252: iload 9
+000254: if_icmple 14
+000257: aload_2 
+000258: invokevirtual #178 net/minecraft/entity/player/EntityPlayer.func_71041_bz:()V
+000261: aload_2 
+000262: aload_3 
+000263: iload 9
+000265: invokevirtual #182 net/minecraft/entity/player/EntityPlayer.func_71008_a:(Lnet/minecraft/item/ItemStack;I)V
+000268: goto 20
+000271: getstatic #186 MoreFunQuicksandMod/main/MFQM.SIRenderYaw:D
+000274: putstatic #189 MoreFunQuicksandMod/main/MFQM.SIRenderYawPre:D
+000277: aload_1 
+000278: getfield #119 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000281: getfield #193 net/minecraft/entity/EntityLivingBase.field_70761_aq:F
+000284: f2d 
+000285: putstatic #186 MoreFunQuicksandMod/main/MFQM.SIRenderYaw:D
+000288: getstatic #38 MoreFunQuicksandMod/main/MFQM.QSAir:Z
+000291: ifne 4
+000294: return 
+000295: goto 10
+000298: getstatic #41 MoreFunQuicksandMod/main/MFQM.QSMAir:Z
+000301: ifne 4
+000304: return 
+000305: aload_1 
+000306: getfield #119 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000309: getfield #194 net/minecraft/entity/EntityLivingBase.field_70170_p:Lnet/minecraft/world/World;
+000312: getfield #128 net/minecraft/world/World.field_72995_K:Z
+000315: ifeq 33
+000318: aload_1 
+000319: getfield #119 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000322: invokestatic #198 MoreFunQuicksandMod/main/MFQM.getMuddyAir:(Lnet/minecraft/entity/Entity;)I
+000325: istore_2 
+000326: iload_2 
+000327: aload_1 
+000328: getfield #119 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000331: invokevirtual #201 net/minecraft/entity/EntityLivingBase.func_70086_ai:()I
+000334: if_icmpge 11
+000337: aload_1 
+000338: getfield #119 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000341: iload_2 
+000342: invokevirtual #205 net/minecraft/entity/EntityLivingBase.func_70050_g:(I)V
+000345: goto 154
+000348: aload_1 
+000349: getfield #119 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000352: instanceof #43 net/minecraft/entity/EntityLivingBase
+000355: ifeq 144
+000358: aload_1 
+000359: getfield #119 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000362: invokestatic #198 MoreFunQuicksandMod/main/MFQM.getMuddyAir:(Lnet/minecraft/entity/Entity;)I
+000365: istore_2 
+000366: iconst_0 
+000367: istore_3 
+000368: iload_3 
+000369: getstatic #211 MoreFunQuicksandMod/main/entity/EntityRope.quicksandIDS:[Lnet/minecraft/block/Block;
+000372: arraylength 
+000373: if_icmpge 103
+000376: iload_3 
+000377: bipush 6
+000379: if_icmpeq 91
+000382: iload_3 
+000383: bipush 7
+000385: if_icmpeq 85
+000388: iload_3 
+000389: bipush 13
+000391: if_icmpeq 79
+000394: iload_3 
+000395: bipush 15
+000397: if_icmpeq 73
+000400: iload_3 
+000401: bipush 21
+000403: if_icmpeq 67
+000406: iload_3 
+000407: bipush 22
+000409: if_icmpne 32
+000412: aload_1 
+000413: getfield #119 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000416: getstatic #211 MoreFunQuicksandMod/main/entity/EntityRope.quicksandIDS:[Lnet/minecraft/block/Block;
+000419: iload_3 
+000420: aaload 
+000421: invokestatic #215 MoreFunQuicksandMod/main/MFQM.isEntityInsideOfBlockM:(Lnet/minecraft/entity/Entity;Lnet/minecraft/block/Block;)Z
+000424: ifeq 46
+000427: iload_2 
+000428: iconst_m1 
+000429: if_icmple 11
+000432: aload_1 
+000433: getfield #119 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000436: iconst_m1 
+000437: invokestatic #219 MoreFunQuicksandMod/main/MFQM.addMuddyAir:(Lnet/minecraft/entity/Entity;I)V
+000440: return 
+000441: aload_1 
+000442: getfield #119 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000445: getstatic #211 MoreFunQuicksandMod/main/entity/EntityRope.quicksandIDS:[Lnet/minecraft/block/Block;
+000448: iload_3 
+000449: aaload 
+000450: invokestatic #222 MoreFunQuicksandMod/main/MFQM.isEntityInsideOfBlock:(Lnet/minecraft/entity/Entity;Lnet/minecraft/block/Block;)Z
+000453: ifeq 17
+000456: iload_2 
+000457: iconst_m1 
+000458: if_icmple 11
+000461: aload_1 
+000462: getfield #119 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000465: iconst_m1 
+000466: invokestatic #219 MoreFunQuicksandMod/main/MFQM.addMuddyAir:(Lnet/minecraft/entity/Entity;I)V
+000469: return 
+000470: iinc 3, 1
+000473: goto -105
+000476: iload_2 
+000477: sipush 300
+000480: if_icmpge 19
+000483: aload_1 
+000484: getfield #119 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000487: iconst_5 
+000488: sipush 300
+000491: iload_2 
+000492: isub 
+000493: invokestatic #226 java/lang/Math.min:(II)I
+000496: invokestatic #219 MoreFunQuicksandMod/main/MFQM.addMuddyAir:(Lnet/minecraft/entity/Entity;I)V
+000499: return 
+
+METHOD onLivingHurt (Lnet/minecraftforge/event/entity/living/LivingAttackEvent;)V
+000000: getstatic #247 MoreFunQuicksandMod/main/MFQM.WLD:Z
+000003: ifeq 190
+000006: aload_1 
+000007: getfield #250 net/minecraftforge/event/entity/living/LivingAttackEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000010: instanceof #32 net/minecraft/entity/player/EntityPlayer
+000013: ifeq 180
+000016: aload_1 
+000017: getfield #254 net/minecraftforge/event/entity/living/LivingAttackEvent.source:Lnet/minecraft/util/DamageSource;
+000020: invokevirtual #259 net/minecraft/util/DamageSource.func_76355_l:()Ljava/lang/String;
+000023: ldc_w #261 'Taint'
+000026: invokevirtual #267 java/lang/String.equals:(Ljava/lang/Object;)Z
+000029: ifeq 164
+000032: iconst_0 
+000033: istore_2 
+000034: iload_2 
+000035: bipush 8
+000037: if_icmpgt 156
+000040: aload_1 
+000041: getfield #250 net/minecraftforge/event/entity/living/LivingAttackEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000044: checkcast #32 net/minecraft/entity/player/EntityPlayer
+000047: getfield #271 net/minecraft/entity/player/EntityPlayer.field_71071_by:Lnet/minecraft/entity/player/InventoryPlayer;
+000050: getfield #277 net/minecraft/entity/player/InventoryPlayer.field_70462_a:[Lnet/minecraft/item/ItemStack;
+000053: iload_2 
+000054: aaload 
+000055: ifnull 132
+000058: getstatic #280 MoreFunQuicksandMod/main/MFQM.WLDDruidPouchItem:Lnet/minecraft/item/Item;
+000061: ifnull 126
+000064: aload_1 
+000065: getfield #250 net/minecraftforge/event/entity/living/LivingAttackEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000068: checkcast #32 net/minecraft/entity/player/EntityPlayer
+000071: getfield #271 net/minecraft/entity/player/EntityPlayer.field_71071_by:Lnet/minecraft/entity/player/InventoryPlayer;
+000074: getfield #277 net/minecraft/entity/player/InventoryPlayer.field_70462_a:[Lnet/minecraft/item/ItemStack;
+000077: iload_2 
+000078: aaload 
+000079: invokevirtual #148 net/minecraft/item/ItemStack.func_77973_b:()Lnet/minecraft/item/Item;
+000082: invokestatic #286 net/minecraft/item/Item.func_150891_b:(Lnet/minecraft/item/Item;)I
+000085: getstatic #280 MoreFunQuicksandMod/main/MFQM.WLDDruidPouchItem:Lnet/minecraft/item/Item;
+000088: invokestatic #286 net/minecraft/item/Item.func_150891_b:(Lnet/minecraft/item/Item;)I
+000091: if_icmpne 96
+000094: aload_1 
+000095: getfield #250 net/minecraftforge/event/entity/living/LivingAttackEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000098: checkcast #32 net/minecraft/entity/player/EntityPlayer
+000101: getfield #271 net/minecraft/entity/player/EntityPlayer.field_71071_by:Lnet/minecraft/entity/player/InventoryPlayer;
+000104: getfield #277 net/minecraft/entity/player/InventoryPlayer.field_70462_a:[Lnet/minecraft/item/ItemStack;
+000107: iload_2 
+000108: aaload 
+000109: invokevirtual #289 net/minecraft/item/ItemStack.func_77960_j:()I
+000112: aload_1 
+000113: getfield #250 net/minecraftforge/event/entity/living/LivingAttackEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000116: checkcast #32 net/minecraft/entity/player/EntityPlayer
+000119: getfield #271 net/minecraft/entity/player/EntityPlayer.field_71071_by:Lnet/minecraft/entity/player/InventoryPlayer;
+000122: getfield #277 net/minecraft/entity/player/InventoryPlayer.field_70462_a:[Lnet/minecraft/item/ItemStack;
+000125: iload_2 
+000126: aaload 
+000127: invokevirtual #292 net/minecraft/item/ItemStack.func_77958_k:()I
+000130: if_icmpge 57
+000133: aload_1 
+000134: getfield #250 net/minecraftforge/event/entity/living/LivingAttackEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000137: checkcast #32 net/minecraft/entity/player/EntityPlayer
+000140: getfield #123 net/minecraft/entity/player/EntityPlayer.field_70170_p:Lnet/minecraft/world/World;
+000143: invokevirtual #296 net/minecraft/world/World.func_82737_E:()J
+000146: ldc2_w #297 2
+000149: lrem 
+000150: lconst_0 
+000151: lcmp 
+000152: ifne 29
+000155: aload_1 
+000156: getfield #250 net/minecraftforge/event/entity/living/LivingAttackEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000159: checkcast #32 net/minecraft/entity/player/EntityPlayer
+000162: getfield #271 net/minecraft/entity/player/EntityPlayer.field_71071_by:Lnet/minecraft/entity/player/InventoryPlayer;
+000165: getfield #277 net/minecraft/entity/player/InventoryPlayer.field_70462_a:[Lnet/minecraft/item/ItemStack;
+000168: iload_2 
+000169: aaload 
+000170: iconst_1 
+000171: aload_1 
+000172: getfield #250 net/minecraftforge/event/entity/living/LivingAttackEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000175: checkcast #32 net/minecraft/entity/player/EntityPlayer
+000178: invokevirtual #302 net/minecraft/item/ItemStack.func_77972_a:(ILnet/minecraft/entity/EntityLivingBase;)V
+000181: aload_1 
+000182: iconst_1 
+000183: invokevirtual #306 net/minecraftforge/event/entity/living/LivingAttackEvent.setCanceled:(Z)V
+000186: return 
+000187: iinc 2, 1
+000190: goto -156
+000193: return 

@@ -1,0 +1,48 @@
+// CFR0.152; original decompiler line 1444; NOT original source; inspect **/goto artifacts if present.
+    private void generateFlatMud(int xx, int yy, int zz, int rad, World world, Random random) {
+        double rad_cof = Math.max((double)rad / 10.0, 1.0);
+        int difq = 0;
+        if (random.nextInt(2) == 0) {
+            ++difq;
+        }
+        if (random.nextInt(3) == 0) {
+            ++difq;
+        }
+        if (random.nextInt(4) == 0) {
+            ++difq;
+        }
+        if (random.nextInt(5) == 0) {
+            ++difq;
+        }
+        double rax = random.nextDouble() + 0.5;
+        double raz = 1.0 - rax + 0.5 + 0.5;
+        for (int i = 0; i <= rad; ++i) {
+            for (int j = 0; j <= rad / 2; ++j) {
+                for (int e = 0; e <= rad; ++e) {
+                    double disQ;
+                    int posx = xx + i - rad / 2;
+                    int posy = yy - j;
+                    int posz = zz + e - rad / 2;
+                    double dis = Math.sqrt(Math.pow(xx - posx, 2.0) * rax + Math.pow(yy - posy, 2.0) + Math.pow(zz - posz, 2.0) * raz);
+                    if (!(dis < (disQ = (double)rad / 2.0 / (1.0 + Math.abs(rax - raz) / 3.0) + (random.nextDouble() * rad_cof - rad_cof / 2.0))) || world.func_147439_a(posx, posy, posz) == MFQM.StableLiquidMireBlock || world.func_147439_a(posx, posy, posz) == MFQM.LiquidMireBlock || world.func_147439_a(posx, posy, posz) == MFQM.MireBlock || world.func_147439_a(posx, posy, posz).func_149662_c() && world.func_147439_a(posx, posy, posz) != Blocks.field_150355_j && world.func_147439_a(posx, posy, posz).func_149688_o() != Material.field_151578_c && world.func_147439_a(posx, posy, posz).func_149688_o() != Material.field_151595_p && world.func_147439_a(posx, posy, posz).func_149688_o() != Material.field_151577_b) continue;
+                    int metm = 0;
+                    int metq = 0;
+                    if (MFQM.GenDeep) {
+                        if (dis > disQ * 2.0 / 3.0) {
+                            metq = 0;
+                        }
+                        if (dis > disQ / 3.0) {
+                            metq = Math.max((int)(Math.floor((double)difq / 2.0) - Math.floor((double)(rad / 2 - j) / 4.0)), 0);
+                        }
+                        if (dis <= disQ / 3.0) {
+                            metq = Math.max(Math.min((int)((double)difq - Math.floor((double)(rad / 2 - j) / 4.0)), 3), 0);
+                        }
+                        if (world.func_147439_a(posx, posy, posz) == MFQM.MudBlock) {
+                            metm = world.func_72805_g(posx, posy, posz);
+                        }
+                    }
+                    world.func_147465_d(posx, posy, posz, MFQM.MudBlock, Math.max(metm, metq), 2);
+                }
+            }
+        }
+    }

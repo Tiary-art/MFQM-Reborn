@@ -1,0 +1,345 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.block.Block
+8:  *  net.minecraft.block.BlockContainer
+9:  *  net.minecraft.block.material.Material
+10:  *  net.minecraft.client.renderer.texture.IIconRegister
+11:  *  net.minecraft.creativetab.CreativeTabs
+12:  *  net.minecraft.enchantment.EnchantmentHelper
+13:  *  net.minecraft.entity.Entity
+14:  *  net.minecraft.entity.EntityLivingBase
+15:  *  net.minecraft.entity.player.EntityPlayer
+16:  *  net.minecraft.item.Item
+17:  *  net.minecraft.item.ItemStack
+18:  *  net.minecraft.tileentity.TileEntity
+19:  *  net.minecraft.util.AxisAlignedBB
+20:  *  net.minecraft.util.IIcon
+21:  *  net.minecraft.world.IBlockAccess
+22:  *  net.minecraft.world.World
+23:  *  net.minecraftforge.common.ForgeHooks
+24:  *  net.minecraftforge.common.util.ForgeDirection
+25:  */
+26: package MoreFunQuicksandMod.main.blocks;
+27: 
+28: import MoreFunQuicksandMod.main.GenerateMucusBlossom;
+29: import MoreFunQuicksandMod.main.MFQM;
+30: import MoreFunQuicksandMod.main.Tileentity.TileEntityBlossom;
+31: import cpw.mods.fml.relauncher.Side;
+32: import cpw.mods.fml.relauncher.SideOnly;
+33: import java.util.List;
+34: import java.util.Random;
+35: import net.minecraft.block.Block;
+36: import net.minecraft.block.BlockContainer;
+37: import net.minecraft.block.material.Material;
+38: import net.minecraft.client.renderer.texture.IIconRegister;
+39: import net.minecraft.creativetab.CreativeTabs;
+40: import net.minecraft.enchantment.EnchantmentHelper;
+41: import net.minecraft.entity.Entity;
+42: import net.minecraft.entity.EntityLivingBase;
+43: import net.minecraft.entity.player.EntityPlayer;
+44: import net.minecraft.item.Item;
+45: import net.minecraft.item.ItemStack;
+46: import net.minecraft.tileentity.TileEntity;
+47: import net.minecraft.util.AxisAlignedBB;
+48: import net.minecraft.util.IIcon;
+49: import net.minecraft.world.IBlockAccess;
+50: import net.minecraft.world.World;
+51: import net.minecraftforge.common.ForgeHooks;
+52: import net.minecraftforge.common.util.ForgeDirection;
+53: 
+54: public class BlockBlossom
+55: extends BlockContainer {
+56:     @SideOnly(value=Side.CLIENT)
+57:     private IIcon[] IIconMArray;
+58: 
+59:     public BlockBlossom() {
+60:         super(Material.field_151583_m);
+61:         this.func_149711_c(1.8f);
+62:         this.func_149672_a(Block.field_149779_h);
+63:         this.func_149663_c("BlossomBlock");
+64:         this.func_149675_a(true);
+65:         this.func_149647_a(MFQM.tabMFQM);
+66:     }
+67: 
+68:     public TileEntity func_149915_a(World world, int i) {
+69:         if (i > 5 && i < 10) {
+70:             if (world.field_72995_K) {
+71:                 TileEntityBlossom TE = new TileEntityBlossom();
+72:                 TE.phase = world.field_73012_v.nextDouble() * 6.28318 * 2.0;
+73:                 return TE;
+74:             }
+75:             return null;
+76:         }
+77:         return null;
+78:     }
+79: 
+80:     public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
+81:         return false;
+82:     }
+83: 
+84:     public boolean func_149662_c() {
+85:         return true;
+86:     }
+87: 
+88:     @SideOnly(value=Side.CLIENT)
+89:     public void func_149666_a(Item block, CreativeTabs creativeTabs, List list) {
+90:         list.add(new ItemStack(block, 1, 0));
+91:         list.add(new ItemStack(block, 1, 1));
+92:         list.add(new ItemStack(block, 1, 2));
+93:         list.add(new ItemStack(block, 1, 3));
+94:         list.add(new ItemStack(block, 1, 4));
+95:         list.add(new ItemStack(block, 1, 5));
+96:         list.add(new ItemStack(block, 1, 6));
+97:         list.add(new ItemStack(block, 1, 7));
+98:         list.add(new ItemStack(block, 1, 8));
+99:         list.add(new ItemStack(block, 1, 9));
+100:         list.add(new ItemStack(block, 1, 10));
+101:         list.add(new ItemStack(block, 1, 11));
+102:     }
+103: 
+104:     public void func_149670_a(World world, int x, int y, int z, Entity entity) {
+105:         int meta = world.func_72805_g(x, y, z);
+106:         entity.field_70159_w *= 0.9;
+107:         entity.field_70179_y *= 0.9;
+108:     }
+109: 
+110:     public AxisAlignedBB func_149668_a(World world, int par2, int par3, int par4) {
+111:         float f = 0.125f;
+112:         return AxisAlignedBB.func_72330_a((double)par2, (double)par3, (double)par4, (double)(par2 + 1), (double)((float)(par3 + 1) - f), (double)(par4 + 1));
+113:     }
+114: 
+115:     @SideOnly(value=Side.CLIENT)
+116:     public IIcon func_149691_a(int par1, int par2) {
+117:         switch (par2) {
+118:             case 0: 
+119:             case 11: {
+120:                 if (par1 == 1 || par1 == 0) {
+121:                     return this.IIconMArray[0];
+122:                 }
+123:                 return this.IIconMArray[1];
+124:             }
+125:             case 1: {
+126:                 if (par1 == 1 || par1 == 0) {
+127:                     return this.IIconMArray[2];
+128:                 }
+129:                 return this.IIconMArray[3];
+130:             }
+131:             case 2: 
+132:             case 6: {
+133:                 if (par1 == 1 || par1 == 0) {
+134:                     return this.IIconMArray[2];
+135:                 }
+136:                 switch (par1) {
+137:                     case 4: {
+138:                         return this.IIconMArray[3];
+139:                     }
+140:                     case 5: {
+141:                         return this.IIconMArray[3];
+142:                     }
+143:                     case 2: {
+144:                         return this.IIconMArray[1];
+145:                     }
+146:                     case 3: {
+147:                         return this.IIconMArray[3];
+148:                     }
+149:                 }
+150:             }
+151:             case 3: 
+152:             case 7: {
+153:                 if (par1 == 1 || par1 == 0) {
+154:                     return this.IIconMArray[2];
+155:                 }
+156:                 switch (par1) {
+157:                     case 4: {
+158:                         return this.IIconMArray[3];
+159:                     }
+160:                     case 5: {
+161:                         return this.IIconMArray[1];
+162:                     }
+163:                     case 2: {
+164:                         return this.IIconMArray[3];
+165:                     }
+166:                     case 3: {
+167:                         return this.IIconMArray[3];
+168:                     }
+169:                 }
+170:             }
+171:             case 4: 
+172:             case 8: {
+173:                 if (par1 == 1 || par1 == 0) {
+174:                     return this.IIconMArray[2];
+175:                 }
+176:                 switch (par1) {
+177:                     case 4: {
+178:                         return this.IIconMArray[3];
+179:                     }
+180:                     case 5: {
+181:                         return this.IIconMArray[3];
+182:                     }
+183:                     case 2: {
+184:                         return this.IIconMArray[3];
+185:                     }
+186:                     case 3: {
+187:                         return this.IIconMArray[1];
+188:                     }
+189:                 }
+190:             }
+191:             case 5: 
+192:             case 9: {
+193:                 if (par1 == 1 || par1 == 0) {
+194:                     return this.IIconMArray[2];
+195:                 }
+196:                 switch (par1) {
+197:                     case 4: {
+198:                         return this.IIconMArray[1];
+199:                     }
+200:                     case 5: {
+201:                         return this.IIconMArray[3];
+202:                     }
+203:                     case 2: {
+204:                         return this.IIconMArray[3];
+205:                     }
+206:                     case 3: {
+207:                         return this.IIconMArray[3];
+208:                     }
+209:                 }
+210:             }
+211:         }
+212:         return this.IIconMArray[4];
+213:     }
+214: 
+215:     public void func_149674_a(World world, int x, int y, int z, Random rand) {
+216:         if (MFQM.LiqFixer) {
+217:             return;
+218:         }
+219:         int meta = world.func_72805_g(x, y, z);
+220:         if (meta > 5 && meta < 10) {
+221:             this.checkVoreHole(world, x, y, z, meta);
+222:         }
+223:         if (meta == 11) {
+224:             if (world.field_73012_v.nextInt(32) == 0 && GenerateMucusBlossom.checkCanGrow(world, x, y + 1, z, false)) {
+225:                 new GenerateMucusBlossom().func_76484_a(world, world.field_73012_v, x - 3, y + 2 - 8, z - 3);
+226:                 world.func_72908_a((double)x, (double)y, (double)z, "mob.zombie.woodbreak", 0.5f, world.field_73012_v.nextFloat() * 0.1f + 0.1f);
+227:                 world.func_72908_a((double)x, (double)y, (double)z, "mob.zombie.woodbreak", 0.5f, world.field_73012_v.nextFloat() * 0.1f + 0.1f);
+228:             }
+229:             world.func_147464_a(x, y, z, (Block)this, this.func_149738_a(world) * 32);
+230:         }
+231:         super.func_149674_a(world, x, y, z, rand);
+232:     }
+233: 
+234:     protected boolean func_149700_E() {
+235:         return true;
+236:     }
+237: 
+238:     public void func_149726_b(World par1World, int par2, int par3, int par4) {
+239:         if (MFQM.LiqFixer) {
+240:             return;
+241:         }
+242:         int meta = par1World.func_72805_g(par2, par3, par4);
+243:         if (meta > 5 && meta < 10) {
+244:             this.checkVoreHole(par1World, par2, par3, par4, meta);
+245:         }
+246:         if (meta == 11) {
+247:             par1World.func_147464_a(par2, par3, par4, (Block)this, this.func_149738_a(par1World));
+248:         }
+249:     }
+250: 
+251:     public void func_149695_a(World par1World, int par2, int par3, int par4, Block par5) {
+252:         if (MFQM.LiqFixer) {
+253:             return;
+254:         }
+255:         int meta = par1World.func_72805_g(par2, par3, par4);
+256:         if (meta > 5 && meta < 10) {
+257:             this.checkVoreHole(par1World, par2, par3, par4, meta);
+258:         }
+259:         if (meta == 11) {
+260:             par1World.func_147464_a(par2, par3, par4, (Block)this, this.func_149738_a(par1World));
+261:         }
+262:     }
+263: 
+264:     public void checkVoreHole(World world, int x, int y, int z, int meta) {
+265:         int xx = x;
+266:         int yy = y;
+267:         int zz = z;
+268:         switch (meta - 6) {
+269:             case 0: {
+270:                 xx = x;
+271:                 yy = y;
+272:                 zz = z - 1;
+273:                 break;
+274:             }
+275:             case 1: {
+276:                 xx = x + 1;
+277:                 yy = y;
+278:                 zz = z;
+279:                 break;
+280:             }
+281:             case 2: {
+282:                 xx = x;
+283:                 yy = y;
+284:                 zz = z + 1;
+285:                 break;
+286:             }
+287:             case 3: {
+288:                 xx = x - 1;
+289:                 yy = y;
+290:                 zz = z;
+291:                 break;
+292:             }
+293:             default: {
+294:                 return;
+295:             }
+296:         }
+297:         if (world.func_147439_a(xx, yy, zz) != MFQM.VoreHoleBlock && (world.func_147439_a(xx, yy, zz).func_149688_o().func_76224_d() || world.func_147439_a(xx, yy, zz).func_149688_o().func_76222_j())) {
+298:             world.func_147465_d(xx, yy, zz, MFQM.VoreHoleBlock, 0, 2);
+299:         }
+300:     }
+301: 
+302:     public void func_149636_a(World world, EntityPlayer entityPlayer, int x, int y, int z, int meta) {
+303:         if (meta != 11 && EnchantmentHelper.func_77502_d((EntityLivingBase)entityPlayer)) {
+304:             MFQM.dropItem(world, x, y, z, new ItemStack((Block)this, 1, meta));
+305:             world.func_147471_g(x, y, z);
+306:             return;
+307:         }
+308:         super.func_149636_a(world, entityPlayer, x, y, z, meta);
+309:     }
+310: 
+311:     public float func_149737_a(EntityPlayer par1EntityPlayer, World par2World, int par3, int par4, int par5) {
+312:         if (!par1EntityPlayer.field_70122_E) {
+313:             return -1.0f;
+314:         }
+315:         float f = this.func_149712_f(par2World, par3, par4, par5);
+316:         return ForgeHooks.blockStrength((Block)this, (EntityPlayer)par1EntityPlayer, (World)par2World, (int)par3, (int)par4, (int)par5);
+317:     }
+318: 
+319:     public boolean canHarvestBlock(EntityPlayer player, int meta) {
+320:         return true;
+321:     }
+322: 
+323:     public Item func_149650_a(int par1, Random par2Random, int par3) {
+324:         return null;
+325:     }
+326: 
+327:     public int func_149745_a(Random random) {
+328:         return 1;
+329:     }
+330: 
+331:     @SideOnly(value=Side.CLIENT)
+332:     public void func_149651_a(IIconRegister par1) {
+333:         this.IIconMArray = new IIcon[5];
+334:         this.IIconMArray[0] = par1.func_94245_a("morefunquicksandmod:Blossom3");
+335:         this.IIconMArray[1] = par1.func_94245_a("morefunquicksandmod:Blossom2");
+336:         this.IIconMArray[2] = par1.func_94245_a("morefunquicksandmod:Blossom5");
+337:         this.IIconMArray[3] = par1.func_94245_a("morefunquicksandmod:Blossom4");
+338:         this.IIconMArray[4] = par1.func_94245_a("morefunquicksandmod:Blossom0");
+339:     }
+340: 
+341:     public int func_149643_k(World par1World, int par2, int par3, int par4) {
+342:         return par1World.func_72805_g(par2, par3, par4);
+343:     }
+344: }
+345: 

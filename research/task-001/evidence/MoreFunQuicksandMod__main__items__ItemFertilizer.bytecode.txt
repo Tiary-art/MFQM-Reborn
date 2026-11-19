@@ -1,0 +1,159 @@
+Archive: MoreFunQuicksandMod/main/items/ItemFertilizer.class
+SHA256: ab26b8473688ce4e690e5cda79c6c6441d8a0db9d1eeda94670cc7c02b6c9822
+Superclass: net/minecraft/item/Item
+Offsets are decimal byte offsets; branch operands are relative offsets.
+
+
+METHOD <init> ()V
+000000: aload_0 
+000001: invokespecial #9 net/minecraft/item/Item.<init>:()V
+000004: aload_0 
+000005: ldc #11 'Fertilizer'
+000007: invokevirtual #15 MoreFunQuicksandMod/main/items/ItemFertilizer.func_77655_b:(Ljava/lang/String;)Lnet/minecraft/item/Item;
+000010: pop 
+000011: aload_0 
+000012: getstatic #21 MoreFunQuicksandMod/main/MFQM.tabMFQM:Lnet/minecraft/creativetab/CreativeTabs;
+000015: invokevirtual #25 MoreFunQuicksandMod/main/items/ItemFertilizer.func_77637_a:(Lnet/minecraft/creativetab/CreativeTabs;)Lnet/minecraft/item/Item;
+000018: pop 
+000019: aload_0 
+000020: ldc #27 'morefunquicksandmod:Fertilizer'
+000022: invokevirtual #30 MoreFunQuicksandMod/main/items/ItemFertilizer.func_111206_d:(Ljava/lang/String;)Lnet/minecraft/item/Item;
+000025: pop 
+000026: return 
+
+METHOD func_77624_a (Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V
+000000: aload_3 
+000001: ldc #36 'itemFertilizer.instruction1'
+000003: invokestatic #42 net/minecraft/util/StatCollector.func_74838_a:(Ljava/lang/String;)Ljava/lang/String;
+000006: invokeinterface #48 java/util/List.add:(Ljava/lang/Object;)Z, 2, 0
+000011: pop 
+000012: return 
+
+METHOD func_77648_a (Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/world/World;IIIIFFF)Z
+000000: aload_2 
+000001: iload 4
+000003: iload 5
+000005: iload 6
+000007: iload 7
+000009: aload_1 
+000010: invokevirtual #64 net/minecraft/entity/player/EntityPlayer.func_82247_a:(IIIILnet/minecraft/item/ItemStack;)Z
+000013: ifne 5
+000016: iconst_0 
+000017: ireturn 
+000018: aload_0 
+000019: aload_1 
+000020: aload_3 
+000021: iload 4
+000023: iload 5
+000025: iload 6
+000027: invokevirtual #68 MoreFunQuicksandMod/main/items/ItemFertilizer.GrowThings:(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;III)Z
+000030: ifeq 63
+000033: aload_3 
+000034: getfield #73 net/minecraft/world/World.field_72995_K:Z
+000037: ifeq 34
+000040: aload_3 
+000041: sipush 2005
+000044: iload 4
+000046: iload 5
+000048: iload 6
+000050: iconst_0 
+000051: invokevirtual #77 net/minecraft/world/World.func_72926_e:(IIIII)V
+000054: aload_3 
+000055: sipush 2005
+000058: iload 4
+000060: iload 5
+000062: iload 6
+000064: iconst_0 
+000065: invokevirtual #77 net/minecraft/world/World.func_72926_e:(IIIII)V
+000068: goto 23
+000071: aload_2 
+000072: getfield #81 net/minecraft/entity/player/EntityPlayer.field_71075_bZ:Lnet/minecraft/entity/player/PlayerCapabilities;
+000075: getfield #86 net/minecraft/entity/player/PlayerCapabilities.field_75098_d:Z
+000078: ifne 13
+000081: aload_1 
+000082: dup 
+000083: getfield #92 net/minecraft/item/ItemStack.field_77994_a:I
+000086: iconst_1 
+000087: isub 
+000088: putfield #92 net/minecraft/item/ItemStack.field_77994_a:I
+000091: iconst_1 
+000092: ireturn 
+000093: iconst_0 
+000094: ireturn 
+
+METHOD GrowThings (Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;III)Z
+000000: aload_2 
+000001: iload_3 
+000002: iload 4
+000004: iload 5
+000006: invokevirtual #107 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+000009: astore 6
+000011: aload 6
+000013: instanceof #109 net/minecraft/block/IGrowable
+000016: ifeq 140
+000019: aload 6
+000021: checkcast #109 net/minecraft/block/IGrowable
+000024: astore 7
+000026: aload 7
+000028: aload_2 
+000029: iload_3 
+000030: iload 4
+000032: iload 5
+000034: aload_2 
+000035: getfield #73 net/minecraft/world/World.field_72995_K:Z
+000038: ifne 7
+000041: iconst_1 
+000042: goto 4
+000045: iconst_0 
+000046: invokeinterface #115 net/minecraft/block/IGrowable.func_149851_a:(Lnet/minecraft/world/World;IIIZ)Z, 6, 0
+000051: ifeq 105
+000054: aload_2 
+000055: getfield #73 net/minecraft/world/World.field_72995_K:Z
+000058: ifne 96
+000061: aload 7
+000063: aload_2 
+000064: aload_2 
+000065: getfield #119 net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+000068: iload_3 
+000069: iload 4
+000071: iload 5
+000073: invokeinterface #123 net/minecraft/block/IGrowable.func_149852_a:(Lnet/minecraft/world/World;Ljava/util/Random;III)Z, 6, 0
+000078: ifeq 76
+000081: aload 7
+000083: aload_2 
+000084: aload_2 
+000085: getfield #119 net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+000088: iload_3 
+000089: iload 4
+000091: iload 5
+000093: invokeinterface #127 net/minecraft/block/IGrowable.func_149853_b:(Lnet/minecraft/world/World;Ljava/util/Random;III)V, 6, 0
+000098: aload_2 
+000099: iload_3 
+000100: iload 4
+000102: iload 5
+000104: invokevirtual #107 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+000107: astore 6
+000109: aload 6
+000111: instanceof #109 net/minecraft/block/IGrowable
+000114: ifeq 40
+000117: aload 7
+000119: aload_2 
+000120: aload_2 
+000121: getfield #119 net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+000124: iload_3 
+000125: iload 4
+000127: iload 5
+000129: invokeinterface #123 net/minecraft/block/IGrowable.func_149852_a:(Lnet/minecraft/world/World;Ljava/util/Random;III)Z, 6, 0
+000134: ifeq 20
+000137: aload 7
+000139: aload_2 
+000140: aload_2 
+000141: getfield #119 net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+000144: iload_3 
+000145: iload 4
+000147: iload 5
+000149: invokeinterface #127 net/minecraft/block/IGrowable.func_149853_b:(Lnet/minecraft/world/World;Ljava/util/Random;III)V, 6, 0
+000154: iconst_1 
+000155: ireturn 
+000156: iconst_0 
+000157: ireturn 

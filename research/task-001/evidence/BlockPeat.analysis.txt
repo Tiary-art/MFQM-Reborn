@@ -1,0 +1,75 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.block.Block
+8:  *  net.minecraft.block.material.Material
+9:  *  net.minecraft.client.renderer.texture.IIconRegister
+10:  *  net.minecraft.enchantment.EnchantmentHelper
+11:  *  net.minecraft.entity.EntityLivingBase
+12:  *  net.minecraft.entity.player.EntityPlayer
+13:  *  net.minecraft.item.Item
+14:  *  net.minecraft.item.ItemStack
+15:  *  net.minecraft.util.IIcon
+16:  *  net.minecraft.world.World
+17:  */
+18: package MoreFunQuicksandMod.main.blocks;
+19: 
+20: import MoreFunQuicksandMod.main.MFQM;
+21: import cpw.mods.fml.relauncher.Side;
+22: import cpw.mods.fml.relauncher.SideOnly;
+23: import java.util.Random;
+24: import net.minecraft.block.Block;
+25: import net.minecraft.block.material.Material;
+26: import net.minecraft.client.renderer.texture.IIconRegister;
+27: import net.minecraft.enchantment.EnchantmentHelper;
+28: import net.minecraft.entity.EntityLivingBase;
+29: import net.minecraft.entity.player.EntityPlayer;
+30: import net.minecraft.item.Item;
+31: import net.minecraft.item.ItemStack;
+32: import net.minecraft.util.IIcon;
+33: import net.minecraft.world.World;
+34: 
+35: public class BlockPeat
+36: extends Block {
+37:     IIcon theQIIcon;
+38: 
+39:     public BlockPeat() {
+40:         super(Material.field_151576_e);
+41:         this.func_149711_c(0.85f);
+42:         this.func_149672_a(Block.field_149769_e);
+43:         this.func_149752_b(1.0f);
+44:         this.func_149663_c("HPeat");
+45:         this.func_149647_a(MFQM.tabMFQM);
+46:     }
+47: 
+48:     @SideOnly(value=Side.CLIENT)
+49:     public IIcon func_149691_a(int par1, int par2) {
+50:         return this.theQIIcon;
+51:     }
+52: 
+53:     public Item func_149650_a(int par1, Random par2Random, int par3) {
+54:         return MFQM.PeatItem;
+55:     }
+56: 
+57:     public int func_149745_a(Random random) {
+58:         return 8 + random.nextInt(2);
+59:     }
+60: 
+61:     public void func_149636_a(World world, EntityPlayer entityPlayer, int x, int y, int z, int par6) {
+62:         if (EnchantmentHelper.func_77502_d((EntityLivingBase)entityPlayer)) {
+63:             MFQM.dropItem(world, x, y, z, new ItemStack((Block)this));
+64:             world.func_147471_g(x, y, z);
+65:             return;
+66:         }
+67:         super.func_149636_a(world, entityPlayer, x, y, z, par6);
+68:     }
+69: 
+70:     @SideOnly(value=Side.CLIENT)
+71:     public void func_149651_a(IIconRegister par1IIconRegister) {
+72:         this.theQIIcon = par1IIconRegister.func_94245_a("morefunquicksandmod:Peat");
+73:     }
+74: }
+75: 

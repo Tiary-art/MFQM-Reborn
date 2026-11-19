@@ -1,0 +1,74 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  net.minecraft.client.model.ModelBase
+6:  *  net.minecraft.client.renderer.entity.RenderLiving
+7:  *  net.minecraft.entity.Entity
+8:  *  net.minecraft.entity.EntityLivingBase
+9:  *  net.minecraft.util.ResourceLocation
+10:  *  org.lwjgl.opengl.GL11
+11:  */
+12: package MoreFunQuicksandMod.main.client;
+13: 
+14: import MoreFunQuicksandMod.main.entity.EntityVoreSlime;
+15: import net.minecraft.client.model.ModelBase;
+16: import net.minecraft.client.renderer.entity.RenderLiving;
+17: import net.minecraft.entity.Entity;
+18: import net.minecraft.entity.EntityLivingBase;
+19: import net.minecraft.util.ResourceLocation;
+20: import org.lwjgl.opengl.GL11;
+21: 
+22: public class RenderVoreSlime
+23: extends RenderLiving {
+24:     private static final ResourceLocation slimeTextures = new ResourceLocation("morefunquicksandmod", "textures/entity/VoreSlime.png");
+25:     private ModelBase scaleAmount;
+26: 
+27:     public RenderVoreSlime(ModelBase p_i1267_1_, ModelBase p_i1267_2_, float p_i1267_3_) {
+28:         super(p_i1267_1_, p_i1267_3_);
+29:         this.scaleAmount = p_i1267_2_;
+30:     }
+31: 
+32:     protected int shouldRenderPass(EntityVoreSlime p_77032_1_, int p_77032_2_, float p_77032_3_) {
+33:         if (p_77032_1_.func_82150_aj()) {
+34:             return 0;
+35:         }
+36:         if (p_77032_2_ == 0) {
+37:             this.func_77042_a(this.scaleAmount);
+38:             GL11.glEnable((int)2977);
+39:             GL11.glEnable((int)3042);
+40:             GL11.glBlendFunc((int)770, (int)771);
+41:             return 1;
+42:         }
+43:         if (p_77032_2_ == 1) {
+44:             GL11.glDisable((int)3042);
+45:             GL11.glColor4f((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
+46:         }
+47:         return -1;
+48:     }
+49: 
+50:     protected void preRenderCallback(EntityVoreSlime p_77041_1_, float p_77041_2_) {
+51:         float var3 = p_77041_1_.getSlimeSize();
+52:         float var4 = (p_77041_1_.prevSquishFactor + (p_77041_1_.squishFactor - p_77041_1_.prevSquishFactor) * p_77041_2_) / (var3 * 0.5f + 1.0f);
+53:         float var5 = 1.0f / (var4 + 1.0f);
+54:         float scaleFactor = 1.25f;
+55:         GL11.glScalef((float)(var5 * var3 * scaleFactor), (float)(0.75f / var5 * var3 * scaleFactor), (float)(var5 * var3 * scaleFactor));
+56:     }
+57: 
+58:     protected ResourceLocation getEntityTexture(EntityVoreSlime p_110775_1_) {
+59:         return slimeTextures;
+60:     }
+61: 
+62:     protected void func_77041_b(EntityLivingBase p_77041_1_, float p_77041_2_) {
+63:         this.preRenderCallback((EntityVoreSlime)p_77041_1_, p_77041_2_);
+64:     }
+65: 
+66:     protected int func_77032_a(EntityLivingBase p_77032_1_, int p_77032_2_, float p_77032_3_) {
+67:         return this.shouldRenderPass((EntityVoreSlime)p_77032_1_, p_77032_2_, p_77032_3_);
+68:     }
+69: 
+70:     protected ResourceLocation func_110775_a(Entity p_110775_1_) {
+71:         return this.getEntityTexture((EntityVoreSlime)p_110775_1_);
+72:     }
+73: }
+74: 

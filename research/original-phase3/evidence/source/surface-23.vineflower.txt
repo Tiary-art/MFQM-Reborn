@@ -1,0 +1,115 @@
+// Decompiled inference, NOT original source; semantic closure PARTIAL
+      if ((MFQM.GenBClay || MFQM.GenHClay) && !blockGen) {
+         boolean canGenxxxx = false;
+         int genCountx = 0;
+         int genPosx = 0;
+         int genRad = 0;
+         int genRadP = 0;
+         int radxxx = 0;
+         int Ctype = 0;
+         int var159 = 20;
+         genCountx = 60 + random.nextInt(10);
+         int var194 = 10;
+         int var235 = 7;
+         boolean DSRT = false;
+         boolean exhillx = false;
+         if (!MFQM.GenBClay) {
+            var159 = 0;
+         }
+
+         int hTx = this.getHillsType(biomeId);
+         if (hTx != 0 && this.T_BoP || biomegenbase instanceof BiomeGenHills && !this.T_BoP) {
+            exhillx = true;
+            var159 = 10;
+            if (!MFQM.GenMClay) {
+               var159 = 0;
+            }
+         }
+
+         int dTx = this.getDesertType(biomeId);
+         if (dTx != 0 && this.T_BoP || biomegenbase instanceof BiomeGenDesert && !this.T_BoP) {
+            DSRT = true;
+            var159 = 5;
+            if (!MFQM.GenHClay) {
+               var159 = 0;
+            }
+         }
+
+         if (var159 != 0 && random.nextInt(var159) == 0) {
+            for (int ix = 0; ix < genCountx; ix++) {
+               firstBlockXCoord = chunkX + random.nextInt(16);
+               firstBlockYCoord = 96 + dHeight;
+               firstBlockZCoord = chunkZ + random.nextInt(16);
+               radxxx = var194 + random.nextInt(var235);
+               int countBlock = 0;
+
+               for (canGenxxxx = false; firstBlockYCoord > 60 + dHeight; firstBlockYCoord--) {
+                  if (this.validSnowMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                     canGenxxxx = false;
+                     break;
+                  }
+
+                  if (world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) == Blocks.field_150432_aD) {
+                     canGenxxxx = false;
+                     break;
+                  }
+
+                  if (this.validWaterMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                     if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                        canGenxxxx = true;
+                        Ctype = 0;
+                        break;
+                     }
+
+                     countBlock++;
+                  }
+
+                  if (world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) == MFQM.BrownClayBlock) {
+                     if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                        canGenxxxx = true;
+                        Ctype = 1;
+                        break;
+                     }
+
+                     countBlock++;
+                  }
+
+                  if (countBlock > 20) {
+                     break;
+                  }
+               }
+
+               if (canGenxxxx) {
+                  if (firstBlockYCoord < 68 + dHeight) {
+                     exhillx = false;
+                  }
+
+                  if (Ctype == 0) {
+                     if (this.isItLake2(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxxx * 2, world, exhillx)) {
+                        if (!DSRT) {
+                           if (exhillx) {
+                              this.generateMineralClay(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxxx * 2, world, random);
+                           } else {
+                              this.generateBrownClay(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxxx * 2, world, random);
+                           }
+                        } else {
+                           this.generateClay(0, firstBlockXCoord, firstBlockYCoord - 1, firstBlockZCoord, radxxx * 2, world, random, 1);
+                           this.generateClearWater(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, radxxx * 2 + radxxx / 2, world, random);
+                        }
+
+                        blockGen = true;
+                     }
+                  } else {
+                     if (exhillx) {
+                        this.generateMineralClay(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxxx * 2, world, random);
+                     } else {
+                        this.generateBrownClay(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxxx * 2, world, random);
+                     }
+
+                     blockGen = true;
+                  }
+               }
+            }
+         }
+      }
+

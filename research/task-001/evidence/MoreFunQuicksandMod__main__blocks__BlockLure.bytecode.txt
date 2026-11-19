@@ -1,0 +1,118 @@
+Archive: MoreFunQuicksandMod/main/blocks/BlockLure.class
+SHA256: 33f1c476f3ae21317c99d50b196366cd5f17ce41776fb2c63aa3721b9c58d128
+Superclass: net/minecraft/block/BlockContainer
+Offsets are decimal byte offsets; branch operands are relative offsets.
+
+
+METHOD <init> ()V
+000000: aload_0 
+000001: getstatic #20 net/minecraft/block/material/Material.field_151583_m:Lnet/minecraft/block/material/Material;
+000004: invokespecial #23 net/minecraft/block/BlockContainer.<init>:(Lnet/minecraft/block/material/Material;)V
+000007: aload_0 
+000008: ldc #24 1.75
+000010: invokevirtual #28 MoreFunQuicksandMod/main/blocks/BlockLure.func_149711_c:(F)Lnet/minecraft/block/Block;
+000013: pop 
+000014: aload_0 
+000015: getstatic #32 net/minecraft/block/Block.field_149767_g:Lnet/minecraft/block/Block$SoundType;
+000018: invokevirtual #36 MoreFunQuicksandMod/main/blocks/BlockLure.func_149672_a:(Lnet/minecraft/block/Block$SoundType;)Lnet/minecraft/block/Block;
+000021: pop 
+000022: aload_0 
+000023: ldc #38 'LureBlock'
+000025: invokevirtual #42 MoreFunQuicksandMod/main/blocks/BlockLure.func_149663_c:(Ljava/lang/String;)Lnet/minecraft/block/Block;
+000028: pop 
+000029: aload_0 
+000030: getstatic #48 MoreFunQuicksandMod/main/MFQM.tabMFQM:Lnet/minecraft/creativetab/CreativeTabs;
+000033: invokevirtual #52 MoreFunQuicksandMod/main/blocks/BlockLure.func_149647_a:(Lnet/minecraft/creativetab/CreativeTabs;)Lnet/minecraft/block/Block;
+000036: pop 
+000037: return 
+
+METHOD func_149915_a (Lnet/minecraft/world/World;I)Lnet/minecraft/tileentity/TileEntity;
+000000: aload_1 
+000001: getfield #62 net/minecraft/world/World.field_72995_K:Z
+000004: ifne 13
+000007: new #64 MoreFunQuicksandMod/main/Tileentity/TileEntityLure
+000010: dup 
+000011: invokespecial #66 MoreFunQuicksandMod/main/Tileentity/TileEntityLure.<init>:()V
+000014: astore_3 
+000015: aload_3 
+000016: areturn 
+000017: aconst_null 
+000018: areturn 
+
+METHOD func_149691_a (II)Lnet/minecraft/util/IIcon;
+000000: aload_0 
+000001: getfield #80 MoreFunQuicksandMod/main/blocks/BlockLure.theCSIIcon:Lnet/minecraft/util/IIcon;
+000004: areturn 
+
+METHOD func_149651_a (Lnet/minecraft/client/renderer/texture/IIconRegister;)V
+000000: aload_0 
+000001: aload_1 
+000002: ldc #86 'morefunquicksandmod:Blossom6'
+000004: invokeinterface #92 net/minecraft/client/renderer/texture/IIconRegister.func_94245_a:(Ljava/lang/String;)Lnet/minecraft/util/IIcon;, 2, 0
+000009: putfield #80 MoreFunQuicksandMod/main/blocks/BlockLure.theCSIIcon:Lnet/minecraft/util/IIcon;
+000012: return 
+
+METHOD func_149734_b (Lnet/minecraft/world/World;IIILjava/util/Random;)V
+000000: aload_1 
+000001: getfield #100 net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+000004: iconst_2 
+000005: invokevirtual #106 java/util/Random.nextInt:(I)I
+000008: ifne 103
+000011: iload_2 
+000012: i2f 
+000013: f2d 
+000014: aload 5
+000016: invokevirtual #110 java/util/Random.nextFloat:()F
+000019: f2d 
+000020: ldc2_w #111 2.0
+000023: dmul 
+000024: dadd 
+000025: dconst_1 
+000026: dsub 
+000027: dstore 6
+000029: iload_3 
+000030: i2f 
+000031: f2d 
+000032: aload 5
+000034: invokevirtual #110 java/util/Random.nextFloat:()F
+000037: f2d 
+000038: ldc2_w #111 2.0
+000041: dmul 
+000042: dadd 
+000043: dconst_1 
+000044: dsub 
+000045: dstore 8
+000047: iload 4
+000049: i2f 
+000050: f2d 
+000051: aload 5
+000053: invokevirtual #110 java/util/Random.nextFloat:()F
+000056: f2d 
+000057: ldc2_w #111 2.0
+000060: dmul 
+000061: dadd 
+000062: dconst_1 
+000063: dsub 
+000064: dstore 10
+000066: ldc2_w #113 0.913
+000069: dstore 12
+000071: ldc2_w #115 0.737
+000074: dstore 14
+000076: ldc2_w #117 0.996
+000079: dstore 16
+000081: aload_1 
+000082: ldc #120 'reddust'
+000084: dload 6
+000086: ldc2_w #121 0.5
+000089: dadd 
+000090: dload 8
+000092: ldc2_w #121 0.5
+000095: dadd 
+000096: dload 10
+000098: ldc2_w #121 0.5
+000101: dadd 
+000102: dload 12
+000104: dload 14
+000106: dload 16
+000108: invokevirtual #126 net/minecraft/world/World.func_72869_a:(Ljava/lang/String;DDDDDD)V
+000111: return 

@@ -1,0 +1,231 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.client.Minecraft
+8:  *  net.minecraft.client.renderer.OpenGlHelper
+9:  *  net.minecraft.client.renderer.Tessellator
+10:  *  net.minecraft.client.renderer.entity.Render
+11:  *  net.minecraft.entity.Entity
+12:  *  net.minecraft.util.ResourceLocation
+13:  *  net.minecraft.world.IBlockAccess
+14:  *  org.lwjgl.opengl.GL11
+15:  */
+16: package MoreFunQuicksandMod.main.client;
+17: 
+18: import MoreFunQuicksandMod.main.MFQM;
+19: import MoreFunQuicksandMod.main.entity.EntityTentacles;
+20: import cpw.mods.fml.relauncher.Side;
+21: import cpw.mods.fml.relauncher.SideOnly;
+22: import net.minecraft.client.Minecraft;
+23: import net.minecraft.client.renderer.OpenGlHelper;
+24: import net.minecraft.client.renderer.Tessellator;
+25: import net.minecraft.client.renderer.entity.Render;
+26: import net.minecraft.entity.Entity;
+27: import net.minecraft.util.ResourceLocation;
+28: import net.minecraft.world.IBlockAccess;
+29: import org.lwjgl.opengl.GL11;
+30: 
+31: @SideOnly(value=Side.CLIENT)
+32: public class RenderTentacles
+33: extends Render {
+34:     private ResourceLocation Tentacles0;
+35:     private ResourceLocation Tentacles1;
+36:     private ResourceLocation Tentacles2;
+37:     private ResourceLocation Tentacles3;
+38:     private int TentType;
+39: 
+40:     public RenderTentacles(int type) {
+41:         this.TentType = type;
+42:         if (this.TentType == 1) {
+43:             this.Tentacles0 = new ResourceLocation("morefunquicksandmod", "textures/blocks/Tentacles0_1.png");
+44:             this.Tentacles1 = new ResourceLocation("morefunquicksandmod", "textures/blocks/Tentacles1_1.png");
+45:             this.Tentacles2 = new ResourceLocation("morefunquicksandmod", "textures/blocks/Tentacles2_1.png");
+46:             this.Tentacles3 = new ResourceLocation("morefunquicksandmod", "textures/blocks/TentaclesBase.png");
+47:         } else {
+48:             this.Tentacles0 = new ResourceLocation("morefunquicksandmod", "textures/blocks/Tentacles0.png");
+49:             this.Tentacles1 = new ResourceLocation("morefunquicksandmod", "textures/blocks/Tentacles1.png");
+50:             this.Tentacles2 = new ResourceLocation("morefunquicksandmod", "textures/blocks/Tentacles2.png");
+51:             this.Tentacles3 = new ResourceLocation("morefunquicksandmod", "textures/blocks/Meat10.png");
+52:         }
+53:     }
+54: 
+55:     public void doRenderTentacles(EntityTentacles par1EntityTentacles, double par2, double par4, double par6, float par8, float par9) {
+56:         double x = 0.0;
+57:         double y = 0.0;
+58:         double z = 0.0;
+59:         Tessellator tessellator = Tessellator.field_78398_a;
+60:         int px = (int)Math.floor(par1EntityTentacles.field_70165_t);
+61:         int py = (int)Math.floor(par1EntityTentacles.field_70163_u + 1.0);
+62:         int pz = (int)Math.floor(par1EntityTentacles.field_70161_v);
+63:         double pxq = (double)px - par1EntityTentacles.field_70165_t;
+64:         double pzq = (double)pz - par1EntityTentacles.field_70161_v;
+65:         float f = 4 * MFQM.SwFleshBlock.func_149677_c((IBlockAccess)par1EntityTentacles.field_70170_p, px, py, pz);
+66:         int l = par1EntityTentacles.field_70170_p.func_72802_i(px, py, pz, 0);
+67:         int l1 = l % 65536;
+68:         int l2 = l / 65536;
+69:         this.func_110776_a(this.func_110775_a(par1EntityTentacles));
+70:         GL11.glPushMatrix();
+71:         GL11.glEnable((int)32826);
+72:         OpenGlHelper.func_77475_a((int)OpenGlHelper.field_77476_b, (float)l1, (float)l2);
+73:         tessellator.func_78386_a(f, f, f);
+74:         double hgh = par1EntityTentacles.AnimLifeTime;
+75:         if (hgh > 10000.0) {
+76:             hgh = Math.max(10100.0 - hgh, 0.0);
+77:         }
+78:         double pulse = Math.sin((double)par1EntityTentacles.field_70170_p.func_82737_E() / 10.0) * 50.0 + Math.max(Math.pow(Math.cos((double)par1EntityTentacles.field_70170_p.func_82737_E() / 10.0), 5.0), 0.0) * 25.0;
+79:         double living = Math.sin((double)par1EntityTentacles.field_70170_p.func_82737_E() / 10.0);
+80:         double living2 = Math.cos((double)par1EntityTentacles.field_70170_p.func_82737_E() / 10.0);
+81:         double tar_ofst = 0.0;
+82:         double Scala = 0.5;
+83:         double Scale = 1.0;
+84:         if (par1EntityTentacles.target != null) {
+85:             Scala = (double)par1EntityTentacles.target.field_70130_N * 1.5;
+86:             Scale = (double)par1EntityTentacles.target.field_70130_N * 1.6;
+87:             double yc = 0.0;
+88:             if (par1EntityTentacles.target == Minecraft.func_71410_x().field_71439_g) {
+89:                 yc = -1.6;
+90:             }
+91:             double ch_up = Math.min(Math.max((double)par1EntityTentacles.high - (par1EntityTentacles.target.field_70163_u + yc) - 0.5, 0.0) * 0.5, 1.0);
+92:             tar_ofst = Math.max(Math.min(par1EntityTentacles.target.field_70163_u + yc - par1EntityTentacles.field_70163_u + ch_up, (double)par1EntityTentacles.high - par1EntityTentacles.field_70163_u + 1.0), -0.5);
+93:         }
+94:         double liv_hgh = (living * 0.05 - pulse / 75.0 * 0.2 + tar_ofst) * Scale;
+95:         if (hgh > 30.0) {
+96:             this.drawCrossedSquares(tessellator, 0.5 * Scale, par2 - 0.5 * Scale, par4, par6 - 0.5 * Scale, (float)(Math.min(hgh / 60.0, 1.0) + liv_hgh));
+97:         }
+98:         if (hgh > 70.0) {
+99:             double phgh = 0.0;
+100:             if (hgh < 90.0) {
+101:                 phgh = Math.sin((hgh - 70.0) * 9.0 * Math.PI / 180.0) * 0.35;
+102:             }
+103:             double sc = Math.min((hgh - 70.0) / 80.0, 1.0);
+104:             double bhg = pulse / 75.0 * 0.05;
+105:             double heg = (0.125 + living * 0.025 + phgh) * sc;
+106:             double hg = (0.75 - bhg * 3.0) * Scala;
+107:             this.func_110776_a(this.Tentacles3);
+108:             double count = 3.0;
+109:             int i = 0;
+110:             while ((double)i < count) {
+111:                 GL11.glPushMatrix();
+112:                 GL11.glTranslatef((float)((float)par2), (float)((float)par4), (float)((float)par6));
+113:                 GL11.glRotatef((float)90.0f, (float)1.0f, (float)0.0f, (float)0.0f);
+114:                 GL11.glRotatef((float)((float)((double)i * (360.0 / count) + (double)par1EntityTentacles.field_70170_p.func_82737_E() / 4.0)), (float)0.0f, (float)0.0f, (float)1.0f);
+115:                 GL11.glTranslatef((float)((float)(-par2 + ((double)-0.2f + bhg) * Scala)), (float)((float)(-par4)), (float)((float)(-par6 - 0.75 - liv_hgh)));
+116:                 this.renderFleshCube(tessellator, par2 - heg / 2.0, par4 - hg / 2.0, par6 - heg / 2.0, heg, hg);
+117:                 GL11.glPopMatrix();
+118:                 heg = (0.125 - living * 0.025 + phgh) * sc;
+119:                 GL11.glPushMatrix();
+120:                 GL11.glTranslatef((float)((float)par2), (float)((float)par4), (float)((float)par6));
+121:                 GL11.glRotatef((float)90.0f, (float)1.0f, (float)0.0f, (float)0.0f);
+122:                 GL11.glRotatef((float)((float)((double)i * (360.0 / count) + (double)par1EntityTentacles.field_70170_p.func_82737_E() / 3.0)), (float)0.0f, (float)0.0f, (float)1.0f);
+123:                 GL11.glTranslatef((float)((float)(-par2 + ((double)-0.2f + bhg) * Scala)), (float)((float)(-par4)), (float)((float)(-par6 - 0.9 - liv_hgh)));
+124:                 this.renderFleshCube(tessellator, par2 - heg / 2.0, par4 - hg / 2.0, par6 - heg / 2.0, heg, hg);
+125:                 GL11.glPopMatrix();
+126:                 ++i;
+127:             }
+128:         }
+129:         GL11.glDisable((int)32826);
+130:         GL11.glPopMatrix();
+131:     }
+132: 
+133:     public void drawCrossedSquares(Tessellator tessellator, double size, double xx, double height, double yy, float sacal) {
+134:         double var10 = 0.0;
+135:         double var12 = 0.0;
+136:         double var14 = 1.0;
+137:         double var16 = 1.0;
+138:         double var18 = size;
+139:         double var20 = xx + size - var18;
+140:         double var22 = xx + size + var18;
+141:         double var24 = yy + size - var18;
+142:         double var26 = yy + size + var18;
+143:         tessellator.func_78382_b();
+144:         tessellator.func_78375_b(0.0f, 1.0f, 0.0f);
+145:         tessellator.func_78374_a(var20, height + (double)sacal, var24, var10, var12);
+146:         tessellator.func_78374_a(var20, height + 0.0, var24, var10, var16);
+147:         tessellator.func_78374_a(var22, height + 0.0, var26, var14, var16);
+148:         tessellator.func_78374_a(var22, height + (double)sacal, var26, var14, var12);
+149:         tessellator.func_78374_a(var22, height + (double)sacal, var26, var10, var12);
+150:         tessellator.func_78374_a(var22, height + 0.0, var26, var10, var16);
+151:         tessellator.func_78374_a(var20, height + 0.0, var24, var14, var16);
+152:         tessellator.func_78374_a(var20, height + (double)sacal, var24, var14, var12);
+153:         tessellator.func_78374_a(var20, height + (double)sacal, var26, var10, var12);
+154:         tessellator.func_78374_a(var20, height + 0.0, var26, var10, var16);
+155:         tessellator.func_78374_a(var22, height + 0.0, var24, var14, var16);
+156:         tessellator.func_78374_a(var22, height + (double)sacal, var24, var14, var12);
+157:         tessellator.func_78374_a(var22, height + (double)sacal, var24, var10, var12);
+158:         tessellator.func_78374_a(var22, height + 0.0, var24, var10, var16);
+159:         tessellator.func_78374_a(var20, height + 0.0, var26, var14, var16);
+160:         tessellator.func_78374_a(var20, height + (double)sacal, var26, var14, var12);
+161:         tessellator.func_78381_a();
+162:     }
+163: 
+164:     public void renderFleshCube(Tessellator tessellator, double x, double y, double z, double size, double height) {
+165:         double minU = 0.0;
+166:         double minV = 0.0;
+167:         double maxU = 1.0;
+168:         double maxV = 1.0;
+169:         tessellator.func_78382_b();
+170:         tessellator.func_78375_b(0.0f, 1.0f, 0.0f);
+171:         tessellator.func_78374_a(x, y + height, z, maxU, minV);
+172:         tessellator.func_78374_a(x, y + height, z + size, maxU, maxV);
+173:         tessellator.func_78374_a(x + size, y + height, z + size, minU, maxV);
+174:         tessellator.func_78374_a(x + size, y + height, z, minU, minV);
+175:         tessellator.func_78381_a();
+176:         tessellator.func_78382_b();
+177:         tessellator.func_78375_b(0.0f, -1.0f, 0.0f);
+178:         tessellator.func_78374_a(x + size, y, z, maxU, minV);
+179:         tessellator.func_78374_a(x + size, y, z + size, maxU, maxV);
+180:         tessellator.func_78374_a(x, y, z + size, minU, maxV);
+181:         tessellator.func_78374_a(x, y, z, minU, minV);
+182:         tessellator.func_78381_a();
+183:         tessellator.func_78382_b();
+184:         tessellator.func_78375_b(0.0f, 0.0f, -1.0f);
+185:         tessellator.func_78374_a(x, y, z, maxU, minV);
+186:         tessellator.func_78374_a(x, y + height, z, maxU, maxV);
+187:         tessellator.func_78374_a(x + size, y + height, z, minU, maxV);
+188:         tessellator.func_78374_a(x + size, y, z, minU, minV);
+189:         tessellator.func_78381_a();
+190:         tessellator.func_78382_b();
+191:         tessellator.func_78375_b(0.0f, 0.0f, 1.0f);
+192:         tessellator.func_78374_a(x + size, y, z + size, maxU, minV);
+193:         tessellator.func_78374_a(x + size, y + height, z + size, maxU, maxV);
+194:         tessellator.func_78374_a(x, y + height, z + size, minU, maxV);
+195:         tessellator.func_78374_a(x, y, z + size, minU, minV);
+196:         tessellator.func_78381_a();
+197:         tessellator.func_78382_b();
+198:         tessellator.func_78375_b(-1.0f, 0.0f, 0.0f);
+199:         tessellator.func_78374_a(x, y, z + size, maxU, minV);
+200:         tessellator.func_78374_a(x, y + height, z + size, maxU, maxV);
+201:         tessellator.func_78374_a(x, y + height, z, minU, maxV);
+202:         tessellator.func_78374_a(x, y, z, minU, minV);
+203:         tessellator.func_78381_a();
+204:         tessellator.func_78382_b();
+205:         tessellator.func_78375_b(1.0f, 0.0f, 0.0f);
+206:         tessellator.func_78374_a(x + size, y, z, minU, minV);
+207:         tessellator.func_78374_a(x + size, y + height, z, minU, maxV);
+208:         tessellator.func_78374_a(x + size, y + height, z + size, maxU, maxV);
+209:         tessellator.func_78374_a(x + size, y, z + size, maxU, minV);
+210:         tessellator.func_78381_a();
+211:     }
+212: 
+213:     protected ResourceLocation func_110775_a(Entity par1Entity) {
+214:         double hgh = ((EntityTentacles)par1Entity).AnimLifeTime;
+215:         if (hgh > 10000.0) {
+216:             hgh = Math.max(10100.0 - hgh, 0.0);
+217:         }
+218:         if (hgh > 80.0) {
+219:             return this.Tentacles2;
+220:         }
+221:         if (hgh > 60.0) {
+222:             return this.Tentacles1;
+223:         }
+224:         return this.Tentacles0;
+225:     }
+226: 
+227:     public void func_76986_a(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
+228:         this.doRenderTentacles((EntityTentacles)par1Entity, par2, par4, par6, par8, par9);
+229:     }
+230: }
+231: 

@@ -1,0 +1,254 @@
+public class MoreFunQuicksandMod.main.CustomVarPlayer implements net.minecraftforge.common.IExtendedEntityProperties {
+  public static final java.lang.String EXT_PROP_NAME = "PlayerMuddyControl";
+    descriptor: Ljava/lang/String;
+
+  public static final int MUDDYLEVEL_WATCHER;
+    descriptor: I
+
+  private final net.minecraft.entity.player.EntityPlayer player;
+    descriptor: Lnet/minecraft/entity/player/EntityPlayer;
+
+  public MoreFunQuicksandMod.main.CustomVarPlayer(net.minecraft.entity.player.EntityPlayer);
+    descriptor: (Lnet/minecraft/entity/player/EntityPlayer;)V
+    Code:
+       0: aload_0
+       1: invokespecial #22                 // Method java/lang/Object."<init>":()V
+       4: aload_0
+       5: aload_1
+       6: putfield      #24                 // Field player:Lnet/minecraft/entity/player/EntityPlayer;
+       9: aload_0
+      10: getfield      #24                 // Field player:Lnet/minecraft/entity/player/EntityPlayer;
+      13: invokevirtual #30                 // Method net/minecraft/entity/player/EntityPlayer.func_70096_w:()Lnet/minecraft/entity/DataWatcher;
+      16: getstatic     #32                 // Field MUDDYLEVEL_WATCHER:I
+      19: iconst_0
+      20: invokestatic  #38                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+      23: invokevirtual #44                 // Method net/minecraft/entity/DataWatcher.func_75682_a:(ILjava/lang/Object;)V
+      26: goto          70
+      29: astore_2
+      30: aload_2
+      31: new           #46                 // class java/lang/StringBuilder
+      34: dup
+      35: invokespecial #47                 // Method java/lang/StringBuilder."<init>":()V
+      38: ldc           #49                 // String Error initializing Covering System. Muddy Level DataWatcher ID conflict:
+      40: invokevirtual #53                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+      43: getstatic     #58                 // Field MoreFunQuicksandMod/main/MFQM.MuddyLevel:I
+      46: invokevirtual #61                 // Method java/lang/StringBuilder.append:(I)Ljava/lang/StringBuilder;
+      49: ldc           #63                 // String  with entity player
+      51: invokevirtual #53                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+      54: invokevirtual #67                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+      57: invokestatic  #73                 // Method net/minecraft/crash/CrashReport.func_85055_a:(Ljava/lang/Throwable;Ljava/lang/String;)Lnet/minecraft/crash/CrashReport;
+      60: astore_3
+      61: new           #75                 // class net/minecraft/util/ReportedException
+      64: dup
+      65: aload_3
+      66: invokespecial #78                 // Method net/minecraft/util/ReportedException."<init>":(Lnet/minecraft/crash/CrashReport;)V
+      69: athrow
+      70: return
+    Exception table:
+       from    to  target type
+           9    26    29   Class java/lang/Exception
+
+  public static final void register(net.minecraft.entity.player.EntityPlayer);
+    descriptor: (Lnet/minecraft/entity/player/EntityPlayer;)V
+    Code:
+       0: aload_0
+       1: ldc           #11                 // String PlayerMuddyControl
+       3: new           #2                  // class MoreFunQuicksandMod/main/CustomVarPlayer
+       6: dup
+       7: aload_0
+       8: invokespecial #87                 // Method "<init>":(Lnet/minecraft/entity/player/EntityPlayer;)V
+      11: invokevirtual #91                 // Method net/minecraft/entity/player/EntityPlayer.registerExtendedProperties:(Ljava/lang/String;Lnet/minecraftforge/common/IExtendedEntityProperties;)Ljava/lang/String;
+      14: pop
+      15: return
+
+  public static final MoreFunQuicksandMod.main.CustomVarPlayer get(net.minecraft.entity.player.EntityPlayer);
+    descriptor: (Lnet/minecraft/entity/player/EntityPlayer;)LMoreFunQuicksandMod/main/CustomVarPlayer;
+    Code:
+       0: aload_0
+       1: ldc           #11                 // String PlayerMuddyControl
+       3: invokevirtual #97                 // Method net/minecraft/entity/player/EntityPlayer.getExtendedProperties:(Ljava/lang/String;)Lnet/minecraftforge/common/IExtendedEntityProperties;
+       6: checkcast     #2                  // class MoreFunQuicksandMod/main/CustomVarPlayer
+       9: areturn
+
+  public void saveNBTData(net.minecraft.nbt.NBTTagCompound);
+    descriptor: (Lnet/minecraft/nbt/NBTTagCompound;)V
+    Code:
+       0: new           #101                // class net/minecraft/nbt/NBTTagCompound
+       3: dup
+       4: invokespecial #102                // Method net/minecraft/nbt/NBTTagCompound."<init>":()V
+       7: astore_2
+       8: aload_2
+       9: ldc           #103                // String MuddyLevel
+      11: aload_0
+      12: getfield      #24                 // Field player:Lnet/minecraft/entity/player/EntityPlayer;
+      15: invokevirtual #30                 // Method net/minecraft/entity/player/EntityPlayer.func_70096_w:()Lnet/minecraft/entity/DataWatcher;
+      18: getstatic     #32                 // Field MUDDYLEVEL_WATCHER:I
+      21: invokevirtual #107                // Method net/minecraft/entity/DataWatcher.func_75679_c:(I)I
+      24: invokevirtual #111                // Method net/minecraft/nbt/NBTTagCompound.func_74768_a:(Ljava/lang/String;I)V
+      27: aload_1
+      28: ldc           #11                 // String PlayerMuddyControl
+      30: aload_2
+      31: invokevirtual #115                // Method net/minecraft/nbt/NBTTagCompound.func_74782_a:(Ljava/lang/String;Lnet/minecraft/nbt/NBTBase;)V
+      34: return
+
+  public void loadNBTData(net.minecraft.nbt.NBTTagCompound);
+    descriptor: (Lnet/minecraft/nbt/NBTTagCompound;)V
+    Code:
+       0: aload_1
+       1: ldc           #11                 // String PlayerMuddyControl
+       3: invokevirtual #123                // Method net/minecraft/nbt/NBTTagCompound.func_74781_a:(Ljava/lang/String;)Lnet/minecraft/nbt/NBTBase;
+       6: checkcast     #101                // class net/minecraft/nbt/NBTTagCompound
+       9: astore_2
+      10: aload_0
+      11: getfield      #24                 // Field player:Lnet/minecraft/entity/player/EntityPlayer;
+      14: invokevirtual #30                 // Method net/minecraft/entity/player/EntityPlayer.func_70096_w:()Lnet/minecraft/entity/DataWatcher;
+      17: getstatic     #32                 // Field MUDDYLEVEL_WATCHER:I
+      20: aload_2
+      21: ldc           #103                // String MuddyLevel
+      23: invokevirtual #127                // Method net/minecraft/nbt/NBTTagCompound.func_74762_e:(Ljava/lang/String;)I
+      26: invokestatic  #38                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+      29: invokevirtual #130                // Method net/minecraft/entity/DataWatcher.func_75692_b:(ILjava/lang/Object;)V
+      32: return
+
+  public void init(net.minecraft.entity.Entity, net.minecraft.world.World);
+    descriptor: (Lnet/minecraft/entity/Entity;Lnet/minecraft/world/World;)V
+    Code:
+       0: return
+
+  public int getData();
+    descriptor: ()I
+    Code:
+       0: aload_0
+       1: getfield      #24                 // Field player:Lnet/minecraft/entity/player/EntityPlayer;
+       4: invokevirtual #30                 // Method net/minecraft/entity/player/EntityPlayer.func_70096_w:()Lnet/minecraft/entity/DataWatcher;
+       7: getstatic     #32                 // Field MUDDYLEVEL_WATCHER:I
+      10: invokevirtual #107                // Method net/minecraft/entity/DataWatcher.func_75679_c:(I)I
+      13: ireturn
+
+  public int getMuddyLevel();
+    descriptor: ()I
+    Code:
+       0: aload_0
+       1: invokevirtual #141                // Method getData:()I
+       4: sipush        256
+       7: idiv
+       8: sipush        255
+      11: iand
+      12: ireturn
+
+  public int getMuddyTime();
+    descriptor: ()I
+    Code:
+       0: aload_0
+       1: invokevirtual #141                // Method getData:()I
+       4: ldc           #143                // int 65536
+       6: idiv
+       7: ireturn
+
+  public int getMuddyType();
+    descriptor: ()I
+    Code:
+       0: aload_0
+       1: invokevirtual #141                // Method getData:()I
+       4: sipush        255
+       7: iand
+       8: ireturn
+
+  public void setMuddyLevel(int);
+    descriptor: (I)V
+    Code:
+       0: aload_0
+       1: invokevirtual #141                // Method getData:()I
+       4: istore_2
+       5: aload_0
+       6: getfield      #24                 // Field player:Lnet/minecraft/entity/player/EntityPlayer;
+       9: invokevirtual #30                 // Method net/minecraft/entity/player/EntityPlayer.func_70096_w:()Lnet/minecraft/entity/DataWatcher;
+      12: getstatic     #32                 // Field MUDDYLEVEL_WATCHER:I
+      15: iload_2
+      16: ldc           #143                // int 65536
+      18: idiv
+      19: ldc           #143                // int 65536
+      21: imul
+      22: iload_1
+      23: sipush        256
+      26: imul
+      27: ior
+      28: iload_2
+      29: sipush        255
+      32: iand
+      33: ior
+      34: invokestatic  #38                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+      37: invokevirtual #130                // Method net/minecraft/entity/DataWatcher.func_75692_b:(ILjava/lang/Object;)V
+      40: return
+
+  public void setMuddyTime(int);
+    descriptor: (I)V
+    Code:
+       0: aload_0
+       1: getfield      #24                 // Field player:Lnet/minecraft/entity/player/EntityPlayer;
+       4: invokevirtual #30                 // Method net/minecraft/entity/player/EntityPlayer.func_70096_w:()Lnet/minecraft/entity/DataWatcher;
+       7: getstatic     #32                 // Field MUDDYLEVEL_WATCHER:I
+      10: aload_0
+      11: invokevirtual #141                // Method getData:()I
+      14: ldc           #150                // int 65535
+      16: iand
+      17: iload_1
+      18: ldc           #143                // int 65536
+      20: imul
+      21: ior
+      22: invokestatic  #38                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+      25: invokevirtual #130                // Method net/minecraft/entity/DataWatcher.func_75692_b:(ILjava/lang/Object;)V
+      28: return
+
+  public void setMuddyType(int);
+    descriptor: (I)V
+    Code:
+       0: aload_0
+       1: getfield      #24                 // Field player:Lnet/minecraft/entity/player/EntityPlayer;
+       4: invokevirtual #30                 // Method net/minecraft/entity/player/EntityPlayer.func_70096_w:()Lnet/minecraft/entity/DataWatcher;
+       7: getstatic     #32                 // Field MUDDYLEVEL_WATCHER:I
+      10: aload_0
+      11: invokevirtual #141                // Method getData:()I
+      14: sipush        256
+      17: idiv
+      18: sipush        256
+      21: imul
+      22: iload_1
+      23: ior
+      24: invokestatic  #38                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+      27: invokevirtual #130                // Method net/minecraft/entity/DataWatcher.func_75692_b:(ILjava/lang/Object;)V
+      30: return
+
+  public void addMuddyTime(int);
+    descriptor: (I)V
+    Code:
+       0: aload_0
+       1: invokevirtual #141                // Method getData:()I
+       4: istore_2
+       5: aload_0
+       6: getfield      #24                 // Field player:Lnet/minecraft/entity/player/EntityPlayer;
+       9: invokevirtual #30                 // Method net/minecraft/entity/player/EntityPlayer.func_70096_w:()Lnet/minecraft/entity/DataWatcher;
+      12: getstatic     #32                 // Field MUDDYLEVEL_WATCHER:I
+      15: iload_2
+      16: ldc           #150                // int 65535
+      18: iand
+      19: iload_1
+      20: iload_2
+      21: ldc           #143                // int 65536
+      23: idiv
+      24: iadd
+      25: ldc           #143                // int 65536
+      27: imul
+      28: ior
+      29: invokestatic  #38                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+      32: invokevirtual #130                // Method net/minecraft/entity/DataWatcher.func_75692_b:(ILjava/lang/Object;)V
+      35: return
+
+  static {};
+    descriptor: ()V
+    Code:
+       0: getstatic     #58                 // Field MoreFunQuicksandMod/main/MFQM.MuddyLevel:I
+       3: putstatic     #32                 // Field MUDDYLEVEL_WATCHER:I
+       6: return
+}
+Compiled from "CustomWorldGen.java"

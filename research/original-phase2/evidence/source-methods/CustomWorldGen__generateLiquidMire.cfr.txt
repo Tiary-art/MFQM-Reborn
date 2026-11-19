@@ -1,0 +1,38 @@
+// CFR0.152; original decompiler line 2492; NOT original source; inspect **/goto artifacts if present.
+    private void generateLiquidMire(int xx, int yy, int zz, int rad, World world, Random random, Material BlockMaterialToReplace, int isWL) {
+        double rad_cof = Math.max((double)rad / 10.0, 1.0);
+        double rax = random.nextDouble() + 0.5;
+        double raz = 1.0 - rax + 0.5 + 0.5;
+        for (int i = 0; i <= rad; ++i) {
+            for (int j = 0; j <= rad / 2; ++j) {
+                for (int e = 0; e <= rad; ++e) {
+                    int posx = xx + i - rad / 2;
+                    int posy = yy - j;
+                    int posz = zz + e - rad / 2;
+                    double dis = Math.sqrt(Math.pow(xx - posx, 2.0) * rax + Math.pow(yy - posy, 2.0) + Math.pow(zz - posz, 2.0) * raz);
+                    if (!(dis < (double)rad / 2.0 / (1.0 + Math.abs(rax - raz) / 3.0) + (random.nextDouble() * rad_cof - rad_cof / 2.0)) || world.func_147439_a(posx, posy, posz) != MFQM.MireBlock && BlockMaterialToReplace != Material.field_151568_F && world.func_147439_a(posx, posy, posz).func_149688_o() != BlockMaterialToReplace) continue;
+                    if (world.func_147439_a(posx, posy + 6, posz) != MFQM.StableLiquidMireBlock) {
+                        world.func_147449_b(posx, posy, posz, MFQM.StableLiquidMireBlock);
+                        if (BlockMaterialToReplace == Material.field_151568_F || world.func_147439_a(posx, posy - 1, posz).func_149688_o() != BlockMaterialToReplace) {
+                            world.func_147449_b(posx, posy - 1, posz, MFQM.MireBlock);
+                        }
+                    }
+                    if (isWL <= 0 || random.nextInt(75 / isWL) != 0 || world.func_147439_a(posx, posy + 1, posz) != Blocks.field_150350_a) continue;
+                    world.func_147465_d(posx, posy + 1, posz, MFQM.CustomLilyPadBlock, 0, 2);
+                }
+            }
+        }
+        Block sblock = this.soilBlock(xx, zz, world);
+        Block fblock = this.fillerBlock(xx, zz, world);
+        for (int i = 0; i <= rad; ++i) {
+            for (int j = 0; j <= rad / 2 + 2; ++j) {
+                for (int e = 0; e <= rad; ++e) {
+                    int posx = xx + i - rad / 2;
+                    int posy = yy - j;
+                    int posz = zz + e - rad / 2;
+                    if (world.func_147439_a(posx, posy, posz) == MFQM.MireBlock || world.func_147439_a(posx, posy, posz) == MFQM.StableLiquidMireBlock || world.func_147439_a(posx, posy + 1, posz) != MFQM.StableLiquidMireBlock && world.func_147439_a(posx, posy + 1, posz) != MFQM.MireBlock) continue;
+                    world.func_147449_b(posx, posy, posz, fblock);
+                }
+            }
+        }
+    }

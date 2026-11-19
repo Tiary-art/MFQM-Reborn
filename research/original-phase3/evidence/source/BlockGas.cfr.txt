@@ -1,0 +1,461 @@
+/*
+ * Decompiled with CFR 0.152.
+ * 
+ * Could not load the following classes:
+ *  cpw.mods.fml.relauncher.Side
+ *  cpw.mods.fml.relauncher.SideOnly
+ *  net.minecraft.block.Block
+ *  net.minecraft.block.Block$SoundType
+ *  net.minecraft.block.BlockFalling
+ *  net.minecraft.block.material.MapColor
+ *  net.minecraft.block.material.Material
+ *  net.minecraft.client.Minecraft
+ *  net.minecraft.client.renderer.texture.IIconRegister
+ *  net.minecraft.enchantment.EnchantmentHelper
+ *  net.minecraft.entity.Entity
+ *  net.minecraft.entity.EntityLivingBase
+ *  net.minecraft.entity.player.EntityPlayer
+ *  net.minecraft.init.Blocks
+ *  net.minecraft.item.Item
+ *  net.minecraft.potion.PotionEffect
+ *  net.minecraft.util.AxisAlignedBB
+ *  net.minecraft.util.IIcon
+ *  net.minecraft.world.IBlockAccess
+ *  net.minecraft.world.World
+ */
+package MoreFunQuicksandMod.main.blocks;
+
+import MoreFunQuicksandMod.main.CustomMaterialGas;
+import MoreFunQuicksandMod.main.MFQM;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import java.util.Random;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockFalling;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+
+public class BlockGas
+extends Block {
+    @SideOnly(value=Side.CLIENT)
+    private IIcon[] IIconNormalArray;
+    private int[] arrayDirection = new int[6];
+    public static final Block.SoundType soundTypeGas = new Block.SoundType("stone", 0.0f, 0.0f);
+    public static final Material materialGas = new CustomMaterialGas(MapColor.field_151660_b);
+
+    public BlockGas() {
+        super(materialGas);
+        this.func_149711_c(0.0f);
+        this.func_149672_a(soundTypeGas);
+        this.func_149752_b(0.0f);
+        this.func_149663_c("Gas");
+        this.func_149675_a(true);
+        this.func_149647_a(MFQM.tabMFQM);
+    }
+
+    public void func_149749_a(World world, int x, int y, int z, Block bl, int meta) {
+        if (MFQM.LiqFixer) {
+            return;
+        }
+        if (world.func_147439_a(x, y, z) != MFQM.SlurryBlock) {
+            return;
+        }
+        int met = meta;
+        for (int tick = 0; met > 0 && tick < 3; ++tick) {
+            met = this.RandomSpread(world, x, y, z, met);
+        }
+        this.RandomSpread(world, x, y, z, 1);
+    }
+
+    public int RandomSpread(World world, int x, int y, int z, int Meta) {
+        int xx = 0;
+        int yy = 0;
+        int zz = 0;
+        this.arrayDirection[0] = 0;
+        this.arrayDirection[1] = 1;
+        this.arrayDirection[2] = 2;
+        this.arrayDirection[3] = 3;
+        this.arrayDirection[4] = 4;
+        this.arrayDirection[5] = 5;
+        int dir = 0;
+        int nMeta = Meta;
+        for (int tick = 0; tick < 6 && nMeta > 0; ++tick) {
+            int tick2;
+            dir = world.field_73012_v.nextInt(6);
+            for (tick2 = 0; (this.arrayDirection[dir] == -1 || this.arrayDirection[dir] == 4 && tick2 < 5 && world.field_73012_v.nextInt(2) != 0) && tick2 < 6; ++tick2) {
+                if (++dir <= 5) continue;
+                dir = 0;
+            }
+            if (tick2 > 5) break;
+            switch (this.arrayDirection[dir]) {
+                case 0: {
+                    xx = 1;
+                    yy = 0;
+                    zz = 0;
+                    break;
+                }
+                case 1: {
+                    xx = -1;
+                    yy = 0;
+                    zz = 0;
+                    break;
+                }
+                case 2: {
+                    xx = 0;
+                    yy = 0;
+                    zz = 1;
+                    break;
+                }
+                case 3: {
+                    xx = 0;
+                    yy = 0;
+                    zz = -1;
+                    break;
+                }
+                case 4: {
+                    xx = 0;
+                    yy = 1;
+                    zz = 0;
+                    break;
+                }
+                case 5: {
+                    xx = 0;
+                    yy = -1;
+                    zz = 0;
+                }
+            }
+            if (world.func_147439_a(x + xx, y + yy, z + zz) == Blocks.field_150350_a) {
+                world.func_147465_d(x + xx, y + yy, z + zz, (Block)this, 0, 2);
+                --nMeta;
+            } else if (world.func_147439_a(x + xx, y + yy, z + zz) == this && world.func_72805_g(x + xx, y + yy, z + zz) < nMeta) {
+                world.func_72921_c(x + xx, y + yy, z + zz, world.func_72805_g(x + xx, y + yy, z + zz) + 1, 2);
+                --nMeta;
+            }
+            this.arrayDirection[dir] = -1;
+        }
+        return nMeta;
+    }
+
+    public void func_149674_a(World world, int x, int y, int z, Random rand) {
+        if (MFQM.LiqFixer) {
+            return;
+        }
+        int meta = world.func_72805_g(x, y, z);
+        int xx = x;
+        int yy = y;
+        int zz = z;
+        int tickRate = 10;
+        if (MFQM.ABC && world.field_73011_w.field_76574_g == MFQM.ABCDim2) {
+            tickRate = 20;
+        }
+        if (world.func_147439_a(x, y - 1, z) == Blocks.field_150350_a) {
+            world.func_147465_d(x, y - 1, z, (Block)this, meta, 3);
+            world.func_147468_f(x, y, z);
+            yy = y - 1;
+        }
+        if (meta > 0) {
+            if (rand.nextInt(Math.max(48 - meta * 5, 1)) == 0) {
+                meta = this.RandomSpread(world, xx, yy, zz, meta);
+                world.func_72921_c(xx, yy, zz, meta, 2);
+                world.func_147464_a(xx, yy, zz, (Block)this, tickRate);
+                return;
+            }
+            if (rand.nextInt(1000) == 0 && --meta >= 0) {
+                world.func_72921_c(xx, yy, zz, meta, 2);
+            }
+        } else if (rand.nextInt(50 * tickRate) == 0) {
+            world.func_147468_f(xx, yy, zz);
+            return;
+        }
+        world.func_147464_a(xx, yy, zz, (Block)this, tickRate);
+    }
+
+    public boolean CheckBreathProtect(Entity entity) {
+        if (!(entity instanceof EntityPlayer)) {
+            return false;
+        }
+        if (((EntityPlayer)entity).func_82169_q(3) == null) {
+            return false;
+        }
+        String str1 = ((EntityPlayer)entity).func_82169_q(3).func_77973_b().func_77658_a();
+        if (str1.toLowerCase().matches("(.*)gas(.*)")) {
+            return true;
+        }
+        if (str1.toLowerCase().matches("(.*)oxygen(.*)")) {
+            return true;
+        }
+        if (str1.matches("(.*)Hazmat(.*)")) {
+            return true;
+        }
+        if (str1.matches("(.*)Nano(.*)")) {
+            return true;
+        }
+        if (str1.matches("(.*)Quantum(.*)")) {
+            return true;
+        }
+        if (str1.toLowerCase().matches("(.*)poison(.*)")) {
+            return true;
+        }
+        return MFQM.AOAFaceMaskItemID != 0 && ((EntityPlayer)entity).func_82169_q(3).func_77973_b() == MFQM.AOAFaceMaskItem;
+    }
+
+    public void func_149670_a(World world, int x, int y, int z, Entity entity) {
+        int mtd = world.func_72805_g(x, y, z);
+        if (entity instanceof EntityLivingBase && !world.field_72995_K) {
+            boolean BreathProtect = false;
+            boolean BreathProtectA = false;
+            if (entity instanceof EntityPlayer) {
+                BreathProtect = BreathProtect || EnchantmentHelper.func_77501_a((EntityLivingBase)((EntityPlayer)entity)) > 0;
+                boolean bl = BreathProtectA = BreathProtectA || BreathProtect;
+            }
+            if (MFQM.ABC && world.field_73011_w.field_76574_g == MFQM.ABCDim2) {
+                if (mtd > 3 && world.func_82737_E() % 200L - (long)(mtd * 5) == 0L && world.field_73012_v.nextInt(5) == 0) {
+                    if (!BreathProtectA) {
+                        BreathProtect = BreathProtect || this.CheckBreathProtect(entity);
+                        BreathProtectA = true;
+                    }
+                    if (!BreathProtect) {
+                        ((EntityLivingBase)entity).func_70690_d(new PotionEffect(15, 200, 0, false));
+                    }
+                }
+                if (world.func_82737_E() % 400L - (long)(mtd * 5) == 0L && world.field_73012_v.nextInt(5) == 0) {
+                    if (!BreathProtectA) {
+                        BreathProtect = BreathProtect || this.CheckBreathProtect(entity);
+                        BreathProtectA = true;
+                    }
+                    if (!BreathProtect) {
+                        ((EntityLivingBase)entity).func_70690_d(new PotionEffect(17, 200, 0, false));
+                    }
+                }
+                return;
+            }
+            if (world.func_82737_E() % 80L - (long)(mtd * 5) == 0L && world.field_73012_v.nextInt(5) == 0) {
+                if (!BreathProtectA) {
+                    BreathProtect = BreathProtect || this.CheckBreathProtect(entity);
+                    BreathProtectA = true;
+                }
+                if (!BreathProtect) {
+                    ((EntityLivingBase)entity).func_70690_d(new PotionEffect(17, 200, 0, false));
+                }
+            }
+            if (world.func_82737_E() % 200L - (long)(mtd * 5) == 0L && world.field_73012_v.nextInt(5) == 0) {
+                if (!BreathProtectA) {
+                    BreathProtect = BreathProtect || this.CheckBreathProtect(entity);
+                    BreathProtectA = true;
+                }
+                if (!BreathProtect) {
+                    ((EntityLivingBase)entity).func_70690_d(new PotionEffect(9, 200, 0, false));
+                }
+            }
+            if (world.func_82737_E() % 500L - (long)(mtd * 5) == 0L && world.field_73012_v.nextInt(5) == 0) {
+                if (!BreathProtectA) {
+                    BreathProtect = BreathProtect || this.CheckBreathProtect(entity);
+                    BreathProtectA = true;
+                }
+                if (!BreathProtect) {
+                    ((EntityLivingBase)entity).func_70690_d(new PotionEffect(2, 200, 0, false));
+                    ((EntityLivingBase)entity).func_70690_d(new PotionEffect(4, 200, 0, false));
+                    ((EntityLivingBase)entity).func_70690_d(new PotionEffect(18, 200, 0, false));
+                }
+            }
+            if (mtd > 2) {
+                if (world.func_82737_E() % 80L - (long)(mtd * 5) == 0L && world.field_73012_v.nextInt(5) == 0) {
+                    if (!BreathProtectA) {
+                        BreathProtect = BreathProtect || this.CheckBreathProtect(entity);
+                        BreathProtectA = true;
+                    }
+                    if (!BreathProtect) {
+                        ((EntityLivingBase)entity).func_70690_d(new PotionEffect(9, 200, 0, false));
+                        ((EntityLivingBase)entity).func_70690_d(new PotionEffect(17, 600, 1, false));
+                    }
+                }
+                if (world.func_82737_E() % 200L - (long)(mtd * 5) == 0L && world.field_73012_v.nextInt(5) == 0) {
+                    if (!BreathProtectA) {
+                        BreathProtect = BreathProtect || this.CheckBreathProtect(entity);
+                        BreathProtectA = true;
+                    }
+                    if (!BreathProtect) {
+                        ((EntityLivingBase)entity).func_70690_d(new PotionEffect(19, 200, 0, false));
+                    }
+                }
+            }
+            if (mtd > 3) {
+                if (world.func_82737_E() % 100L - (long)(mtd * 5) == 0L && world.field_73012_v.nextInt(5) == 0) {
+                    if (!BreathProtectA) {
+                        BreathProtect = BreathProtect || this.CheckBreathProtect(entity);
+                        BreathProtectA = true;
+                    }
+                    if (!BreathProtect) {
+                        ((EntityLivingBase)entity).func_70690_d(new PotionEffect(2, 200, 1, false));
+                        ((EntityLivingBase)entity).func_70690_d(new PotionEffect(4, 200, 1, false));
+                        ((EntityLivingBase)entity).func_70690_d(new PotionEffect(18, 200, 1, false));
+                        ((EntityLivingBase)entity).func_70690_d(new PotionEffect(17, 1200, 2, false));
+                        ((EntityLivingBase)entity).func_70690_d(new PotionEffect(9, 600, 0, false));
+                    }
+                }
+                if (world.func_82737_E() % 150L - (long)(mtd * 5) == 0L && world.field_73012_v.nextInt(5) == 0) {
+                    if (!BreathProtectA) {
+                        BreathProtect = BreathProtect || this.CheckBreathProtect(entity);
+                        BreathProtectA = true;
+                    }
+                    if (!BreathProtect) {
+                        ((EntityLivingBase)entity).func_70690_d(new PotionEffect(19, 200, 0, false));
+                    }
+                }
+            }
+            if (mtd > 4) {
+                if (world.func_82737_E() % 150L - (long)(mtd * 5) == 0L && world.field_73012_v.nextInt(5) == 0) {
+                    if (!BreathProtectA) {
+                        BreathProtect = BreathProtect || this.CheckBreathProtect(entity);
+                        BreathProtectA = true;
+                    }
+                    if (!BreathProtect) {
+                        ((EntityLivingBase)entity).func_70690_d(new PotionEffect(19, 600, 0, false));
+                        ((EntityLivingBase)entity).func_70690_d(new PotionEffect(2, 200, 2, false));
+                        ((EntityLivingBase)entity).func_70690_d(new PotionEffect(4, 200, 2, false));
+                        ((EntityLivingBase)entity).func_70690_d(new PotionEffect(18, 200, 2, false));
+                        ((EntityLivingBase)entity).func_70690_d(new PotionEffect(17, 2400, 3, false));
+                        ((EntityLivingBase)entity).func_70690_d(new PotionEffect(15, 100, 100, false));
+                        ((EntityLivingBase)entity).func_70690_d(new PotionEffect(9, 1200, 0, false));
+                    }
+                }
+                if (world.func_82737_E() % 500L - (long)(mtd * 5) == 0L && world.field_73012_v.nextInt(5) == 0) {
+                    if (!BreathProtectA) {
+                        BreathProtect = BreathProtect || this.CheckBreathProtect(entity);
+                        BreathProtectA = true;
+                    }
+                    if (!BreathProtect) {
+                        ((EntityLivingBase)entity).func_70690_d(new PotionEffect(20, 200, 0, false));
+                    }
+                }
+            }
+        }
+    }
+
+    public void func_149726_b(World par1World, int par2, int par3, int par4) {
+        if (MFQM.LiqFixer) {
+            return;
+        }
+        par1World.func_147464_a(par2, par3, par4, (Block)this, 10);
+    }
+
+    public void func_149695_a(World world, int x, int y, int z, Block bl) {
+        if (MFQM.LiqFixer) {
+            return;
+        }
+        if (world.func_147439_a(x, y + 1, z) instanceof BlockFalling) {
+            world.func_147465_d(x, y, z, Blocks.field_150350_a, 0, 2);
+            return;
+        }
+    }
+
+    public int func_149643_k(World par1World, int par2, int par3, int par4) {
+        return par1World.func_72805_g(par2, par3, par4);
+    }
+
+    public boolean func_149678_a(int p_149678_1_, boolean p_149678_2_) {
+        return false;
+    }
+
+    public int func_149701_w() {
+        return 1;
+    }
+
+    @SideOnly(value=Side.CLIENT)
+    public IIcon func_149691_a(int par1, int par2) {
+        return this.IIconNormalArray[par2];
+    }
+
+    public boolean func_149662_c() {
+        return false;
+    }
+
+    public boolean func_149721_r() {
+        return false;
+    }
+
+    public boolean isSolid() {
+        return false;
+    }
+
+    public Item func_149650_a(int par1, Random par2Random, int par3) {
+        return null;
+    }
+
+    public AxisAlignedBB func_149668_a(World world, int x, int y, int z) {
+        return null;
+    }
+
+    public boolean func_149646_a(IBlockAccess world, int x, int y, int z, int side) {
+        int meta = 0;
+        switch (side) {
+            case 0: {
+                meta = world.func_72805_g(x, y + 1, z);
+                break;
+            }
+            case 1: {
+                meta = world.func_72805_g(x, y - 1, z);
+                break;
+            }
+            case 2: {
+                meta = world.func_72805_g(x, y, z + 1);
+                break;
+            }
+            case 3: {
+                meta = world.func_72805_g(x, y, z - 1);
+                break;
+            }
+            case 4: {
+                meta = world.func_72805_g(x + 1, y, z);
+                break;
+            }
+            case 5: {
+                meta = world.func_72805_g(x - 1, y, z);
+            }
+        }
+        return !world.func_147439_a(x, y, z).func_149662_c() && (world.func_147439_a(x, y, z) != this || world.func_72805_g(x, y, z) + 3 <= meta);
+    }
+
+    @SideOnly(value=Side.CLIENT)
+    public void func_149651_a(IIconRegister par1IIconRegister) {
+        this.IIconNormalArray = new IIcon[16];
+        for (int i = 0; i < this.IIconNormalArray.length; ++i) {
+            this.IIconNormalArray[i] = par1IIconRegister.func_94245_a("morefunquicksandmod:Gas" + i);
+        }
+    }
+
+    @SideOnly(value=Side.CLIENT)
+    public int func_149635_D() {
+        if (MFQM.ABC && Minecraft.func_71410_x().field_71439_g.field_70170_p.field_73011_w.field_76574_g == MFQM.ABCDim2) {
+            return 0;
+        }
+        return 0xFFFFFF;
+    }
+
+    @SideOnly(value=Side.CLIENT)
+    public int func_149741_i(int par1) {
+        return 0xFFFFFF;
+    }
+
+    @SideOnly(value=Side.CLIENT)
+    public int func_149720_d(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
+        if (MFQM.ABC && Minecraft.func_71410_x().field_71439_g.field_70170_p.field_73011_w.field_76574_g == MFQM.ABCDim2) {
+            return 0;
+        }
+        return 0xFFFFFF;
+    }
+}
+

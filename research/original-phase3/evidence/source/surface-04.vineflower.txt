@@ -1,0 +1,22 @@
+// Decompiled inference, NOT original source; semantic closure PARTIAL
+      if (MFQM.GenWax && !blockGen) {
+         int jngT = this.getJungleType(biomeId);
+         if (jngT != 0 && this.T_BoP || biomegenbase instanceof BiomeGenJungle && !this.T_BoP) {
+            boolean canGen = false;
+            int genCount = 52;
+            int genPos = 85;
+            int genRad = 16;
+            if ((jngT == 3 || jngT == 0) && random.nextInt(genPos) == 0) {
+               for (int i = 0; i < genCount; i++) {
+                  firstBlockXCoord = chunkX + random.nextInt(16);
+                  firstBlockYCoord = 75 - random.nextInt(8) + dHeight;
+                  firstBlockZCoord = chunkZ + random.nextInt(16);
+                  if (this.generateWaxTree(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, genRad, world, random)) {
+                     blockGen = true;
+                     break;
+                  }
+               }
+            }
+         }
+      }
+

@@ -1,0 +1,38 @@
+// CFR0.152; original decompiler line 2330; NOT original source; inspect **/goto artifacts if present.
+    private boolean generateAss(int xx, int yy, int zz, int rad, World world, Random random) {
+        int firstBlockYCoord;
+        boolean canGen = false;
+        for (firstBlockYCoord = 0; firstBlockYCoord < 16; ++firstBlockYCoord) {
+            if (this.validVoreMaterial(xx, yy + firstBlockYCoord, zz, world) && this.validVoreMaterial(xx, yy + firstBlockYCoord + 1, zz, world)) {
+                canGen = true;
+                break;
+            }
+            if (world.func_147439_a(xx, yy + firstBlockYCoord, zz).func_149688_o().func_76218_k()) break;
+        }
+        if (canGen && firstBlockYCoord > 2) {
+            if (random.nextInt(2) == 0) {
+                ++firstBlockYCoord;
+            }
+            world.func_147465_d(xx, yy + firstBlockYCoord, zz, MFQM.MeatBlock, 10, 2);
+            for (int i = 1; i <= 5; ++i) {
+                world.func_147465_d(xx, yy + firstBlockYCoord + i, zz, MFQM.MeatBlock, 0, 2);
+                world.func_147465_d(xx + 1, yy + firstBlockYCoord + i - 1, zz, MFQM.MeatBlock, 0, 2);
+                world.func_147465_d(xx - 1, yy + firstBlockYCoord + i - 1, zz, MFQM.MeatBlock, 0, 2);
+                world.func_147465_d(xx, yy + firstBlockYCoord + i - 1, zz + 1, MFQM.MeatBlock, 0, 2);
+                world.func_147465_d(xx, yy + firstBlockYCoord + i - 1, zz - 1, MFQM.MeatBlock, 0, 2);
+            }
+            this.generateBlood3(xx, yy + firstBlockYCoord + 1, zz, 12, world, random);
+            this.generateBlood3(xx + random.nextInt(9) - 4, yy + firstBlockYCoord + 3, zz + random.nextInt(9) - 4, 7 + random.nextInt(5), world, random);
+            this.generateBlood3(xx + random.nextInt(9) - 4, yy + firstBlockYCoord + 3, zz + random.nextInt(9) - 4, 7 + random.nextInt(5), world, random);
+            this.generateBlood3(xx + random.nextInt(9) - 4, yy + firstBlockYCoord + 3, zz + random.nextInt(9) - 4, 7 + random.nextInt(5), world, random);
+            this.generateBlood3(xx + random.nextInt(11) - 5, yy + firstBlockYCoord + 5, zz + random.nextInt(11) - 5, 10 + random.nextInt(5), world, random);
+            this.generateBlood3(xx + random.nextInt(11) - 5, yy + firstBlockYCoord + 5, zz + random.nextInt(11) - 5, 10 + random.nextInt(5), world, random);
+            this.generateBlood3(xx + random.nextInt(11) - 5, yy + firstBlockYCoord + 5, zz + random.nextInt(11) - 5, 10 + random.nextInt(5), world, random);
+            this.generateBlood3(xx + random.nextInt(11) - 5, yy + firstBlockYCoord + 5, zz + random.nextInt(11) - 5, 10 + random.nextInt(5), world, random);
+            this.generateBlood3(xx + random.nextInt(11) - 5, yy + firstBlockYCoord + 5, zz + random.nextInt(11) - 5, 10 + random.nextInt(5), world, random);
+            this.generateBlood3(xx + random.nextInt(11) - 5, yy + firstBlockYCoord + 5, zz + random.nextInt(11) - 5, 10 + random.nextInt(5), world, random);
+            this.ClearArea3(xx, yy + firstBlockYCoord, zz, rad, world, random);
+            return true;
+        }
+        return false;
+    }

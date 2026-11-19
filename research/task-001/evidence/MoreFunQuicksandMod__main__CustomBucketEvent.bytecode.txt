@@ -1,0 +1,349 @@
+Archive: MoreFunQuicksandMod/main/CustomBucketEvent.class
+SHA256: 21de5df5b39b2aa351eb6f5f02544ee7694175985ca54c5d4cc7ba2820a7875e
+Superclass: java/lang/Object
+Offsets are decimal byte offsets; branch operands are relative offsets.
+
+
+METHOD <init> ()V
+000000: aload_0 
+000001: invokespecial #14 java/lang/Object.<init>:()V
+000004: return 
+
+METHOD onBucketFill (Lnet/minecraftforge/event/entity/player/FillBucketEvent;)V
+000000: aload_0 
+000001: aload_1 
+000002: getfield #25 net/minecraftforge/event/entity/player/FillBucketEvent.world:Lnet/minecraft/world/World;
+000005: aload_1 
+000006: getfield #29 net/minecraftforge/event/entity/player/FillBucketEvent.target:Lnet/minecraft/util/MovingObjectPosition;
+000009: invokevirtual #33 MoreFunQuicksandMod/main/CustomBucketEvent.fillBucket:(Lnet/minecraft/world/World;Lnet/minecraft/util/MovingObjectPosition;)Lnet/minecraft/item/ItemStack;
+000012: astore_2 
+000013: aload_2 
+000014: ifnonnull 4
+000017: return 
+000018: aload_1 
+000019: aload_2 
+000020: putfield #39 net/minecraftforge/event/entity/player/FillBucketEvent.result:Lnet/minecraft/item/ItemStack;
+000023: aload_1 
+000024: getstatic #43 cpw/mods/fml/common/eventhandler/Event$Result.ALLOW:Lcpw/mods/fml/common/eventhandler/Event$Result;
+000027: invokevirtual #47 net/minecraftforge/event/entity/player/FillBucketEvent.setResult:(Lcpw/mods/fml/common/eventhandler/Event$Result;)V
+000030: return 
+
+METHOD fillBucket (Lnet/minecraft/world/World;Lnet/minecraft/util/MovingObjectPosition;)Lnet/minecraft/item/ItemStack;
+000000: aload_1 
+000001: aload_2 
+000002: getfield #55 net/minecraft/util/MovingObjectPosition.field_72311_b:I
+000005: aload_2 
+000006: getfield #58 net/minecraft/util/MovingObjectPosition.field_72312_c:I
+000009: aload_2 
+000010: getfield #61 net/minecraft/util/MovingObjectPosition.field_72309_d:I
+000013: invokevirtual #67 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+000016: astore_3 
+000017: aload_1 
+000018: aload_2 
+000019: getfield #55 net/minecraft/util/MovingObjectPosition.field_72311_b:I
+000022: aload_2 
+000023: getfield #58 net/minecraft/util/MovingObjectPosition.field_72312_c:I
+000026: aload_2 
+000027: getfield #61 net/minecraft/util/MovingObjectPosition.field_72309_d:I
+000030: invokevirtual #71 net/minecraft/world/World.func_72805_g:(III)I
+000033: istore 4
+000035: aload_3 
+000036: getstatic #77 MoreFunQuicksandMod/main/MFQM.BogBlock:Lnet/minecraft/block/Block;
+000039: if_acmpne 40
+000042: iload 4
+000044: ifne 35
+000047: aload_1 
+000048: aload_2 
+000049: getfield #55 net/minecraft/util/MovingObjectPosition.field_72311_b:I
+000052: aload_2 
+000053: getfield #58 net/minecraft/util/MovingObjectPosition.field_72312_c:I
+000056: aload_2 
+000057: getfield #61 net/minecraft/util/MovingObjectPosition.field_72309_d:I
+000060: getstatic #82 net/minecraft/init/Blocks.field_150350_a:Lnet/minecraft/block/Block;
+000063: invokevirtual #86 net/minecraft/world/World.func_147449_b:(IIILnet/minecraft/block/Block;)Z
+000066: pop 
+000067: new #35 net/minecraft/item/ItemStack
+000070: dup 
+000071: getstatic #90 MoreFunQuicksandMod/main/MFQM.BogBucketItem:Lnet/minecraft/item/Item;
+000074: iconst_1 
+000075: invokespecial #93 net/minecraft/item/ItemStack.<init>:(Lnet/minecraft/item/Item;I)V
+000078: areturn 
+000079: aload_3 
+000080: getstatic #98 MoreFunQuicksandMod/main/MFQM.LiquidMireBlock:Lnet/minecraft/block/Block;
+000083: if_acmpne 40
+000086: iload 4
+000088: ifne 35
+000091: aload_1 
+000092: aload_2 
+000093: getfield #55 net/minecraft/util/MovingObjectPosition.field_72311_b:I
+000096: aload_2 
+000097: getfield #58 net/minecraft/util/MovingObjectPosition.field_72312_c:I
+000100: aload_2 
+000101: getfield #61 net/minecraft/util/MovingObjectPosition.field_72309_d:I
+000104: getstatic #82 net/minecraft/init/Blocks.field_150350_a:Lnet/minecraft/block/Block;
+000107: invokevirtual #86 net/minecraft/world/World.func_147449_b:(IIILnet/minecraft/block/Block;)Z
+000110: pop 
+000111: new #35 net/minecraft/item/ItemStack
+000114: dup 
+000115: getstatic #101 MoreFunQuicksandMod/main/MFQM.MireBucketItem:Lnet/minecraft/item/Item;
+000118: iconst_1 
+000119: invokespecial #93 net/minecraft/item/ItemStack.<init>:(Lnet/minecraft/item/Item;I)V
+000122: areturn 
+000123: aload_3 
+000124: getstatic #104 MoreFunQuicksandMod/main/MFQM.StableLiquidMireBlock:Lnet/minecraft/block/Block;
+000127: if_acmpne 40
+000130: iload 4
+000132: ifne 35
+000135: aload_1 
+000136: aload_2 
+000137: getfield #55 net/minecraft/util/MovingObjectPosition.field_72311_b:I
+000140: aload_2 
+000141: getfield #58 net/minecraft/util/MovingObjectPosition.field_72312_c:I
+000144: aload_2 
+000145: getfield #61 net/minecraft/util/MovingObjectPosition.field_72309_d:I
+000148: getstatic #82 net/minecraft/init/Blocks.field_150350_a:Lnet/minecraft/block/Block;
+000151: invokevirtual #86 net/minecraft/world/World.func_147449_b:(IIILnet/minecraft/block/Block;)Z
+000154: pop 
+000155: new #35 net/minecraft/item/ItemStack
+000158: dup 
+000159: getstatic #101 MoreFunQuicksandMod/main/MFQM.MireBucketItem:Lnet/minecraft/item/Item;
+000162: iconst_1 
+000163: invokespecial #93 net/minecraft/item/ItemStack.<init>:(Lnet/minecraft/item/Item;I)V
+000166: areturn 
+000167: aload_3 
+000168: getstatic #107 MoreFunQuicksandMod/main/MFQM.JungleQuicksandBlock:Lnet/minecraft/block/Block;
+000171: if_acmpne 40
+000174: iload 4
+000176: ifne 35
+000179: aload_1 
+000180: aload_2 
+000181: getfield #55 net/minecraft/util/MovingObjectPosition.field_72311_b:I
+000184: aload_2 
+000185: getfield #58 net/minecraft/util/MovingObjectPosition.field_72312_c:I
+000188: aload_2 
+000189: getfield #61 net/minecraft/util/MovingObjectPosition.field_72309_d:I
+000192: getstatic #82 net/minecraft/init/Blocks.field_150350_a:Lnet/minecraft/block/Block;
+000195: invokevirtual #86 net/minecraft/world/World.func_147449_b:(IIILnet/minecraft/block/Block;)Z
+000198: pop 
+000199: new #35 net/minecraft/item/ItemStack
+000202: dup 
+000203: getstatic #110 MoreFunQuicksandMod/main/MFQM.QuicksandBucketItem:Lnet/minecraft/item/Item;
+000206: iconst_1 
+000207: invokespecial #93 net/minecraft/item/ItemStack.<init>:(Lnet/minecraft/item/Item;I)V
+000210: areturn 
+000211: aload_3 
+000212: getstatic #113 MoreFunQuicksandMod/main/MFQM.SlimeBlock:Lnet/minecraft/block/Block;
+000215: if_acmpne 40
+000218: iload 4
+000220: ifne 35
+000223: aload_1 
+000224: aload_2 
+000225: getfield #55 net/minecraft/util/MovingObjectPosition.field_72311_b:I
+000228: aload_2 
+000229: getfield #58 net/minecraft/util/MovingObjectPosition.field_72312_c:I
+000232: aload_2 
+000233: getfield #61 net/minecraft/util/MovingObjectPosition.field_72309_d:I
+000236: getstatic #82 net/minecraft/init/Blocks.field_150350_a:Lnet/minecraft/block/Block;
+000239: invokevirtual #86 net/minecraft/world/World.func_147449_b:(IIILnet/minecraft/block/Block;)Z
+000242: pop 
+000243: new #35 net/minecraft/item/ItemStack
+000246: dup 
+000247: getstatic #116 MoreFunQuicksandMod/main/MFQM.SlimeBucketItem:Lnet/minecraft/item/Item;
+000250: iconst_1 
+000251: invokespecial #93 net/minecraft/item/ItemStack.<init>:(Lnet/minecraft/item/Item;I)V
+000254: areturn 
+000255: aload_3 
+000256: getstatic #119 MoreFunQuicksandMod/main/MFQM.SandBlock:Lnet/minecraft/block/Block;
+000259: if_acmpne 40
+000262: iload 4
+000264: ifne 35
+000267: aload_1 
+000268: aload_2 
+000269: getfield #55 net/minecraft/util/MovingObjectPosition.field_72311_b:I
+000272: aload_2 
+000273: getfield #58 net/minecraft/util/MovingObjectPosition.field_72312_c:I
+000276: aload_2 
+000277: getfield #61 net/minecraft/util/MovingObjectPosition.field_72309_d:I
+000280: getstatic #82 net/minecraft/init/Blocks.field_150350_a:Lnet/minecraft/block/Block;
+000283: invokevirtual #86 net/minecraft/world/World.func_147449_b:(IIILnet/minecraft/block/Block;)Z
+000286: pop 
+000287: new #35 net/minecraft/item/ItemStack
+000290: dup 
+000291: getstatic #122 MoreFunQuicksandMod/main/MFQM.SandBucketItem:Lnet/minecraft/item/Item;
+000294: iconst_1 
+000295: invokespecial #93 net/minecraft/item/ItemStack.<init>:(Lnet/minecraft/item/Item;I)V
+000298: areturn 
+000299: aload_3 
+000300: getstatic #125 MoreFunQuicksandMod/main/MFQM.TarBlock:Lnet/minecraft/block/Block;
+000303: if_acmpne 40
+000306: iload 4
+000308: ifne 35
+000311: aload_1 
+000312: aload_2 
+000313: getfield #55 net/minecraft/util/MovingObjectPosition.field_72311_b:I
+000316: aload_2 
+000317: getfield #58 net/minecraft/util/MovingObjectPosition.field_72312_c:I
+000320: aload_2 
+000321: getfield #61 net/minecraft/util/MovingObjectPosition.field_72309_d:I
+000324: getstatic #82 net/minecraft/init/Blocks.field_150350_a:Lnet/minecraft/block/Block;
+000327: invokevirtual #86 net/minecraft/world/World.func_147449_b:(IIILnet/minecraft/block/Block;)Z
+000330: pop 
+000331: new #35 net/minecraft/item/ItemStack
+000334: dup 
+000335: getstatic #128 MoreFunQuicksandMod/main/MFQM.TarBucketItem:Lnet/minecraft/item/Item;
+000338: iconst_1 
+000339: invokespecial #93 net/minecraft/item/ItemStack.<init>:(Lnet/minecraft/item/Item;I)V
+000342: areturn 
+000343: aload_3 
+000344: getstatic #131 MoreFunQuicksandMod/main/MFQM.AcidBlock:Lnet/minecraft/block/Block;
+000347: if_acmpne 40
+000350: iload 4
+000352: ifne 35
+000355: aload_1 
+000356: aload_2 
+000357: getfield #55 net/minecraft/util/MovingObjectPosition.field_72311_b:I
+000360: aload_2 
+000361: getfield #58 net/minecraft/util/MovingObjectPosition.field_72312_c:I
+000364: aload_2 
+000365: getfield #61 net/minecraft/util/MovingObjectPosition.field_72309_d:I
+000368: getstatic #82 net/minecraft/init/Blocks.field_150350_a:Lnet/minecraft/block/Block;
+000371: invokevirtual #86 net/minecraft/world/World.func_147449_b:(IIILnet/minecraft/block/Block;)Z
+000374: pop 
+000375: new #35 net/minecraft/item/ItemStack
+000378: dup 
+000379: getstatic #134 MoreFunQuicksandMod/main/MFQM.AcidBucketItem:Lnet/minecraft/item/Item;
+000382: iconst_1 
+000383: invokespecial #93 net/minecraft/item/ItemStack.<init>:(Lnet/minecraft/item/Item;I)V
+000386: areturn 
+000387: aload_3 
+000388: getstatic #137 MoreFunQuicksandMod/main/MFQM.MucusBlock:Lnet/minecraft/block/Block;
+000391: if_acmpne 40
+000394: iload 4
+000396: ifne 35
+000399: aload_1 
+000400: aload_2 
+000401: getfield #55 net/minecraft/util/MovingObjectPosition.field_72311_b:I
+000404: aload_2 
+000405: getfield #58 net/minecraft/util/MovingObjectPosition.field_72312_c:I
+000408: aload_2 
+000409: getfield #61 net/minecraft/util/MovingObjectPosition.field_72309_d:I
+000412: getstatic #82 net/minecraft/init/Blocks.field_150350_a:Lnet/minecraft/block/Block;
+000415: invokevirtual #86 net/minecraft/world/World.func_147449_b:(IIILnet/minecraft/block/Block;)Z
+000418: pop 
+000419: new #35 net/minecraft/item/ItemStack
+000422: dup 
+000423: getstatic #140 MoreFunQuicksandMod/main/MFQM.MucusBucketItem:Lnet/minecraft/item/Item;
+000426: iconst_1 
+000427: invokespecial #93 net/minecraft/item/ItemStack.<init>:(Lnet/minecraft/item/Item;I)V
+000430: areturn 
+000431: aload_3 
+000432: getstatic #143 MoreFunQuicksandMod/main/MFQM.BrownClayBlock:Lnet/minecraft/block/Block;
+000435: if_acmpne 42
+000438: iload 4
+000440: iconst_4 
+000441: if_icmpge 36
+000444: aload_1 
+000445: aload_2 
+000446: getfield #55 net/minecraft/util/MovingObjectPosition.field_72311_b:I
+000449: aload_2 
+000450: getfield #58 net/minecraft/util/MovingObjectPosition.field_72312_c:I
+000453: aload_2 
+000454: getfield #61 net/minecraft/util/MovingObjectPosition.field_72309_d:I
+000457: getstatic #82 net/minecraft/init/Blocks.field_150350_a:Lnet/minecraft/block/Block;
+000460: invokevirtual #86 net/minecraft/world/World.func_147449_b:(IIILnet/minecraft/block/Block;)Z
+000463: pop 
+000464: new #35 net/minecraft/item/ItemStack
+000467: dup 
+000468: getstatic #146 MoreFunQuicksandMod/main/MFQM.ClayBucketItem:Lnet/minecraft/item/Item;
+000471: iconst_1 
+000472: iconst_0 
+000473: invokespecial #149 net/minecraft/item/ItemStack.<init>:(Lnet/minecraft/item/Item;II)V
+000476: areturn 
+000477: aload_3 
+000478: getstatic #143 MoreFunQuicksandMod/main/MFQM.BrownClayBlock:Lnet/minecraft/block/Block;
+000481: if_acmpne 42
+000484: iload 4
+000486: iconst_3 
+000487: if_icmple 36
+000490: aload_1 
+000491: aload_2 
+000492: getfield #55 net/minecraft/util/MovingObjectPosition.field_72311_b:I
+000495: aload_2 
+000496: getfield #58 net/minecraft/util/MovingObjectPosition.field_72312_c:I
+000499: aload_2 
+000500: getfield #61 net/minecraft/util/MovingObjectPosition.field_72309_d:I
+000503: getstatic #82 net/minecraft/init/Blocks.field_150350_a:Lnet/minecraft/block/Block;
+000506: invokevirtual #86 net/minecraft/world/World.func_147449_b:(IIILnet/minecraft/block/Block;)Z
+000509: pop 
+000510: new #35 net/minecraft/item/ItemStack
+000513: dup 
+000514: getstatic #146 MoreFunQuicksandMod/main/MFQM.ClayBucketItem:Lnet/minecraft/item/Item;
+000517: iconst_1 
+000518: iconst_1 
+000519: invokespecial #149 net/minecraft/item/ItemStack.<init>:(Lnet/minecraft/item/Item;II)V
+000522: areturn 
+000523: aload_3 
+000524: getstatic #152 MoreFunQuicksandMod/main/MFQM.LiquidChocolateBlock:Lnet/minecraft/block/Block;
+000527: if_acmpne 40
+000530: iload 4
+000532: ifne 35
+000535: aload_1 
+000536: aload_2 
+000537: getfield #55 net/minecraft/util/MovingObjectPosition.field_72311_b:I
+000540: aload_2 
+000541: getfield #58 net/minecraft/util/MovingObjectPosition.field_72312_c:I
+000544: aload_2 
+000545: getfield #61 net/minecraft/util/MovingObjectPosition.field_72309_d:I
+000548: getstatic #82 net/minecraft/init/Blocks.field_150350_a:Lnet/minecraft/block/Block;
+000551: invokevirtual #86 net/minecraft/world/World.func_147449_b:(IIILnet/minecraft/block/Block;)Z
+000554: pop 
+000555: new #35 net/minecraft/item/ItemStack
+000558: dup 
+000559: getstatic #155 MoreFunQuicksandMod/main/MFQM.ChocolateBucketItem:Lnet/minecraft/item/Item;
+000562: iconst_1 
+000563: invokespecial #93 net/minecraft/item/ItemStack.<init>:(Lnet/minecraft/item/Item;I)V
+000566: areturn 
+000567: aload_3 
+000568: getstatic #158 MoreFunQuicksandMod/main/MFQM.SlurryBlock:Lnet/minecraft/block/Block;
+000571: if_acmpne 40
+000574: iload 4
+000576: ifne 35
+000579: aload_1 
+000580: aload_2 
+000581: getfield #55 net/minecraft/util/MovingObjectPosition.field_72311_b:I
+000584: aload_2 
+000585: getfield #58 net/minecraft/util/MovingObjectPosition.field_72312_c:I
+000588: aload_2 
+000589: getfield #61 net/minecraft/util/MovingObjectPosition.field_72309_d:I
+000592: getstatic #82 net/minecraft/init/Blocks.field_150350_a:Lnet/minecraft/block/Block;
+000595: invokevirtual #86 net/minecraft/world/World.func_147449_b:(IIILnet/minecraft/block/Block;)Z
+000598: pop 
+000599: new #35 net/minecraft/item/ItemStack
+000602: dup 
+000603: getstatic #161 MoreFunQuicksandMod/main/MFQM.SlurryBucketItem:Lnet/minecraft/item/Item;
+000606: iconst_1 
+000607: invokespecial #93 net/minecraft/item/ItemStack.<init>:(Lnet/minecraft/item/Item;I)V
+000610: areturn 
+000611: aload_3 
+000612: getstatic #164 MoreFunQuicksandMod/main/MFQM.HoneyBlock:Lnet/minecraft/block/Block;
+000615: if_acmpne 40
+000618: iload 4
+000620: ifne 35
+000623: aload_1 
+000624: aload_2 
+000625: getfield #55 net/minecraft/util/MovingObjectPosition.field_72311_b:I
+000628: aload_2 
+000629: getfield #58 net/minecraft/util/MovingObjectPosition.field_72312_c:I
+000632: aload_2 
+000633: getfield #61 net/minecraft/util/MovingObjectPosition.field_72309_d:I
+000636: getstatic #82 net/minecraft/init/Blocks.field_150350_a:Lnet/minecraft/block/Block;
+000639: invokevirtual #86 net/minecraft/world/World.func_147449_b:(IIILnet/minecraft/block/Block;)Z
+000642: pop 
+000643: new #35 net/minecraft/item/ItemStack
+000646: dup 
+000647: getstatic #167 MoreFunQuicksandMod/main/MFQM.HoneyBucketItem:Lnet/minecraft/item/Item;
+000650: iconst_1 
+000651: invokespecial #93 net/minecraft/item/ItemStack.<init>:(Lnet/minecraft/item/Item;I)V
+000654: areturn 
+000655: aconst_null 
+000656: areturn 

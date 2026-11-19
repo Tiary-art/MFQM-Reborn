@@ -1,0 +1,1159 @@
+# MoreFunQuicksandMod.main.CustomWorldGen.generateNether(Lnet/minecraft/world/World;Ljava/util/Random;II)V
+# Stack-machine pseudocode/IR; goto targets and exception ranges exact; API effects external.
+B0:
+  0: aload_0 
+  1: getstatic #1687               // Field MoreFunQuicksandMod/main/MFQM.BoP:Z
+  4: putfield #569                // Field T_BoP:Z
+  7: getstatic #1690               // Field MoreFunQuicksandMod/main/MFQM.PBoP:Z
+  10: ifeq 50
+B13:
+  13: getstatic #1687               // Field MoreFunQuicksandMod/main/MFQM.BoP:Z
+  16: ifeq 50
+B19:
+  19: aload_1 
+  20: invokevirtual #1694               // Method net/minecraft/world/World.func_72912_H:()Lnet/minecraft/world/storage/WorldInfo;
+  23: invokevirtual #1700               // Method net/minecraft/world/storage/WorldInfo.func_76067_t:()Lnet/minecraft/world/WorldType;
+  26: getstatic #1706               // Field net/minecraft/world/WorldType.field_77135_d:Lnet/minecraft/world/WorldType;
+  29: if_acmpeq 45
+B32:
+  32: aload_1 
+  33: invokevirtual #1694               // Method net/minecraft/world/World.func_72912_H:()Lnet/minecraft/world/storage/WorldInfo;
+  36: invokevirtual #1700               // Method net/minecraft/world/storage/WorldInfo.func_76067_t:()Lnet/minecraft/world/WorldType;
+  39: getstatic #1709               // Field net/minecraft/world/WorldType.field_77137_b:Lnet/minecraft/world/WorldType;
+  42: if_acmpne 50
+B45:
+  45: aload_0 
+  46: iconst_0 
+  47: putfield #569                // Field T_BoP:Z
+B50:
+  50: iload_3 
+  51: aload_2 
+  52: bipush 16
+  54: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  57: iadd 
+  58: istore 5
+  60: bipush 96
+  62: istore 6
+  64: iload 4
+  66: aload_2 
+  67: bipush 16
+  69: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  72: iadd 
+  73: istore 7
+  75: aload_1 
+  76: iload 5
+  78: iload 7
+  80: invokevirtual #237                // Method net/minecraft/world/World.func_72807_a:(II)Lnet/minecraft/world/biome/BiomeGenBase;
+  83: astore 8
+  85: aload 8
+  87: getfield #1179               // Field net/minecraft/world/biome/BiomeGenBase.field_76756_M:I
+  90: istore 9
+  92: iconst_0 
+  93: istore 10
+  95: getstatic #1277               // Field MoreFunQuicksandMod/main/MFQM.GenTar:Z
+  98: ifeq 278
+B101:
+  101: iconst_0 
+  102: istore 11
+  104: iconst_0 
+  105: istore 12
+  107: iconst_0 
+  108: istore 13
+  110: iconst_0 
+  111: istore 14
+  113: aload_0 
+  114: iload 9
+  116: invokespecial #1182               // Method getTarCount:(I)I
+  119: istore 11
+  121: iload 11
+  123: istore 15
+  125: getstatic #1687               // Field MoreFunQuicksandMod/main/MFQM.BoP:Z
+  128: ifeq 154
+B131:
+  131: iload 11
+  133: ifne 154
+B136:
+  136: aload_0 
+  137: iload_3 
+  138: bipush 8
+  140: iadd 
+  141: bipush 64
+  143: iload 4
+  145: bipush 8
+  147: iadd 
+  148: aload_1 
+  149: invokespecial #1711               // Method isTarBiomeIsNear:(IIILnet/minecraft/world/World;)I
+  152: istore 11
+B154:
+  154: iload 11
+  156: lookupswitch { // 1
+B176:
+  176: iconst_1 
+  177: istore 12
+  179: iconst_3 
+  180: istore 13
+  182: iconst_3 
+  183: istore 14
+  185: goto 198
+B188:
+  188: bipush 8
+  190: istore 12
+  192: iconst_5 
+  193: istore 13
+  195: iconst_5 
+  196: istore 14
+B198:
+  198: aload_2 
+  199: iload 12
+  201: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  204: ifne 278
+B207:
+  207: aload_2 
+  208: iload 13
+  210: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  213: ifne 278
+B216:
+  216: iload_3 
+  217: aload_2 
+  218: bipush 16
+  220: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  223: iadd 
+  224: bipush 8
+  226: iadd 
+  227: istore 16
+  229: aload_2 
+  230: sipush 128
+  233: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  236: istore 17
+  238: iload 4
+  240: aload_2 
+  241: bipush 16
+  243: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  246: iadd 
+  247: bipush 8
+  249: iadd 
+  250: istore 18
+  252: new #1279               // class MoreFunQuicksandMod/main/CustomWorldGenLakes
+  255: dup 
+  256: getstatic #347                // Field MoreFunQuicksandMod/main/MFQM.TarBlock:Lnet/minecraft/block/Block;
+  259: invokespecial #1282               // Method MoreFunQuicksandMod/main/CustomWorldGenLakes."<init>":(Lnet/minecraft/block/Block;)V
+  262: aload_1 
+  263: aload_2 
+  264: iload 16
+  266: iload 17
+  268: iload 18
+  270: iconst_0 
+  271: invokevirtual #1285               // Method MoreFunQuicksandMod/main/CustomWorldGenLakes.generate:(Lnet/minecraft/world/World;Ljava/util/Random;IIII)Z
+  274: pop 
+  275: iconst_1 
+  276: istore 10
+B278:
+  278: getstatic #1714               // Field MoreFunQuicksandMod/main/MFQM.GenCSand:Z
+  281: ifeq 602
+B284:
+  284: iload 10
+  286: ifne 602
+B289:
+  289: aload_0 
+  290: iload 9
+  292: invokespecial #1716               // Method getCSandsType:(I)I
+  295: istore 11
+  297: iconst_0 
+  298: istore 12
+  300: iconst_0 
+  301: istore 13
+  303: iconst_0 
+  304: istore 14
+  306: iconst_0 
+  307: istore 15
+  309: iconst_0 
+  310: istore 16
+  312: iconst_0 
+  313: istore 17
+  315: iload 11
+  317: lookupswitch { // 2
+B344:
+  344: bipush 20
+  346: aload_2 
+  347: bipush 20
+  349: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  352: iadd 
+  353: istore 13
+  355: bipush 7
+  357: istore 15
+  359: bipush 7
+  361: istore 16
+  363: iconst_5 
+  364: istore 14
+  366: goto 391
+B369:
+  369: bipush 10
+  371: aload_2 
+  372: bipush 10
+  374: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  377: iadd 
+  378: istore 13
+  380: bipush 7
+  382: istore 15
+  384: bipush 7
+  386: istore 16
+  388: iconst_5 
+  389: istore 14
+B391:
+  391: aload_2 
+  392: iload 14
+  394: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  397: ifne 602
+B400:
+  400: iconst_0 
+  401: istore 18
+B403:
+  403: iload 18
+  405: iload 13
+  407: if_icmpge 602
+B410:
+  410: iload_3 
+  411: aload_2 
+  412: bipush 16
+  414: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  417: iadd 
+  418: istore 5
+  420: bipush 30
+  422: aload_2 
+  423: bipush 98
+  425: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  428: iadd 
+  429: istore 6
+  431: iload 4
+  433: aload_2 
+  434: bipush 16
+  436: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  439: iadd 
+  440: istore 7
+  442: iload 15
+  444: aload_2 
+  445: iload 16
+  447: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  450: iadd 
+  451: istore 17
+  453: iconst_0 
+  454: istore 19
+  456: iconst_0 
+  457: istore 12
+B459:
+  459: iload 6
+  461: bipush 30
+  463: if_icmple 534
+B466:
+  466: aload_0 
+  467: iload 5
+  469: iload 6
+  471: iload 7
+  473: aload_1 
+  474: invokespecial #1718               // Method validCSMaterial:(IIILnet/minecraft/world/World;)Z
+  477: ifeq 518
+B480:
+  480: aload_0 
+  481: iload 5
+  483: iload 6
+  485: iconst_1 
+  486: iadd 
+  487: iload 7
+  489: aload_1 
+  490: invokespecial #1720               // Method validLavaMaterial:(IIILnet/minecraft/world/World;)Z
+  493: ifne 518
+B496:
+  496: iload 5
+  498: iload 6
+  500: iload 7
+  502: aload_1 
+  503: invokestatic #955                // Method isAboveFreeSpace:(IIILnet/minecraft/world/World;)Z
+  506: ifeq 515
+B509:
+  509: iconst_1 
+  510: istore 12
+  512: goto 534
+B515:
+  515: iinc 19, 1
+B518:
+  518: iload 19
+  520: bipush 50
+  522: if_icmple 528
+B525:
+  525: goto 534
+B528:
+  528: iinc 6, -1
+  531: goto 459
+B534:
+  534: iload 12
+  536: ifeq 596
+B539:
+  539: aload_0 
+  540: iload 5
+  542: iload 6
+  544: iload 7
+  546: iload 17
+  548: aload_1 
+  549: invokespecial #1312               // Method genIsFlat:(IIIILnet/minecraft/world/World;)Z
+  552: ifeq 596
+B555:
+  555: aload_0 
+  556: iload 5
+  558: iload 6
+  560: iconst_1 
+  561: iadd 
+  562: iload 7
+  564: iload 17
+  566: aload_1 
+  567: invokespecial #1312               // Method genIsFlat:(IIIILnet/minecraft/world/World;)Z
+  570: ifeq 596
+B573:
+  573: aload_0 
+  574: iload 5
+  576: iload 6
+  578: iload 7
+  580: iload 17
+  582: aload_1 
+  583: aload_2 
+  584: getstatic #282                // Field net/minecraft/block/material/Material.field_151595_p:Lnet/minecraft/block/material/Material;
+  587: getstatic #1723               // Field MoreFunQuicksandMod/main/MFQM.CSandBlock:Lnet/minecraft/block/Block;
+  590: invokespecial #703                // Method generateMire:(IIIILnet/minecraft/world/World;Ljava/util/Random;Lnet/minecraft/block/material/Material;Lnet/minecraft/block/Block;)V
+  593: iconst_1 
+  594: istore 10
+B596:
+  596: iinc 18, 1
+  599: goto 403
+B602:
+  602: getstatic #1429               // Field MoreFunQuicksandMod/main/MFQM.GenMeatS:Z
+  605: ifne 620
+B608:
+  608: getstatic #1726               // Field MoreFunQuicksandMod/main/MFQM.GenMeat:Z
+  611: ifne 620
+B614:
+  614: getstatic #1729               // Field MoreFunQuicksandMod/main/MFQM.GenMeatAss:Z
+  617: ifeq 2020
+B620:
+  620: iload 10
+  622: ifne 2020
+B625:
+  625: aload_0 
+  626: iload 9
+  628: invokespecial #1731               // Method getBloodType:(I)I
+  631: istore 11
+  633: iconst_0 
+  634: istore 12
+  636: iconst_0 
+  637: istore 13
+  639: iconst_0 
+  640: istore 14
+  642: iconst_0 
+  643: istore 15
+  645: iconst_0 
+  646: istore 16
+  648: iconst_0 
+  649: istore 17
+  651: iload 11
+  653: lookupswitch { // 2
+B680:
+  680: bipush 40
+  682: aload_2 
+  683: bipush 20
+  685: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  688: iadd 
+  689: istore 13
+  691: bipush 10
+  693: istore 15
+  695: bipush 7
+  697: istore 16
+  699: iconst_4 
+  700: istore 14
+  702: goto 728
+B705:
+  705: bipush 30
+  707: aload_2 
+  708: bipush 10
+  710: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  713: iadd 
+  714: istore 13
+  716: bipush 10
+  718: istore 15
+  720: bipush 7
+  722: istore 16
+  724: bipush 50
+  726: istore 14
+B728:
+  728: iload 11
+  730: ifne 747
+B733:
+  733: aload_0 
+  734: getfield #569                // Field T_BoP:Z
+  737: ifeq 747
+B740:
+  740: iload 14
+  742: bipush 100
+  744: imul 
+  745: istore 14
+B747:
+  747: aload_0 
+  748: getfield #569                // Field T_BoP:Z
+  751: ifne 877
+B754:
+  754: iload_3 
+  755: i2d 
+  756: ldc2_w #1437               // double 20.0d
+  759: ddiv 
+  760: dstore 18
+  762: iload 4
+  764: i2d 
+  765: ldc2_w #1437               // double 20.0d
+  768: ddiv 
+  769: dstore 20
+  771: ldc2_w #1732               // double 1.1d
+  774: dload 18
+  776: ldc2_w #1734               // double 0.2623d
+  779: dmul 
+  780: invokestatic #509                // Method java/lang/Math.sin:(D)D
+  783: dmul 
+  784: ldc2_w #1736               // double 3.2d
+  787: dload 18
+  789: ldc2_w #1738               // double 0.9006d
+  792: dmul 
+  793: invokestatic #509                // Method java/lang/Math.sin:(D)D
+  796: dmul 
+  797: dadd 
+  798: dstore 22
+  800: ldc2_w #1732               // double 1.1d
+  803: dload 20
+  805: ldc2_w #1740               // double 0.7623d
+  808: dmul 
+  809: invokestatic #509                // Method java/lang/Math.sin:(D)D
+  812: dmul 
+  813: ldc2_w #595                // double 3.0d
+  816: dload 20
+  818: ldc2_w #1742               // double 0.2006d
+  821: dmul 
+  822: invokestatic #515                // Method java/lang/Math.cos:(D)D
+  825: dmul 
+  826: dsub 
+  827: ldc2_w #584                // double 2.0d
+  830: dload 18
+  832: ldc2_w #1744               // double 0.0106d
+  835: dmul 
+  836: invokestatic #509                // Method java/lang/Math.sin:(D)D
+  839: dmul 
+  840: dadd 
+  841: dstore 24
+  843: aload_2 
+  844: dload 22
+  846: ldc2_w #578                // double 10.0d
+  849: dmul 
+  850: dload 24
+  852: ldc2_w #578                // double 10.0d
+  855: dmul 
+  856: dadd 
+  857: invokestatic #594                // Method java/lang/Math.abs:(D)D
+  860: dconst_1 
+  861: invokestatic #583                // Method java/lang/Math.max:(DD)D
+  864: invokestatic #512                // Method java/lang/Math.floor:(D)D
+  867: d2i 
+  868: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  871: ifne 877
+B874:
+  874: iconst_1 
+  875: istore 14
+B877:
+  877: iconst_0 
+  878: istore 18
+  880: aload_2 
+  881: iload 14
+  883: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  886: ifne 2020
+B889:
+  889: getstatic #1429               // Field MoreFunQuicksandMod/main/MFQM.GenMeatS:Z
+  892: ifeq 1219
+B895:
+  895: iconst_0 
+  896: istore 19
+B898:
+  898: iload 19
+  900: iload 13
+  902: if_icmpge 1219
+B905:
+  905: iload_3 
+  906: aload_2 
+  907: bipush 16
+  909: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  912: iadd 
+  913: istore 5
+  915: bipush 40
+  917: aload_2 
+  918: bipush 98
+  920: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  923: iadd 
+  924: istore 6
+  926: iload 4
+  928: aload_2 
+  929: bipush 16
+  931: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  934: iadd 
+  935: istore 7
+  937: iload 15
+  939: aload_2 
+  940: iload 16
+  942: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  945: iadd 
+  946: istore 17
+  948: iconst_0 
+  949: istore 20
+  951: iconst_0 
+  952: istore 12
+B954:
+  954: iload 6
+  956: bipush 40
+  958: if_icmple 1043
+B961:
+  961: aload_0 
+  962: iload 5
+  964: iload 6
+  966: iload 7
+  968: aload_1 
+  969: invokespecial #693                // Method validBloodMaterial:(IIILnet/minecraft/world/World;)Z
+  972: ifne 989
+B975:
+  975: aload_0 
+  976: iload 5
+  978: iload 6
+  980: iload 7
+  982: aload_1 
+  983: invokespecial #427                // Method validVoreMaterial:(IIILnet/minecraft/world/World;)Z
+  986: ifeq 1027
+B989:
+  989: aload_0 
+  990: iload 5
+  992: iload 6
+  994: iconst_1 
+  995: iadd 
+  996: iload 7
+  998: aload_1 
+  999: invokespecial #926                // Method validLiqMaterial:(IIILnet/minecraft/world/World;)Z
+  1002: ifne 1027
+B1005:
+  1005: iload 5
+  1007: iload 6
+  1009: iload 7
+  1011: aload_1 
+  1012: invokestatic #955                // Method isAboveFreeSpace:(IIILnet/minecraft/world/World;)Z
+  1015: ifeq 1024
+B1018:
+  1018: iconst_1 
+  1019: istore 12
+  1021: goto 1043
+B1024:
+  1024: iinc 20, 1
+B1027:
+  1027: iload 20
+  1029: bipush 50
+  1031: if_icmple 1037
+B1034:
+  1034: goto 1043
+B1037:
+  1037: iinc 6, -1
+  1040: goto 954
+B1043:
+  1043: iload 12
+  1045: ifeq 1213
+B1048:
+  1048: aload_0 
+  1049: iload 5
+  1051: iload 6
+  1053: iload 7
+  1055: iload 17
+  1057: iconst_2 
+  1058: imul 
+  1059: aload_1 
+  1060: aload_2 
+  1061: getstatic #641                // Field net/minecraft/block/material/Material.field_151568_F:Lnet/minecraft/block/material/Material;
+  1064: invokespecial #1431               // Method generateBlood:(IIIILnet/minecraft/world/World;Ljava/util/Random;Lnet/minecraft/block/material/Material;)V
+  1067: aload_0 
+  1068: iload 5
+  1070: iload 6
+  1072: iload 7
+  1074: iload 17
+  1076: iconst_2 
+  1077: imul 
+  1078: aload_1 
+  1079: aload_2 
+  1080: getstatic #641                // Field net/minecraft/block/material/Material.field_151568_F:Lnet/minecraft/block/material/Material;
+  1083: invokespecial #1431               // Method generateBlood:(IIIILnet/minecraft/world/World;Ljava/util/Random;Lnet/minecraft/block/material/Material;)V
+  1086: aload_0 
+  1087: iload 5
+  1089: iload 6
+  1091: iload 7
+  1093: iload 17
+  1095: iconst_2 
+  1096: imul 
+  1097: aload_1 
+  1098: aload_2 
+  1099: getstatic #641                // Field net/minecraft/block/material/Material.field_151568_F:Lnet/minecraft/block/material/Material;
+  1102: invokespecial #1431               // Method generateBlood:(IIIILnet/minecraft/world/World;Ljava/util/Random;Lnet/minecraft/block/material/Material;)V
+  1105: getstatic #1726               // Field MoreFunQuicksandMod/main/MFQM.GenMeat:Z
+  1108: ifeq 1119
+B1111:
+  1111: aload_2 
+  1112: iconst_5 
+  1113: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  1116: ifeq 1125
+B1119:
+  1119: getstatic #1726               // Field MoreFunQuicksandMod/main/MFQM.GenMeat:Z
+  1122: ifne 1210
+B1125:
+  1125: aload_0 
+  1126: iload 5
+  1128: iload 6
+  1130: iload 7
+  1132: iload 17
+  1134: iconst_1 
+  1135: iadd 
+  1136: aload_1 
+  1137: invokespecial #719                // Method genIsFlatSolid:(IIIILnet/minecraft/world/World;)Z
+  1140: ifeq 1213
+B1143:
+  1143: aload_0 
+  1144: iload 5
+  1146: iload 6
+  1148: iconst_1 
+  1149: iadd 
+  1150: iload 7
+  1152: iload 17
+  1154: iconst_1 
+  1155: iadd 
+  1156: aload_1 
+  1157: invokespecial #719                // Method genIsFlatSolid:(IIIILnet/minecraft/world/World;)Z
+  1160: ifeq 1213
+B1163:
+  1163: aload_0 
+  1164: iload 5
+  1166: iload 6
+  1168: iload 7
+  1170: iload 17
+  1172: aload_1 
+  1173: aload_2 
+  1174: getstatic #641                // Field net/minecraft/block/material/Material.field_151568_F:Lnet/minecraft/block/material/Material;
+  1177: getstatic #1057               // Field MoreFunQuicksandMod/main/MFQM.SwFleshBlock:Lnet/minecraft/block/Block;
+  1180: invokespecial #1433               // Method generateMire2:(IIIILnet/minecraft/world/World;Ljava/util/Random;Lnet/minecraft/block/material/Material;Lnet/minecraft/block/Block;)V
+  1183: aload_0 
+  1184: iload 5
+  1186: iload 6
+  1188: iconst_5 
+  1189: iadd 
+  1190: iload 7
+  1192: iload 17
+  1194: iconst_2 
+  1195: imul 
+  1196: aload_1 
+  1197: aload_2 
+  1198: invokespecial #1574               // Method generateTendrils:(IIIILnet/minecraft/world/World;Ljava/util/Random;)V
+  1201: iconst_0 
+  1202: istore 18
+  1204: iconst_1 
+  1205: istore 10
+  1207: goto 1213
+B1210:
+  1210: iconst_1 
+  1211: istore 18
+B1213:
+  1213: iinc 19, 1
+  1216: goto 898
+B1219:
+  1219: getstatic #1726               // Field MoreFunQuicksandMod/main/MFQM.GenMeat:Z
+  1222: ifeq 1434
+B1225:
+  1225: iconst_0 
+  1226: istore 19
+  1228: iload 18
+  1230: ifeq 1434
+B1233:
+  1233: iconst_0 
+  1234: istore 20
+B1236:
+  1236: iload 20
+  1238: iload 13
+  1240: iconst_2 
+  1241: imul 
+  1242: if_icmpge 1434
+B1245:
+  1245: iload 19
+  1247: ifne 1434
+B1250:
+  1250: iload_3 
+  1251: aload_2 
+  1252: bipush 12
+  1254: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  1257: iadd 
+  1258: iconst_2 
+  1259: iadd 
+  1260: istore 5
+  1262: bipush 40
+  1264: aload_2 
+  1265: bipush 98
+  1267: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  1270: iadd 
+  1271: istore 6
+  1273: iload 4
+  1275: aload_2 
+  1276: bipush 12
+  1278: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  1281: iadd 
+  1282: iconst_2 
+  1283: iadd 
+  1284: istore 7
+  1286: iload 15
+  1288: aload_2 
+  1289: iload 16
+  1291: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  1294: iadd 
+  1295: istore 17
+  1297: iconst_0 
+  1298: istore 21
+  1300: iconst_0 
+  1301: istore 12
+B1303:
+  1303: iload 6
+  1305: bipush 40
+  1307: if_icmple 1392
+B1310:
+  1310: aload_0 
+  1311: iload 5
+  1313: iload 6
+  1315: iload 7
+  1317: aload_1 
+  1318: invokespecial #427                // Method validVoreMaterial:(IIILnet/minecraft/world/World;)Z
+  1321: ifeq 1376
+B1324:
+  1324: aload_0 
+  1325: iload 5
+  1327: iload 6
+  1329: iconst_1 
+  1330: iadd 
+  1331: iload 7
+  1333: aload_1 
+  1334: invokespecial #1720               // Method validLavaMaterial:(IIILnet/minecraft/world/World;)Z
+  1337: ifne 1376
+B1340:
+  1340: iload 5
+  1342: iload 6
+  1344: iload 7
+  1346: aload_1 
+  1347: invokestatic #955                // Method isAboveFreeSpace:(IIILnet/minecraft/world/World;)Z
+  1350: ifeq 1373
+B1353:
+  1353: aload_0 
+  1354: iload 5
+  1356: iload 6
+  1358: iload 7
+  1360: aload_1 
+  1361: invokespecial #1747               // Method isVorePlace:(IIILnet/minecraft/world/World;)Z
+  1364: ifeq 1376
+B1367:
+  1367: iconst_1 
+  1368: istore 12
+  1370: goto 1392
+B1373:
+  1373: iinc 21, 1
+B1376:
+  1376: iload 21
+  1378: bipush 50
+  1380: if_icmple 1386
+B1383:
+  1383: goto 1392
+B1386:
+  1386: iinc 6, -1
+  1389: goto 1303
+B1392:
+  1392: iload 12
+  1394: ifeq 1428
+B1397:
+  1397: aload_0 
+  1398: iload 5
+  1400: iload 6
+  1402: iload 7
+  1404: bipush 6
+  1406: aload_1 
+  1407: invokespecial #1749               // Method genIsFlatVore:(IIIILnet/minecraft/world/World;)Z
+  1410: ifeq 1428
+B1413:
+  1413: aload_0 
+  1414: iload 5
+  1416: iload 6
+  1418: iload 7
+  1420: aload_1 
+  1421: aload_2 
+  1422: invokespecial #1751               // Method generateVore:(IIILnet/minecraft/world/World;Ljava/util/Random;)V
+  1425: iconst_1 
+  1426: istore 19
+B1428:
+  1428: iinc 20, 1
+  1431: goto 1236
+B1434:
+  1434: getstatic #1729               // Field MoreFunQuicksandMod/main/MFQM.GenMeatAss:Z
+  1437: ifeq 2020
+B1440:
+  1440: iconst_0 
+  1441: istore 19
+  1443: iconst_0 
+  1444: istore 20
+  1446: iconst_0 
+  1447: istore 21
+  1449: iconst_0 
+  1450: istore 22
+  1452: iload 13
+  1454: iconst_4 
+  1455: idiv 
+  1456: istore 23
+  1458: aload_2 
+  1459: iload 14
+  1461: iconst_5 
+  1462: iadd 
+  1463: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  1466: ifne 2020
+B1469:
+  1469: iconst_0 
+  1470: istore 24
+B1472:
+  1472: iload 24
+  1474: iload 13
+  1476: bipush 40
+  1478: imul 
+  1479: if_icmpge 2020
+B1482:
+  1482: iload 23
+  1484: ifle 2020
+B1487:
+  1487: iload 20
+  1489: ifne 1527
+B1492:
+  1492: bipush 20
+  1494: aload_2 
+  1495: bipush 30
+  1497: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  1500: iadd 
+  1501: istore 6
+  1503: iload_3 
+  1504: aload_2 
+  1505: bipush 16
+  1507: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  1510: iadd 
+  1511: istore 5
+  1513: iload 4
+  1515: aload_2 
+  1516: bipush 16
+  1518: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  1521: iadd 
+  1522: istore 7
+  1524: goto 1559
+B1527:
+  1527: iload 20
+  1529: iconst_1 
+  1530: iadd 
+  1531: istore 6
+  1533: iload 21
+  1535: aload_2 
+  1536: bipush 11
+  1538: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  1541: iadd 
+  1542: iconst_5 
+  1543: isub 
+  1544: istore 5
+  1546: iload 22
+  1548: aload_2 
+  1549: bipush 11
+  1551: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  1554: iadd 
+  1555: iconst_5 
+  1556: isub 
+  1557: istore 7
+B1559:
+  1559: iload 15
+  1561: iconst_2 
+  1562: isub 
+  1563: aload_2 
+  1564: iload 16
+  1566: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  1569: iadd 
+  1570: istore 17
+  1572: iconst_0 
+  1573: istore 25
+  1575: iconst_0 
+  1576: istore 12
+B1578:
+  1578: iload 6
+  1580: bipush 30
+  1582: if_icmple 1745
+B1585:
+  1585: aload_0 
+  1586: iload 5
+  1588: iload 6
+  1590: iload 7
+  1592: aload_1 
+  1593: invokespecial #693                // Method validBloodMaterial:(IIILnet/minecraft/world/World;)Z
+  1596: ifne 1662
+B1599:
+  1599: aload_0 
+  1600: iload 5
+  1602: iload 6
+  1604: iload 7
+  1606: aload_1 
+  1607: invokespecial #427                // Method validVoreMaterial:(IIILnet/minecraft/world/World;)Z
+  1610: ifne 1662
+B1613:
+  1613: aload_0 
+  1614: iload 5
+  1616: iload 6
+  1618: iload 7
+  1620: aload_1 
+  1621: invokespecial #926                // Method validLiqMaterial:(IIILnet/minecraft/world/World;)Z
+  1624: ifeq 1715
+B1627:
+  1627: aload_1 
+  1628: iload 5
+  1630: iload 6
+  1632: iload 7
+  1634: invokevirtual #264                // Method net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+  1637: getstatic #929                // Field MoreFunQuicksandMod/main/MFQM.AcidBlock:Lnet/minecraft/block/Block;
+  1640: if_acmpeq 1715
+B1643:
+  1643: aload_1 
+  1644: iload 5
+  1646: iload 6
+  1648: iload 7
+  1650: invokevirtual #264                // Method net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+  1653: invokevirtual #270                // Method net/minecraft/block/Block.func_149688_o:()Lnet/minecraft/block/material/Material;
+  1656: getstatic #323                // Field net/minecraft/block/material/Material.field_151587_i:Lnet/minecraft/block/material/Material;
+  1659: if_acmpeq 1715
+B1662:
+  1662: aload_0 
+  1663: iload 5
+  1665: iload 6
+  1667: iconst_1 
+  1668: iadd 
+  1669: iload 7
+  1671: aload_1 
+  1672: invokespecial #926                // Method validLiqMaterial:(IIILnet/minecraft/world/World;)Z
+  1675: ifne 1715
+B1678:
+  1678: iload 5
+  1680: iload 6
+  1682: iconst_1 
+  1683: iadd 
+  1684: iload 7
+  1686: aload_1 
+  1687: invokestatic #955                // Method isAboveFreeSpace:(IIILnet/minecraft/world/World;)Z
+  1690: ifne 1715
+B1693:
+  1693: iload 5
+  1695: iload 6
+  1697: iload 7
+  1699: aload_1 
+  1700: invokestatic #955                // Method isAboveFreeSpace:(IIILnet/minecraft/world/World;)Z
+  1703: ifeq 1712
+B1706:
+  1706: iconst_1 
+  1707: istore 12
+  1709: goto 1745
+B1712:
+  1712: iinc 25, 1
+B1715:
+  1715: iload 25
+  1717: bipush 50
+  1719: if_icmpgt 1745
+B1722:
+  1722: iload 20
+  1724: ifeq 1739
+B1727:
+  1727: iload 6
+  1729: iload 20
+  1731: iconst_1 
+  1732: isub 
+  1733: if_icmpge 1739
+B1736:
+  1736: goto 1745
+B1739:
+  1739: iinc 6, -1
+  1742: goto 1578
+B1745:
+  1745: iload 12
+  1747: ifeq 2014
+B1750:
+  1750: iload 19
+  1752: aload_0 
+  1753: iload 5
+  1755: aload_2 
+  1756: bipush 9
+  1758: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  1761: iadd 
+  1762: iconst_4 
+  1763: isub 
+  1764: iload 6
+  1766: iconst_1 
+  1767: iadd 
+  1768: iload 7
+  1770: aload_2 
+  1771: bipush 9
+  1773: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  1776: iadd 
+  1777: iconst_4 
+  1778: isub 
+  1779: iload 17
+  1781: iconst_1 
+  1782: iadd 
+  1783: aload_1 
+  1784: aload_2 
+  1785: invokespecial #1753               // Method ClearArea2:(IIIILnet/minecraft/world/World;Ljava/util/Random;)I
+  1788: isub 
+  1789: istore 19
+  1791: iload 19
+  1793: ifge 1799
+B1796:
+  1796: iconst_0 
+  1797: istore 19
+B1799:
+  1799: aload_0 
+  1800: iload 5
+  1802: iload 6
+  1804: iconst_1 
+  1805: iadd 
+  1806: iload 7
+  1808: iload 17
+  1810: iconst_5 
+  1811: iadd 
+  1812: aload_1 
+  1813: aload_2 
+  1814: invokespecial #1755               // Method generateBlood2:(IIIILnet/minecraft/world/World;Ljava/util/Random;)V
+  1817: aload_0 
+  1818: iload 5
+  1820: iload 6
+  1822: iconst_2 
+  1823: iadd 
+  1824: iload 7
+  1826: iload 17
+  1828: iconst_5 
+  1829: iadd 
+  1830: aload_1 
+  1831: aload_2 
+  1832: invokespecial #1755               // Method generateBlood2:(IIIILnet/minecraft/world/World;Ljava/util/Random;)V
+  1835: aload_0 
+  1836: iload 5
+  1838: iload 6
+  1840: iconst_3 
+  1841: iadd 
+  1842: iload 7
+  1844: iload 17
+  1846: iconst_5 
+  1847: iadd 
+  1848: aload_1 
+  1849: aload_2 
+  1850: invokespecial #1755               // Method generateBlood2:(IIIILnet/minecraft/world/World;Ljava/util/Random;)V
+  1853: iload 5
+  1855: aload_2 
+  1856: bipush 9
+  1858: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  1861: iconst_4 
+  1862: isub 
+  1863: iadd 
+  1864: istore 5
+  1866: iload 7
+  1868: aload_2 
+  1869: bipush 9
+  1871: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  1874: iconst_4 
+  1875: isub 
+  1876: iadd 
+  1877: istore 7
+  1879: aload_0 
+  1880: iload 5
+  1882: iload 6
+  1884: iload 7
+  1886: iload 17
+  1888: iconst_1 
+  1889: iadd 
+  1890: aload_1 
+  1891: invokespecial #1255               // Method genIsFlatSlurry:(IIIILnet/minecraft/world/World;)Z
+  1894: ifeq 2014
+B1897:
+  1897: aload_0 
+  1898: iload 5
+  1900: iload 6
+  1902: iconst_1 
+  1903: iadd 
+  1904: iload 7
+  1906: iload 17
+  1908: iconst_1 
+  1909: iadd 
+  1910: aload_1 
+  1911: invokespecial #1255               // Method genIsFlatSlurry:(IIIILnet/minecraft/world/World;)Z
+  1914: ifeq 2014
+B1917:
+  1917: aload_0 
+  1918: iload 5
+  1920: iload 6
+  1922: iconst_1 
+  1923: iadd 
+  1924: iload 7
+  1926: iload 17
+  1928: i2d 
+  1929: ldc2_w #1620               // double 1.75d
+  1932: dmul 
+  1933: invokestatic #512                // Method java/lang/Math.floor:(D)D
+  1936: d2i 
+  1937: aload_1 
+  1938: aload_2 
+  1939: invokespecial #1757               // Method generateMud2:(IIIILnet/minecraft/world/World;Ljava/util/Random;)V
+  1942: aload_0 
+  1943: iload 5
+  1945: iload 6
+  1947: iload 7
+  1949: iload 17
+  1951: aload_1 
+  1952: aload_2 
+  1953: invokespecial #1759               // Method generateSlurry:(IIIILnet/minecraft/world/World;Ljava/util/Random;)V
+  1956: iload 6
+  1958: istore 20
+  1960: iload 7
+  1962: istore 22
+  1964: iload 5
+  1966: istore 21
+  1968: aload_2 
+  1969: iload 19
+  1971: iconst_2 
+  1972: imul 
+  1973: iconst_1 
+  1974: iadd 
+  1975: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  1978: ifne 2008
+B1981:
+  1981: aload_0 
+  1982: iload 5
+  1984: iload 6
+  1986: iconst_1 
+  1987: iadd 
+  1988: iload 7
+  1990: iconst_5 
+  1991: aload_2 
+  1992: iconst_5 
+  1993: invokevirtual #477                // Method java/util/Random.nextInt:(I)I
+  1996: iadd 
+  1997: aload_1 
+  1998: aload_2 
+  1999: invokespecial #1761               // Method generateAss:(IIIILnet/minecraft/world/World;Ljava/util/Random;)Z
+  2002: ifeq 2008
+B2005:
+  2005: iinc 19, 1
+B2008:
+  2008: iinc 23, -1
+  2011: iconst_1 
+  2012: istore 10
+B2014:
+  2014: iinc 24, 1
+  2017: goto 1472
+B2020:
+  2020: return 

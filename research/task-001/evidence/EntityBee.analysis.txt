@@ -1,0 +1,197 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  net.minecraft.block.Block
+6:  *  net.minecraft.entity.Entity
+7:  *  net.minecraft.entity.SharedMonsterAttributes
+8:  *  net.minecraft.entity.monster.EntityMob
+9:  *  net.minecraft.util.AxisAlignedBB
+10:  *  net.minecraft.util.MathHelper
+11:  *  net.minecraft.world.EnumDifficulty
+12:  *  net.minecraft.world.World
+13:  */
+14: package MoreFunQuicksandMod.main.entity;
+15: 
+16: import net.minecraft.block.Block;
+17: import net.minecraft.entity.Entity;
+18: import net.minecraft.entity.SharedMonsterAttributes;
+19: import net.minecraft.entity.monster.EntityMob;
+20: import net.minecraft.util.AxisAlignedBB;
+21: import net.minecraft.util.MathHelper;
+22: import net.minecraft.world.EnumDifficulty;
+23: import net.minecraft.world.World;
+24: 
+25: public class EntityBee
+26: extends EntityMob {
+27:     public int courseChangeCooldown;
+28:     public double waypointX;
+29:     public double waypointY;
+30:     public double waypointZ;
+31:     private Entity targetedEntity;
+32:     private int aggroCooldown;
+33: 
+34:     public EntityBee(World world) {
+35:         super(world);
+36:         this.func_70105_a(0.95f, 0.95f);
+37:     }
+38: 
+39:     protected void func_70069_a(float par1) {
+40:     }
+41: 
+42:     protected void func_70064_a(double par1, boolean par3) {
+43:     }
+44: 
+45:     public void func_70612_e(float par1, float par2) {
+46:         if (this.func_70090_H()) {
+47:             this.func_70060_a(par1, par2, 0.02f);
+48:             this.func_70091_d(this.field_70159_w, this.field_70181_x, this.field_70179_y);
+49:             this.field_70159_w *= (double)0.8f;
+50:             this.field_70181_x *= (double)0.8f;
+51:             this.field_70179_y *= (double)0.8f;
+52:         } else if (this.func_70058_J()) {
+53:             this.func_70060_a(par1, par2, 0.02f);
+54:             this.func_70091_d(this.field_70159_w, this.field_70181_x, this.field_70179_y);
+55:             this.field_70159_w *= 0.5;
+56:             this.field_70181_x *= 0.5;
+57:             this.field_70179_y *= 0.5;
+58:         } else {
+59:             float f2 = 0.91f;
+60:             if (this.field_70122_E) {
+61:                 f2 = 0.54600006f;
+62:                 Block block = this.field_70170_p.func_147439_a(MathHelper.func_76128_c((double)this.field_70165_t), MathHelper.func_76128_c((double)this.field_70121_D.field_72338_b) - 1, MathHelper.func_76128_c((double)this.field_70161_v));
+63:                 f2 = block.field_149765_K * 0.91f;
+64:             }
+65:             float f3 = 0.16277136f / (f2 * f2 * f2);
+66:             this.func_70060_a(par1, par2, this.field_70122_E ? 0.1f * f3 : 0.02f);
+67:             f2 = 0.91f;
+68:             if (this.field_70122_E) {
+69:                 f2 = 0.54600006f;
+70:                 Block block = this.field_70170_p.func_147439_a(MathHelper.func_76128_c((double)this.field_70165_t), MathHelper.func_76128_c((double)this.field_70121_D.field_72338_b) - 1, MathHelper.func_76128_c((double)this.field_70161_v));
+71:                 f2 = block.field_149765_K * 0.91f;
+72:             }
+73:             this.func_70091_d(this.field_70159_w, this.field_70181_x, this.field_70179_y);
+74:             this.field_70159_w *= (double)f2;
+75:             this.field_70181_x *= (double)f2;
+76:             this.field_70179_y *= (double)f2;
+77:         }
+78:         this.field_70722_aY = this.field_70721_aZ;
+79:         double d0 = this.field_70165_t - this.field_70169_q;
+80:         double d1 = this.field_70161_v - this.field_70166_s;
+81:         float f4 = MathHelper.func_76133_a((double)(d0 * d0 + d1 * d1)) * 4.0f;
+82:         if (f4 > 1.0f) {
+83:             f4 = 1.0f;
+84:         }
+85:         this.field_70721_aZ += (f4 - this.field_70721_aZ) * 0.4f;
+86:         this.field_70754_ba += this.field_70721_aZ;
+87:     }
+88: 
+89:     public boolean func_70617_f_() {
+90:         return false;
+91:     }
+92: 
+93:     protected void func_110147_ax() {
+94:         super.func_110147_ax();
+95:         this.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(10.0);
+96:         this.func_110148_a(SharedMonsterAttributes.field_111264_e).func_111128_a(1.25);
+97:     }
+98: 
+99:     protected void func_70626_be() {
+100:         if (!this.field_70170_p.field_72995_K && this.field_70170_p.field_73013_u == EnumDifficulty.PEACEFUL) {
+101:             this.func_70106_y();
+102:         }
+103:         this.func_70623_bb();
+104:         double d0 = this.waypointX - this.field_70165_t;
+105:         double d1 = this.waypointY - this.field_70163_u;
+106:         double d2 = this.waypointZ - this.field_70161_v;
+107:         double d3 = d0 * d0 + d1 * d1 + d2 * d2;
+108:         if (d3 < 1.0 || d3 > 1800.0) {
+109:             this.waypointX = this.field_70165_t + (double)((this.field_70146_Z.nextFloat() * 2.0f - 1.0f) * 4.0f);
+110:             this.waypointY = this.field_70163_u + (double)((this.field_70146_Z.nextFloat() * 2.0f - 1.0f) * 4.0f);
+111:             this.waypointZ = this.field_70161_v + (double)((this.field_70146_Z.nextFloat() * 2.0f - 1.0f) * 4.0f);
+112:         }
+113:         if (this.courseChangeCooldown-- <= 0) {
+114:             this.courseChangeCooldown += this.field_70146_Z.nextInt(2) + 2;
+115:             if (this.isCourseTraversable(this.waypointX, this.waypointY, this.waypointZ, d3 = (double)MathHelper.func_76133_a((double)d3))) {
+116:                 this.field_70159_w += d0 / d3 * 0.1;
+117:                 this.field_70181_x += d1 / d3 * 0.1;
+118:                 this.field_70179_y += d2 / d3 * 0.1;
+119:             } else {
+120:                 this.waypointX = this.field_70165_t;
+121:                 this.waypointY = this.field_70163_u;
+122:                 this.waypointZ = this.field_70161_v;
+123:             }
+124:         }
+125:         if (this.targetedEntity != null && this.targetedEntity.field_70128_L) {
+126:             this.targetedEntity = null;
+127:         }
+128:         if (this.targetedEntity == null || this.aggroCooldown-- <= 0) {
+129:             this.targetedEntity = this.field_70170_p.func_72856_b((Entity)this, 16.0);
+130:             if (this.targetedEntity != null) {
+131:                 this.aggroCooldown = 20;
+132:             }
+133:         }
+134:         double d4 = 16.0;
+135:         if (this.targetedEntity != null && this.targetedEntity.func_70068_e((Entity)this) < d4 * d4) {
+136:             double d5 = this.targetedEntity.field_70165_t - this.field_70165_t;
+137:             double d6 = this.targetedEntity.field_70121_D.field_72338_b + (double)this.targetedEntity.field_70131_O - this.field_70163_u;
+138:             double d7 = this.targetedEntity.field_70161_v - this.field_70161_v;
+139:             this.field_70761_aq = this.field_70177_z = -((float)Math.atan2(d5, d7)) * 180.0f / (float)Math.PI;
+140:             if (this.func_70685_l(this.targetedEntity)) {
+141:                 this.waypointX = this.targetedEntity.field_70165_t;
+142:                 this.waypointY = this.targetedEntity.field_70163_u;
+143:                 this.waypointZ = this.targetedEntity.field_70161_v;
+144:                 float f1 = this.targetedEntity.func_70032_d((Entity)this);
+145:                 double prev_motionx = this.targetedEntity.field_70159_w;
+146:                 double prev_motiony = this.targetedEntity.field_70181_x;
+147:                 double prev_motionz = this.targetedEntity.field_70179_y;
+148:                 this.func_70785_a(this.targetedEntity, f1);
+149:                 double dif_motionx = this.targetedEntity.field_70159_w - prev_motionx;
+150:                 this.targetedEntity.field_70159_w = prev_motionx + dif_motionx * 0.25;
+151:                 double dif_motiony = this.targetedEntity.field_70181_x - prev_motiony;
+152:                 this.targetedEntity.field_70181_x = prev_motiony + dif_motiony * 0.25;
+153:                 double dif_motionz = this.targetedEntity.field_70179_y - prev_motionz;
+154:                 this.targetedEntity.field_70179_y = prev_motionz + dif_motionz * 0.25;
+155:                 this.field_70159_w -= dif_motionx * 0.5;
+156:                 this.field_70181_x -= dif_motiony * 0.5;
+157:                 this.field_70179_y -= dif_motionz * 0.5;
+158:                 this.targetedEntity.field_70172_ad = (int)((float)this.targetedEntity.field_70172_ad * 0.5f);
+159:             }
+160:         } else {
+161:             this.field_70761_aq = this.field_70177_z = -((float)Math.atan2(this.field_70159_w, this.field_70179_y)) * 180.0f / (float)Math.PI;
+162:         }
+163:     }
+164: 
+165:     private boolean isCourseTraversable(double par1, double par3, double par5, double par7) {
+166:         double d4 = (this.waypointX - this.field_70165_t) / par7;
+167:         double d5 = (this.waypointY - this.field_70163_u) / par7;
+168:         double d6 = (this.waypointZ - this.field_70161_v) / par7;
+169:         AxisAlignedBB axisalignedbb = this.field_70121_D.func_72329_c();
+170:         int i = 1;
+171:         while ((double)i < par7) {
+172:             axisalignedbb.func_72317_d(d4, d5, d6);
+173:             if (!this.field_70170_p.func_72945_a((Entity)this, axisalignedbb).isEmpty()) {
+174:                 return false;
+175:             }
+176:             ++i;
+177:         }
+178:         return true;
+179:     }
+180: 
+181:     protected float func_70599_aP() {
+182:         return 0.5f;
+183:     }
+184: 
+185:     protected String func_70639_aQ() {
+186:         return "morefunquicksandmod:mob.bee.say";
+187:     }
+188: 
+189:     protected String func_70621_aR() {
+190:         return "morefunquicksandmod:mob.bee.hurt";
+191:     }
+192: 
+193:     protected String func_70673_aS() {
+194:         return "morefunquicksandmod:mob.bee.hurt";
+195:     }
+196: }
+197: 

@@ -1,0 +1,35 @@
+// CFR0.152; original decompiler line 1492; NOT original source; inspect **/goto artifacts if present.
+    private void generateMud2(int xx, int yy, int zz, int rad, World world, Random random) {
+        double rad_cof = Math.max((double)rad / 10.0, 1.0);
+        double rax = random.nextDouble() + 0.5;
+        double raz = 1.0 - rax + 0.5 + 0.5;
+        for (int i = 0; i <= rad; ++i) {
+            for (int j = 0; j <= rad / 2; ++j) {
+                for (int e = 0; e <= rad; ++e) {
+                    int posx = xx + i - rad / 2;
+                    int posy = yy - j;
+                    int posz = zz + e - rad / 2;
+                    double dis = Math.sqrt(Math.pow(xx - posx, 2.0) * rax + Math.pow(yy - posy, 2.0) + Math.pow(zz - posz, 2.0) * raz);
+                    if (!(dis < (double)rad / 2.0 / (1.0 + Math.abs(rax - raz) / 3.0) + (random.nextDouble() * rad_cof - rad_cof / 2.0)) || !this.validBloodMaterial(posx, posy, posz, world) && !this.validVoreMaterial(posx, posy, posz, world)) continue;
+                    if (this.validPlantMaterial(posx, posy + 1, posz, world)) {
+                        world.func_147468_f(posx, posy + 1, posz);
+                    }
+                    if (this.validPlantMaterial(posx, posy + 2, posz, world)) {
+                        world.func_147468_f(posx, posy + 2, posz);
+                    }
+                    if (this.validPlantMaterial(posx, posy + 3, posz, world)) {
+                        world.func_147468_f(posx, posy + 3, posz);
+                    }
+                    if (random.nextInt(4) == 0) {
+                        world.func_147449_b(posx, posy + 1, posz, MFQM.MudBlock);
+                    }
+                    world.func_147449_b(posx, posy, posz, MFQM.MudBlock);
+                    world.func_147449_b(posx, posy - 1, posz, MFQM.MudBlock);
+                    world.func_147449_b(posx, posy - 2, posz, MFQM.MudBlock);
+                    world.func_147449_b(posx, posy - 3, posz, MFQM.MudBlock);
+                    world.func_147449_b(posx, posy - 4, posz, MFQM.MudBlock);
+                    world.func_147449_b(posx, posy - 5, posz, MFQM.MudBlock);
+                }
+            }
+        }
+    }

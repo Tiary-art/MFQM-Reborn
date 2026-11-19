@@ -1,0 +1,44 @@
+// Decompiled inference, NOT original source; semantic closure PARTIAL
+      if (MFQM.GenSlime) {
+         int genCount = 75 + random.nextInt(10);
+         int realGen = 1;
+         int genPos = 75;
+         int genRad = 7;
+         int genRadP = 10;
+         int rad = 0;
+         boolean canGen = false;
+         if (random.nextInt(genPos) == 0) {
+            for (int ix = 0; ix < genCount && realGen > 0; ix++) {
+               firstBlockXCoord = chunkX + random.nextInt(16);
+               firstBlockYCoord = 96 + dHeight;
+               firstBlockZCoord = chunkZ + random.nextInt(16);
+               rad = genRad + random.nextInt(genRadP);
+               int countBlock = 0;
+
+               for (canGen = false; firstBlockYCoord > 16; firstBlockYCoord--) {
+                  if (this.validSlimeMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)
+                     && !this.validWaterMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                     if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                        if (this.isInCave(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world, rad)) {
+                           canGen = true;
+                           break;
+                        }
+                     } else {
+                        countBlock++;
+                     }
+                  }
+               }
+
+               if (canGen
+                  && random.nextInt((int)Math.floor(firstBlockYCoord / 4 / wordSizer)) != 0
+                  && this.genIsFlatSlime(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world)
+                  && this.genIsFlatSlime(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad, world)
+                  && this.genIsFlatSlime(firstBlockXCoord, firstBlockYCoord - 1, firstBlockZCoord, rad, world)) {
+                  this.generateSlime(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random);
+                  realGen--;
+                  blockGen = true;
+               }
+            }
+         }
+      }
+

@@ -1,0 +1,90 @@
+Archive: MoreFunQuicksandMod/main/items/ItemSPotion.class
+SHA256: 1a73500c95ffdc794a08d6277619b54c4369a01d79492e6ba61a6249e287bcb2
+Superclass: net/minecraft/item/Item
+Offsets are decimal byte offsets; branch operands are relative offsets.
+
+
+METHOD <init> ()V
+000000: aload_0 
+000001: invokespecial #9 net/minecraft/item/Item.<init>:()V
+000004: aload_0 
+000005: iconst_1 
+000006: invokevirtual #13 MoreFunQuicksandMod/main/items/ItemSPotion.func_77625_d:(I)Lnet/minecraft/item/Item;
+000009: pop 
+000010: aload_0 
+000011: ldc #15 'SPotion'
+000013: invokevirtual #19 MoreFunQuicksandMod/main/items/ItemSPotion.func_77655_b:(Ljava/lang/String;)Lnet/minecraft/item/Item;
+000016: pop 
+000017: aload_0 
+000018: getstatic #25 MoreFunQuicksandMod/main/MFQM.tabMFQM:Lnet/minecraft/creativetab/CreativeTabs;
+000021: invokevirtual #29 MoreFunQuicksandMod/main/items/ItemSPotion.func_77637_a:(Lnet/minecraft/creativetab/CreativeTabs;)Lnet/minecraft/item/Item;
+000024: pop 
+000025: return 
+
+METHOD func_77626_a (Lnet/minecraft/item/ItemStack;)I
+000000: bipush 32
+000002: ireturn 
+
+METHOD func_77659_a (Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/player/EntityPlayer;)Lnet/minecraft/item/ItemStack;
+000000: aload_3 
+000001: getfield #43 net/minecraft/entity/player/EntityPlayer.field_71075_bZ:Lnet/minecraft/entity/player/PlayerCapabilities;
+000004: getfield #49 net/minecraft/entity/player/PlayerCapabilities.field_75098_d:Z
+000007: ifne 13
+000010: aload_1 
+000011: dup 
+000012: getfield #55 net/minecraft/item/ItemStack.field_77994_a:I
+000015: iconst_1 
+000016: isub 
+000017: putfield #55 net/minecraft/item/ItemStack.field_77994_a:I
+000020: aload_2 
+000021: aload_3 
+000022: ldc #57 'random.bow'
+000024: ldc #58 0.5
+000026: ldc #59 0.4000000059604645
+000028: getstatic #63 MoreFunQuicksandMod/main/items/ItemSPotion.field_77697_d:Ljava/util/Random;
+000031: invokevirtual #69 java/util/Random.nextFloat:()F
+000034: ldc #59 0.4000000059604645
+000036: fmul 
+000037: ldc #70 0.800000011920929
+000039: fadd 
+000040: fdiv 
+000041: invokevirtual #76 net/minecraft/world/World.func_72956_a:(Lnet/minecraft/entity/Entity;Ljava/lang/String;FF)V
+000044: aload_2 
+000045: getfield #79 net/minecraft/world/World.field_72995_K:Z
+000048: ifne 18
+000051: aload_2 
+000052: new #81 MoreFunQuicksandMod/main/entity/EntitySPotion
+000055: dup 
+000056: aload_2 
+000057: aload_3 
+000058: aload_1 
+000059: invokespecial #84 MoreFunQuicksandMod/main/entity/EntitySPotion.<init>:(Lnet/minecraft/world/World;Lnet/minecraft/entity/EntityLivingBase;Lnet/minecraft/item/ItemStack;)V
+000062: invokevirtual #88 net/minecraft/world/World.func_72838_d:(Lnet/minecraft/entity/Entity;)Z
+000065: pop 
+000066: aload_1 
+000067: areturn 
+
+METHOD func_77648_a (Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/world/World;IIIIFFF)Z
+000000: iconst_0 
+000001: ireturn 
+
+METHOD func_94581_a (Lnet/minecraft/client/renderer/texture/IIconRegister;)V
+000000: aload_0 
+000001: aload_1 
+000002: ldc #113 'morefunquicksandmod:SPotion'
+000004: invokeinterface #119 net/minecraft/client/renderer/texture/IIconRegister.func_94245_a:(Ljava/lang/String;)Lnet/minecraft/util/IIcon;, 2, 0
+000009: putfield #123 MoreFunQuicksandMod/main/items/ItemSPotion.field_77791_bV:Lnet/minecraft/util/IIcon;
+000012: return 
+
+METHOD func_77617_a (I)Lnet/minecraft/util/IIcon;
+000000: aload_0 
+000001: getfield #123 MoreFunQuicksandMod/main/items/ItemSPotion.field_77791_bV:Lnet/minecraft/util/IIcon;
+000004: areturn 
+
+METHOD func_77624_a (Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V
+000000: aload_3 
+000001: ldc #132 'itemSPotion.Text'
+000003: invokestatic #138 net/minecraft/util/StatCollector.func_74838_a:(Ljava/lang/String;)Ljava/lang/String;
+000006: invokeinterface #144 java/util/List.add:(Ljava/lang/Object;)Z, 2, 0
+000011: pop 
+000012: return 

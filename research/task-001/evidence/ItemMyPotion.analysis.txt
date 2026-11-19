@@ -1,0 +1,179 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.block.material.Material
+8:  *  net.minecraft.client.renderer.texture.IIconRegister
+9:  *  net.minecraft.creativetab.CreativeTabs
+10:  *  net.minecraft.entity.player.EntityPlayer
+11:  *  net.minecraft.init.Blocks
+12:  *  net.minecraft.init.Items
+13:  *  net.minecraft.item.EnumAction
+14:  *  net.minecraft.item.Item
+15:  *  net.minecraft.item.ItemStack
+16:  *  net.minecraft.potion.PotionEffect
+17:  *  net.minecraft.util.IIcon
+18:  *  net.minecraft.util.StatCollector
+19:  *  net.minecraft.world.World
+20:  */
+21: package MoreFunQuicksandMod.main.items;
+22: 
+23: import MoreFunQuicksandMod.main.MFQM;
+24: import cpw.mods.fml.relauncher.Side;
+25: import cpw.mods.fml.relauncher.SideOnly;
+26: import java.util.List;
+27: import net.minecraft.block.material.Material;
+28: import net.minecraft.client.renderer.texture.IIconRegister;
+29: import net.minecraft.creativetab.CreativeTabs;
+30: import net.minecraft.entity.player.EntityPlayer;
+31: import net.minecraft.init.Blocks;
+32: import net.minecraft.init.Items;
+33: import net.minecraft.item.EnumAction;
+34: import net.minecraft.item.Item;
+35: import net.minecraft.item.ItemStack;
+36: import net.minecraft.potion.PotionEffect;
+37: import net.minecraft.util.IIcon;
+38: import net.minecraft.util.StatCollector;
+39: import net.minecraft.world.World;
+40: 
+41: public class ItemMyPotion
+42: extends Item {
+43:     private IIcon[] itemIcons = new IIcon[3];
+44:     private static String[] items = new String[]{"BottleofMire", "SinkingPotion", "HotChocolate", "ErrorPotion"};
+45: 
+46:     public ItemMyPotion() {
+47:         this.func_77625_d(16);
+48:         this.func_77627_a(true);
+49:         this.func_77655_b("Potion");
+50:         this.func_77637_a(MFQM.tabMFQM);
+51:     }
+52: 
+53:     public ItemStack func_77654_b(ItemStack item, World world, EntityPlayer player) {
+54:         if (!world.field_72995_K) {
+55:             if (item.func_77960_j() == 0) {
+56:                 player.func_70690_d(new PotionEffect(19, 200, 2, false));
+57:                 player.func_70690_d(new PotionEffect(17, 1200, 2, false));
+58:                 player.func_70690_d(new PotionEffect(9, 1200, 2, false));
+59:             }
+60:             if (item.func_77960_j() == 1) {
+61:                 player.func_70690_d(new PotionEffect(20, 200, 2, false));
+62:                 player.func_70690_d(new PotionEffect(17, 2400, 2, false));
+63:                 player.func_70690_d(new PotionEffect(9, 2400, 2, false));
+64:             }
+65:             if (item.func_77960_j() == 2) {
+66:                 player.func_71024_bL().func_75122_a(8, 1.0f);
+67:                 player.func_70690_d(new PotionEffect(10, 200, 0, false));
+68:             }
+69:             if (!player.field_71075_bZ.field_75098_d) {
+70:                 --item.field_77994_a;
+71:                 if (!player.field_71071_by.func_70441_a(new ItemStack(Items.field_151069_bo, 1, 0))) {
+72:                     player.func_71019_a(new ItemStack(Items.field_151069_bo, 1, 0), false);
+73:                 }
+74:             }
+75:         }
+76:         return item;
+77:     }
+78: 
+79:     public int func_77626_a(ItemStack item) {
+80:         return 32;
+81:     }
+82: 
+83:     public EnumAction func_77661_b(ItemStack item) {
+84:         return EnumAction.drink;
+85:     }
+86: 
+87:     public ItemStack func_77659_a(ItemStack item, World world, EntityPlayer player) {
+88:         player.func_71008_a(item, this.func_77626_a(item));
+89:         return item;
+90:     }
+91: 
+92:     public boolean func_77648_a(ItemStack item, EntityPlayer player, World world, int x, int y, int z, int p_77648_7_, float p_77648_8_, float p_77648_9_, float p_77648_10_) {
+93:         if (item.func_77960_j() != 1) {
+94:             return false;
+95:         }
+96:         if (world.func_147439_a(x, y, z) == Blocks.field_150328_O) {
+97:             if (this.checkCanSpawnMucusBlossom(world, x, y, z)) {
+98:                 this.spawnMucusBlossom(world, x, y, z);
+99:                 --item.field_77994_a;
+100:                 return true;
+101:             }
+102:             return false;
+103:         }
+104:         return false;
+105:     }
+106: 
+107:     @SideOnly(value=Side.CLIENT)
+108:     public void func_94581_a(IIconRegister iuconRegister) {
+109:         this.itemIcons[0] = iuconRegister.func_94245_a("morefunquicksandmod:potion_mud");
+110:         this.itemIcons[1] = iuconRegister.func_94245_a("morefunquicksandmod:potion_sinking");
+111:         this.itemIcons[2] = iuconRegister.func_94245_a("morefunquicksandmod:HotChocolate");
+112:     }
+113: 
+114:     public String func_77667_c(ItemStack itemStack) {
+115:         int meta = itemStack.func_77960_j();
+116:         if (meta < 0 || meta >= items.length) {
+117:             meta = 3;
+118:         }
+119:         return super.func_77658_a() + "." + items[meta];
+120:     }
+121: 
+122:     @SideOnly(value=Side.CLIENT)
+123:     public void func_150895_a(Item item, CreativeTabs creativeTabs, List list) {
+124:         list.add(new ItemStack(item, 1, 0));
+125:         list.add(new ItemStack(item, 1, 1));
+126:         list.add(new ItemStack(item, 1, 2));
+127:     }
+128: 
+129:     @SideOnly(value=Side.CLIENT)
+130:     public IIcon func_77617_a(int par1) {
+131:         return this.itemIcons[Math.min(par1, 2)];
+132:     }
+133: 
+134:     public void func_77624_a(ItemStack item, EntityPlayer player, List list, boolean bool) {
+135:         int meta = item.func_77960_j();
+136:         if (meta == 1) {
+137:             list.add(StatCollector.func_74838_a((String)"itemSinkingPotion.Text"));
+138:         }
+139:         if (meta == 2) {
+140:             list.add(StatCollector.func_74838_a((String)"itemHotChocolate.Text"));
+141:         }
+142:     }
+143: 
+144:     public boolean checkCanSpawnMucusBlossom(World world, int x, int y, int z) {
+145:         if (y < 3) {
+146:             return false;
+147:         }
+148:         return this.validMaterial(x, y - 1, z, world) && this.validMaterial(x + 1, y - 1, z, world) && this.validMaterial(x - 1, y - 1, z, world) && this.validMaterial(x, y - 1, z - 1, world) && this.validMaterial(x, y - 1, z + 1, world) && this.validMaterial(x, y - 2, z, world);
+149:     }
+150: 
+151:     public void spawnMucusBlossom(World world, int x, int y, int z) {
+152:         world.func_147465_d(x, y, z, MFQM.BlossomSlabBlock, 5, 2);
+153:         world.func_147465_d(x, y - 1, z, MFQM.BlossomBlock, 11, 2);
+154:         world.func_147465_d(x + 1, y - 1, z, MFQM.BlossomBlock, 1, 2);
+155:         world.func_147465_d(x - 1, y - 1, z, MFQM.BlossomBlock, 1, 2);
+156:         world.func_147465_d(x, y - 1, z - 1, MFQM.BlossomBlock, 1, 2);
+157:         world.func_147465_d(x, y - 1, z + 1, MFQM.BlossomBlock, 1, 2);
+158:         world.func_147465_d(x, y - 2, z, MFQM.BlossomBlock, 1, 2);
+159:         world.func_72908_a((double)x, (double)y, (double)z, "dig.grass", 0.5f, world.field_73012_v.nextFloat() * 0.1f + 0.1f);
+160:         world.func_72908_a((double)x, (double)y, (double)z, "dig.grass", 0.5f, world.field_73012_v.nextFloat() * 0.1f + 0.1f);
+161:         world.func_72908_a((double)x, (double)y, (double)z, "step.grass", 0.25f, world.field_73012_v.nextFloat() * 0.1f + 0.1f);
+162:         world.func_72908_a((double)x, (double)y, (double)z, "step.grass", 0.25f, world.field_73012_v.nextFloat() * 0.1f + 0.1f);
+163:         world.func_72908_a((double)x, (double)y, (double)z, "step.grass", 0.25f, world.field_73012_v.nextFloat() * 0.1f + 0.1f);
+164:     }
+165: 
+166:     private boolean validMaterial(int x, int y, int z, World world) {
+167:         if (world.func_147439_a(x, y, z) == null) {
+168:             return true;
+169:         }
+170:         if (world.func_147439_a(x, y, z) == Blocks.field_150350_a) {
+171:             return true;
+172:         }
+173:         if (world.func_147439_a(x, y, z).func_149688_o().func_76224_d() || world.func_147439_a(x, y, z).func_149688_o().func_76222_j()) {
+174:             return true;
+175:         }
+176:         return world.func_147439_a(x, y, z).func_149688_o() == Material.field_151582_l || world.func_147439_a(x, y, z).func_149688_o() == Material.field_151585_k || world.func_147439_a(x, y, z).func_149688_o() == Material.field_151584_j || world.func_147439_a(x, y, z).func_149688_o() == Material.field_151577_b || world.func_147439_a(x, y, z).func_149688_o() == Material.field_151578_c || world.func_147439_a(x, y, z).func_149688_o() == Material.field_151595_p;
+177:     }
+178: }
+179: 

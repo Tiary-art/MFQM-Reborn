@@ -1,0 +1,231 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.block.Block
+8:  *  net.minecraft.block.material.Material
+9:  *  net.minecraft.client.renderer.texture.IIconRegister
+10:  *  net.minecraft.creativetab.CreativeTabs
+11:  *  net.minecraft.enchantment.EnchantmentHelper
+12:  *  net.minecraft.entity.Entity
+13:  *  net.minecraft.entity.EntityLivingBase
+14:  *  net.minecraft.entity.player.EntityPlayer
+15:  *  net.minecraft.entity.player.InventoryPlayer
+16:  *  net.minecraft.item.Item
+17:  *  net.minecraft.item.ItemStack
+18:  *  net.minecraft.util.AxisAlignedBB
+19:  *  net.minecraft.util.IIcon
+20:  *  net.minecraft.world.IBlockAccess
+21:  *  net.minecraft.world.World
+22:  *  net.minecraftforge.common.ForgeHooks
+23:  *  net.minecraftforge.common.util.ForgeDirection
+24:  */
+25: package MoreFunQuicksandMod.main.blocks;
+26: 
+27: import MoreFunQuicksandMod.main.MFQM;
+28: import cpw.mods.fml.relauncher.Side;
+29: import cpw.mods.fml.relauncher.SideOnly;
+30: import java.util.List;
+31: import java.util.Random;
+32: import net.minecraft.block.Block;
+33: import net.minecraft.block.material.Material;
+34: import net.minecraft.client.renderer.texture.IIconRegister;
+35: import net.minecraft.creativetab.CreativeTabs;
+36: import net.minecraft.enchantment.EnchantmentHelper;
+37: import net.minecraft.entity.Entity;
+38: import net.minecraft.entity.EntityLivingBase;
+39: import net.minecraft.entity.player.EntityPlayer;
+40: import net.minecraft.entity.player.InventoryPlayer;
+41: import net.minecraft.item.Item;
+42: import net.minecraft.item.ItemStack;
+43: import net.minecraft.util.AxisAlignedBB;
+44: import net.minecraft.util.IIcon;
+45: import net.minecraft.world.IBlockAccess;
+46: import net.minecraft.world.World;
+47: import net.minecraftforge.common.ForgeHooks;
+48: import net.minecraftforge.common.util.ForgeDirection;
+49: 
+50: public class BlockBlossomSlab
+51: extends Block {
+52:     @SideOnly(value=Side.CLIENT)
+53:     private IIcon[] IIconMArray;
+54: 
+55:     public BlockBlossomSlab() {
+56:         super(Material.field_151583_m);
+57:         this.func_149711_c(1.8f);
+58:         this.func_149672_a(Block.field_149779_h);
+59:         this.func_149663_c("BlossomBlockSlab");
+60:         this.func_149647_a(MFQM.tabMFQM);
+61:         this.field_149787_q = false;
+62:         this.func_149713_g(0);
+63:     }
+64: 
+65:     public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
+66:         return false;
+67:     }
+68: 
+69:     public boolean func_149662_c() {
+70:         return false;
+71:     }
+72: 
+73:     public boolean func_149721_r() {
+74:         return false;
+75:     }
+76: 
+77:     @SideOnly(value=Side.CLIENT)
+78:     public void func_149666_a(Item block, CreativeTabs creativeTabs, List list) {
+79:         list.add(new ItemStack(block, 1, 0));
+80:         list.add(new ItemStack(block, 1, 1));
+81:         list.add(new ItemStack(block, 1, 2));
+82:         list.add(new ItemStack(block, 1, 3));
+83:         list.add(new ItemStack(block, 1, 4));
+84:         list.add(new ItemStack(block, 1, 5));
+85:     }
+86: 
+87:     public void func_149670_a(World world, int x, int y, int z, Entity entity) {
+88:         int meta = world.func_72805_g(x, y, z);
+89:         if (entity instanceof EntityPlayer) {
+90:             InventoryPlayer inventory = ((EntityPlayer)entity).field_71071_by;
+91:             if (inventory.field_70460_b[0] != null && inventory.field_70460_b[0].func_77973_b() == Item.func_150899_d((int)MFQM.BootsID)) {
+92:                 return;
+93:             }
+94:         }
+95:         switch (meta) {
+96:             case 1: {
+97:                 entity.field_70179_y = -0.15;
+98:                 break;
+99:             }
+100:             case 2: {
+101:                 entity.field_70159_w = 0.15;
+102:                 break;
+103:             }
+104:             case 3: {
+105:                 entity.field_70179_y = 0.15;
+106:                 break;
+107:             }
+108:             case 4: {
+109:                 entity.field_70159_w = -0.15;
+110:                 break;
+111:             }
+112:         }
+113:     }
+114: 
+115:     public AxisAlignedBB func_149668_a(World world, int par2, int par3, int par4) {
+116:         int mtd = world.func_72805_g(par2, par3, par4);
+117:         float f1 = 0.0f;
+118:         float f2 = 0.0f;
+119:         if (mtd == 0) {
+120:             f1 = 0.5f;
+121:             f2 = 0.0f;
+122:         } else {
+123:             f1 = 0.0f;
+124:             f2 = 0.5f;
+125:         }
+126:         return AxisAlignedBB.func_72330_a((double)par2, (double)((float)(par3 + 1) - f1), (double)par4, (double)(par2 + 1), (double)((float)(par3 + 1) - f2), (double)(par4 + 1));
+127:     }
+128: 
+129:     public void func_149719_a(IBlockAccess par1IBlockAccess, int x, int y, int z) {
+130:         int mtd = par1IBlockAccess.func_72805_g(x, y, z);
+131:         float f1 = 0.0f;
+132:         float f2 = 0.0f;
+133:         if (mtd == 0) {
+134:             f1 = 0.5f;
+135:             f2 = 0.0f;
+136:         } else {
+137:             f1 = 0.0f;
+138:             f2 = 0.5f;
+139:         }
+140:         this.func_149676_a(0.0f, 0.0f + f1, 0.0f, 1.0f, 1.0f - f2, 1.0f);
+141:     }
+142: 
+143:     public void func_149683_g() {
+144:         this.func_149676_a(0.0f, 0.0f, 0.0f, 1.0f, 0.5f, 1.0f);
+145:     }
+146: 
+147:     @SideOnly(value=Side.CLIENT)
+148:     public IIcon func_149691_a(int par1, int par2) {
+149:         switch (par2) {
+150:             case 0: {
+151:                 if (par1 == 1 || par1 == 0) {
+152:                     return this.IIconMArray[0];
+153:                 }
+154:                 return this.IIconMArray[1];
+155:             }
+156:             case 1: 
+157:             case 2: 
+158:             case 3: 
+159:             case 4: {
+160:                 if (par1 == 1) {
+161:                     return this.IIconMArray[2];
+162:                 }
+163:                 if (par1 == 0) {
+164:                     return this.IIconMArray[0];
+165:                 }
+166:                 if (par1 != 1) {
+167:                     return this.IIconMArray[3];
+168:                 }
+169:             }
+170:             case 5: {
+171:                 if (par1 == 1) {
+172:                     return this.IIconMArray[2];
+173:                 }
+174:                 if (par1 == 0) {
+175:                     return this.IIconMArray[0];
+176:                 }
+177:                 if (par1 == 1) break;
+178:                 return this.IIconMArray[4];
+179:             }
+180:         }
+181:         return this.IIconMArray[0];
+182:     }
+183: 
+184:     protected boolean func_149700_E() {
+185:         return true;
+186:     }
+187: 
+188:     public void func_149636_a(World world, EntityPlayer entityPlayer, int x, int y, int z, int par6) {
+189:         if (EnchantmentHelper.func_77502_d((EntityLivingBase)entityPlayer)) {
+190:             MFQM.dropItem(world, x, y, z, new ItemStack((Block)this, 1, par6));
+191:             world.func_147471_g(x, y, z);
+192:             return;
+193:         }
+194:         super.func_149636_a(world, entityPlayer, x, y, z, par6);
+195:     }
+196: 
+197:     public float func_149737_a(EntityPlayer par1EntityPlayer, World par2World, int par3, int par4, int par5) {
+198:         if (!par1EntityPlayer.field_70122_E) {
+199:             return -1.0f;
+200:         }
+201:         float f = this.func_149712_f(par2World, par3, par4, par5);
+202:         return ForgeHooks.blockStrength((Block)this, (EntityPlayer)par1EntityPlayer, (World)par2World, (int)par3, (int)par4, (int)par5);
+203:     }
+204: 
+205:     public boolean canHarvestBlock(EntityPlayer player, int meta) {
+206:         return true;
+207:     }
+208: 
+209:     public Item func_149650_a(int par1, Random par2Random, int par3) {
+210:         return null;
+211:     }
+212: 
+213:     public int func_149745_a(Random random) {
+214:         return 1;
+215:     }
+216: 
+217:     @SideOnly(value=Side.CLIENT)
+218:     public void func_149651_a(IIconRegister par1) {
+219:         this.IIconMArray = new IIcon[5];
+220:         this.IIconMArray[0] = par1.func_94245_a("morefunquicksandmod:Blossom3");
+221:         this.IIconMArray[1] = par1.func_94245_a("morefunquicksandmod:Blossom2");
+222:         this.IIconMArray[2] = par1.func_94245_a("morefunquicksandmod:Blossom0");
+223:         this.IIconMArray[3] = par1.func_94245_a("morefunquicksandmod:Blossom1");
+224:         this.IIconMArray[4] = par1.func_94245_a("morefunquicksandmod:Blossom7");
+225:     }
+226: 
+227:     public int func_149643_k(World par1World, int par2, int par3, int par4) {
+228:         return par1World.func_72805_g(par2, par3, par4);
+229:     }
+230: }
+231: 

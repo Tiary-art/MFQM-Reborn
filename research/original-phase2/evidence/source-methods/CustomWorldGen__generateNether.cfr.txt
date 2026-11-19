@@ -1,0 +1,247 @@
+// CFR0.152; original decompiler line 8869; NOT original source; inspect **/goto artifacts if present.
+    private void generateNether(World world, Random random, int chunkX, int chunkZ) {
+        this.T_BoP = MFQM.BoP;
+        if (MFQM.PBoP && MFQM.BoP && (world.func_72912_H().func_76067_t() == WorldType.field_77135_d || world.func_72912_H().func_76067_t() == WorldType.field_77137_b)) {
+            this.T_BoP = false;
+        }
+        firstBlockXCoord = chunkX + random.nextInt(16);
+        firstBlockYCoord = 96;
+        firstBlockZCoord = chunkZ + random.nextInt(16);
+        biomegenbase = world.func_72807_a(firstBlockXCoord, firstBlockZCoord);
+        biomeId = biomegenbase.field_76756_M;
+        blockGen = false;
+        if (MFQM.GenTar) {
+            trType = 0;
+            tarP1 = 0;
+            tarP2 = 0;
+            tarPU = 0;
+            trrType = trType = this.getTarCount(biomeId);
+            if (MFQM.BoP && trType == 0) {
+                trType = this.isTarBiomeIsNear(chunkX + 8, 64, chunkZ + 8, world);
+            }
+            switch (trType) {
+                case 4: {
+                    tarP1 = 1;
+                    tarP2 = 3;
+                    tarPU = 3;
+                    break;
+                }
+                default: {
+                    tarP1 = 8;
+                    tarP2 = 5;
+                    tarPU = 5;
+                }
+            }
+            if (random.nextInt(tarP1) == 0 && random.nextInt(tarP2) == 0) {
+                var5 = chunkX + random.nextInt(16) + 8;
+                var6 = random.nextInt(128);
+                var7 = chunkZ + random.nextInt(16) + 8;
+                new CustomWorldGenLakes(MFQM.TarBlock).generate(world, random, var5, var6, var7, 0);
+                blockGen = true;
+            }
+        }
+        if (MFQM.GenCSand && !blockGen) {
+            dT = this.getCSandsType(biomeId);
+            canGen = false;
+            genCount = 0;
+            genPos = 0;
+            genRad = 0;
+            genRadP = 0;
+            rad = 0;
+            switch (dT) {
+                case 1: {
+                    genCount = 20 + random.nextInt(20);
+                    genRad = 7;
+                    genRadP = 7;
+                    genPos = 5;
+                    break;
+                }
+                case 0: {
+                    genCount = 10 + random.nextInt(10);
+                    genRad = 7;
+                    genRadP = 7;
+                    genPos = 5;
+                }
+            }
+            if (random.nextInt(genPos) == 0) {
+                for (i = 0; i < genCount; ++i) {
+                    firstBlockXCoord = chunkX + random.nextInt(16);
+                    firstBlockZCoord = chunkZ + random.nextInt(16);
+                    rad = genRad + random.nextInt(genRadP);
+                    countBlock = 0;
+                    canGen = false;
+                    for (firstBlockYCoord = 30 + random.nextInt(98); firstBlockYCoord > 30; --firstBlockYCoord) {
+                        if (this.validCSMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) && !this.validLavaMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                            if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                canGen = true;
+                                break;
+                            }
+                            ++countBlock;
+                        }
+                        if (countBlock > 50) break;
+                    }
+                    if (!canGen || !this.genIsFlat(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world) || !this.genIsFlat(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad, world)) continue;
+                    this.generateMire(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random, Material.field_151595_p, MFQM.CSandBlock);
+                    blockGen = true;
+                }
+            }
+        }
+        if ((MFQM.GenMeatS || MFQM.GenMeat || MFQM.GenMeatAss) && !blockGen) {
+            dT = this.getBloodType(biomeId);
+            canGen = false;
+            genCount = 0;
+            genPos = 0;
+            genRad = 0;
+            genRadP = 0;
+            rad = 0;
+            switch (dT) {
+                case 1: {
+                    genCount = 40 + random.nextInt(20);
+                    genRad = 10;
+                    genRadP = 7;
+                    genPos = 4;
+                    break;
+                }
+                case 0: {
+                    genCount = 30 + random.nextInt(10);
+                    genRad = 10;
+                    genRadP = 7;
+                    genPos = 50;
+                }
+            }
+            if (dT == 0 && this.T_BoP) {
+                genPos *= 100;
+            }
+            if (!this.T_BoP) {
+                POX = (double)chunkX / 20.0;
+                POZ = (double)chunkZ / 20.0;
+                srfX = 1.1 * Math.sin(POX * 0.2623) + 3.2 * Math.sin(POX * 0.9006);
+                if (random.nextInt((int)Math.floor(Math.max(Math.abs(srfX * 10.0 + (srfZ = 1.1 * Math.sin(POZ * 0.7623) - 3.0 * Math.cos(POZ * 0.2006) + 2.0 * Math.sin(POX * 0.0106)) * 10.0), 1.0))) == 0) {
+                    genPos = 1;
+                }
+            }
+            genHole = false;
+            if (random.nextInt(genPos) == 0) {
+                if (MFQM.GenMeatS) {
+                    for (i = 0; i < genCount; ++i) {
+                        firstBlockXCoord = chunkX + random.nextInt(16);
+                        firstBlockZCoord = chunkZ + random.nextInt(16);
+                        rad = genRad + random.nextInt(genRadP);
+                        countBlock = 0;
+                        canGen = false;
+                        for (firstBlockYCoord = 40 + random.nextInt(98); firstBlockYCoord > 40; --firstBlockYCoord) {
+                            if ((this.validBloodMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) || this.validVoreMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                                if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                    canGen = true;
+                                    break;
+                                }
+                                ++countBlock;
+                            }
+                            if (countBlock > 50) break;
+                        }
+                        if (!canGen) continue;
+                        this.generateBlood(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad * 2, world, random, Material.field_151568_F);
+                        this.generateBlood(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad * 2, world, random, Material.field_151568_F);
+                        this.generateBlood(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad * 2, world, random, Material.field_151568_F);
+                        if (MFQM.GenMeat && random.nextInt(5) == 0 || !MFQM.GenMeat) {
+                            if (!this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad + 1, world) || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad + 1, world)) continue;
+                            this.generateMire2(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random, Material.field_151568_F, MFQM.SwFleshBlock);
+                            this.generateTendrils(firstBlockXCoord, firstBlockYCoord + 5, firstBlockZCoord, rad * 2, world, random);
+                            genHole = false;
+                            blockGen = true;
+                            continue;
+                        }
+                        genHole = true;
+                    }
+                }
+                if (MFQM.GenMeat) {
+                    blockGen2 = false;
+                    ** if (!genHole) goto lbl155
+                    for (i = 0; i < genCount * 2 && !blockGen2; ++i) {
+                        firstBlockXCoord = chunkX + random.nextInt(12) + 2;
+                        firstBlockZCoord = chunkZ + random.nextInt(12) + 2;
+                        rad = genRad + random.nextInt(genRadP);
+                        countBlock = 0;
+                        canGen = false;
+                        for (firstBlockYCoord = 40 + random.nextInt(98); firstBlockYCoord > 40; --firstBlockYCoord) {
+                            if (this.validVoreMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) && !this.validLavaMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                                if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                    if (this.isVorePlace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                        canGen = true;
+                                        break;
+                                    }
+                                } else {
+                                    ++countBlock;
+                                }
+                            }
+                            if (countBlock > 50) break;
+                        }
+                        if (!canGen || !this.genIsFlatVore(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, 6, world)) continue;
+                        this.generateVore(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world, random);
+                        blockGen2 = true;
+lbl-1000:
+                        // 2 sources
+
+                        {
+                            continue;
+                        }
+                    }
+                }
+lbl155:
+                // 4 sources
+
+                if (MFQM.GenMeatAss) {
+                    assGen = 0;
+                    BlockYCoord = 0;
+                    BlockXCoord = 0;
+                    BlockZCoord = 0;
+                    realGen = genCount / 4;
+                    if (random.nextInt(genPos + 5) == 0) {
+                        for (i = 0; i < genCount * 40 && realGen > 0; ++i) {
+                            if (BlockYCoord == 0) {
+                                firstBlockYCoord = 20 + random.nextInt(30);
+                                firstBlockXCoord = chunkX + random.nextInt(16);
+                                firstBlockZCoord = chunkZ + random.nextInt(16);
+                            } else {
+                                firstBlockYCoord = BlockYCoord + 1;
+                                firstBlockXCoord = BlockXCoord + random.nextInt(11) - 5;
+                                firstBlockZCoord = BlockZCoord + random.nextInt(11) - 5;
+                            }
+                            rad = genRad - 2 + random.nextInt(genRadP);
+                            countBlock = 0;
+                            canGen = false;
+                            while (firstBlockYCoord > 30) {
+                                if ((this.validBloodMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) || this.validVoreMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) || this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) && world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) != MFQM.AcidBlock && world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord).func_149688_o() != Material.field_151587_i) && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world) && !CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                                    if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                        canGen = true;
+                                        break;
+                                    }
+                                    ++countBlock;
+                                }
+                                if (countBlock > 50 || BlockYCoord != 0 && firstBlockYCoord < BlockYCoord - 1) break;
+                                --firstBlockYCoord;
+                            }
+                            if (!canGen) continue;
+                            if ((assGen -= this.ClearArea2(firstBlockXCoord + random.nextInt(9) - 4, firstBlockYCoord + 1, firstBlockZCoord + random.nextInt(9) - 4, rad + 1, world, random)) < 0) {
+                                assGen = 0;
+                            }
+                            this.generateBlood2(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad + 5, world, random);
+                            this.generateBlood2(firstBlockXCoord, firstBlockYCoord + 2, firstBlockZCoord, rad + 5, world, random);
+                            this.generateBlood2(firstBlockXCoord, firstBlockYCoord + 3, firstBlockZCoord, rad + 5, world, random);
+                            if (!this.genIsFlatSlurry(firstBlockXCoord += random.nextInt(9) - 4, firstBlockYCoord, firstBlockZCoord += random.nextInt(9) - 4, rad + 1, world) || !this.genIsFlatSlurry(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad + 1, world)) continue;
+                            this.generateMud2(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, (int)Math.floor((double)rad * 1.75), world, random);
+                            this.generateSlurry(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random);
+                            BlockYCoord = firstBlockYCoord;
+                            BlockZCoord = firstBlockZCoord;
+                            BlockXCoord = firstBlockXCoord;
+                            if (random.nextInt(assGen * 2 + 1) == 0 && this.generateAss(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, 5 + random.nextInt(5), world, random)) {
+                                ++assGen;
+                            }
+                            --realGen;
+                            blockGen = true;
+                        }
+                    }
+                }
+            }
+        }
+    }

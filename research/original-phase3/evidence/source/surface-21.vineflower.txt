@@ -1,0 +1,104 @@
+// Decompiled inference, NOT original source; semantic closure PARTIAL
+      if (MFQM.GenBog && !blockGen) {
+         int swD = this.getSwampDifficult(biomeId);
+         int swType = this.getSwampType(biomeId);
+         int BogP = 0;
+         int genCountx = 0;
+         int genRad = 0;
+         int genRadP = 0;
+         if ((swD == 1 || biomeId == MFQM.SwampBiomes[0] || biomeId == MFQM.SwampBiomes[11]) & swType != 1 && this.T_BoP
+            || biomegenbase instanceof BiomeGenSwamp && !this.T_BoP) {
+            byte var154;
+            byte var231;
+            byte var266;
+            switch (swD) {
+               case 1:
+                  var154 = 125;
+                  genCountx = 0;
+                  var231 = 10;
+                  var266 = 20;
+                  break;
+               case 2:
+                  var154 = 75;
+                  genCountx = random.nextInt(30) + 50;
+                  var231 = 10;
+                  var266 = 20;
+                  break;
+               default:
+                  var154 = 75;
+                  genCountx = random.nextInt(30) + 50;
+                  var231 = 10;
+                  var266 = 20;
+            }
+
+            if (this.T_BoP && biomeId == MFQM.SwampBiomes[0]) {
+               var154 = 12;
+            }
+
+            if (random.nextInt(var154) == 0) {
+               for (int ix = 0; ix < genCountx; ix++) {
+                  firstBlockXCoord = chunkX + random.nextInt(64) - 32;
+                  firstBlockYCoord = 62 + dHeight;
+                  firstBlockZCoord = chunkZ + random.nextInt(64) - 32;
+                  int radxx = var231 + random.nextInt(var266);
+                  int genTypex = 0;
+                  boolean canGenxxx = false;
+                  if (!canGenxxx
+                     && biomeId != MFQM.SwampBiomes[9]
+                     && this.validWaterMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)
+                     && isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                     canGenxxx = true;
+                     genTypex = 1;
+                  }
+
+                  if (!canGenxxx) {
+                     int countBlock = 0;
+
+                     for (firstBlockYCoord = 96 + dHeight; firstBlockYCoord > 60 + dHeight; firstBlockYCoord--) {
+                        if (this.validGroundMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)
+                           || world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) == MFQM.BogBlock) {
+                           if (!this.validWaterMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)
+                              && isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                              canGenxxx = true;
+                              genTypex = 0;
+                              break;
+                           }
+
+                           countBlock++;
+                        }
+
+                        if (countBlock > 10) {
+                           break;
+                        }
+                     }
+                  }
+
+                  if (canGenxxx) {
+                     if (genTypex == 0) {
+                        if (this.isWaterNear(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxx, world)) {
+                           this.generateBog(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxx, world, random, Material.field_151586_h);
+                           blockGen = true;
+                           if (random.nextInt(2) == 0) {
+                              this.generateMoorGrass(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, radxx, world, random, MFQM.BogBlock);
+                           }
+                        } else if (this.genIsFlatBog(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxx, world)
+                           && this.genIsFlatBog(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, radxx, world)) {
+                           this.generateBog(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxx, world, random, Material.field_151568_F);
+                           blockGen = true;
+                           if (random.nextInt(2) == 0) {
+                              this.generateMoorGrass(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, radxx, world, random, MFQM.BogBlock);
+                           }
+                        }
+                     } else if (biomeId == MFQM.SwampBiomes[0] || this.isGroundBogNear(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxx, world)) {
+                        this.generateBog(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxx, world, random, Material.field_151586_h);
+                        blockGen = true;
+                        if (random.nextInt(5) == 0) {
+                           this.generateMoorGrass(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, radxx, world, random, MFQM.BogBlock);
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+

@@ -1,0 +1,25 @@
+// CFR0.152; original decompiler line 582; NOT original source; inspect **/goto artifacts if present.
+    private boolean genIsHoneycombNear(int x, int y, int z, int r, World world) {
+        if (this.validHoneycombMaterial(x + (r /= 2), y - 1, z + r, world)) {
+            return true;
+        }
+        if (this.validHoneycombMaterial(x - r, y - 1, z + r, world)) {
+            return true;
+        }
+        if (this.validHoneycombMaterial(x + r, y - 1, z - r, world)) {
+            return true;
+        }
+        if (this.validHoneycombMaterial(x - r, y - 1, z - r, world)) {
+            return true;
+        }
+        if (this.validHoneycombMaterial(x - r, y - 1, z, world)) {
+            return true;
+        }
+        if (this.validHoneycombMaterial(x, y - 1, z - r, world)) {
+            return true;
+        }
+        if (this.validHoneycombMaterial(x + r, y - 1, z, world)) {
+            return true;
+        }
+        return this.validHoneycombMaterial(x, y - 1, z + r, world);
+    }

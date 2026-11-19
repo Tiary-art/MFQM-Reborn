@@ -1,0 +1,56 @@
+// CFR0.152; original decompiler line 1262; NOT original source; inspect **/goto artifacts if present.
+    private void generateMireO(int xx, int yy, int zz, int rad, World world, Random random, Material BlockMaterialToReplace, Block MireBlockId) {
+        int posz;
+        int posy;
+        int posx;
+        int e;
+        int j;
+        int i;
+        double rad_cof = Math.max((double)rad / 10.0, 1.0);
+        Block aBlock = null;
+        int aMeta = 0;
+        boolean aDetBlock = false;
+        double rax = random.nextDouble() + 0.5;
+        double raz = 1.0 - rax + 0.5 + 0.5;
+        for (i = 0; i <= rad; ++i) {
+            for (j = 0; j <= rad / 2; ++j) {
+                for (e = 0; e <= rad; ++e) {
+                    posx = xx + i - rad / 2;
+                    posy = yy - j;
+                    posz = zz + e - rad / 2;
+                    double dis = Math.sqrt(Math.pow(xx - posx, 2.0) * rax + Math.pow(yy - posy, 2.0) + Math.pow(zz - posz, 2.0) * raz);
+                    if (!(dis < (double)rad / 2.0 / (1.0 + Math.abs(rax - raz) / 3.0) + (random.nextDouble() * rad_cof - rad_cof / 2.0)) || BlockMaterialToReplace != Material.field_151568_F && world.func_147439_a(posx, posy, posz).func_149688_o() != BlockMaterialToReplace) continue;
+                    if (this.validPlantMaterial(posx, posy + 1, posz, world)) {
+                        world.func_147468_f(posx, posy + 1, posz);
+                    }
+                    if (this.validPlantMaterial(posx, posy + 2, posz, world)) {
+                        world.func_147468_f(posx, posy + 2, posz);
+                    }
+                    if (this.validPlantMaterial(posx, posy + 3, posz, world)) {
+                        world.func_147468_f(posx, posy + 3, posz);
+                    }
+                    if (!aDetBlock && (aBlock = world.func_147439_a(posx, posy, posz)) != null && aBlock.func_149688_o().func_76220_a() && aBlock.func_149662_c() && !aBlock.func_149688_o().func_76224_d() && !aBlock.func_149716_u()) {
+                        aMeta = world.func_72805_g(posx, posy, posz);
+                        aDetBlock = true;
+                    }
+                    if (j == 0 && !world.func_147439_a(posx, posy + 2, posz).func_149688_o().func_76224_d() && world.func_147439_a(posx, posy + 1, posz) != MireBlockId && world.func_147439_a(posx, posy + 1, posz).func_149688_o().func_76220_a()) {
+                        world.func_147468_f(posx, posy + 1, posz);
+                    }
+                    world.func_147449_b(posx, posy, posz, MireBlockId);
+                }
+            }
+        }
+        if (aDetBlock) {
+            for (i = -1; i <= rad + 1; ++i) {
+                for (j = -1; j <= rad / 2 + 2; ++j) {
+                    for (e = -1; e <= rad + 1; ++e) {
+                        posx = xx + i - rad / 2;
+                        posy = yy - j;
+                        posz = zz + e - rad / 2;
+                        if (world.func_147439_a(posx, posy, posz) == MireBlockId || this.validGroundMaterial(posx, posy, posz, world) || world.func_147439_a(posx - 1, posy, posz) != MireBlockId && world.func_147439_a(posx + 1, posy, posz) != MireBlockId && world.func_147439_a(posx, posy + 1, posz) != MireBlockId && world.func_147439_a(posx, posy, posz - 1) != MireBlockId && world.func_147439_a(posx, posy, posz + 1) != MireBlockId) continue;
+                        world.func_147465_d(posx, posy, posz, aBlock, aMeta, 0);
+                    }
+                }
+            }
+        }
+    }

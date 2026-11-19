@@ -1,0 +1,12 @@
+# Known gaps and integration gates
+
+- Overall PARTIAL. Only ordinary Quicksand's admitted **non-player Contact output subgraph** is automated. It is not a whole material physics port. Players and48 other registered IDs have no new automatic producer.
+- Player original posY/yOffset/pose and client-side isTrulySink ownership are not safely mapped to modern server authority. Diagnostic hold/contact on real clients is not player automatic material evidence.
+- Full original callback RNG stream, random suction/struggle, buoyancy/netY, stains, field-of-view source behavior, sound and special entities/dimensions remain unported. Static output-projection vectors are not native full-callback executions. The old selected helper probe is not1.7.10 gameplay.
+- Cross-version global collision order and spatial tolerances are not asserted identical. Current accepted requests preserve modern arrival order; mixed unsupported media reject automation. No profile fallback.
+- Direct arbitrary setPos without a teleport event and complete cross-mod lifecycle interactions remain gaps. Existing B1/B2 vertical protections, jump safety and network classes are preserved, not upgraded to original parity.
+- Real client tests used actual Minecraft JVMs over localhost/offline mode and server-issued test commands. Human walking/struggling, visual comfort and audible landing-sound judgment NOT_RUN. Null audio driver means no claim of hearing sound. Client telemetry is explicitly bounded to3600 client ticks; active dimension cleanup after that budget is server-observed, not invented client frames.
+- General Dry neighbor/drop behavior is not exhaustively restored. Four-loaded-chunk generation and a real falling-sand neighbor side effect are sampled, separately from core API events. Same-state vanilla write false remains a documented difference from the old mock's true.
+- Full Surface25 branches remain0/25 full scope. No natural Feature/PlacedFeature/BiomeModifier, biome distribution, old-save migration or structure work.
+- Original MFQM JAR/texture/audio not modified or republished; current Minecraft texture references are not MFQM original artwork. No AI-generated or repainted textures.
+- Production file reload still uses Forge's watcher. Test-only watcher isolation removes fixture interference; the operator stop latch protects rollback. It is not a claim that arbitrary rapid live config edit races throughout Forge have been fixed.

@@ -1,0 +1,15 @@
+// CFR0.152; original decompiler line 2315; NOT original source; inspect **/goto artifacts if present.
+    private void ClearArea3(int xx, int yy, int zz, int rad, World world, Random random) {
+        for (int i = 0; i <= rad; ++i) {
+            for (int j = 0; j <= 3; ++j) {
+                for (int e = 0; e <= rad; ++e) {
+                    int posx = xx + i - rad / 2;
+                    int posy = yy - j - 1;
+                    int posz = zz + e - rad / 2;
+                    double dis = Math.sqrt(Math.pow(xx - posx, 2.0) + Math.pow(yy - posy, 2.0) + Math.pow(zz - posz, 2.0));
+                    if (!(dis < (double)rad / 2.0)) continue;
+                    world.func_147468_f(posx, posy, posz);
+                }
+            }
+        }
+    }

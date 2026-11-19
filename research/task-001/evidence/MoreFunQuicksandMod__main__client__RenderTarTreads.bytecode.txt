@@ -1,0 +1,486 @@
+Archive: MoreFunQuicksandMod/main/client/RenderTarTreads.class
+SHA256: 5148f8069d50f45fa29b6c9201a6ce2b3fd8fa0d11a22f2cb8e55c04a0b8998d
+Superclass: net/minecraft/client/renderer/entity/Render
+Offsets are decimal byte offsets; branch operands are relative offsets.
+
+
+METHOD <init> ()V
+000000: aload_0 
+000001: invokespecial #15 net/minecraft/client/renderer/entity/Render.<init>:()V
+000004: return 
+
+METHOD doRenderTentacles (LMoreFunQuicksandMod/main/entity/EntityTarTreads;DDDFF)V
+000000: aload_1 
+000001: getfield #25 MoreFunQuicksandMod/main/entity/EntityTarTreads.target:Lnet/minecraft/entity/EntityLivingBase;
+000004: ifnonnull 4
+000007: return 
+000008: aload_1 
+000009: getfield #25 MoreFunQuicksandMod/main/entity/EntityTarTreads.target:Lnet/minecraft/entity/EntityLivingBase;
+000012: instanceof #27 net/minecraft/entity/EntityLivingBase
+000015: ifne 4
+000018: return 
+000019: aload_1 
+000020: getfield #25 MoreFunQuicksandMod/main/entity/EntityTarTreads.target:Lnet/minecraft/entity/EntityLivingBase;
+000023: getfield #31 net/minecraft/entity/EntityLivingBase.field_70128_L:Z
+000026: ifne 13
+000029: aload_1 
+000030: getfield #25 MoreFunQuicksandMod/main/entity/EntityTarTreads.target:Lnet/minecraft/entity/EntityLivingBase;
+000033: invokevirtual #35 net/minecraft/entity/EntityLivingBase.func_70089_S:()Z
+000036: ifne 4
+000039: return 
+000040: dconst_0 
+000041: dstore 10
+000043: dconst_0 
+000044: dstore 12
+000046: dconst_0 
+000047: dstore 14
+000049: getstatic #41 net/minecraft/client/renderer/Tessellator.field_78398_a:Lnet/minecraft/client/renderer/Tessellator;
+000052: astore 20
+000054: aload_1 
+000055: getfield #45 MoreFunQuicksandMod/main/entity/EntityTarTreads.field_70165_t:D
+000058: invokestatic #51 java/lang/Math.floor:(D)D
+000061: d2i 
+000062: istore 21
+000064: aload_1 
+000065: getfield #54 MoreFunQuicksandMod/main/entity/EntityTarTreads.field_70163_u:D
+000068: dconst_1 
+000069: dadd 
+000070: invokestatic #51 java/lang/Math.floor:(D)D
+000073: d2i 
+000074: istore 22
+000076: aload_1 
+000077: getfield #57 MoreFunQuicksandMod/main/entity/EntityTarTreads.field_70161_v:D
+000080: invokestatic #51 java/lang/Math.floor:(D)D
+000083: d2i 
+000084: istore 23
+000086: iload 21
+000088: i2d 
+000089: aload_1 
+000090: getfield #45 MoreFunQuicksandMod/main/entity/EntityTarTreads.field_70165_t:D
+000093: dsub 
+000094: dstore 24
+000096: iload 23
+000098: i2d 
+000099: aload_1 
+000100: getfield #57 MoreFunQuicksandMod/main/entity/EntityTarTreads.field_70161_v:D
+000103: dsub 
+000104: dstore 26
+000106: iconst_4 
+000107: getstatic #63 MoreFunQuicksandMod/main/MFQM.TarBlock:Lnet/minecraft/block/Block;
+000110: aload_1 
+000111: getfield #67 MoreFunQuicksandMod/main/entity/EntityTarTreads.field_70170_p:Lnet/minecraft/world/World;
+000114: iload 21
+000116: iload 22
+000118: iload 23
+000120: invokevirtual #73 net/minecraft/block/Block.func_149677_c:(Lnet/minecraft/world/IBlockAccess;III)I
+000123: imul 
+000124: i2f 
+000125: fstore 16
+000127: aload_1 
+000128: getfield #67 MoreFunQuicksandMod/main/entity/EntityTarTreads.field_70170_p:Lnet/minecraft/world/World;
+000131: iload 21
+000133: iload 22
+000135: iload 23
+000137: iconst_0 
+000138: invokevirtual #79 net/minecraft/world/World.func_72802_i:(IIII)I
+000141: istore 17
+000143: iload 17
+000145: ldc #80 65536
+000147: irem 
+000148: istore 18
+000150: iload 17
+000152: ldc #80 65536
+000154: idiv 
+000155: istore 19
+000157: aload_0 
+000158: aload_0 
+000159: aload_1 
+000160: invokevirtual #84 MoreFunQuicksandMod/main/client/RenderTarTreads.func_110775_a:(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/ResourceLocation;
+000163: invokevirtual #88 MoreFunQuicksandMod/main/client/RenderTarTreads.func_110776_a:(Lnet/minecraft/util/ResourceLocation;)V
+000166: invokestatic #93 org/lwjgl/opengl/GL11.glPushMatrix:()V
+000169: ldc #94 32826
+000171: invokestatic #98 org/lwjgl/opengl/GL11.glEnable:(I)V
+000174: getstatic #104 net/minecraft/client/renderer/OpenGlHelper.field_77476_b:I
+000177: iload 18
+000179: i2f 
+000180: iload 19
+000182: i2f 
+000183: invokestatic #108 net/minecraft/client/renderer/OpenGlHelper.func_77475_a:(IFF)V
+000186: aload 20
+000188: fload 16
+000190: fload 16
+000192: fload 16
+000194: invokevirtual #112 net/minecraft/client/renderer/Tessellator.func_78386_a:(FFF)V
+000197: aload_1 
+000198: getfield #45 MoreFunQuicksandMod/main/entity/EntityTarTreads.field_70165_t:D
+000201: dstore 28
+000203: aload_1 
+000204: getfield #54 MoreFunQuicksandMod/main/entity/EntityTarTreads.field_70163_u:D
+000207: dstore 30
+000209: aload_1 
+000210: getfield #57 MoreFunQuicksandMod/main/entity/EntityTarTreads.field_70161_v:D
+000213: dstore 32
+000215: aload_1 
+000216: getfield #25 MoreFunQuicksandMod/main/entity/EntityTarTreads.target:Lnet/minecraft/entity/EntityLivingBase;
+000219: getfield #113 net/minecraft/entity/EntityLivingBase.field_70165_t:D
+000222: aload_1 
+000223: getfield #116 MoreFunQuicksandMod/main/entity/EntityTarTreads.xs:D
+000226: aload_1 
+000227: getfield #25 MoreFunQuicksandMod/main/entity/EntityTarTreads.target:Lnet/minecraft/entity/EntityLivingBase;
+000230: getfield #120 net/minecraft/entity/EntityLivingBase.field_70130_N:F
+000233: f2d 
+000234: dmul 
+000235: dadd 
+000236: dstore 34
+000238: aload_1 
+000239: getfield #25 MoreFunQuicksandMod/main/entity/EntityTarTreads.target:Lnet/minecraft/entity/EntityLivingBase;
+000242: getfield #124 net/minecraft/entity/EntityLivingBase.field_70121_D:Lnet/minecraft/util/AxisAlignedBB;
+000245: getfield #129 net/minecraft/util/AxisAlignedBB.field_72338_b:D
+000248: aload_1 
+000249: getfield #25 MoreFunQuicksandMod/main/entity/EntityTarTreads.target:Lnet/minecraft/entity/EntityLivingBase;
+000252: getfield #132 net/minecraft/entity/EntityLivingBase.field_70131_O:F
+000255: f2d 
+000256: aload_1 
+000257: getfield #135 MoreFunQuicksandMod/main/entity/EntityTarTreads.hgrab:D
+000260: dmul 
+000261: dadd 
+000262: dstore 36
+000264: aload_1 
+000265: getfield #25 MoreFunQuicksandMod/main/entity/EntityTarTreads.target:Lnet/minecraft/entity/EntityLivingBase;
+000268: getfield #136 net/minecraft/entity/EntityLivingBase.field_70161_v:D
+000271: aload_1 
+000272: getfield #139 MoreFunQuicksandMod/main/entity/EntityTarTreads.zs:D
+000275: aload_1 
+000276: getfield #25 MoreFunQuicksandMod/main/entity/EntityTarTreads.target:Lnet/minecraft/entity/EntityLivingBase;
+000279: getfield #120 net/minecraft/entity/EntityLivingBase.field_70130_N:F
+000282: f2d 
+000283: dmul 
+000284: dadd 
+000285: dstore 38
+000287: dload 34
+000289: dload 28
+000291: dsub 
+000292: dload 36
+000294: dload 30
+000296: dsub 
+000297: dload 38
+000299: dload 32
+000301: dsub 
+000302: invokestatic #145 net/minecraft/util/Vec3.func_72443_a:(DDD)Lnet/minecraft/util/Vec3;
+000305: astore 40
+000307: aload 40
+000309: getfield #148 net/minecraft/util/Vec3.field_72450_a:D
+000312: ldc2_w #149 2.0
+000315: invokestatic #154 java/lang/Math.pow:(DD)D
+000318: aload 40
+000320: getfield #157 net/minecraft/util/Vec3.field_72448_b:D
+000323: ldc2_w #149 2.0
+000326: invokestatic #154 java/lang/Math.pow:(DD)D
+000329: dadd 
+000330: aload 40
+000332: getfield #160 net/minecraft/util/Vec3.field_72449_c:D
+000335: ldc2_w #149 2.0
+000338: invokestatic #154 java/lang/Math.pow:(DD)D
+000341: dadd 
+000342: invokestatic #163 java/lang/Math.sqrt:(D)D
+000345: dstore 41
+000347: aload 40
+000349: invokevirtual #167 net/minecraft/util/Vec3.func_72432_b:()Lnet/minecraft/util/Vec3;
+000352: astore 40
+000354: aload_1 
+000355: getfield #170 MoreFunQuicksandMod/main/entity/EntityTarTreads.rsize:D
+000358: dconst_1 
+000359: dload 41
+000361: ldc2_w #171 10.0
+000364: ddiv 
+000365: dadd 
+000366: ddiv 
+000367: dstore 43
+000369: aload 40
+000371: getfield #148 net/minecraft/util/Vec3.field_72450_a:D
+000374: dneg 
+000375: dstore 45
+000377: aload 40
+000379: getfield #157 net/minecraft/util/Vec3.field_72448_b:D
+000382: dneg 
+000383: dstore 47
+000385: aload 40
+000387: getfield #160 net/minecraft/util/Vec3.field_72449_c:D
+000390: dneg 
+000391: dstore 49
+000393: ldc2_w #173 57.29577951308232
+000396: dstore 51
+000398: dload 47
+000400: dload 45
+000402: dload 45
+000404: dmul 
+000405: dload 49
+000407: dload 49
+000409: dmul 
+000410: dadd 
+000411: invokestatic #163 java/lang/Math.sqrt:(D)D
+000414: invokestatic #177 java/lang/Math.atan2:(DD)D
+000417: dload 51
+000419: dmul 
+000420: dstore 53
+000422: dload 45
+000424: dload 49
+000426: invokestatic #177 java/lang/Math.atan2:(DD)D
+000429: dload 51
+000431: dmul 
+000432: ldc2_w #178 180.0
+000435: dadd 
+000436: dneg 
+000437: dstore 55
+000439: dload_2 
+000440: d2f 
+000441: dload 4
+000443: d2f 
+000444: dload 6
+000446: d2f 
+000447: invokestatic #182 org/lwjgl/opengl/GL11.glTranslatef:(FFF)V
+000450: dload 55
+000452: dneg 
+000453: d2f 
+000454: fconst_0 
+000455: fconst_1 
+000456: fconst_0 
+000457: invokestatic #186 org/lwjgl/opengl/GL11.glRotatef:(FFFF)V
+000460: dload 53
+000462: d2f 
+000463: ldc #187 90.0
+000465: fadd 
+000466: fconst_1 
+000467: fconst_0 
+000468: fconst_0 
+000469: invokestatic #186 org/lwjgl/opengl/GL11.glRotatef:(FFFF)V
+000472: aload_0 
+000473: aload 20
+000475: dload 43
+000477: dload 43
+000479: dneg 
+000480: dconst_0 
+000481: dload 43
+000483: dneg 
+000484: dload 41
+000486: invokevirtual #191 MoreFunQuicksandMod/main/client/RenderTarTreads.drawCrossedSquares:(Lnet/minecraft/client/renderer/Tessellator;DDDDD)V
+000489: ldc #94 32826
+000491: invokestatic #194 org/lwjgl/opengl/GL11.glDisable:(I)V
+000494: invokestatic #197 org/lwjgl/opengl/GL11.glPopMatrix:()V
+000497: return 
+
+METHOD drawCrossedSquares (Lnet/minecraft/client/renderer/Tessellator;DDDDD)V
+000000: dconst_0 
+000001: dstore 12
+000003: dconst_0 
+000004: dstore 14
+000006: dconst_1 
+000007: dstore 16
+000009: dconst_1 
+000010: dstore 18
+000012: dload_2 
+000013: dstore 20
+000015: dload 4
+000017: dload_2 
+000018: dadd 
+000019: dload 20
+000021: dsub 
+000022: dstore 22
+000024: dload 4
+000026: dload_2 
+000027: dadd 
+000028: dload 20
+000030: dadd 
+000031: dstore 24
+000033: dload 8
+000035: dload_2 
+000036: dadd 
+000037: dload 20
+000039: dsub 
+000040: dstore 26
+000042: dload 8
+000044: dload_2 
+000045: dadd 
+000046: dload 20
+000048: dadd 
+000049: dstore 28
+000051: aload_1 
+000052: invokevirtual #236 net/minecraft/client/renderer/Tessellator.func_78382_b:()V
+000055: aload_1 
+000056: fconst_0 
+000057: fconst_1 
+000058: fconst_0 
+000059: invokevirtual #239 net/minecraft/client/renderer/Tessellator.func_78375_b:(FFF)V
+000062: aload_1 
+000063: dload 22
+000065: dload 6
+000067: dload 10
+000069: dadd 
+000070: dload 26
+000072: dload 12
+000074: dload 14
+000076: invokevirtual #243 net/minecraft/client/renderer/Tessellator.func_78374_a:(DDDDD)V
+000079: aload_1 
+000080: dload 22
+000082: dload 6
+000084: dconst_0 
+000085: dadd 
+000086: dload 26
+000088: dload 12
+000090: dload 18
+000092: invokevirtual #243 net/minecraft/client/renderer/Tessellator.func_78374_a:(DDDDD)V
+000095: aload_1 
+000096: dload 24
+000098: dload 6
+000100: dconst_0 
+000101: dadd 
+000102: dload 28
+000104: dload 16
+000106: dload 18
+000108: invokevirtual #243 net/minecraft/client/renderer/Tessellator.func_78374_a:(DDDDD)V
+000111: aload_1 
+000112: dload 24
+000114: dload 6
+000116: dload 10
+000118: dadd 
+000119: dload 28
+000121: dload 16
+000123: dload 14
+000125: invokevirtual #243 net/minecraft/client/renderer/Tessellator.func_78374_a:(DDDDD)V
+000128: aload_1 
+000129: dload 24
+000131: dload 6
+000133: dload 10
+000135: dadd 
+000136: dload 28
+000138: dload 12
+000140: dload 14
+000142: invokevirtual #243 net/minecraft/client/renderer/Tessellator.func_78374_a:(DDDDD)V
+000145: aload_1 
+000146: dload 24
+000148: dload 6
+000150: dconst_0 
+000151: dadd 
+000152: dload 28
+000154: dload 12
+000156: dload 18
+000158: invokevirtual #243 net/minecraft/client/renderer/Tessellator.func_78374_a:(DDDDD)V
+000161: aload_1 
+000162: dload 22
+000164: dload 6
+000166: dconst_0 
+000167: dadd 
+000168: dload 26
+000170: dload 16
+000172: dload 18
+000174: invokevirtual #243 net/minecraft/client/renderer/Tessellator.func_78374_a:(DDDDD)V
+000177: aload_1 
+000178: dload 22
+000180: dload 6
+000182: dload 10
+000184: dadd 
+000185: dload 26
+000187: dload 16
+000189: dload 14
+000191: invokevirtual #243 net/minecraft/client/renderer/Tessellator.func_78374_a:(DDDDD)V
+000194: aload_1 
+000195: dload 22
+000197: dload 6
+000199: dload 10
+000201: dadd 
+000202: dload 28
+000204: dload 12
+000206: dload 14
+000208: invokevirtual #243 net/minecraft/client/renderer/Tessellator.func_78374_a:(DDDDD)V
+000211: aload_1 
+000212: dload 22
+000214: dload 6
+000216: dconst_0 
+000217: dadd 
+000218: dload 28
+000220: dload 12
+000222: dload 18
+000224: invokevirtual #243 net/minecraft/client/renderer/Tessellator.func_78374_a:(DDDDD)V
+000227: aload_1 
+000228: dload 24
+000230: dload 6
+000232: dconst_0 
+000233: dadd 
+000234: dload 26
+000236: dload 16
+000238: dload 18
+000240: invokevirtual #243 net/minecraft/client/renderer/Tessellator.func_78374_a:(DDDDD)V
+000243: aload_1 
+000244: dload 24
+000246: dload 6
+000248: dload 10
+000250: dadd 
+000251: dload 26
+000253: dload 16
+000255: dload 14
+000257: invokevirtual #243 net/minecraft/client/renderer/Tessellator.func_78374_a:(DDDDD)V
+000260: aload_1 
+000261: dload 24
+000263: dload 6
+000265: dload 10
+000267: dadd 
+000268: dload 26
+000270: dload 12
+000272: dload 14
+000274: invokevirtual #243 net/minecraft/client/renderer/Tessellator.func_78374_a:(DDDDD)V
+000277: aload_1 
+000278: dload 24
+000280: dload 6
+000282: dconst_0 
+000283: dadd 
+000284: dload 26
+000286: dload 12
+000288: dload 18
+000290: invokevirtual #243 net/minecraft/client/renderer/Tessellator.func_78374_a:(DDDDD)V
+000293: aload_1 
+000294: dload 22
+000296: dload 6
+000298: dconst_0 
+000299: dadd 
+000300: dload 28
+000302: dload 16
+000304: dload 18
+000306: invokevirtual #243 net/minecraft/client/renderer/Tessellator.func_78374_a:(DDDDD)V
+000309: aload_1 
+000310: dload 22
+000312: dload 6
+000314: dload 10
+000316: dadd 
+000317: dload 28
+000319: dload 16
+000321: dload 14
+000323: invokevirtual #243 net/minecraft/client/renderer/Tessellator.func_78374_a:(DDDDD)V
+000326: aload_1 
+000327: invokevirtual #247 net/minecraft/client/renderer/Tessellator.func_78381_a:()I
+000330: pop 
+000331: return 
+
+METHOD func_110775_a (Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/ResourceLocation;
+000000: getstatic #262 MoreFunQuicksandMod/main/client/RenderTarTreads.TarTreads0:Lnet/minecraft/util/ResourceLocation;
+000003: areturn 
+
+METHOD func_76986_a (Lnet/minecraft/entity/Entity;DDDFF)V
+000000: aload_0 
+000001: aload_1 
+000002: checkcast #21 MoreFunQuicksandMod/main/entity/EntityTarTreads
+000005: dload_2 
+000006: dload 4
+000008: dload 6
+000010: fload 8
+000012: fload 9
+000014: invokevirtual #268 MoreFunQuicksandMod/main/client/RenderTarTreads.doRenderTentacles:(LMoreFunQuicksandMod/main/entity/EntityTarTreads;DDDFF)V
+000017: return 
+
+METHOD <clinit> ()V
+000000: new #271 net/minecraft/util/ResourceLocation
+000003: dup 
+000004: ldc_w #273 'morefunquicksandmod'
+000007: ldc_w #275 'textures/blocks/TarTread.png'
+000010: invokespecial #278 net/minecraft/util/ResourceLocation.<init>:(Ljava/lang/String;Ljava/lang/String;)V
+000013: putstatic #262 MoreFunQuicksandMod/main/client/RenderTarTreads.TarTreads0:Lnet/minecraft/util/ResourceLocation;
+000016: return 

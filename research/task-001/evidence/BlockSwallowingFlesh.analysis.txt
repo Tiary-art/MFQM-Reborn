@@ -1,0 +1,542 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.block.Block
+8:  *  net.minecraft.block.material.Material
+9:  *  net.minecraft.client.Minecraft
+10:  *  net.minecraft.client.renderer.texture.IIconRegister
+11:  *  net.minecraft.enchantment.EnchantmentHelper
+12:  *  net.minecraft.entity.Entity
+13:  *  net.minecraft.entity.EntityLivingBase
+14:  *  net.minecraft.entity.player.EntityPlayer
+15:  *  net.minecraft.init.Blocks
+16:  *  net.minecraft.item.Item
+17:  *  net.minecraft.item.ItemStack
+18:  *  net.minecraft.potion.Potion
+19:  *  net.minecraft.potion.PotionEffect
+20:  *  net.minecraft.util.AxisAlignedBB
+21:  *  net.minecraft.util.DamageSource
+22:  *  net.minecraft.util.IIcon
+23:  *  net.minecraft.world.Explosion
+24:  *  net.minecraft.world.IBlockAccess
+25:  *  net.minecraft.world.World
+26:  *  net.minecraftforge.common.ForgeHooks
+27:  *  net.minecraftforge.common.util.ForgeDirection
+28:  */
+29: package MoreFunQuicksandMod.main.blocks;
+30: 
+31: import MoreFunQuicksandMod.main.CustomVarPlayer;
+32: import MoreFunQuicksandMod.main.MFQM;
+33: import MoreFunQuicksandMod.main.entity.EntityTentacles;
+34: import cpw.mods.fml.relauncher.Side;
+35: import cpw.mods.fml.relauncher.SideOnly;
+36: import java.util.Random;
+37: import net.minecraft.block.Block;
+38: import net.minecraft.block.material.Material;
+39: import net.minecraft.client.Minecraft;
+40: import net.minecraft.client.renderer.texture.IIconRegister;
+41: import net.minecraft.enchantment.EnchantmentHelper;
+42: import net.minecraft.entity.Entity;
+43: import net.minecraft.entity.EntityLivingBase;
+44: import net.minecraft.entity.player.EntityPlayer;
+45: import net.minecraft.init.Blocks;
+46: import net.minecraft.item.Item;
+47: import net.minecraft.item.ItemStack;
+48: import net.minecraft.potion.Potion;
+49: import net.minecraft.potion.PotionEffect;
+50: import net.minecraft.util.AxisAlignedBB;
+51: import net.minecraft.util.DamageSource;
+52: import net.minecraft.util.IIcon;
+53: import net.minecraft.world.Explosion;
+54: import net.minecraft.world.IBlockAccess;
+55: import net.minecraft.world.World;
+56: import net.minecraftforge.common.ForgeHooks;
+57: import net.minecraftforge.common.util.ForgeDirection;
+58: 
+59: public class BlockSwallowingFlesh
+60: extends Block {
+61:     public IIcon theQIIcon;
+62:     private int maxOpacity;
+63:     private int lastOpacity;
+64:     private int incOpacity;
+65: 
+66:     public BlockSwallowingFlesh(int mopc, int lopc, int iopc) {
+67:         super(Material.field_151583_m);
+68:         this.func_149711_c(2.5f);
+69:         this.func_149672_a(Block.field_149767_g);
+70:         this.func_149752_b(1000.0f);
+71:         this.func_149675_a(true);
+72:         if (MFQM.QSOpacity) {
+73:             this.func_149713_g(255);
+74:         } else {
+75:             this.func_149713_g(3);
+76:         }
+77:         this.func_149663_c("SwallowingFlesh");
+78:         this.func_149647_a(MFQM.tabMFQM);
+79:         this.maxOpacity = mopc;
+80:         this.lastOpacity = lopc;
+81:         this.incOpacity = iopc;
+82:     }
+83: 
+84:     public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
+85:         return false;
+86:     }
+87: 
+88:     public void func_149670_a(World world, int x, int y, int z, Entity entity) {
+89:         boolean mtd = false;
+90:         double EposY = entity.field_70163_u;
+91:         double EprevPosY = entity.field_70167_r;
+92:         double prevVel = entity.field_70181_x;
+93:         double oy = (double)y - EposY + 1.0;
+94:         double oy2 = (double)y - EprevPosY + 1.0;
+95:         oy *= -1.0;
+96:         if ((oy2 *= -1.0) < 0.0) {
+97:             oy2 = 0.0;
+98:         }
+99:         double kof1 = oy;
+100:         double kof1m = oy;
+101:         if (kof1m < 0.0) {
+102:             kof1m = 0.0;
+103:         }
+104:         double kof2 = oy2;
+105:         if (!(entity instanceof EntityPlayer)) {
+106:             oy = (double)y - EposY - 0.5;
+107:             oy2 = (double)y - EprevPosY - 0.5;
+108:             oy *= -1.0;
+109:             if ((oy2 *= -1.0) < 0.0) {
+110:                 oy2 = 0.0;
+111:             }
+112:             kof1 = oy;
+113:             kof1m = oy;
+114:             if (kof1m < 0.0) {
+115:                 kof1m = 0.0;
+116:             }
+117:             kof2 = oy2;
+118:         }
+119:         if (entity instanceof EntityLivingBase) {
+120:             boolean Affect = true;
+121:             if (!(entity instanceof EntityPlayer) && MFQM.ABC_MIC && world.field_73011_w.field_76574_g == MFQM.ABCDim2) {
+122:                 Affect = false;
+123:             }
+124:             if (!(entity instanceof EntityPlayer) && MFQM.AOA_MIC && world.field_73011_w.field_76574_g == MFQM.AOADimAbyss) {
+125:                 Affect = false;
+126:             }
+127:             if (Affect) {
+128:                 this.checkEntityUnder(entity);
+129:             }
+130:             if (entity instanceof EntityPlayer) {
+131:                 this.checkPlayerMuddy((EntityPlayer)entity, x, y, z, world);
+132:             }
+133:             boolean entJump = false;
+134:             boolean entMoving = false;
+135:             boolean entSplash = false;
+136:             boolean entRotate = false;
+137:             float mtdkof = 10.0f;
+138:             double movDis = 1.0;
+139:             double movCof = 16.0;
+140:             double movKofDiv = 1.0;
+141:             int mr_kof = (int)Math.min(5.0 + Math.floor(Math.max(0.0, (double)(mtdkof * 10.0f) * (1.5 - kof1m))), 135.0);
+142:             if (EposY - EprevPosY > 0.2) {
+143:                 entJump = true;
+144:             }
+145:             if (entity.field_70181_x < -0.1) {
+146:                 entSplash = true;
+147:             }
+148:             if (!(entity instanceof EntityPlayer) && ((EntityLivingBase)entity).field_70126_B != ((EntityLivingBase)entity).field_70177_z) {
+149:                 entRotate = true;
+150:             }
+151:             if (entity instanceof EntityPlayer && world.field_72995_K && Math.abs(MFQM.SIRenderYawPre - MFQM.SIRenderYaw) > 10.0) {
+152:                 entRotate = true;
+153:             }
+154:             if (entRotate || Math.abs(entity.field_70169_q - entity.field_70165_t) > 0.0015 || Math.abs(entity.field_70166_s - entity.field_70161_v) > 0.0015) {
+155:                 entMoving = true;
+156:                 movDis = Math.pow(Math.pow(entity.field_70169_q - entity.field_70165_t, 2.0) + Math.pow(entity.field_70166_s - entity.field_70161_v, 2.0), 0.5);
+157:                 movCof = movDis * 10.0;
+158:                 movCof = Math.max(Math.min(32.0 / (1.0 + movCof), 32.0), 16.0);
+159:                 movKofDiv = 1.0 + movDis / 2.0;
+160:                 if (kof1m < 0.9 && kof1m != 0.0 && entRotate) {
+161:                     movKofDiv += (double)mr_kof * 0.002;
+162:                 }
+163:             }
+164:             entity.field_70159_w = 0.0;
+165:             entity.field_70179_y = 0.0;
+166:             entity.field_70181_x = entity.field_70181_x > -0.1 ? 0.0 : (entity.field_70181_x /= 2.0);
+167:             if (world.func_82737_E() % 128L == 0L || entMoving && world.func_82737_E() % (long)Math.max((int)Math.floor(movCof), 1) == 0L || entJump && world.func_82737_E() % 8L == 0L || entSplash) {
+168:                 if (entSplash && kof2 > 1.5) {
+169:                     world.func_72908_a(entity.field_70165_t, EposY, entity.field_70161_v, "mob.silverfish.step", 0.25f, world.field_73012_v.nextFloat() * 0.25f + 0.1f);
+170:                 }
+171:                 if (!entSplash && entMoving && world.field_73012_v.nextInt(2) == 0) {
+172:                     world.func_72908_a(entity.field_70165_t, EposY, entity.field_70161_v, "mob.silverfish.step", 0.15f, world.field_73012_v.nextFloat() * 0.25f + 0.1f);
+173:                 }
+174:                 if (entJump) {
+175:                     world.func_72908_a(entity.field_70165_t, EposY, entity.field_70161_v, "mob.slime.attack", 0.25f, world.field_73012_v.nextFloat() * 0.25f + 0.25f);
+176:                 }
+177:                 if (!(entJump || entMoving || entSplash || world.field_73012_v.nextInt(5) != 0)) {
+178:                     if (world.field_73012_v.nextInt(5) == 0) {
+179:                         world.func_72908_a(entity.field_70165_t, EposY, entity.field_70161_v, "liquid.water", 0.5f, world.field_73012_v.nextFloat() * 0.15f + 0.1f);
+180:                     } else {
+181:                         world.func_72908_a(entity.field_70165_t, EposY, entity.field_70161_v, "mob.silverfish.step", 0.25f, world.field_73012_v.nextFloat() * 0.15f + 0.1f);
+182:                     }
+183:                 }
+184:             }
+185:             if (!(entity instanceof EntityPlayer) && !Affect) {
+186:                 if (world.func_147439_a(x, y + 1, z) != this) {
+187:                     if (kof1 >= 1.35) {
+188:                         if (!entSplash) {
+189:                             entity.field_70181_x = 0.0;
+190:                             entity.field_70181_x += 0.08;
+191:                             entity.field_70122_E = true;
+192:                             entity.field_70143_R = 0.0f;
+193:                         }
+194:                     } else {
+195:                         entity.field_70181_x = 0.0;
+196:                         entity.field_70181_x += 0.1;
+197:                         entity.field_70122_E = true;
+198:                         entity.field_70143_R = 0.0f;
+199:                     }
+200:                 } else {
+201:                     entity.field_70181_x = 0.0;
+202:                     entity.field_70181_x += 0.1;
+203:                     entity.field_70122_E = true;
+204:                     entity.field_70143_R = 0.0f;
+205:                 }
+206:                 return;
+207:             }
+208:             if (world.func_147439_a(x, y + 1, z) != this || world.func_147439_a(x, y + 1, z) == this && world.func_147439_a(x, y + 2, z) == this) {
+209:                 if (world.func_147439_a(x, y + 1, z) == this && world.func_147439_a(x, y + 2, z) == this) {
+210:                     kof1 = 0.001;
+211:                 }
+212:                 if (!(world.field_72995_K || !MFQM.QSTentacles || !(entity.field_70130_N < 1.75f) || entity.field_70124_G || MFQM.AOA && world.field_73011_w.field_76574_g == MFQM.AOADimAbyss || world.func_147439_a(x, y - 1, z) != this || world.func_82737_E() % 64L != 0L || world.field_73012_v.nextInt(2) != 0)) {
+213:                     PotionEffect PEWeak = ((EntityLivingBase)entity).func_70660_b(Potion.field_76437_t);
+214:                     PotionEffect PESlow = ((EntityLivingBase)entity).func_70660_b(Potion.field_76419_f);
+215:                     int weakLevel = -1;
+216:                     int slowLevel = -1;
+217:                     if (PEWeak != null) {
+218:                         weakLevel = PEWeak.func_76458_c();
+219:                     }
+220:                     if (PESlow != null) {
+221:                         slowLevel = PESlow.func_76458_c();
+222:                     }
+223:                     if (weakLevel <= -1 || slowLevel <= 2) {
+224:                         world.func_72838_d((Entity)new EntityTentacles(world, entity.field_70165_t, Math.min(EposY + 0.5, (double)(y + 1)), entity.field_70161_v, (Entity)((EntityLivingBase)entity), y + 1, 0));
+225:                     }
+226:                 }
+227:                 double mys = 0.0;
+228:                 if (!(entity instanceof EntityPlayer)) {
+229:                     mys = 0.0;
+230:                 }
+231:                 if (entJump && MFQM.suctionWorldCheck(entity, world, prevVel)) {
+232:                     entity.field_70181_x -= 0.05 * (Math.min(0.75, kof1m) + 1.0);
+233:                     world.func_72980_b(entity.field_70165_t, EposY, entity.field_70161_v, "mob.magmacube.jump", 0.25f, 0.25f + (world.field_73012_v.nextFloat() - world.field_73012_v.nextFloat()) * 0.4f, false);
+234:                 }
+235:                 if (!MFQM.QSTentacles && EposY - EprevPosY > 0.001 && world.field_73012_v.nextInt(Math.max((int)Math.floor(kof1m * 2.0), 1)) == 0 && MFQM.suctionWorldCheck(entity, world, prevVel)) {
+236:                     entity.field_70181_x -= 0.025 * (double)mtdkof * (Math.min(0.75, kof1m) + 1.0);
+237:                     world.func_72980_b(entity.field_70165_t, EposY, entity.field_70161_v, "mob.magmacube.jump", 0.25f, 0.25f + (world.field_73012_v.nextFloat() - world.field_73012_v.nextFloat()) * 0.4f, false);
+238:                 }
+239:                 if (kof1 >= 1.2) {
+240:                     if (kof1 <= 1.45 && !entSplash) {
+241:                         double a1 = 0.075;
+242:                         if (world.func_82737_E() % 4L == 0L) {
+243:                             a1 = 0.07485;
+244:                         }
+245:                         entity.field_70181_x += a1 / Math.max((movKofDiv - 1.0) * (Math.max(kof1m - 0.5, 0.75) * 1.01) * 17.5, 1.0) / Math.pow(Math.max(kof1m / 1.475, 1.0), 2.0);
+246:                         entity.field_70122_E = false;
+247:                         entity.field_70143_R = 0.0f;
+248:                         if (world.field_73012_v.nextInt((int)Math.floor(Math.max(kof1m * 10.0, 1.0))) == 0) {
+249:                             entity.func_70110_aj();
+250:                         }
+251:                         if (world.field_73012_v.nextInt(Math.max((int)Math.floor(10.0 - Math.pow(Math.max(kof1m, 0.0), 1.5)), 1)) == 0) {
+252:                             entity.field_70122_E = true;
+253:                         }
+254:                     }
+255:                 } else {
+256:                     if (EposY - EprevPosY > 0.001 && world.field_73012_v.nextInt(Math.max((int)Math.floor(kof1m * 2.0), 10)) == 0 && MFQM.suctionWorldCheck(entity, world, prevVel)) {
+257:                         entity.field_70181_x -= 0.035 * (double)mtdkof * (Math.min(0.75, kof1m) + 1.0);
+258:                         world.func_72980_b(entity.field_70165_t, EposY, entity.field_70161_v, "mob.magmacube.jump", 0.25f, 0.25f + (world.field_73012_v.nextFloat() - world.field_73012_v.nextFloat()) * 0.4f, false);
+259:                     }
+260:                     if (kof1 >= 0.9) {
+261:                         double a1 = 0.075 + mys;
+262:                         if (world.func_82737_E() % 4L == 0L) {
+263:                             a1 = 0.07485;
+264:                         }
+265:                         entity.field_70181_x += a1 / Math.max((movKofDiv - 1.0) * (Math.max(kof1m - 0.5, 0.75) * 1.6) * 17.5, 1.0) / Math.pow(Math.max(kof1m / 1.25, 1.0), 2.0);
+266:                         MFQM.setStuckEffect((EntityLivingBase)entity, mr_kof);
+267:                         entity.field_70122_E = false;
+268:                         entity.field_70143_R = 0.0f;
+269:                         if (world.field_73012_v.nextInt((int)Math.floor(Math.max(kof1m * 5.0 / 2.0, 1.0))) == 0) {
+270:                             entity.func_70110_aj();
+271:                         }
+272:                         if (world.field_73012_v.nextInt(Math.max((int)Math.floor(50.0 - Math.pow(Math.max(kof1m, 0.0), 1.5)), 1)) == 0) {
+273:                             entity.field_70122_E = true;
+274:                         }
+275:                     } else {
+276:                         double a2 = 1.01;
+277:                         if (world.field_73012_v.nextInt(Math.max((int)Math.floor(50.0 - Math.pow(Math.max(kof1m, 0.0), 1.5)), 1)) == 0) {
+278:                             entity.field_70122_E = true;
+279:                         }
+280:                         if (MFQM.isTrulySink(entity, kof1m)) {
+281:                             MFQM.setStuckEffect((EntityLivingBase)entity, mr_kof);
+282:                         }
+283:                         entity.field_70143_R = 0.0f;
+284:                         if (kof1 >= 0.5) {
+285:                             if (world.field_73012_v.nextInt((int)Math.floor(Math.max(kof1m * 5.0 / (double)mtdkof, 1.0))) == 0) {
+286:                                 entity.func_70110_aj();
+287:                                 entity.field_70181_x = !entMoving ? (entity.field_70181_x += (0.0725 + mys) * a2) : (entity.field_70181_x += (0.0725 + mys) * a2 / (movKofDiv + 0.075));
+288:                             } else {
+289:                                 entity.field_70181_x = !entMoving ? (entity.field_70181_x += (0.075 + mys) * a2) : (entity.field_70181_x += (0.075 + mys) * a2 / (movKofDiv + 0.075));
+290:                             }
+291:                         } else {
+292:                             entity.func_70110_aj();
+293:                             entity.field_70181_x = !entMoving ? (entity.field_70181_x += (0.0725 + mys) * a2) : (entity.field_70181_x += (0.0725 + mys) * a2 / (movKofDiv + 0.025));
+294:                             if (kof1 < 0.45 && MFQM.isTrulySink(entity, kof1m)) {
+295:                                 MFQM.setStuckEffect((EntityLivingBase)entity, 135);
+296:                             }
+297:                         }
+298:                     }
+299:                 }
+300:                 if (entity.func_70090_H() && entity.field_70181_x > 0.0) {
+301:                     entity.field_70181_x /= 4.0;
+302:                 }
+303:             } else {
+304:                 entity.func_70110_aj();
+305:                 if (kof1 < 0.5 && MFQM.isTrulySink(entity, kof1m)) {
+306:                     MFQM.setStuckEffect((EntityLivingBase)entity, 135);
+307:                 }
+308:             }
+309:             MFQM.antiHoldJumpScript(entity, kof1, false);
+310:         } else if (kof1 < 1.45) {
+311:             entity.func_70110_aj();
+312:         }
+313:     }
+314: 
+315:     public AxisAlignedBB func_149668_a(World world, int x, int y, int z) {
+316:         return null;
+317:     }
+318: 
+319:     @SideOnly(value=Side.CLIENT)
+320:     public IIcon func_149691_a(int par1, int par2) {
+321:         return this.theQIIcon;
+322:     }
+323: 
+324:     public void func_149674_a(World world, int x, int y, int z, Random rand) {
+325:         if (MFQM.LiqFixer) {
+326:             return;
+327:         }
+328:         if (world.field_73012_v.nextInt(5) == 0) {
+329:             if (!world.func_147439_a(x, y - 1, z).func_149688_o().func_76220_a() && world.func_147439_a(x, y - 1, z).func_149688_o().func_76222_j()) {
+330:                 world.func_147465_d(x, y - 1, z, (Block)this, 0, 3);
+331:                 world.func_147468_f(x, y, z);
+332:             }
+333:         } else {
+334:             if (!(world.field_72995_K || MFQM.AOA && world.field_73011_w.field_76574_g == MFQM.AOADimAbyss || world.func_82737_E() % 4L != 0L || world.field_73012_v.nextInt(1000) != 0 || world.func_147439_a(x, y + 1, z) == MFQM.TentBlock || world.func_147439_a(x, y + 1, z) != Blocks.field_150350_a)) {
+335:                 boolean CanGen = true;
+336:                 for (int re = 0; re <= 12; ++re) {
+337:                     int xx = x;
+338:                     int zz = z;
+339:                     switch (re) {
+340:                         case 0: {
+341:                             xx = x - 2;
+342:                             zz = z;
+343:                             break;
+344:                         }
+345:                         case 1: {
+346:                             xx = x - 1;
+347:                             zz = z;
+348:                             break;
+349:                         }
+350:                         case 2: {
+351:                             xx = x - 1;
+352:                             zz = z - 1;
+353:                             break;
+354:                         }
+355:                         case 3: {
+356:                             xx = x - 1;
+357:                             zz = z + 1;
+358:                             break;
+359:                         }
+360:                         case 4: {
+361:                             xx = x;
+362:                             zz = z - 2;
+363:                             break;
+364:                         }
+365:                         case 5: {
+366:                             xx = x;
+367:                             zz = z - 1;
+368:                             break;
+369:                         }
+370:                         case 6: {
+371:                             xx = x;
+372:                             zz = z + 1;
+373:                             break;
+374:                         }
+375:                         case 7: {
+376:                             xx = x;
+377:                             zz = z + 2;
+378:                             break;
+379:                         }
+380:                         case 8: {
+381:                             xx = x + 2;
+382:                             zz = z;
+383:                             break;
+384:                         }
+385:                         case 9: {
+386:                             xx = x + 1;
+387:                             zz = z;
+388:                             break;
+389:                         }
+390:                         case 10: {
+391:                             xx = x + 1;
+392:                             zz = z - 1;
+393:                             break;
+394:                         }
+395:                         case 11: {
+396:                             xx = x + 1;
+397:                             zz = z + 1;
+398:                         }
+399:                     }
+400:                     if (world.func_147439_a(xx, y + 1, zz) != MFQM.TentBlock) continue;
+401:                     CanGen = false;
+402:                     break;
+403:                 }
+404:                 if (CanGen) {
+405:                     world.func_147465_d(x, y + 1, z, MFQM.TentBlock, world.field_73012_v.nextInt(4), 0);
+406:                 }
+407:             }
+408:             world.func_147464_a(x, y, z, (Block)this, this.func_149738_a(world) * 10);
+409:         }
+410:     }
+411: 
+412:     public void func_149726_b(World par1World, int par2, int par3, int par4) {
+413:         if (MFQM.LiqFixer) {
+414:             return;
+415:         }
+416:         par1World.func_147464_a(par2, par3, par4, (Block)this, this.func_149738_a(par1World));
+417:     }
+418: 
+419:     public void func_149695_a(World par1World, int par2, int par3, int par4, Block par5) {
+420:         if (MFQM.LiqFixer) {
+421:             return;
+422:         }
+423:         par1World.func_147464_a(par2, par3, par4, (Block)this, this.func_149738_a(par1World));
+424:     }
+425: 
+426:     public float func_149737_a(EntityPlayer par1EntityPlayer, World par2World, int par3, int par4, int par5) {
+427:         if (!par1EntityPlayer.field_70122_E) {
+428:             return 4.0E-5f;
+429:         }
+430:         float f = this.func_149712_f(par2World, par3, par4, par5);
+431:         return ForgeHooks.blockStrength((Block)this, (EntityPlayer)par1EntityPlayer, (World)par2World, (int)par3, (int)par4, (int)par5);
+432:     }
+433: 
+434:     @SideOnly(value=Side.CLIENT)
+435:     public void func_149651_a(IIconRegister par1IIconRegister) {
+436:         this.theQIIcon = par1IIconRegister.func_94245_a("morefunquicksandmod:SwallowingFlesh");
+437:     }
+438: 
+439:     public boolean func_149659_a(Explosion par1Explosion) {
+440:         return false;
+441:     }
+442: 
+443:     public void func_149636_a(World world, EntityPlayer entityPlayer, int x, int y, int z, int par6) {
+444:         if (EnchantmentHelper.func_77502_d((EntityLivingBase)entityPlayer)) {
+445:             MFQM.dropItem(world, x, y, z, new ItemStack((Block)this, 1, world.func_72805_g(x, y, z)));
+446:             world.func_147471_g(x, y, z);
+447:             return;
+448:         }
+449:         super.func_149636_a(world, entityPlayer, x, y, z, par6);
+450:     }
+451: 
+452:     public boolean canHarvestBlock(EntityPlayer player, int meta) {
+453:         return true;
+454:     }
+455: 
+456:     public Item func_149650_a(int par1, Random random, int par3) {
+457:         if (MFQM.BoP) {
+458:             if (MFQM.FleshItemID != 0) {
+459:                 return MFQM.FleshItem;
+460:             }
+461:             return Item.func_150898_a((Block)MFQM.MeatBlock);
+462:         }
+463:         return Item.func_150898_a((Block)MFQM.MeatBlock);
+464:     }
+465: 
+466:     public int func_149745_a(Random random) {
+467:         if (MFQM.BoP && MFQM.FleshItemID != 0) {
+468:             return 4 + random.nextInt(5);
+469:         }
+470:         return 1;
+471:     }
+472: 
+473:     public int func_149692_a(int par1) {
+474:         if (MFQM.BoP) {
+475:             return 3;
+476:         }
+477:         return 0;
+478:     }
+479: 
+480:     public boolean func_149662_c() {
+481:         return true;
+482:     }
+483: 
+484:     public boolean isSolid() {
+485:         return true;
+486:     }
+487: 
+488:     public boolean func_149721_r() {
+489:         return false;
+490:     }
+491: 
+492:     @SideOnly(value=Side.CLIENT)
+493:     public int func_149635_D() {
+494:         if (MFQM.AOA && Minecraft.func_71410_x().field_71439_g.field_70170_p.field_73011_w.field_76574_g == MFQM.AOADimAbyss) {
+495:             return 8069166;
+496:         }
+497:         return 0xFFFFFF;
+498:     }
+499: 
+500:     @SideOnly(value=Side.CLIENT)
+501:     public int func_149720_d(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
+502:         if (MFQM.AOA && Minecraft.func_71410_x().field_71439_g.field_70170_p.field_73011_w.field_76574_g == MFQM.AOADimAbyss) {
+503:             return 8069166;
+504:         }
+505:         return 0xFFFFFF;
+506:     }
+507: 
+508:     @SideOnly(value=Side.CLIENT)
+509:     public int func_149741_i(int par1) {
+510:         return 0xFFFFFF;
+511:     }
+512: 
+513:     public void checkEntityUnder(Entity ent) {
+514:         if (MFQM.isEntityInsideOfBlock(ent, this) && MFQM.isDrowning(ent) && !ent.field_70170_p.field_72995_K && ent.func_70089_S()) {
+515:             float prevHP = ((EntityLivingBase)ent).func_110143_aJ();
+516:             ent.func_70097_a(DamageSource.field_76368_d, Math.max(((EntityLivingBase)ent).func_110138_aP() * 0.1f, 2.0f) * MFQM.DmgMul);
+517:             if (prevHP >= ((EntityLivingBase)ent).func_110143_aJ()) {
+518:                 ent.func_70097_a(DamageSource.field_76377_j, Math.max(((EntityLivingBase)ent).func_110138_aP() * 0.1f, 2.0f) * MFQM.DmgMul);
+519:             }
+520:         }
+521:     }
+522: 
+523:     public void checkPlayerMuddy(EntityPlayer ent, int x, int y, int z, World world) {
+524:         if (!MFQM.QSCover) {
+525:             return;
+526:         }
+527:         if (!world.field_72995_K) {
+528:             CustomVarPlayer props = CustomVarPlayer.get(ent);
+529:             int preML = MFQM.getMuddyLevel(ent, y, world);
+530:             if ((float)preML * ((float)this.maxOpacity / 1000.0f) > (float)props.getMuddyLevel() * ((float)props.getMuddyTime() / 1000.0f)) {
+531:                 props.setMuddyLevel(preML);
+532:                 int mdtp = MFQM.getMuddyType(this);
+533:                 props.setMuddyType(mdtp);
+534:                 if (props.getMuddyTime() < this.maxOpacity) {
+535:                     props.addMuddyTime(this.incOpacity);
+536:                 }
+537:                 props.setMuddyTime(Math.min(props.getMuddyTime(), this.maxOpacity));
+538:             }
+539:         }
+540:     }
+541: }
+542: 

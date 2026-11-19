@@ -1,0 +1,758 @@
+Archive: MoreFunQuicksandMod/main/CustomGenerationEvent.class
+SHA256: acf0c04c0d3c78a661b6658c1eb8b49f33f1ecf844bc732e69781fef22025e2b
+Superclass: java/lang/Object
+Offsets are decimal byte offsets; branch operands are relative offsets.
+
+
+METHOD <init> ()V
+000000: aload_0 
+000001: invokespecial #16 java/lang/Object.<init>:()V
+000004: return 
+
+METHOD populateChunk (Lnet/minecraftforge/event/terraingen/PopulateChunkEvent$Post;)V
+000000: aload_0 
+000001: getstatic #26 MoreFunQuicksandMod/main/MFQM.BoP:Z
+000004: putfield #28 MoreFunQuicksandMod/main/CustomGenerationEvent.T_BoP:Z
+000007: getstatic #31 MoreFunQuicksandMod/main/MFQM.PBoP:Z
+000010: ifeq 46
+000013: getstatic #26 MoreFunQuicksandMod/main/MFQM.BoP:Z
+000016: ifeq 40
+000019: aload_1 
+000020: getfield #35 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.world:Lnet/minecraft/world/World;
+000023: invokevirtual #41 net/minecraft/world/World.func_72912_H:()Lnet/minecraft/world/storage/WorldInfo;
+000026: invokevirtual #47 net/minecraft/world/storage/WorldInfo.func_76067_t:()Lnet/minecraft/world/WorldType;
+000029: getstatic #53 net/minecraft/world/WorldType.field_77135_d:Lnet/minecraft/world/WorldType;
+000032: if_acmpeq 19
+000035: aload_1 
+000036: getfield #35 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.world:Lnet/minecraft/world/World;
+000039: invokevirtual #41 net/minecraft/world/World.func_72912_H:()Lnet/minecraft/world/storage/WorldInfo;
+000042: invokevirtual #47 net/minecraft/world/storage/WorldInfo.func_76067_t:()Lnet/minecraft/world/WorldType;
+000045: getstatic #56 net/minecraft/world/WorldType.field_77137_b:Lnet/minecraft/world/WorldType;
+000048: if_acmpne 8
+000051: aload_0 
+000052: iconst_0 
+000053: putfield #28 MoreFunQuicksandMod/main/CustomGenerationEvent.T_BoP:Z
+000056: aload_1 
+000057: getfield #35 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.world:Lnet/minecraft/world/World;
+000060: getfield #60 net/minecraft/world/World.field_73011_w:Lnet/minecraft/world/WorldProvider;
+000063: getfield #66 net/minecraft/world/WorldProvider.field_76574_g:I
+000066: ifne 642
+000069: iconst_0 
+000070: istore_2 
+000071: iload_2 
+000072: iconst_3 
+000073: if_icmpge 635
+000076: iconst_0 
+000077: istore_3 
+000078: iload_3 
+000079: iconst_3 
+000080: if_icmpge 622
+000083: aload_1 
+000084: getfield #35 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.world:Lnet/minecraft/world/World;
+000087: aload_1 
+000088: getfield #69 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.chunkX:I
+000091: iload_2 
+000092: iadd 
+000093: iconst_1 
+000094: isub 
+000095: bipush 16
+000097: imul 
+000098: bipush 64
+000100: aload_1 
+000101: getfield #72 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.chunkZ:I
+000104: iload_3 
+000105: iadd 
+000106: iconst_1 
+000107: isub 
+000108: bipush 16
+000110: imul 
+000111: invokevirtual #76 net/minecraft/world/World.func_72899_e:(III)Z
+000114: ifeq 582
+000117: aload_1 
+000118: getfield #35 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.world:Lnet/minecraft/world/World;
+000121: aload_1 
+000122: getfield #69 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.chunkX:I
+000125: iload_2 
+000126: iadd 
+000127: iconst_1 
+000128: isub 
+000129: aload_1 
+000130: getfield #72 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.chunkZ:I
+000133: iload_3 
+000134: iadd 
+000135: iconst_1 
+000136: isub 
+000137: invokevirtual #80 net/minecraft/world/World.func_72964_e:(II)Lnet/minecraft/world/chunk/Chunk;
+000140: astore 4
+000142: aload 4
+000144: ifnull 552
+000147: iconst_0 
+000148: istore 5
+000150: aload_1 
+000151: getfield #35 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.world:Lnet/minecraft/world/World;
+000154: aload_1 
+000155: getfield #69 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.chunkX:I
+000158: iload_2 
+000159: iadd 
+000160: iconst_1 
+000161: isub 
+000162: bipush 16
+000164: imul 
+000165: aload_1 
+000166: getfield #72 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.chunkZ:I
+000169: iload_3 
+000170: iadd 
+000171: iconst_1 
+000172: isub 
+000173: bipush 16
+000175: imul 
+000176: invokevirtual #84 net/minecraft/world/World.func_72807_a:(II)Lnet/minecraft/world/biome/BiomeGenBase;
+000179: astore 6
+000181: aload 6
+000183: getfield #89 net/minecraft/world/biome/BiomeGenBase.field_76756_M:I
+000186: istore 7
+000188: aload_0 
+000189: getfield #28 MoreFunQuicksandMod/main/CustomGenerationEvent.T_BoP:Z
+000192: ifeq 38
+000195: iconst_0 
+000196: istore 8
+000198: iload 8
+000200: getstatic #95 MoreFunQuicksandMod/main/MFQM.QSJungleBiomes:[I
+000203: arraylength 
+000204: if_icmpge 23
+000207: iload 7
+000209: getstatic #95 MoreFunQuicksandMod/main/MFQM.QSJungleBiomes:[I
+000212: iload 8
+000214: iaload 
+000215: if_icmpne 6
+000218: iconst_1 
+000219: istore 5
+000221: iinc 8, 1
+000224: goto -26
+000227: goto 30
+000230: aload 6
+000232: instanceof #97 net/minecraft/world/biome/BiomeGenSwamp
+000235: ifne 19
+000238: aload 6
+000240: instanceof #99 net/minecraft/world/biome/BiomeGenJungle
+000243: ifne 11
+000246: aload 6
+000248: instanceof #101 net/minecraft/world/biome/BiomeGenForest
+000251: ifeq 6
+000254: iconst_1 
+000255: istore 5
+000257: aload 4
+000259: invokevirtual #105 net/minecraft/world/chunk/Chunk.func_76587_i:()[Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;
+000262: astore 8
+000264: iconst_0 
+000265: istore 9
+000267: iload 9
+000269: bipush 16
+000271: if_icmpge 425
+000274: aload 8
+000276: iload 9
+000278: aaload 
+000279: astore 10
+000281: aload 10
+000283: ifnull 407
+000286: iconst_0 
+000287: istore 11
+000289: iload 11
+000291: bipush 16
+000293: if_icmpge 397
+000296: iconst_0 
+000297: istore 12
+000299: iload 12
+000301: bipush 16
+000303: if_icmpge 381
+000306: iconst_0 
+000307: istore 13
+000309: iload 13
+000311: bipush 16
+000313: if_icmpge 365
+000316: getstatic #112 MoreFunQuicksandMod/main/MFQM.GenTempleQS:Z
+000319: ifeq 172
+000322: aload 10
+000324: iload 11
+000326: iload 12
+000328: iload 13
+000330: invokevirtual #116 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_150819_a:(III)Lnet/minecraft/block/Block;
+000333: getstatic #122 net/minecraft/init/Blocks.field_150335_W:Lnet/minecraft/block/Block;
+000336: if_acmpne 155
+000339: iload 11
+000341: aload_1 
+000342: getfield #69 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.chunkX:I
+000345: iload_2 
+000346: iadd 
+000347: iconst_1 
+000348: isub 
+000349: bipush 16
+000351: imul 
+000352: iadd 
+000353: istore 14
+000355: iload 13
+000357: aload_1 
+000358: getfield #72 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.chunkZ:I
+000361: iload_3 
+000362: iadd 
+000363: iconst_1 
+000364: isub 
+000365: bipush 16
+000367: imul 
+000368: iadd 
+000369: istore 15
+000371: iload 12
+000373: iload 9
+000375: bipush 16
+000377: imul 
+000378: iadd 
+000379: istore 16
+000381: aload_1 
+000382: getfield #35 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.world:Lnet/minecraft/world/World;
+000385: iload 14
+000387: iload 16
+000389: iconst_1 
+000390: iadd 
+000391: iload 15
+000393: invokevirtual #125 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+000396: getstatic #128 net/minecraft/init/Blocks.field_150322_A:Lnet/minecraft/block/Block;
+000399: if_acmpne 92
+000402: aload 10
+000404: iload 11
+000406: iload 12
+000408: iload 13
+000410: getstatic #131 MoreFunQuicksandMod/main/MFQM.QuicksandBlock:Lnet/minecraft/block/Block;
+000413: invokevirtual #135 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_150818_a:(IIILnet/minecraft/block/Block;)V
+000416: aload 10
+000418: iload 11
+000420: iload 12
+000422: iload 13
+000424: iconst_0 
+000425: invokevirtual #139 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_76654_b:(IIII)V
+000428: aload_1 
+000429: getfield #35 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.world:Lnet/minecraft/world/World;
+000432: iload 14
+000434: iload 16
+000436: iconst_1 
+000437: iadd 
+000438: iload 15
+000440: getstatic #142 MoreFunQuicksandMod/main/MFQM.SandstoneTrapBlock:Lnet/minecraft/block/Block;
+000443: iconst_0 
+000444: iconst_2 
+000445: invokevirtual #146 net/minecraft/world/World.func_147465_d:(IIILnet/minecraft/block/Block;II)Z
+000448: pop 
+000449: aload_1 
+000450: getfield #35 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.world:Lnet/minecraft/world/World;
+000453: iload 14
+000455: iload 16
+000457: iconst_1 
+000458: isub 
+000459: iload 15
+000461: getstatic #131 MoreFunQuicksandMod/main/MFQM.QuicksandBlock:Lnet/minecraft/block/Block;
+000464: iconst_0 
+000465: iconst_2 
+000466: invokevirtual #146 net/minecraft/world/World.func_147465_d:(IIILnet/minecraft/block/Block;II)Z
+000469: pop 
+000470: aload_1 
+000471: getfield #35 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.world:Lnet/minecraft/world/World;
+000474: iload 14
+000476: iload 16
+000478: iconst_2 
+000479: isub 
+000480: iload 15
+000482: getstatic #128 net/minecraft/init/Blocks.field_150322_A:Lnet/minecraft/block/Block;
+000485: iconst_0 
+000486: iconst_2 
+000487: invokevirtual #146 net/minecraft/world/World.func_147465_d:(IIILnet/minecraft/block/Block;II)Z
+000490: pop 
+000491: aload 10
+000493: iload 11
+000495: iload 12
+000497: iload 13
+000499: invokevirtual #116 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_150819_a:(III)Lnet/minecraft/block/Block;
+000502: getstatic #149 MoreFunQuicksandMod/main/MFQM.BOPMudBlock:Lnet/minecraft/block/Block;
+000505: if_acmpne 167
+000508: aload 10
+000510: iload 11
+000512: iload 12
+000514: iload 13
+000516: invokevirtual #153 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_76665_b:(III)I
+000519: iconst_1 
+000520: if_icmpeq 20
+000523: aload 10
+000525: iload 11
+000527: iload 12
+000529: iload 13
+000531: getstatic #156 MoreFunQuicksandMod/main/MFQM.MudBlock:Lnet/minecraft/block/Block;
+000534: invokevirtual #135 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_150818_a:(IIILnet/minecraft/block/Block;)V
+000537: goto 135
+000540: iload 11
+000542: aload_1 
+000543: getfield #69 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.chunkX:I
+000546: iload_2 
+000547: iadd 
+000548: iconst_1 
+000549: isub 
+000550: bipush 16
+000552: imul 
+000553: iadd 
+000554: istore 14
+000556: iload 13
+000558: aload_1 
+000559: getfield #72 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.chunkZ:I
+000562: iload_3 
+000563: iadd 
+000564: iconst_1 
+000565: isub 
+000566: bipush 16
+000568: imul 
+000569: iadd 
+000570: istore 15
+000572: iload 12
+000574: iload 9
+000576: bipush 16
+000578: imul 
+000579: iadd 
+000580: istore 16
+000582: iload 5
+000584: iconst_1 
+000585: if_icmpne 61
+000588: aload_1 
+000589: getfield #35 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.world:Lnet/minecraft/world/World;
+000592: iload 14
+000594: iload 16
+000596: iconst_1 
+000597: iadd 
+000598: iload 15
+000600: invokevirtual #125 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+000603: invokevirtual #162 net/minecraft/block/Block.func_149688_o:()Lnet/minecraft/block/material/Material;
+000606: invokevirtual #168 net/minecraft/block/material/Material.func_76220_a:()Z
+000609: ifeq 20
+000612: aload 10
+000614: iload 11
+000616: iload 12
+000618: iload 13
+000620: getstatic #171 net/minecraft/init/Blocks.field_150346_d:Lnet/minecraft/block/Block;
+000623: invokevirtual #135 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_150818_a:(IIILnet/minecraft/block/Block;)V
+000626: goto 46
+000629: aload 10
+000631: iload 11
+000633: iload 12
+000635: iload 13
+000637: getstatic #175 net/minecraft/init/Blocks.field_150349_c:Lnet/minecraft/block/BlockGrass;
+000640: invokevirtual #135 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_150818_a:(IIILnet/minecraft/block/Block;)V
+000643: goto 29
+000646: aload 10
+000648: iload 11
+000650: iload 12
+000652: iload 13
+000654: getstatic #179 net/minecraft/init/Blocks.field_150354_m:Lnet/minecraft/block/BlockSand;
+000657: invokevirtual #135 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_150818_a:(IIILnet/minecraft/block/Block;)V
+000660: aload 10
+000662: iload 11
+000664: iload 12
+000666: iload 13
+000668: iconst_0 
+000669: invokevirtual #139 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_76654_b:(IIII)V
+000672: iinc 13, 1
+000675: goto -366
+000678: iinc 12, 1
+000681: goto -382
+000684: iinc 11, 1
+000687: goto -398
+000690: iinc 9, 1
+000693: goto -426
+000696: iinc 3, 1
+000699: goto -621
+000702: iinc 2, 1
+000705: goto -634
+000708: aload_1 
+000709: getfield #35 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.world:Lnet/minecraft/world/World;
+000712: getfield #60 net/minecraft/world/World.field_73011_w:Lnet/minecraft/world/WorldProvider;
+000715: getfield #66 net/minecraft/world/WorldProvider.field_76574_g:I
+000718: iconst_m1 
+000719: if_icmpne 281
+000722: getstatic #182 MoreFunQuicksandMod/main/MFQM.GenHoney2:Z
+000725: ifeq 275
+000728: iconst_0 
+000729: istore_2 
+000730: iload_2 
+000731: iconst_3 
+000732: if_icmpge 268
+000735: iconst_0 
+000736: istore_3 
+000737: iload_3 
+000738: iconst_3 
+000739: if_icmpge 255
+000742: aload_1 
+000743: getfield #35 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.world:Lnet/minecraft/world/World;
+000746: aload_1 
+000747: getfield #69 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.chunkX:I
+000750: iload_2 
+000751: iadd 
+000752: iconst_1 
+000753: isub 
+000754: bipush 16
+000756: imul 
+000757: bipush 64
+000759: aload_1 
+000760: getfield #72 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.chunkZ:I
+000763: iload_3 
+000764: iadd 
+000765: iconst_1 
+000766: isub 
+000767: bipush 16
+000769: imul 
+000770: invokevirtual #76 net/minecraft/world/World.func_72899_e:(III)Z
+000773: ifeq 215
+000776: aload_1 
+000777: getfield #35 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.world:Lnet/minecraft/world/World;
+000780: aload_1 
+000781: getfield #69 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.chunkX:I
+000784: iload_2 
+000785: iadd 
+000786: iconst_1 
+000787: isub 
+000788: aload_1 
+000789: getfield #72 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.chunkZ:I
+000792: iload_3 
+000793: iadd 
+000794: iconst_1 
+000795: isub 
+000796: invokevirtual #80 net/minecraft/world/World.func_72964_e:(II)Lnet/minecraft/world/chunk/Chunk;
+000799: astore 4
+000801: aload 4
+000803: ifnull 185
+000806: aload 4
+000808: invokevirtual #105 net/minecraft/world/chunk/Chunk.func_76587_i:()[Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;
+000811: astore 5
+000813: iconst_0 
+000814: istore 6
+000816: iload 6
+000818: bipush 16
+000820: if_icmpge 168
+000823: aload 5
+000825: iload 6
+000827: aaload 
+000828: astore 7
+000830: aload 7
+000832: ifnull 150
+000835: iconst_0 
+000836: istore 8
+000838: iload 8
+000840: bipush 16
+000842: if_icmpge 140
+000845: iconst_0 
+000846: istore 9
+000848: iload 9
+000850: bipush 16
+000852: if_icmpge 124
+000855: iconst_0 
+000856: istore 10
+000858: iload 10
+000860: bipush 16
+000862: if_icmpge 108
+000865: aload 7
+000867: iload 8
+000869: iload 9
+000871: iload 10
+000873: invokevirtual #116 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_150819_a:(III)Lnet/minecraft/block/Block;
+000876: getstatic #185 MoreFunQuicksandMod/main/MFQM.BOPHoneyBlock:Lnet/minecraft/block/Block;
+000879: if_acmpne 42
+000882: aload 7
+000884: iload 8
+000886: iload 9
+000888: iload 10
+000890: invokevirtual #153 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_76665_b:(III)I
+000893: istore 11
+000895: aload 7
+000897: iload 8
+000899: iload 9
+000901: iload 10
+000903: getstatic #188 MoreFunQuicksandMod/main/MFQM.HoneyBlock:Lnet/minecraft/block/Block;
+000906: invokevirtual #135 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_150818_a:(IIILnet/minecraft/block/Block;)V
+000909: aload 7
+000911: iload 8
+000913: iload 9
+000915: iload 10
+000917: iconst_0 
+000918: invokevirtual #139 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_76654_b:(IIII)V
+000921: aload 7
+000923: iload 8
+000925: iload 9
+000927: iload 10
+000929: invokevirtual #116 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_150819_a:(III)Lnet/minecraft/block/Block;
+000932: getstatic #191 MoreFunQuicksandMod/main/MFQM.BOPSolidHoneyBlock:Lnet/minecraft/block/Block;
+000935: if_acmpne 29
+000938: aload 7
+000940: iload 8
+000942: iload 9
+000944: iload 10
+000946: getstatic #194 MoreFunQuicksandMod/main/MFQM.SolidHoneyBlock:Lnet/minecraft/block/Block;
+000949: invokevirtual #135 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_150818_a:(IIILnet/minecraft/block/Block;)V
+000952: aload 7
+000954: iload 8
+000956: iload 9
+000958: iload 10
+000960: iconst_0 
+000961: invokevirtual #139 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_76654_b:(IIII)V
+000964: iinc 10, 1
+000967: goto -109
+000970: iinc 9, 1
+000973: goto -125
+000976: iinc 8, 1
+000979: goto -141
+000982: iinc 6, 1
+000985: goto -169
+000988: iinc 3, 1
+000991: goto -254
+000994: iinc 2, 1
+000997: goto -267
+001000: getstatic #197 MoreFunQuicksandMod/main/MFQM.TBL:Z
+001003: ifeq 514
+001006: aload_1 
+001007: getfield #35 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.world:Lnet/minecraft/world/World;
+001010: getfield #60 net/minecraft/world/World.field_73011_w:Lnet/minecraft/world/WorldProvider;
+001013: getfield #66 net/minecraft/world/WorldProvider.field_76574_g:I
+001016: getstatic #200 MoreFunQuicksandMod/main/MFQM.TBLDim:I
+001019: if_icmpne 498
+001022: iconst_0 
+001023: istore_2 
+001024: iload_2 
+001025: iconst_5 
+001026: if_icmpge 491
+001029: iconst_0 
+001030: istore_3 
+001031: iload_3 
+001032: iconst_5 
+001033: if_icmpge 478
+001036: aload_1 
+001037: getfield #35 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.world:Lnet/minecraft/world/World;
+001040: aload_1 
+001041: getfield #69 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.chunkX:I
+001044: iload_2 
+001045: iadd 
+001046: iconst_2 
+001047: isub 
+001048: bipush 16
+001050: imul 
+001051: bipush 64
+001053: aload_1 
+001054: getfield #72 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.chunkZ:I
+001057: iload_3 
+001058: iadd 
+001059: iconst_2 
+001060: isub 
+001061: bipush 16
+001063: imul 
+001064: invokevirtual #76 net/minecraft/world/World.func_72899_e:(III)Z
+001067: ifeq 438
+001070: aload_1 
+001071: getfield #35 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.world:Lnet/minecraft/world/World;
+001074: aload_1 
+001075: getfield #69 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.chunkX:I
+001078: iload_2 
+001079: iadd 
+001080: iconst_2 
+001081: isub 
+001082: aload_1 
+001083: getfield #72 net/minecraftforge/event/terraingen/PopulateChunkEvent$Post.chunkZ:I
+001086: iload_3 
+001087: iadd 
+001088: iconst_2 
+001089: isub 
+001090: invokevirtual #80 net/minecraft/world/World.func_72964_e:(II)Lnet/minecraft/world/chunk/Chunk;
+001093: astore 4
+001095: aload 4
+001097: ifnull 408
+001100: aload 4
+001102: invokevirtual #105 net/minecraft/world/chunk/Chunk.func_76587_i:()[Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;
+001105: astore 5
+001107: iconst_0 
+001108: istore 6
+001110: iload 6
+001112: bipush 16
+001114: if_icmpge 391
+001117: aload 5
+001119: iload 6
+001121: aaload 
+001122: astore 7
+001124: aload 7
+001126: ifnull 373
+001129: iconst_0 
+001130: istore 8
+001132: iload 8
+001134: bipush 16
+001136: if_icmpge 363
+001139: iconst_0 
+001140: istore 9
+001142: iload 9
+001144: bipush 16
+001146: if_icmpge 347
+001149: iconst_0 
+001150: istore 10
+001152: iload 10
+001154: bipush 16
+001156: if_icmpge 331
+001159: aload 7
+001161: iload 8
+001163: iload 9
+001165: iload 10
+001167: invokevirtual #116 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_150819_a:(III)Lnet/minecraft/block/Block;
+001170: getstatic #203 MoreFunQuicksandMod/main/MFQM.TBLMudBlock:Lnet/minecraft/block/Block;
+001173: if_acmpne 32
+001176: aload 7
+001178: iload 8
+001180: iload 9
+001182: iload 10
+001184: getstatic #156 MoreFunQuicksandMod/main/MFQM.MudBlock:Lnet/minecraft/block/Block;
+001187: invokevirtual #135 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_150818_a:(IIILnet/minecraft/block/Block;)V
+001190: aload 7
+001192: iload 8
+001194: iload 9
+001196: iload 10
+001198: iconst_3 
+001199: invokevirtual #139 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_76654_b:(IIII)V
+001202: goto 279
+001205: aload 7
+001207: iload 8
+001209: iload 9
+001211: iload 10
+001213: invokevirtual #116 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_150819_a:(III)Lnet/minecraft/block/Block;
+001216: getstatic #206 MoreFunQuicksandMod/main/MFQM.TBLTarBlock:Lnet/minecraft/block/Block;
+001219: if_acmpne 46
+001222: aload 7
+001224: iload 8
+001226: iload 9
+001228: iload 10
+001230: invokevirtual #153 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_76665_b:(III)I
+001233: istore 11
+001235: aload 7
+001237: iload 8
+001239: iload 9
+001241: iload 10
+001243: getstatic #209 MoreFunQuicksandMod/main/MFQM.TarBlock:Lnet/minecraft/block/Block;
+001246: invokevirtual #135 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_150818_a:(IIILnet/minecraft/block/Block;)V
+001249: aload 7
+001251: iload 8
+001253: iload 9
+001255: iload 10
+001257: iload 11
+001259: invokevirtual #139 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_76654_b:(IIII)V
+001262: goto 219
+001265: aload 7
+001267: iload 8
+001269: iload 9
+001271: iload 10
+001273: invokevirtual #116 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_150819_a:(III)Lnet/minecraft/block/Block;
+001276: getstatic #212 MoreFunQuicksandMod/main/MFQM.TBLSludgeBlock:Lnet/minecraft/block/Block;
+001279: if_acmpne 202
+001282: aload 7
+001284: iload 8
+001286: iload 9
+001288: iload 10
+001290: getstatic #215 MoreFunQuicksandMod/main/MFQM.MireBlock:Lnet/minecraft/block/Block;
+001293: invokevirtual #135 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_150818_a:(IIILnet/minecraft/block/Block;)V
+001296: aload 7
+001298: iload 8
+001300: iload 9
+001302: iload 10
+001304: iconst_0 
+001305: invokevirtual #139 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_76654_b:(IIII)V
+001308: iload 9
+001310: ifle 37
+001313: aload 7
+001315: iload 8
+001317: iload 9
+001319: iconst_1 
+001320: isub 
+001321: iload 10
+001323: getstatic #215 MoreFunQuicksandMod/main/MFQM.MireBlock:Lnet/minecraft/block/Block;
+001326: invokevirtual #135 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_150818_a:(IIILnet/minecraft/block/Block;)V
+001329: aload 7
+001331: iload 8
+001333: iload 9
+001335: iconst_1 
+001336: isub 
+001337: iload 10
+001339: bipush 12
+001341: invokevirtual #139 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_76654_b:(IIII)V
+001344: goto 48
+001347: aload 5
+001349: iload 6
+001351: iconst_1 
+001352: isub 
+001353: iconst_0 
+001354: invokestatic #221 java/lang/Math.max:(II)I
+001357: aaload 
+001358: astore 11
+001360: aload 11
+001362: ifnull 30
+001365: aload 11
+001367: iload 8
+001369: bipush 15
+001371: iload 10
+001373: getstatic #215 MoreFunQuicksandMod/main/MFQM.MireBlock:Lnet/minecraft/block/Block;
+001376: invokevirtual #135 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_150818_a:(IIILnet/minecraft/block/Block;)V
+001379: aload 11
+001381: iload 8
+001383: bipush 15
+001385: iload 10
+001387: bipush 12
+001389: invokevirtual #139 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_76654_b:(IIII)V
+001392: iload 9
+001394: iconst_1 
+001395: if_icmple 41
+001398: aload 7
+001400: iload 8
+001402: iload 9
+001404: iconst_2 
+001405: isub 
+001406: iload 10
+001408: invokevirtual #116 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_150819_a:(III)Lnet/minecraft/block/Block;
+001411: getstatic #215 MoreFunQuicksandMod/main/MFQM.MireBlock:Lnet/minecraft/block/Block;
+001414: if_acmpeq 67
+001417: aload 7
+001419: iload 8
+001421: iload 9
+001423: iconst_2 
+001424: isub 
+001425: iload 10
+001427: getstatic #224 MoreFunQuicksandMod/main/MFQM.PeatBlock:Lnet/minecraft/block/Block;
+001430: invokevirtual #135 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_150818_a:(IIILnet/minecraft/block/Block;)V
+001433: goto 48
+001436: aload 5
+001438: iload 6
+001440: iconst_1 
+001441: isub 
+001442: iconst_0 
+001443: invokestatic #221 java/lang/Math.max:(II)I
+001446: aaload 
+001447: astore 11
+001449: aload 11
+001451: ifnull 30
+001454: aload 11
+001456: iload 8
+001458: bipush 14
+001460: iload 10
+001462: getstatic #215 MoreFunQuicksandMod/main/MFQM.MireBlock:Lnet/minecraft/block/Block;
+001465: invokevirtual #135 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_150818_a:(IIILnet/minecraft/block/Block;)V
+001468: aload 11
+001470: iload 8
+001472: bipush 14
+001474: iload 10
+001476: bipush 12
+001478: invokevirtual #139 net/minecraft/world/chunk/storage/ExtendedBlockStorage.func_76654_b:(IIII)V
+001481: iinc 10, 1
+001484: goto -332
+001487: iinc 9, 1
+001490: goto -348
+001493: iinc 8, 1
+001496: goto -364
+001499: iinc 6, 1
+001502: goto -392
+001505: iinc 3, 1
+001508: goto -477
+001511: iinc 2, 1
+001514: goto -490
+001517: return 

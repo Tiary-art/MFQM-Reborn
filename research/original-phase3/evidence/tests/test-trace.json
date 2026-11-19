@@ -1,0 +1,20 @@
+{
+  "status": "MODEL_TESTED",
+  "passed": [
+    "java.util.Random differential: 840 results exact; rejection and nextInt(1) included",
+    "removing nextInt(1) changes subsequent RNG value",
+    "Gardencia Mud fixture: 1536 exact writes; metadata; negative chunk coordinates; two entry RNG calls",
+    "deterministic replay: all events identical",
+    "Blossom false-return fixture still stores blockGen=1",
+    "Tombs independent CFR literal coordinate/metadata/order decoder equals all 8489 bytecode direct writes"
+  ],
+  "expected_negative_cases": [
+    "invalid bound rejected: 0",
+    "invalid bound rejected: -1",
+    "invalid bound rejected: 2147483648",
+    "unsupported opcode fails closed",
+    "undeclared helper fails closed"
+  ],
+  "original_runtime": "NOT_RUN",
+  "warning": "fixture semantics and leaf generator bodies are not original game equivalence proofs"
+}

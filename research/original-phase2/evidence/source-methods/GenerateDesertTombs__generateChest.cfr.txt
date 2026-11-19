@@ -1,0 +1,30 @@
+// CFR0.152; original decompiler line 70; NOT original source; inspect **/goto artifacts if present.
+    public void generateChest(World world, int x, int y, int z, int meta) {
+        this.setBlock(world, x, y, z, (Block)Blocks.field_150486_ae, meta);
+        TileEntityChest var12 = (TileEntityChest)world.func_147438_o(x, y, z);
+        if (var12 != null) {
+            WeightedRandomChestContent[] content = ChestGenHooks.getItems((String)"pyramidDesertyChest", (Random)world.field_73012_v);
+            List<WeightedRandomChestContent> listFromArray = Arrays.asList(content);
+            ArrayList<WeightedRandomChestContent> tempList = new ArrayList<WeightedRandomChestContent>(listFromArray);
+            tempList.add(new WeightedRandomChestContent(Items.field_151045_i, 0, 1, 3, 3));
+            tempList.add(new WeightedRandomChestContent(Items.field_151042_j, 0, 1, 5, 10));
+            tempList.add(new WeightedRandomChestContent(Items.field_151043_k, 0, 1, 3, 5));
+            tempList.add(new WeightedRandomChestContent(Items.field_151103_aS, 0, 1, 3, 15));
+            tempList.add(new WeightedRandomChestContent(Items.field_151055_y, 0, 1, 3, 15));
+            tempList.add(new WeightedRandomChestContent(Items.field_151035_b, 0, 1, 1, 1));
+            tempList.add(new WeightedRandomChestContent(Items.field_151040_l, 0, 1, 1, 1));
+            tempList.add(new WeightedRandomChestContent((Item)Items.field_151030_Z, 0, 1, 1, 1));
+            tempList.add(new WeightedRandomChestContent((Item)Items.field_151028_Y, 0, 1, 1, 1));
+            tempList.add(new WeightedRandomChestContent((Item)Items.field_151165_aa, 0, 1, 1, 1));
+            tempList.add(new WeightedRandomChestContent((Item)Items.field_151167_ab, 0, 1, 1, 1));
+            tempList.add(new WeightedRandomChestContent(Items.field_151044_h, 0, 3, 7, 5));
+            tempList.add(new WeightedRandomChestContent(Items.field_151032_g, 0, 3, 7, 5));
+            tempList.add(new WeightedRandomChestContent(Items.field_151016_H, 0, 1, 1, 3));
+            tempList.add(new WeightedRandomChestContent(Items.field_151145_ak, 0, 1, 1, 5));
+            tempList.add(new WeightedRandomChestContent(Items.field_151007_F, 0, 1, 1, 15));
+            tempList.add(new WeightedRandomChestContent(Items.field_151008_G, 0, 1, 1, 5));
+            WeightedRandomChestContent[] tempArray = new WeightedRandomChestContent[tempList.size()];
+            content = tempList.toArray(tempArray);
+            WeightedRandomChestContent.func_76293_a((Random)world.field_73012_v, (WeightedRandomChestContent[])content, (IInventory)var12, (int)(3 + world.field_73012_v.nextInt(6)));
+        }
+    }

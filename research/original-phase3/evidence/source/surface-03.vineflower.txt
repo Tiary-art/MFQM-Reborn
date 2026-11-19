@@ -1,0 +1,62 @@
+// Decompiled inference, NOT original source; semantic closure PARTIAL
+      if (MFQM.GenWastePit && !blockGen) {
+         int slrT = this.getSlurryType(biomeId);
+         boolean dep = false;
+         if (random.nextInt(10) == 0) {
+            dep = true;
+         }
+
+         if (slrT != 0 && this.T_BoP) {
+            boolean canGen = false;
+            int genCount = 30 + random.nextInt(30);
+            int genPos = 75;
+            int genRad = 10;
+            int genRadP = 10;
+            int rad = 0;
+            if (random.nextInt(genPos) == 0) {
+               for (int i = 0; i < genCount; i++) {
+                  firstBlockXCoord = chunkX + random.nextInt(16);
+                  firstBlockYCoord = 96 + dHeight;
+                  firstBlockZCoord = chunkZ + random.nextInt(16);
+                  rad = genRad + random.nextInt(genRadP);
+                  int countBlock = 0;
+
+                  for (canGen = false; firstBlockYCoord > 60 + dHeight; firstBlockYCoord--) {
+                     if (world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) == MFQM.TarBlock) {
+                        canGen = false;
+                        break;
+                     }
+
+                     if (this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)
+                        && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                        if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                           canGen = true;
+                           break;
+                        }
+
+                        countBlock++;
+                     }
+
+                     if (countBlock > 10) {
+                        break;
+                     }
+                  }
+
+                  if (canGen
+                     && this.genIsFlatSlurry(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world)
+                     && this.genIsFlatSlurry(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad, world)) {
+                     if (dep) {
+                        this.generateMireD(
+                           firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random, Material.field_151568_F, MFQM.SlurryBlock, true
+                        );
+                     } else {
+                        this.generateMire(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random, Material.field_151568_F, MFQM.SlurryBlock);
+                     }
+
+                     blockGen = true;
+                  }
+               }
+            }
+         }
+      }
+

@@ -1,0 +1,73 @@
+// CFR0.152; original decompiler line 4812; NOT original source; inspect **/goto artifacts if present.
+    private void generateAOADimBarathos(World world, Random random, int chunkX, int chunkZ) {
+        int dHeight = 0;
+        int firstBlockXCoord = chunkX + random.nextInt(16);
+        int firstBlockYCoord = 96;
+        int firstBlockZCoord = chunkZ + random.nextInt(16);
+        BiomeGenBase biomegenbase = world.func_72807_a(firstBlockXCoord, firstBlockZCoord);
+        int biomeId = biomegenbase.field_76756_M;
+        boolean blockGen = false;
+        if (!blockGen) {
+            boolean canGen = false;
+            int genCount = 10 + random.nextInt(10);
+            int genPos = 50;
+            int genRad = 8;
+            int genRadP = 10;
+            int rad = 0;
+            if (random.nextInt(genPos) == 0) {
+                boolean Flat = false;
+                if (random.nextInt(10) == 0) {
+                    Flat = true;
+                }
+                for (int i = 0; i < genCount; ++i) {
+                    firstBlockXCoord = chunkX + random.nextInt(16);
+                    firstBlockZCoord = chunkZ + random.nextInt(16);
+                    rad = genRad + random.nextInt(genRadP);
+                    int countBlock = 0;
+                    canGen = false;
+                    for (firstBlockYCoord = 96 + dHeight; firstBlockYCoord > 60 + dHeight; --firstBlockYCoord) {
+                        if (world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) != MFQM.TarBlock) {
+                            if (this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                                if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                    canGen = true;
+                                    break;
+                                }
+                                ++countBlock;
+                            }
+                        } else {
+                            canGen = false;
+                            break;
+                        }
+                        if (countBlock > 10) break;
+                    }
+                    if (!canGen || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world) || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad, world)) continue;
+                    this.generateMireOD(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random, Material.field_151568_F, MFQM.SoftGravelBlock, 1);
+                    blockGen = true;
+                }
+            }
+        }
+        if (MFQM.GenTar && !blockGen) {
+            int var7;
+            int var6;
+            int var5;
+            boolean trType = false;
+            int tarP1 = 0;
+            int tarPU = 0;
+            tarP1 = 40;
+            tarPU = 5;
+            if (random.nextInt(tarP1) == 0) {
+                var5 = chunkX + random.nextInt(16) + 8;
+                var6 = 60 + random.nextInt(21) + dHeight;
+                var7 = chunkZ + random.nextInt(16) + 8;
+                new CustomWorldGenLakes(MFQM.TarBlock).generate(world, random, var5, var6, var7, 1);
+                blockGen = true;
+            }
+            if (random.nextInt(tarPU) == 0) {
+                var5 = chunkX + random.nextInt(16) + 8;
+                var6 = random.nextInt(64) + dHeight;
+                var7 = chunkZ + random.nextInt(16) + 8;
+                new CustomWorldGenLakes(MFQM.TarBlock).generate(world, random, var5, var6, var7, 1);
+                blockGen = true;
+            }
+        }
+    }

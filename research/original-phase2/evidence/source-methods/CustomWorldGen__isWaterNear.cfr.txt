@@ -1,0 +1,19 @@
+// CFR0.152; original decompiler line 824; NOT original source; inspect **/goto artifacts if present.
+    private boolean isWaterNear(int x, int y, int z, int rad, World world) {
+        int re = 18;
+        int waterCount = 0;
+        for (int l = 0; l < 1; ++l) {
+            for (int i = 0; i < re; ++i) {
+                int zz;
+                float rg = world.field_73012_v.nextFloat() * 360.0f;
+                float imp = (float)(rad / 4) + world.field_73012_v.nextFloat() * 2.0f;
+                int xx = x + (int)Math.floor(Math.sin(rg = (float)Math.toRadians(rg)) * (double)imp);
+                if (this.validWaterMaterial(xx, y - l, zz = z + (int)Math.floor(Math.cos(rg) * (double)imp), world) && !world.func_147439_a(x, y - l + 1, z).func_149688_o().func_76220_a()) {
+                    ++waterCount;
+                }
+                if (waterCount <= 9) continue;
+                return true;
+            }
+        }
+        return false;
+    }

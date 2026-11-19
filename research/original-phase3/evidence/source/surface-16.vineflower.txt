@@ -1,0 +1,57 @@
+// Decompiled inference, NOT original source; semantic closure PARTIAL
+      if (MFQM.GenMoor && this.T_BoP && biomeId == MFQM.SwampBiomes[7]) {
+         int MoorP = 2;
+         int genCountx = random.nextInt(30) + 50;
+         int genRad = 16;
+         int genRadP = 10;
+         int trueGenCount = random.nextInt(30) + 20;
+         int BGPX = 0;
+         int BGPY = 0;
+         int BGPZ = 0;
+         int radxx = 32 + random.nextInt(10);
+         firstBlockXCoord = chunkX + 4 + random.nextInt(4);
+         firstBlockYCoord = 62 + dHeight;
+         firstBlockZCoord = chunkZ + 4 + random.nextInt(4);
+         this.generateFlatMud(firstBlockXCoord, firstBlockYCoord - 1, firstBlockZCoord, radxx, world, random);
+         if (random.nextInt(MoorP) == 0) {
+            for (int ix = 0; ix < genCountx && trueGenCount > 0; ix++) {
+               firstBlockXCoord = chunkX + random.nextInt(16);
+               firstBlockYCoord = 62 + dHeight;
+               firstBlockZCoord = chunkZ + random.nextInt(16);
+               radxx = genRad + random.nextInt(genRadP);
+               boolean canGenxx = false;
+               if (!canGenxx
+                  && (
+                     random.nextInt(10) == 0
+                        || !this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)
+                        || world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) == MFQM.MorassBlock
+                        || world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) == MFQM.MudBlock
+                  )
+                  && isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                  canGenxx = true;
+               }
+
+               if (canGenxx) {
+                  if (BGPX == 0) {
+                     BGPX = firstBlockXCoord;
+                     BGPZ = firstBlockZCoord;
+                  }
+
+                  float disToC = Math.max((float)Math.sqrt(Math.pow(firstBlockXCoord - BGPX, 2.0) + Math.pow(firstBlockZCoord - BGPZ, 2.0)), 1.0F);
+                  if (random.nextInt(100) == 0) {
+                     this.generateWater(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, Math.min(radxx, 7), world, random, 1);
+                  } else {
+                     this.generateMorass(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxx, world, random, 18.0F / disToC, 0);
+                     if (16.0F / disToC > 0.5 && random.nextInt(150) == 0) {
+                        new WorldGenTrees(true, 5 + random.nextInt(1), 2, 2, false)
+                           .func_76484_a(world, random, firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord);
+                     }
+                  }
+
+                  trueGenCount--;
+                  blockGen = true;
+               }
+            }
+         }
+      }
+

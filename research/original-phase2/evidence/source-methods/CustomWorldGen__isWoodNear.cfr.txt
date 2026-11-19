@@ -1,0 +1,53 @@
+// CFR0.152; original decompiler line 945; NOT original source; inspect **/goto artifacts if present.
+    private boolean isWoodNear(int x, int y, int z, World world) {
+        boolean liquid = false;
+        if (world.func_147439_a(x, y, z).func_149688_o().func_76224_d()) {
+            liquid = true;
+        }
+        if (world.func_147439_a(x, y + 1, z).func_149688_o() == Material.field_151575_d) {
+            if (world.func_147439_a(x, y + 2, z).func_149688_o() == Material.field_151575_d) {
+                if (!liquid) {
+                    return true;
+                }
+            } else {
+                world.func_147468_f(x, y + 1, z);
+            }
+        }
+        if (world.func_147439_a(x + 1, y + 1, z).func_149688_o() == Material.field_151575_d) {
+            if (world.func_147439_a(x + 1, y + 2, z).func_149688_o() == Material.field_151575_d) {
+                if (!liquid) {
+                    return true;
+                }
+            } else {
+                world.func_147468_f(x + 1, y + 1, z);
+            }
+        }
+        if (world.func_147439_a(x - 1, y + 1, z).func_149688_o() == Material.field_151575_d) {
+            if (world.func_147439_a(x - 1, y + 2, z).func_149688_o() == Material.field_151575_d) {
+                if (!liquid) {
+                    return true;
+                }
+            } else {
+                world.func_147468_f(x - 1, y + 1, z);
+            }
+        }
+        if (world.func_147439_a(x, y + 1, z + 1).func_149688_o() == Material.field_151575_d) {
+            if (world.func_147439_a(x, y + 2, z + 1).func_149688_o() == Material.field_151575_d) {
+                if (!liquid) {
+                    return true;
+                }
+            } else {
+                world.func_147468_f(x, y + 1, z + 1);
+            }
+        }
+        if (world.func_147439_a(x, y + 1, z - 1).func_149688_o() == Material.field_151575_d) {
+            if (world.func_147439_a(x, y + 2, z - 1).func_149688_o() == Material.field_151575_d) {
+                if (!liquid) {
+                    return true;
+                }
+            } else {
+                world.func_147468_f(x, y + 1, z - 1);
+            }
+        }
+        return false;
+    }

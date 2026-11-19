@@ -1,0 +1,63 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.client.renderer.texture.IIconRegister
+8:  *  net.minecraft.entity.player.EntityPlayer
+9:  *  net.minecraft.item.Item
+10:  *  net.minecraft.item.ItemStack
+11:  *  net.minecraft.util.IIcon
+12:  *  net.minecraft.util.StatCollector
+13:  */
+14: package MoreFunQuicksandMod.main.items;
+15: 
+16: import MoreFunQuicksandMod.main.MFQM;
+17: import cpw.mods.fml.relauncher.Side;
+18: import cpw.mods.fml.relauncher.SideOnly;
+19: import java.util.List;
+20: import net.minecraft.client.renderer.texture.IIconRegister;
+21: import net.minecraft.entity.player.EntityPlayer;
+22: import net.minecraft.item.Item;
+23: import net.minecraft.item.ItemStack;
+24: import net.minecraft.util.IIcon;
+25: import net.minecraft.util.StatCollector;
+26: 
+27: public class ItemGrapplingHookBRK
+28: extends Item {
+29:     @SideOnly(value=Side.CLIENT)
+30:     private IIcon itemIcon;
+31: 
+32:     public ItemGrapplingHookBRK() {
+33:         this.func_77625_d(1);
+34:         this.func_77655_b("GrapplingHookBRK");
+35:         this.func_77637_a(MFQM.tabMFQM);
+36:     }
+37: 
+38:     @SideOnly(value=Side.CLIENT)
+39:     public boolean func_77662_d() {
+40:         return true;
+41:     }
+42: 
+43:     @SideOnly(value=Side.CLIENT)
+44:     public boolean func_77629_n_() {
+45:         return false;
+46:     }
+47: 
+48:     @SideOnly(value=Side.CLIENT)
+49:     public void func_94581_a(IIconRegister iuconRegister) {
+50:         this.itemIcon = iuconRegister.func_94245_a("morefunquicksandmod:GrapplingHookBroken");
+51:     }
+52: 
+53:     @SideOnly(value=Side.CLIENT)
+54:     public IIcon func_77617_a(int par1) {
+55:         return this.itemIcon;
+56:     }
+57: 
+58:     public void func_77624_a(ItemStack item, EntityPlayer player, List list, boolean bool) {
+59:         list.add(StatCollector.func_74838_a((String)"itemGrapplingHookBRK.instruction1") + ".");
+60:         list.add(StatCollector.func_74838_a((String)"itemGrapplingHookBRK.instruction2") + ".");
+61:     }
+62: }
+63: 

@@ -1,0 +1,180 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.common.eventhandler.Event$Result
+6:  *  cpw.mods.fml.common.eventhandler.SubscribeEvent
+7:  *  cpw.mods.fml.relauncher.Side
+8:  *  cpw.mods.fml.relauncher.SideOnly
+9:  *  net.minecraft.client.entity.EntityPlayerSP
+10:  *  net.minecraft.entity.Entity
+11:  *  net.minecraft.entity.EntityList
+12:  *  net.minecraft.entity.EntityLivingBase
+13:  *  net.minecraft.entity.EnumCreatureType
+14:  *  net.minecraft.entity.SharedMonsterAttributes
+15:  *  net.minecraft.entity.ai.attributes.AttributeModifier
+16:  *  net.minecraft.entity.ai.attributes.IAttributeInstance
+17:  *  net.minecraft.init.Items
+18:  *  net.minecraft.world.biome.BiomeGenBase
+19:  *  net.minecraft.world.biome.BiomeGenBase$SpawnListEntry
+20:  *  net.minecraftforge.client.event.FOVUpdateEvent
+21:  *  net.minecraftforge.event.entity.EntityEvent$EntityConstructing
+22:  *  net.minecraftforge.event.entity.living.LivingEvent$LivingUpdateEvent
+23:  *  net.minecraftforge.event.entity.living.LivingSpawnEvent$CheckSpawn
+24:  */
+25: package MoreFunQuicksandMod.main;
+26: 
+27: import MoreFunQuicksandMod.main.MFQM;
+28: import MoreFunQuicksandMod.main.PotionStuck;
+29: import cpw.mods.fml.common.eventhandler.Event;
+30: import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+31: import cpw.mods.fml.relauncher.Side;
+32: import cpw.mods.fml.relauncher.SideOnly;
+33: import java.util.List;
+34: import java.util.UUID;
+35: import net.minecraft.client.entity.EntityPlayerSP;
+36: import net.minecraft.entity.Entity;
+37: import net.minecraft.entity.EntityList;
+38: import net.minecraft.entity.EntityLivingBase;
+39: import net.minecraft.entity.EnumCreatureType;
+40: import net.minecraft.entity.SharedMonsterAttributes;
+41: import net.minecraft.entity.ai.attributes.AttributeModifier;
+42: import net.minecraft.entity.ai.attributes.IAttributeInstance;
+43: import net.minecraft.init.Items;
+44: import net.minecraft.world.biome.BiomeGenBase;
+45: import net.minecraftforge.client.event.FOVUpdateEvent;
+46: import net.minecraftforge.event.entity.EntityEvent;
+47: import net.minecraftforge.event.entity.living.LivingEvent;
+48: import net.minecraftforge.event.entity.living.LivingSpawnEvent;
+49: 
+50: public class CustomPotionEvent {
+51:     public static final UUID stuckModifierUUID = UUID.fromString("73A49882-85A3-4896-AD2D-8C591E24AA62");
+52: 
+53:     @SubscribeEvent
+54:     public void onEntityConstructing(EntityEvent.EntityConstructing event) {
+55:         if (event.entity instanceof EntityLivingBase) {
+56:             if (PotionStuck.get((EntityLivingBase)event.entity) == null) {
+57:                 PotionStuck.register((EntityLivingBase)event.entity);
+58:             } else {
+59:                 PotionStuck.get((EntityLivingBase)event.entity).DoInit();
+60:             }
+61:         }
+62:     }
+63: 
+64:     @SubscribeEvent
+65:     public void onCheckSpawn(LivingSpawnEvent.CheckSpawn event) {
+66:         if (event.entity == null) {
+67:             return;
+68:         }
+69:         String name = EntityList.func_75621_b((Entity)event.entity);
+70:         if (name == null) {
+71:             return;
+72:         }
+73:         if (name.toLowerCase().matches("(.*)nevermine.bushbaby(.*)")) {
+74:             if (event.entity.field_70170_p.field_73012_v.nextInt(10) != 0) {
+75:                 event.setResult(Event.Result.DENY);
+76:             }
+77:         } else if (name.toLowerCase().matches("(.*)nevermine.chomper(.*)")) {
+78:             if (event.entity.field_70170_p.field_73012_v.nextInt(20) != 0) {
+79:                 event.setResult(Event.Result.DENY);
+80:             }
+81:         } else if (name.toLowerCase().matches("(.*)nevermine.stinger(.*)")) {
+82:             if (event.entity.field_70170_p.field_73012_v.nextInt(10) != 0) {
+83:                 event.setResult(Event.Result.DENY);
+84:             }
+85:         } else if (name.toLowerCase().matches("(.*)nevermine.trickster(.*)")) {
+86:             if (event.entity.field_70170_p.field_73012_v.nextInt(50) != 0) {
+87:                 event.setResult(Event.Result.DENY);
+88:             }
+89:         } else if (event.entity.field_70170_p.field_73011_w.field_76574_g == 0) {
+90:             if (name.toLowerCase().matches("(.*)nevermine(.*)") && event.entity.field_70170_p.field_73012_v.nextInt(3) != 0) {
+91:                 event.setResult(Event.Result.DENY);
+92:             }
+93:         } else if (event.entity.field_70170_p.field_73011_w.field_76574_g == -1) {
+94:             if (name.toLowerCase().matches("(.*)nevermine(.*)") && event.entity.field_70170_p.field_73012_v.nextInt(2) == 0) {
+95:                 event.setResult(Event.Result.DENY);
+96:             }
+97:         } else if (name.toLowerCase().matches("(.*)nevermine(.*)")) {
+98:             if (event.entity.field_70170_p.field_73012_v.nextInt(2) == 0) {
+99:                 event.setResult(Event.Result.DENY);
+100:             } else {
+101:                 BiomeGenBase biomegenbase = event.entity.field_70170_p.func_72807_a((int)Math.floor(event.entity.field_70165_t), (int)Math.floor(event.entity.field_70161_v));
+102:                 List spawns = biomegenbase.func_76747_a(EnumCreatureType.monster);
+103:                 float maxSpawn = 0.0f;
+104:                 float myRate = 0.0f;
+105:                 float myChance = 0.0f;
+106:                 for (BiomeGenBase.SpawnListEntry entry : spawns) {
+107:                     maxSpawn += (float)entry.field_76292_a;
+108:                     if (entry.field_76300_b != event.entity.getClass()) continue;
+109:                     myRate = entry.field_76292_a;
+110:                 }
+111:                 if (myRate > 0.0f && (double)(myChance = myRate / maxSpawn) > 0.01 && event.entity.field_70170_p.field_73012_v.nextInt(Math.min(1 + Math.round(myChance * 400.0f), 32)) != 0) {
+112:                     event.setResult(Event.Result.DENY);
+113:                 }
+114:             }
+115:         }
+116:     }
+117: 
+118:     @SubscribeEvent
+119:     public void onLivingUpdateEvent(LivingEvent.LivingUpdateEvent event) {
+120:         PotionStuck props;
+121:         IAttributeInstance movment = event.entityLiving.func_110148_a(SharedMonsterAttributes.field_111263_d);
+122:         AttributeModifier aold = movment.func_111127_a(stuckModifierUUID);
+123:         if (aold != null) {
+124:             movment.func_111124_b(aold);
+125:         }
+126:         if ((props = PotionStuck.get(event.entityLiving)) == null) {
+127:             return;
+128:         }
+129:         if (props.getLevel() > 0) {
+130:             double speed;
+131:             double powermod = props.getLevel() - 5;
+132:             double corrector = 0.0;
+133:             if (!event.entityLiving.field_70124_G) {
+134:                 corrector = 1.0;
+135:             }
+136:             if (powermod < 250.0) {
+137:                 event.entityLiving.field_70747_aH = (float)((double)event.entityLiving.field_70747_aH / Math.max(Math.pow(1.0 + powermod * (1.0 + corrector * 2.5) / 1000.0, 8.0), 1.0));
+138:                 speed = Math.max(1.0 / Math.pow(1.0 + powermod * (1.0 + corrector / 2.0) / 50.0, 2.0), 0.02);
+139:             } else {
+140:                 event.entityLiving.field_70747_aH = 0.0f;
+141:                 speed = 0.02;
+142:             }
+143:             if ((double)event.entityLiving.field_70747_aH < 0.005) {
+144:                 event.entityLiving.field_70747_aH = 0.0f;
+145:             }
+146:             if ((aold = movment.func_111127_a(stuckModifierUUID)) == null) {
+147:                 AttributeModifier stuckModifier = new AttributeModifier(stuckModifierUUID, "Slowdown entity", speed - 1.0, 2).func_111168_a(false);
+148:                 movment.func_111121_a(stuckModifier);
+149:             }
+150:             props.setStuckLevel(0);
+151:         } else if (props.getLevel() == 0) {
+152:             props.setStuckLevel(-1);
+153:         }
+154:     }
+155: 
+156:     @SideOnly(value=Side.CLIENT)
+157:     @SubscribeEvent
+158:     public void onFOVUpdateEvent(FOVUpdateEvent event) {
+159:         EntityPlayerSP player = event.entity;
+160:         PotionStuck props = PotionStuck.get((EntityLivingBase)player);
+161:         if (props == null) {
+162:             MFQM.SIFOV = event.fov;
+163:             event.newfov = event.fov;
+164:             return;
+165:         }
+166:         if (props.getLevel() >= 0) {
+167:             event.newfov = (float)MFQM.SIFOV;
+168:             if (player.func_71039_bw() && player.func_71011_bu().func_77973_b() == Items.field_151031_f) {
+169:                 int var3 = player.func_71057_bx();
+170:                 float var4 = (float)var3 / 20.0f;
+171:                 var4 = var4 > 1.0f ? 1.0f : (var4 *= var4);
+172:                 event.newfov *= 1.0f - var4 * 0.15f;
+173:             }
+174:         } else {
+175:             MFQM.SIFOV = event.fov;
+176:             event.newfov = event.fov;
+177:         }
+178:     }
+179: }
+180: 

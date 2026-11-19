@@ -1,0 +1,96 @@
+plugins {
+    id 'eclipse'
+    id 'idea'
+    id 'net.minecraftforge.gradle' version '6.0.24'
+}
+
+version = mod_version
+group = mod_group_id
+base { archivesName = 'mfqm-reborn' }
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+minecraft {
+    mappings channel: 'official', version: minecraft_version
+    copyIdeResources = true
+    runs {
+        configureEach {
+            workingDirectory project.file("run/${name}")
+            property 'forge.logging.console.level', 'info'
+            jvmArgs '-Xmx1G', '-XX:ActiveProcessorCount=2'
+            property 'forge.enabledGameTestNamespaces', mod_id
+            if (project.hasProperty('traceSnapshots')) property 'mfqm.traceSnapshots', 'true'
+            if (project.hasProperty('sourceRevision')) property 'mfqm.sourceRevision', project.property('sourceRevision')
+            mods { mfqm { source sourceSets.main } }
+        }
+        client {
+            if (project.hasProperty('phase8Connect')) {
+                workingDirectory project.file('run/' + (project.findProperty('phase8Name') ?: 'Phase8One'))
+                args '--username', (project.findProperty('phase8Name') ?: 'Phase8One'), '--quickPlayMultiplayer', '127.0.0.1:25589'
+                property 'mfqm.phase8ClientTrace', 'true'
+                if (project.hasProperty('phase9ProbeDir')) property 'mfqm.phase9ProbeDir', project.property('phase9ProbeDir')
+            }
+        }
+        observer {
+            parent runs.client
+            workingDirectory project.file('run/observer')
+            args '--username', 'Observer'
+        }
+        server { args '--nogui' }
+        gameTestServer {
+            workingDirectory project.file(project.findProperty("phase7GameTestDir") ?: "run/gameTestServer")
+            property 'mfqm.phase7Vectors', project.file('src/test/resources/phase6').absolutePath
+        }
+    }
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+}
+
+tasks.named('test', Test).configure { useJUnitPlatform() }
+
+tasks.named('processResources', ProcessResources).configure {
+    inputs.property 'mod_version', mod_version
+    filesMatching('META-INF/mods.toml') { expand mod_version: mod_version }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 17
+}
+
+tasks.withType(AbstractArchiveTask).configureEach {
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
+
+tasks.named('jar', Jar).configure {
+    manifest { attributes('Implementation-Title': 'More Fun Quicksand Reborn', 'Implementation-Version': mod_version) }
+    finalizedBy 'reobfJar'
+}
+
+// Forward console commands (including stop) to the development dedicated server.
+tasks.withType(JavaExec).configureEach {
+    if (name == 'runServer') { standardInput = System.in }
+}
+
+// Phase9 private assets are opt-in generated output, never a public source/resource dependency.
+def originalAssets = providers.gradleProperty('mfqmOriginalAssets').orNull
+tasks.named('processResources', ProcessResources).configure {
+    inputs.property 'mfqmResourceMode', originalAssets == null ? 'PUBLIC_SOURCE_BUILD' : 'PRIVATE_ORIGINAL_ASSETS_BUILD'
+    if (originalAssets != null) inputs.dir(file(originalAssets))
+    doFirst {
+        if (originalAssets != null && !new File(file(originalAssets), '.mfqm-import-manifest.json').isFile())
+            throw new GradleException('Private assets require the registered importer manifest')
+        // Prevent a previous private build leaking PNGs into the next public output when modes switch.
+        delete destinationDir
+    }
+    doLast {
+        if (originalAssets != null) {
+            copy { from(originalAssets); into(destinationDir); exclude '.mfqm-import-manifest.json' }
+        } else if (!fileTree(destinationDir).matching { include '**/*.png', '**/*.ogg' }.isEmpty()) {
+            throw new GradleException('PUBLIC_SOURCE_BUILD must not include private PNG/OGG')
+        }
+    }
+}

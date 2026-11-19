@@ -1,0 +1,129 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.block.Block
+8:  *  net.minecraft.block.material.Material
+9:  *  net.minecraft.client.renderer.texture.IIconRegister
+10:  *  net.minecraft.creativetab.CreativeTabs
+11:  *  net.minecraft.enchantment.EnchantmentHelper
+12:  *  net.minecraft.entity.EntityLivingBase
+13:  *  net.minecraft.entity.player.EntityPlayer
+14:  *  net.minecraft.init.Blocks
+15:  *  net.minecraft.item.Item
+16:  *  net.minecraft.item.ItemStack
+17:  *  net.minecraft.util.IIcon
+18:  *  net.minecraft.util.MathHelper
+19:  *  net.minecraft.world.World
+20:  */
+21: package MoreFunQuicksandMod.main.blocks;
+22: 
+23: import MoreFunQuicksandMod.main.MFQM;
+24: import cpw.mods.fml.relauncher.Side;
+25: import cpw.mods.fml.relauncher.SideOnly;
+26: import java.util.List;
+27: import java.util.Random;
+28: import net.minecraft.block.Block;
+29: import net.minecraft.block.material.Material;
+30: import net.minecraft.client.renderer.texture.IIconRegister;
+31: import net.minecraft.creativetab.CreativeTabs;
+32: import net.minecraft.enchantment.EnchantmentHelper;
+33: import net.minecraft.entity.EntityLivingBase;
+34: import net.minecraft.entity.player.EntityPlayer;
+35: import net.minecraft.init.Blocks;
+36: import net.minecraft.item.Item;
+37: import net.minecraft.item.ItemStack;
+38: import net.minecraft.util.IIcon;
+39: import net.minecraft.util.MathHelper;
+40: import net.minecraft.world.World;
+41: 
+42: public class BlockWaxWood
+43: extends Block {
+44:     @SideOnly(value=Side.CLIENT)
+45:     private IIcon IIconSideNormal;
+46:     @SideOnly(value=Side.CLIENT)
+47:     private IIcon IIconSideWax0;
+48:     @SideOnly(value=Side.CLIENT)
+49:     private IIcon IIconSideWax1;
+50:     @SideOnly(value=Side.CLIENT)
+51:     private IIcon IIconLog;
+52: 
+53:     public BlockWaxWood() {
+54:         super(Material.field_151575_d);
+55:         this.func_149711_c(2.0f);
+56:         this.func_149672_a(Block.field_149766_f);
+57:         this.func_149663_c("WaxWood");
+58:         this.func_149647_a(MFQM.tabMFQM);
+59:     }
+60: 
+61:     public int func_149745_a(Random p_149745_1_) {
+62:         return 1;
+63:     }
+64: 
+65:     public Item func_149650_a(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
+66:         return Item.func_150898_a((Block)Blocks.field_150364_r);
+67:     }
+68: 
+69:     public int func_149692_a(int par1) {
+70:         return 3;
+71:     }
+72: 
+73:     @SideOnly(value=Side.CLIENT)
+74:     public void func_149666_a(Item block, CreativeTabs creativeTabs, List list) {
+75:         list.add(new ItemStack(block, 1, 0));
+76:         list.add(new ItemStack(block, 1, 4));
+77:     }
+78: 
+79:     public void func_149689_a(World world, int x, int y, int z, EntityLivingBase ent, ItemStack stack) {
+80:         if (stack.func_77960_j() < 4) {
+81:             int var7 = MathHelper.func_76128_c((double)((double)(ent.field_70177_z * 4.0f / 360.0f) + 2.5)) & 3;
+82:             world.func_72921_c(x, y, z, var7, 2);
+83:         } else {
+84:             int var7 = MathHelper.func_76128_c((double)((double)(ent.field_70177_z * 4.0f / 360.0f) + 2.5)) & 3;
+85:             world.func_72921_c(x, y, z, var7 + 4, 2);
+86:         }
+87:     }
+88: 
+89:     public int func_149643_k(World par1World, int par2, int par3, int par4) {
+90:         return par1World.func_72805_g(par2, par3, par4) < 4 ? 0 : 4;
+91:     }
+92: 
+93:     @SideOnly(value=Side.CLIENT)
+94:     public IIcon func_149691_a(int side, int meta) {
+95:         if (meta < 4) {
+96:             int tmp = meta;
+97:             return side == 1 ? this.IIconLog : (side == 0 ? this.IIconLog : (tmp == 2 && side == 2 ? this.IIconSideWax0 : (tmp == 3 && side == 5 ? this.IIconSideWax0 : (tmp == 0 && side == 3 ? this.IIconSideWax0 : (tmp == 1 && side == 4 ? this.IIconSideWax0 : this.IIconSideNormal)))));
+98:         }
+99:         int tmp = meta - 4;
+100:         return side == 1 ? this.IIconLog : (side == 0 ? this.IIconLog : (tmp == 2 && side == 2 ? this.IIconSideWax1 : (tmp == 3 && side == 5 ? this.IIconSideWax1 : (tmp == 0 && side == 3 ? this.IIconSideWax1 : (tmp == 1 && side == 4 ? this.IIconSideWax1 : this.IIconSideNormal)))));
+101:     }
+102: 
+103:     public void func_149636_a(World world, EntityPlayer entityPlayer, int x, int y, int z, int par6) {
+104:         if (EnchantmentHelper.func_77502_d((EntityLivingBase)entityPlayer)) {
+105:             if (par6 < 4) {
+106:                 MFQM.dropItem(world, x, y, z, new ItemStack((Block)this, 1, 0));
+107:             } else {
+108:                 MFQM.dropItem(world, x, y, z, new ItemStack((Block)this, 1, 4));
+109:             }
+110:             world.func_147471_g(x, y, z);
+111:             return;
+112:         }
+113:         if (par6 < 4) {
+114:             MFQM.dropItem(world, x, y, z, new ItemStack(MFQM.WaxItem, 2 + world.field_73012_v.nextInt(4)));
+115:         } else {
+116:             MFQM.dropItem(world, x, y, z, new ItemStack(MFQM.WaxItem, 1 + world.field_73012_v.nextInt(2)));
+117:         }
+118:         super.func_149636_a(world, entityPlayer, x, y, z, par6);
+119:     }
+120: 
+121:     @SideOnly(value=Side.CLIENT)
+122:     public void func_149651_a(IIconRegister par1IIconRegister) {
+123:         this.IIconLog = par1IIconRegister.func_94245_a("log_jungle_top");
+124:         this.IIconSideNormal = par1IIconRegister.func_94245_a("log_jungle");
+125:         this.IIconSideWax0 = par1IIconRegister.func_94245_a("morefunquicksandmod:WaxTree0");
+126:         this.IIconSideWax1 = par1IIconRegister.func_94245_a("morefunquicksandmod:WaxTree1");
+127:     }
+128: }
+129: 

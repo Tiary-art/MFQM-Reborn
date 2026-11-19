@@ -1,0 +1,433 @@
+Archive: MoreFunQuicksandMod/main/items/ItemLifeJacket.class
+SHA256: 452553e00bf7019abf5a8339293db31af769f81e086236c044a37f470bb4a944
+Superclass: net/minecraft/item/ItemArmor
+Offsets are decimal byte offsets; branch operands are relative offsets.
+
+
+METHOD <init> (Lnet/minecraft/item/ItemArmor$ArmorMaterial;II)V
+000000: aload_0 
+000001: aload_1 
+000002: iload_2 
+000003: iload_3 
+000004: invokespecial #14 net/minecraft/item/ItemArmor.<init>:(Lnet/minecraft/item/ItemArmor$ArmorMaterial;II)V
+000007: aload_0 
+000008: ldc #16 'LifeJacket'
+000010: invokevirtual #20 MoreFunQuicksandMod/main/items/ItemLifeJacket.func_77655_b:(Ljava/lang/String;)Lnet/minecraft/item/Item;
+000013: pop 
+000014: aload_0 
+000015: iconst_0 
+000016: invokevirtual #24 MoreFunQuicksandMod/main/items/ItemLifeJacket.func_77656_e:(I)Lnet/minecraft/item/Item;
+000019: pop 
+000020: aload_0 
+000021: getstatic #30 MoreFunQuicksandMod/main/MFQM.tabMFQM:Lnet/minecraft/creativetab/CreativeTabs;
+000024: invokevirtual #34 MoreFunQuicksandMod/main/items/ItemLifeJacket.func_77637_a:(Lnet/minecraft/creativetab/CreativeTabs;)Lnet/minecraft/item/Item;
+000027: pop 
+000028: return 
+
+METHOD onArmorTick (Lnet/minecraft/world/World;Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/item/ItemStack;)V
+000000: aload_1 
+000001: getfield #49 net/minecraft/world/World.field_72995_K:Z
+000004: ifne 4
+000007: return 
+000008: aload_0 
+000009: aload_2 
+000010: invokevirtual #53 MoreFunQuicksandMod/main/items/ItemLifeJacket.crouchKey:(Lnet/minecraft/entity/player/EntityPlayer;)Z
+000013: ifeq 4
+000016: return 
+000017: aload_2 
+000018: getfield #59 net/minecraft/entity/player/EntityPlayer.field_70163_u:D
+000021: aload_2 
+000022: invokevirtual #63 net/minecraft/entity/player/EntityPlayer.func_70047_e:()F
+000025: f2d 
+000026: dadd 
+000027: ldc2_w #64 0.75
+000030: dsub 
+000031: dstore 4
+000033: aload_2 
+000034: getfield #68 net/minecraft/entity/player/EntityPlayer.field_70165_t:D
+000037: invokestatic #74 net/minecraft/util/MathHelper.func_76128_c:(D)I
+000040: istore 6
+000042: dload 4
+000044: invokestatic #74 net/minecraft/util/MathHelper.func_76128_c:(D)I
+000047: i2f 
+000048: invokestatic #78 net/minecraft/util/MathHelper.func_76141_d:(F)I
+000051: istore 7
+000053: aload_2 
+000054: getfield #81 net/minecraft/entity/player/EntityPlayer.field_70161_v:D
+000057: invokestatic #74 net/minecraft/util/MathHelper.func_76128_c:(D)I
+000060: istore 8
+000062: aload_1 
+000063: iload 6
+000065: iload 7
+000067: iload 8
+000069: invokevirtual #85 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+000072: astore 9
+000074: aload_0 
+000075: aload 9
+000077: invokevirtual #89 MoreFunQuicksandMod/main/items/ItemLifeJacket.getQSDifficult:(Lnet/minecraft/block/Block;)F
+000080: fstore 10
+000082: iconst_0 
+000083: istore 11
+000085: aload_1 
+000086: iload 6
+000088: iload 7
+000090: iconst_1 
+000091: iadd 
+000092: iload 8
+000094: invokevirtual #85 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+000097: astore 12
+000099: aload_0 
+000100: aload 12
+000102: invokevirtual #89 MoreFunQuicksandMod/main/items/ItemLifeJacket.getQSDifficult:(Lnet/minecraft/block/Block;)F
+000105: fstore 13
+000107: iconst_0 
+000108: istore 14
+000110: iload 7
+000112: iconst_1 
+000113: iadd 
+000114: i2d 
+000115: dstore 15
+000117: fload 13
+000119: fconst_0 
+000120: fcmpl 
+000121: ifle 10
+000124: iload 7
+000126: iconst_2 
+000127: iadd 
+000128: i2d 
+000129: dstore 15
+000131: fload 13
+000133: fload 10
+000135: fcmpl 
+000136: ifle 7
+000139: fload 13
+000141: fstore 10
+000143: fload 10
+000145: fconst_0 
+000146: fcmpl 
+000147: ifle 139
+000150: fload 10
+000152: ldc #94 10.0
+000154: fcmpl 
+000155: ifle 13
+000158: fload 10
+000160: ldc #94 10.0
+000162: fsub 
+000163: fstore 10
+000165: iconst_1 
+000166: istore 11
+000168: dload 15
+000170: iload 7
+000172: iconst_2 
+000173: iadd 
+000174: i2d 
+000175: dcmpl 
+000176: ifeq 38
+000179: aload_1 
+000180: getfield #98 net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+000183: dload 15
+000185: dload 4
+000187: dsub 
+000188: dconst_1 
+000189: invokestatic #104 java/lang/Math.min:(DD)D
+000192: dconst_0 
+000193: invokestatic #107 java/lang/Math.max:(DD)D
+000196: ldc2_w #108 10.0
+000199: dmul 
+000200: invokestatic #113 java/lang/Math.floor:(D)D
+000203: d2i 
+000204: iconst_1 
+000205: invokestatic #116 java/lang/Math.max:(II)I
+000208: invokevirtual #122 java/util/Random.nextInt:(I)I
+000211: ifeq 75
+000214: iload 11
+000216: ifne 38
+000219: aload_2 
+000220: dup 
+000221: getfield #125 net/minecraft/entity/player/EntityPlayer.field_70181_x:D
+000224: dload 15
+000226: dload 4
+000228: dsub 
+000229: ldc2_w #108 10.0
+000232: ddiv 
+000233: ldc2_w #126 0.065
+000236: invokestatic #104 java/lang/Math.min:(DD)D
+000239: dconst_0 
+000240: invokestatic #107 java/lang/Math.max:(DD)D
+000243: fload 10
+000245: f2d 
+000246: dmul 
+000247: dadd 
+000248: putfield #125 net/minecraft/entity/player/EntityPlayer.field_70181_x:D
+000251: goto 35
+000254: aload_2 
+000255: dup 
+000256: getfield #125 net/minecraft/entity/player/EntityPlayer.field_70181_x:D
+000259: dload 15
+000261: dload 4
+000263: dsub 
+000264: ldc2_w #108 10.0
+000267: ddiv 
+000268: ldc2_w #126 0.065
+000271: fload 10
+000273: f2d 
+000274: dmul 
+000275: invokestatic #104 java/lang/Math.min:(DD)D
+000278: dconst_0 
+000279: invokestatic #107 java/lang/Math.max:(DD)D
+000282: dadd 
+000283: putfield #125 net/minecraft/entity/player/EntityPlayer.field_70181_x:D
+000286: return 
+
+METHOD getQSDifficult (Lnet/minecraft/block/Block;)F
+000000: iconst_0 
+000001: istore_2 
+000002: iload_2 
+000003: getstatic #152 MoreFunQuicksandMod/main/entity/EntityRope.quicksandIDS:[Lnet/minecraft/block/Block;
+000006: arraylength 
+000007: if_icmpge 24
+000010: getstatic #152 MoreFunQuicksandMod/main/entity/EntityRope.quicksandIDS:[Lnet/minecraft/block/Block;
+000013: iload_2 
+000014: aaload 
+000015: aload_1 
+000016: if_acmpne 9
+000019: getstatic #154 MoreFunQuicksandMod/main/items/ItemLifeJacket.quicksandHardCoof:[F
+000022: iload_2 
+000023: faload 
+000024: freturn 
+000025: iinc 2, 1
+000028: goto -26
+000031: aload_1 
+000032: invokevirtual #158 net/minecraft/block/Block.func_149688_o:()Lnet/minecraft/block/material/Material;
+000035: invokevirtual #164 net/minecraft/block/material/Material.func_76224_d:()Z
+000038: ifeq 5
+000041: fconst_1 
+000042: freturn 
+000043: fconst_0 
+000044: freturn 
+
+METHOD getArmorTexture (Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/Entity;ILjava/lang/String;)Ljava/lang/String;
+000000: ldc #169 'morefunquicksandmod:textures/armor/LifeJacket.png'
+000002: areturn 
+
+METHOD func_94581_a (Lnet/minecraft/client/renderer/texture/IIconRegister;)V
+000000: aload_0 
+000001: aload_1 
+000002: ldc #179 'morefunquicksandmod:LifeJacket'
+000004: invokeinterface #185 net/minecraft/client/renderer/texture/IIconRegister.func_94245_a:(Ljava/lang/String;)Lnet/minecraft/util/IIcon;, 2, 0
+000009: putfield #189 MoreFunQuicksandMod/main/items/ItemLifeJacket.field_77791_bV:Lnet/minecraft/util/IIcon;
+000012: return 
+
+METHOD crouchKey (Lnet/minecraft/entity/player/EntityPlayer;)Z
+000000: aload_1 
+000001: getfield #194 net/minecraft/entity/player/EntityPlayer.field_70170_p:Lnet/minecraft/world/World;
+000004: getfield #49 net/minecraft/world/World.field_72995_K:Z
+000007: ifeq 29
+000010: invokestatic #200 net/minecraft/client/Minecraft.func_71410_x:()Lnet/minecraft/client/Minecraft;
+000013: getfield #204 net/minecraft/client/Minecraft.field_71439_g:Lnet/minecraft/client/entity/EntityClientPlayerMP;
+000016: aload_1 
+000017: if_acmpne 19
+000020: invokestatic #200 net/minecraft/client/Minecraft.func_71410_x:()Lnet/minecraft/client/Minecraft;
+000023: getfield #208 net/minecraft/client/Minecraft.field_71474_y:Lnet/minecraft/client/settings/GameSettings;
+000026: getfield #214 net/minecraft/client/settings/GameSettings.field_74311_E:Lnet/minecraft/client/settings/KeyBinding;
+000029: invokevirtual #220 net/minecraft/client/settings/KeyBinding.func_151463_i:()I
+000032: invokestatic #226 org/lwjgl/input/Keyboard.isKeyDown:(I)Z
+000035: ireturn 
+000036: iconst_0 
+000037: ireturn 
+
+METHOD func_77624_a (Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/EntityPlayer;Ljava/util/List;Z)V
+000000: aload_3 
+000001: new #231 java/lang/StringBuilder
+000004: dup 
+000005: invokespecial #234 java/lang/StringBuilder.<init>:()V
+000008: ldc #236 'itemLifeJacket.instruction1'
+000010: invokestatic #242 net/minecraft/util/StatCollector.func_74838_a:(Ljava/lang/String;)Ljava/lang/String;
+000013: invokevirtual #246 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000016: ldc #248 ','
+000018: invokevirtual #246 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000021: invokevirtual #252 java/lang/StringBuilder.toString:()Ljava/lang/String;
+000024: invokeinterface #258 java/util/List.add:(Ljava/lang/Object;)Z, 2, 0
+000029: pop 
+000030: aload_3 
+000031: new #231 java/lang/StringBuilder
+000034: dup 
+000035: invokespecial #234 java/lang/StringBuilder.<init>:()V
+000038: ldc_w #260 'itemLifeJacket.instruction2'
+000041: invokestatic #242 net/minecraft/util/StatCollector.func_74838_a:(Ljava/lang/String;)Ljava/lang/String;
+000044: invokevirtual #246 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000047: ldc_w #262 '.'
+000050: invokevirtual #246 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000053: invokevirtual #252 java/lang/StringBuilder.toString:()Ljava/lang/String;
+000056: invokeinterface #258 java/util/List.add:(Ljava/lang/Object;)Z, 2, 0
+000061: pop 
+000062: aload_3 
+000063: new #231 java/lang/StringBuilder
+000066: dup 
+000067: invokespecial #234 java/lang/StringBuilder.<init>:()V
+000070: ldc_w #264 'itemLifeJacket.instruction3'
+000073: invokestatic #242 net/minecraft/util/StatCollector.func_74838_a:(Ljava/lang/String;)Ljava/lang/String;
+000076: invokevirtual #246 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000079: ldc_w #262 '.'
+000082: invokevirtual #246 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000085: invokevirtual #252 java/lang/StringBuilder.toString:()Ljava/lang/String;
+000088: invokeinterface #258 java/util/List.add:(Ljava/lang/Object;)Z, 2, 0
+000093: pop 
+000094: aload_3 
+000095: new #231 java/lang/StringBuilder
+000098: dup 
+000099: invokespecial #234 java/lang/StringBuilder.<init>:()V
+000102: getstatic #270 net/minecraft/util/EnumChatFormatting.GOLD:Lnet/minecraft/util/EnumChatFormatting;
+000105: invokevirtual #273 java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+000108: ldc_w #275 'itemLifeJacket.instruction4'
+000111: invokestatic #242 net/minecraft/util/StatCollector.func_74838_a:(Ljava/lang/String;)Ljava/lang/String;
+000114: invokevirtual #246 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000117: getstatic #278 net/minecraft/util/EnumChatFormatting.GRAY:Lnet/minecraft/util/EnumChatFormatting;
+000120: invokevirtual #273 java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+000123: ldc_w #280 ' '
+000126: invokevirtual #246 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000129: ldc_w #282 'itemLifeJacket.instruction5'
+000132: invokestatic #242 net/minecraft/util/StatCollector.func_74838_a:(Ljava/lang/String;)Ljava/lang/String;
+000135: invokevirtual #246 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000138: invokevirtual #252 java/lang/StringBuilder.toString:()Ljava/lang/String;
+000141: invokeinterface #258 java/util/List.add:(Ljava/lang/Object;)Z, 2, 0
+000146: pop 
+000147: return 
+
+METHOD <clinit> ()V
+000000: bipush 33
+000002: newarray 6
+000004: dup 
+000005: iconst_0 
+000006: ldc_w #288 10.25
+000009: fastore 
+000010: dup 
+000011: iconst_1 
+000012: fconst_0 
+000013: fastore 
+000014: dup 
+000015: iconst_2 
+000016: fconst_0 
+000017: fastore 
+000018: dup 
+000019: iconst_3 
+000020: ldc_w #289 0.30000001192092896
+000023: fastore 
+000024: dup 
+000025: iconst_4 
+000026: ldc_w #290 0.5
+000029: fastore 
+000030: dup 
+000031: iconst_5 
+000032: ldc_w #291 0.4000000059604645
+000035: fastore 
+000036: dup 
+000037: bipush 6
+000039: ldc_w #292 1.5
+000042: fastore 
+000043: dup 
+000044: bipush 7
+000046: ldc_w #292 1.5
+000049: fastore 
+000050: dup 
+000051: bipush 8
+000053: fconst_0 
+000054: fastore 
+000055: dup 
+000056: bipush 9
+000058: ldc_w #289 0.30000001192092896
+000061: fastore 
+000062: dup 
+000063: bipush 10
+000065: ldc_w #293 0.20000000298023224
+000068: fastore 
+000069: dup 
+000070: bipush 11
+000072: ldc_w #291 0.4000000059604645
+000075: fastore 
+000076: dup 
+000077: bipush 12
+000079: fconst_0 
+000080: fastore 
+000081: dup 
+000082: bipush 13
+000084: fconst_0 
+000085: fastore 
+000086: dup 
+000087: bipush 14
+000089: fconst_0 
+000090: fastore 
+000091: dup 
+000092: bipush 15
+000094: fconst_0 
+000095: fastore 
+000096: dup 
+000097: bipush 16
+000099: fconst_0 
+000100: fastore 
+000101: dup 
+000102: bipush 17
+000104: fconst_0 
+000105: fastore 
+000106: dup 
+000107: bipush 18
+000109: fconst_0 
+000110: fastore 
+000111: dup 
+000112: bipush 19
+000114: fconst_0 
+000115: fastore 
+000116: dup 
+000117: bipush 20
+000119: ldc_w #289 0.30000001192092896
+000122: fastore 
+000123: dup 
+000124: bipush 21
+000126: fconst_0 
+000127: fastore 
+000128: dup 
+000129: bipush 22
+000131: fconst_0 
+000132: fastore 
+000133: dup 
+000134: bipush 23
+000136: ldc_w #288 10.25
+000139: fastore 
+000140: dup 
+000141: bipush 24
+000143: ldc_w #288 10.25
+000146: fastore 
+000147: dup 
+000148: bipush 25
+000150: ldc_w #288 10.25
+000153: fastore 
+000154: dup 
+000155: bipush 26
+000157: ldc_w #288 10.25
+000160: fastore 
+000161: dup 
+000162: bipush 27
+000164: ldc_w #289 0.30000001192092896
+000167: fastore 
+000168: dup 
+000169: bipush 28
+000171: ldc_w #294 0.75
+000174: fastore 
+000175: dup 
+000176: bipush 29
+000178: ldc_w #290 0.5
+000181: fastore 
+000182: dup 
+000183: bipush 30
+000185: ldc_w #295 0.25
+000188: fastore 
+000189: dup 
+000190: bipush 31
+000192: ldc_w #289 0.30000001192092896
+000195: fastore 
+000196: dup 
+000197: bipush 32
+000199: ldc_w #296 0.03999999910593033
+000202: fastore 
+000203: putstatic #154 MoreFunQuicksandMod/main/items/ItemLifeJacket.quicksandHardCoof:[F
+000206: return 

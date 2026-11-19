@@ -1,0 +1,139 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  net.minecraft.client.model.ModelBase
+6:  *  net.minecraft.client.model.ModelRenderer
+7:  *  net.minecraft.entity.Entity
+8:  *  net.minecraft.util.MathHelper
+9:  */
+10: package MoreFunQuicksandMod.main.client;
+11: 
+12: import net.minecraft.client.model.ModelBase;
+13: import net.minecraft.client.model.ModelRenderer;
+14: import net.minecraft.entity.Entity;
+15: import net.minecraft.util.MathHelper;
+16: 
+17: public class ModelBee
+18: extends ModelBase {
+19:     ModelRenderer Head;
+20:     ModelRenderer Right_Antenna;
+21:     ModelRenderer Left_Antenna;
+22:     ModelRenderer Nose;
+23:     ModelRenderer Left_Wing;
+24:     ModelRenderer Right_Wing;
+25:     ModelRenderer Thorax;
+26:     ModelRenderer Left_Leg_Back;
+27:     ModelRenderer Left_Leg_Middle;
+28:     ModelRenderer Left_Leg_Front;
+29:     ModelRenderer Right_Leg_Back;
+30:     ModelRenderer Right_Leg_Middle;
+31:     ModelRenderer Right_Leg_Front;
+32:     ModelRenderer Abdomen;
+33:     ModelRenderer Stinger;
+34: 
+35:     public ModelBee() {
+36:         this.field_78090_t = 64;
+37:         this.field_78089_u = 32;
+38:         this.Head = new ModelRenderer((ModelBase)this, 46, 0);
+39:         this.Head.func_78789_a(0.0f, 0.0f, 0.0f, 5, 5, 4);
+40:         this.Head.func_78793_a(0.0f, -2.0f, 8.0f);
+41:         this.Head.func_78787_b(64, 32);
+42:         this.Right_Antenna = new ModelRenderer((ModelBase)this, 54, 27);
+43:         this.Right_Antenna.func_78789_a(0.0f, 2.0f, -8.0f, 1, 1, 4);
+44:         this.Right_Antenna.func_78793_a(3.0f, -3.0f, 10.0f);
+45:         this.Right_Antenna.func_78787_b(64, 32);
+46:         this.Right_Antenna.field_78809_i = true;
+47:         this.Head.func_78792_a(this.Right_Antenna);
+48:         this.Left_Antenna = new ModelRenderer((ModelBase)this, 54, 27);
+49:         this.Left_Antenna.func_78789_a(0.0f, 2.0f, -8.0f, 1, 1, 4);
+50:         this.Left_Antenna.func_78793_a(1.0f, -3.0f, 10.0f);
+51:         this.Left_Antenna.func_78787_b(64, 32);
+52:         this.Left_Antenna.field_78809_i = true;
+53:         this.Head.func_78792_a(this.Left_Antenna);
+54:         this.Nose = new ModelRenderer((ModelBase)this, 54, 9);
+55:         this.Nose.func_78789_a(0.0f, 2.0f, -8.0f, 3, 4, 2);
+56:         this.Nose.func_78793_a(1.0f, 0.0f, 11.0f);
+57:         this.Nose.func_78787_b(64, 32);
+58:         this.Nose.field_78809_i = true;
+59:         this.Head.func_78792_a(this.Nose);
+60:         this.Left_Wing = new ModelRenderer((ModelBase)this, 24, 26);
+61:         this.Left_Wing.func_78789_a(-7.0f, 0.0f, 0.0f, 8, 1, 5);
+62:         this.Left_Wing.func_78793_a(0.0f, -1.0f, 2.0f);
+63:         this.Left_Wing.func_78787_b(64, 32);
+64:         this.Right_Wing = new ModelRenderer((ModelBase)this, 24, 20);
+65:         this.Right_Wing.func_78789_a(0.0f, 0.0f, 0.0f, 8, 1, 5);
+66:         this.Right_Wing.func_78793_a(4.0f, -1.0f, 2.0f);
+67:         this.Right_Wing.func_78787_b(64, 32);
+68:         this.Thorax = new ModelRenderer((ModelBase)this, 0, 0);
+69:         this.Thorax.func_78789_a(0.0f, 0.0f, 0.0f, 5, 5, 8);
+70:         this.Thorax.func_78793_a(0.0f, 0.0f, 0.0f);
+71:         this.Thorax.func_78787_b(64, 32);
+72:         this.Left_Leg_Back = new ModelRenderer((ModelBase)this, 13, 23);
+73:         this.Left_Leg_Back.func_78789_a(0.0f, 0.0f, 0.0f, 1, 4, 1);
+74:         this.Left_Leg_Back.func_78793_a(-1.0f, 4.0f, 1.0f);
+75:         this.Left_Leg_Back.func_78787_b(64, 32);
+76:         this.Thorax.func_78792_a(this.Left_Leg_Back);
+77:         this.Left_Leg_Middle = new ModelRenderer((ModelBase)this, 13, 23);
+78:         this.Left_Leg_Middle.func_78789_a(0.0f, 0.0f, 0.0f, 1, 3, 1);
+79:         this.Left_Leg_Middle.func_78793_a(-1.0f, 4.0f, 4.0f);
+80:         this.Left_Leg_Middle.func_78787_b(64, 32);
+81:         this.Thorax.func_78792_a(this.Left_Leg_Middle);
+82:         this.Left_Leg_Front = new ModelRenderer((ModelBase)this, 13, 23);
+83:         this.Left_Leg_Front.func_78789_a(0.0f, 0.0f, 0.0f, 1, 4, 1);
+84:         this.Left_Leg_Front.func_78793_a(-1.0f, 4.0f, 6.0f);
+85:         this.Left_Leg_Front.func_78787_b(64, 32);
+86:         this.Thorax.func_78792_a(this.Left_Leg_Front);
+87:         this.Right_Leg_Back = new ModelRenderer((ModelBase)this, 13, 23);
+88:         this.Right_Leg_Back.func_78789_a(0.0f, 0.0f, 0.0f, 1, 4, 1);
+89:         this.Right_Leg_Back.func_78793_a(5.0f, 4.0f, 1.0f);
+90:         this.Right_Leg_Back.func_78787_b(64, 32);
+91:         this.Thorax.func_78792_a(this.Right_Leg_Back);
+92:         this.Right_Leg_Middle = new ModelRenderer((ModelBase)this, 13, 23);
+93:         this.Right_Leg_Middle.func_78789_a(0.0f, 0.0f, 0.0f, 1, 3, 1);
+94:         this.Right_Leg_Middle.func_78793_a(5.0f, 4.0f, 4.0f);
+95:         this.Right_Leg_Middle.func_78787_b(64, 32);
+96:         this.Thorax.func_78792_a(this.Right_Leg_Middle);
+97:         this.Right_Leg_Front = new ModelRenderer((ModelBase)this, 13, 23);
+98:         this.Right_Leg_Front.func_78789_a(0.0f, 0.0f, 0.0f, 1, 4, 1);
+99:         this.Right_Leg_Front.func_78793_a(5.0f, 4.0f, 6.0f);
+100:         this.Right_Leg_Front.func_78787_b(64, 32);
+101:         this.Thorax.func_78792_a(this.Right_Leg_Front);
+102:         this.Abdomen = new ModelRenderer((ModelBase)this, 0, 13);
+103:         this.Abdomen.func_78789_a(0.0f, 0.0f, 0.0f, 3, 3, 2);
+104:         this.Abdomen.func_78793_a(1.0f, 2.0f, -2.0f);
+105:         this.Abdomen.func_78787_b(64, 32);
+106:         this.Stinger = new ModelRenderer((ModelBase)this, 0, 18);
+107:         this.Stinger.func_78789_a(-1.0f, -3.0f, 2.0f, 1, 1, 3);
+108:         this.Stinger.func_78793_a(2.0f, 4.0f, -5.0f);
+109:         this.Stinger.func_78787_b(64, 32);
+110:         this.Abdomen.func_78792_a(this.Stinger);
+111:     }
+112: 
+113:     public void func_78088_a(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+114:         this.func_78087_a(f, f1, f2, f3, f4, f5, entity);
+115:         this.Head.func_78785_a(f5);
+116:         this.Left_Wing.func_78785_a(f5);
+117:         this.Right_Wing.func_78785_a(f5);
+118:         this.Thorax.func_78785_a(f5);
+119:         this.Abdomen.func_78785_a(f5);
+120:     }
+121: 
+122:     public void func_78087_a(float f, float f1, float f2, float f3, float f4, float f5, Entity entity) {
+123:         super.func_78087_a(f, f1, f2, f3, f4, f5, entity);
+124:         float headspeed = 0.1f * (float)(entity.field_70173_aa % 10);
+125:         this.Head.field_78795_f = MathHelper.func_76126_a((float)(f2 * headspeed)) * 2.5f * (float)Math.PI / 180.0f;
+126:         this.Head.field_78808_h = MathHelper.func_76134_b((float)(f2 * headspeed)) * 1.5f * (float)Math.PI / 180.0f;
+127:         float thoraxspeed = 0.075f * (float)(entity.field_70173_aa % 10);
+128:         this.Thorax.field_78795_f = MathHelper.func_76126_a((float)(f2 * thoraxspeed)) * 2.5f * (float)Math.PI / 180.0f;
+129:         this.Thorax.field_78808_h = MathHelper.func_76134_b((float)(f2 * thoraxspeed)) * 1.5f * (float)Math.PI / 180.0f;
+130:         this.Right_Wing.field_78796_g = MathHelper.func_76134_b((float)(f2 * 1.7f)) * (float)Math.PI * 0.25f;
+131:         this.Left_Wing.field_78796_g = -this.Right_Wing.field_78796_g;
+132:         this.Right_Wing.field_78808_h = this.Right_Wing.field_78796_g;
+133:         this.Left_Wing.field_78808_h = -this.Right_Wing.field_78796_g;
+134:         float abdomenspeed = 0.6f * (float)(entity.field_70173_aa % 10);
+135:         this.Abdomen.field_78795_f = MathHelper.func_76126_a((float)(f2 * abdomenspeed)) * 2.5f * (float)Math.PI / 180.0f;
+136:         this.Abdomen.field_78808_h = MathHelper.func_76134_b((float)(f2 * abdomenspeed)) * 1.5f * (float)Math.PI / 180.0f;
+137:     }
+138: }
+139: 

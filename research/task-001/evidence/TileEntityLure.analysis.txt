@@ -1,0 +1,46 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  net.minecraft.entity.EntityCreature
+6:  *  net.minecraft.entity.EntityLivingBase
+7:  *  net.minecraft.entity.player.EntityPlayer
+8:  *  net.minecraft.nbt.NBTTagCompound
+9:  *  net.minecraft.tileentity.TileEntity
+10:  *  net.minecraft.util.AxisAlignedBB
+11:  */
+12: package MoreFunQuicksandMod.main.Tileentity;
+13: 
+14: import java.util.List;
+15: import net.minecraft.entity.EntityCreature;
+16: import net.minecraft.entity.EntityLivingBase;
+17: import net.minecraft.entity.player.EntityPlayer;
+18: import net.minecraft.nbt.NBTTagCompound;
+19: import net.minecraft.tileentity.TileEntity;
+20: import net.minecraft.util.AxisAlignedBB;
+21: 
+22: public class TileEntityLure
+23: extends TileEntity {
+24:     public void func_145841_b(NBTTagCompound par1) {
+25:         super.func_145841_b(par1);
+26:     }
+27: 
+28:     public void func_145839_a(NBTTagCompound par1) {
+29:         super.func_145839_a(par1);
+30:     }
+31: 
+32:     public void func_145845_h() {
+33:         if (this.field_145850_b.func_82737_E() % 48L == 0L && !this.field_145850_b.field_72995_K && this.field_145850_b.field_73012_v.nextInt(5) == 0) {
+34:             int x = this.field_145851_c;
+35:             int y = this.field_145848_d;
+36:             int z = this.field_145849_e;
+37:             List var4 = this.field_145850_b.func_72872_a(EntityLivingBase.class, AxisAlignedBB.func_72330_a((double)(x - 64), (double)(y - 4), (double)(z - 64), (double)(x + 64), (double)(y + 32), (double)(z + 64)));
+38:             for (EntityLivingBase e : var4) {
+39:                 double dis;
+40:                 if (!(e instanceof EntityCreature) || e instanceof EntityPlayer || !((dis = Math.pow(Math.pow(e.field_70165_t - (double)x, 2.0) + Math.pow(e.field_70161_v - (double)z, 2.0), 0.5)) > 4.0) || this.field_145850_b.field_73012_v.nextInt((int)Math.floor(dis / 5.0) + 20) != 0) continue;
+41:                 ((EntityCreature)e).func_70661_as().func_75492_a((double)x + 0.5, (double)y + 0.5, (double)z + 0.5, 1.0);
+42:             }
+43:         }
+44:     }
+45: }
+46: 

@@ -1,0 +1,68 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.block.Block
+8:  *  net.minecraft.block.material.Material
+9:  *  net.minecraft.client.renderer.texture.IIconRegister
+10:  *  net.minecraft.util.IIcon
+11:  */
+12: package MoreFunQuicksandMod.main.blocks;
+13: 
+14: import MoreFunQuicksandMod.main.MFQM;
+15: import cpw.mods.fml.relauncher.Side;
+16: import cpw.mods.fml.relauncher.SideOnly;
+17: import net.minecraft.block.Block;
+18: import net.minecraft.block.material.Material;
+19: import net.minecraft.client.renderer.texture.IIconRegister;
+20: import net.minecraft.util.IIcon;
+21: 
+22: public class BlockHardenedClay
+23: extends Block {
+24:     @SideOnly(value=Side.CLIENT)
+25:     private IIcon[] IIconNormalArray;
+26:     @SideOnly(value=Side.CLIENT)
+27:     private IIcon[] IIconBrokenArray;
+28:     @SideOnly(value=Side.CLIENT)
+29:     private IIcon IIconSideNormal;
+30:     @SideOnly(value=Side.CLIENT)
+31:     private IIcon IIconSideBroken;
+32: 
+33:     public BlockHardenedClay() {
+34:         super(Material.field_151576_e);
+35:         this.func_149711_c(1.25f);
+36:         this.func_149672_a(Block.field_149769_e);
+37:         this.func_149752_b(7.0f);
+38:         this.func_149663_c("HardenedClay");
+39:         this.func_149647_a(MFQM.tabMFQM);
+40:     }
+41: 
+42:     @SideOnly(value=Side.CLIENT)
+43:     public IIcon func_149691_a(int par1, int par2) {
+44:         switch (par1) {
+45:             case 1: {
+46:                 return this.IIconNormalArray[Math.min(4, par2)];
+47:             }
+48:         }
+49:         return this.IIconNormalArray[0];
+50:     }
+51: 
+52:     @SideOnly(value=Side.CLIENT)
+53:     public void func_149651_a(IIconRegister par1IIconRegister) {
+54:         this.IIconNormalArray = new IIcon[5];
+55:         this.IIconBrokenArray = new IIcon[5];
+56:         this.IIconNormalArray[0] = par1IIconRegister.func_94245_a("morefunquicksandmod:clay0_0");
+57:         this.IIconNormalArray[1] = par1IIconRegister.func_94245_a("morefunquicksandmod:clay0_1");
+58:         this.IIconNormalArray[2] = par1IIconRegister.func_94245_a("morefunquicksandmod:clay0_2");
+59:         this.IIconNormalArray[3] = par1IIconRegister.func_94245_a("morefunquicksandmod:clay0_3");
+60:         this.IIconNormalArray[4] = par1IIconRegister.func_94245_a("morefunquicksandmod:clay0_4");
+61:         this.IIconBrokenArray[0] = par1IIconRegister.func_94245_a("morefunquicksandmod:clay1");
+62:         this.IIconBrokenArray[1] = par1IIconRegister.func_94245_a("morefunquicksandmod:clay2");
+63:         this.IIconBrokenArray[2] = par1IIconRegister.func_94245_a("morefunquicksandmod:clay3");
+64:         this.IIconSideNormal = par1IIconRegister.func_94245_a("morefunquicksandmod:clay4");
+65:         this.IIconSideBroken = par1IIconRegister.func_94245_a("morefunquicksandmod:clay5");
+66:     }
+67: }
+68: 

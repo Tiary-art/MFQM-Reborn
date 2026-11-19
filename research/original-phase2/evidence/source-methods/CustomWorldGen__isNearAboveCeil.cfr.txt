@@ -1,0 +1,19 @@
+// CFR0.152; original decompiler line 767; NOT original source; inspect **/goto artifacts if present.
+    private boolean isNearAboveCeil(int x, int y, int z, World world, int rad) {
+        int re = 18;
+        int groundCount = 0;
+        if (!this.isAboveEmpty(x, y + 2, z, world)) {
+            for (int i = 0; i < re; ++i) {
+                int zz;
+                float rg = world.field_73012_v.nextFloat() * 360.0f;
+                float imp = (float)(rad / 6) + world.field_73012_v.nextFloat() * 2.0f;
+                int xx = x + (int)Math.floor(Math.sin(rg = (float)Math.toRadians(rg)) * (double)imp);
+                if (!this.isAboveEmpty(xx, y + 2, zz = z + (int)Math.floor(Math.cos(rg) * (double)imp), world)) {
+                    ++groundCount;
+                }
+                if (groundCount <= 5) continue;
+                return true;
+            }
+        }
+        return false;
+    }

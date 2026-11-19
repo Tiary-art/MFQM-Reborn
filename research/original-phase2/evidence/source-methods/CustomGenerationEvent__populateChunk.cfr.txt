@@ -1,0 +1,145 @@
+// CFR0.152; original decompiler line 36; NOT original source; inspect **/goto artifacts if present.
+    public void populateChunk(PopulateChunkEvent.Post event) {
+        int y;
+        Chunk chunk;
+        int zz;
+        int xx;
+        this.T_BoP = MFQM.BoP;
+        if (MFQM.PBoP && MFQM.BoP && (event.world.func_72912_H().func_76067_t() == WorldType.field_77135_d || event.world.func_72912_H().func_76067_t() == WorldType.field_77137_b)) {
+            this.T_BoP = false;
+        }
+        if (event.world.field_73011_w.field_76574_g == 0) {
+            for (xx = 0; xx < 3; ++xx) {
+                for (zz = 0; zz < 3; ++zz) {
+                    if (!event.world.func_72899_e((event.chunkX + xx - 1) * 16, 64, (event.chunkZ + zz - 1) * 16) || (chunk = event.world.func_72964_e(event.chunkX + xx - 1, event.chunkZ + zz - 1)) == null) continue;
+                    boolean GenType = false;
+                    BiomeGenBase biomegenbase = event.world.func_72807_a((event.chunkX + xx - 1) * 16, (event.chunkZ + zz - 1) * 16);
+                    int biomeId = biomegenbase.field_76756_M;
+                    if (this.T_BoP) {
+                        for (int i = 0; i < MFQM.QSJungleBiomes.length; ++i) {
+                            if (biomeId != MFQM.QSJungleBiomes[i]) continue;
+                            GenType = true;
+                        }
+                    } else if (biomegenbase instanceof BiomeGenSwamp || biomegenbase instanceof BiomeGenJungle || biomegenbase instanceof BiomeGenForest) {
+                        GenType = true;
+                    }
+                    ExtendedBlockStorage[] SA = chunk.func_76587_i();
+                    for (int yy = 0; yy < 16; ++yy) {
+                        ExtendedBlockStorage storage = SA[yy];
+                        if (storage == null) continue;
+                        for (int x = 0; x < 16; ++x) {
+                            for (int y2 = 0; y2 < 16; ++y2) {
+                                for (int z = 0; z < 16; ++z) {
+                                    int gz;
+                                    int gy;
+                                    int gx;
+                                    if (MFQM.GenTempleQS && storage.func_150819_a(x, y2, z) == Blocks.field_150335_W && event.world.func_147439_a(gx = x + (event.chunkX + xx - 1) * 16, (gy = y2 + yy * 16) + 1, gz = z + (event.chunkZ + zz - 1) * 16) == Blocks.field_150322_A) {
+                                        storage.func_150818_a(x, y2, z, MFQM.QuicksandBlock);
+                                        storage.func_76654_b(x, y2, z, 0);
+                                        event.world.func_147465_d(gx, gy + 1, gz, MFQM.SandstoneTrapBlock, 0, 2);
+                                        event.world.func_147465_d(gx, gy - 1, gz, MFQM.QuicksandBlock, 0, 2);
+                                        event.world.func_147465_d(gx, gy - 2, gz, Blocks.field_150322_A, 0, 2);
+                                    }
+                                    if (storage.func_150819_a(x, y2, z) != MFQM.BOPMudBlock) continue;
+                                    if (storage.func_76665_b(x, y2, z) != 1) {
+                                        storage.func_150818_a(x, y2, z, MFQM.MudBlock);
+                                        continue;
+                                    }
+                                    gx = x + (event.chunkX + xx - 1) * 16;
+                                    gz = z + (event.chunkZ + zz - 1) * 16;
+                                    gy = y2 + yy * 16;
+                                    if (GenType) {
+                                        if (event.world.func_147439_a(gx, gy + 1, gz).func_149688_o().func_76220_a()) {
+                                            storage.func_150818_a(x, y2, z, Blocks.field_150346_d);
+                                            continue;
+                                        }
+                                        storage.func_150818_a(x, y2, z, (Block)Blocks.field_150349_c);
+                                        continue;
+                                    }
+                                    storage.func_150818_a(x, y2, z, (Block)Blocks.field_150354_m);
+                                    storage.func_76654_b(x, y2, z, 0);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (event.world.field_73011_w.field_76574_g == -1 && MFQM.GenHoney2) {
+            for (xx = 0; xx < 3; ++xx) {
+                for (zz = 0; zz < 3; ++zz) {
+                    if (!event.world.func_72899_e((event.chunkX + xx - 1) * 16, 64, (event.chunkZ + zz - 1) * 16) || (chunk = event.world.func_72964_e(event.chunkX + xx - 1, event.chunkZ + zz - 1)) == null) continue;
+                    ExtendedBlockStorage[] SA = chunk.func_76587_i();
+                    for (int yy = 0; yy < 16; ++yy) {
+                        ExtendedBlockStorage storage = SA[yy];
+                        if (storage == null) continue;
+                        for (int x = 0; x < 16; ++x) {
+                            for (y = 0; y < 16; ++y) {
+                                for (int z = 0; z < 16; ++z) {
+                                    if (storage.func_150819_a(x, y, z) == MFQM.BOPHoneyBlock) {
+                                        int meta = storage.func_76665_b(x, y, z);
+                                        storage.func_150818_a(x, y, z, MFQM.HoneyBlock);
+                                        storage.func_76654_b(x, y, z, 0);
+                                    }
+                                    if (storage.func_150819_a(x, y, z) != MFQM.BOPSolidHoneyBlock) continue;
+                                    storage.func_150818_a(x, y, z, MFQM.SolidHoneyBlock);
+                                    storage.func_76654_b(x, y, z, 0);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (MFQM.TBL && event.world.field_73011_w.field_76574_g == MFQM.TBLDim) {
+            for (xx = 0; xx < 5; ++xx) {
+                for (zz = 0; zz < 5; ++zz) {
+                    if (!event.world.func_72899_e((event.chunkX + xx - 2) * 16, 64, (event.chunkZ + zz - 2) * 16) || (chunk = event.world.func_72964_e(event.chunkX + xx - 2, event.chunkZ + zz - 2)) == null) continue;
+                    ExtendedBlockStorage[] SA = chunk.func_76587_i();
+                    for (int yy = 0; yy < 16; ++yy) {
+                        ExtendedBlockStorage storage = SA[yy];
+                        if (storage == null) continue;
+                        for (int x = 0; x < 16; ++x) {
+                            for (y = 0; y < 16; ++y) {
+                                for (int z = 0; z < 16; ++z) {
+                                    if (storage.func_150819_a(x, y, z) == MFQM.TBLMudBlock) {
+                                        storage.func_150818_a(x, y, z, MFQM.MudBlock);
+                                        storage.func_76654_b(x, y, z, 3);
+                                        continue;
+                                    }
+                                    if (storage.func_150819_a(x, y, z) == MFQM.TBLTarBlock) {
+                                        int mtd = storage.func_76665_b(x, y, z);
+                                        storage.func_150818_a(x, y, z, MFQM.TarBlock);
+                                        storage.func_76654_b(x, y, z, mtd);
+                                        continue;
+                                    }
+                                    if (storage.func_150819_a(x, y, z) != MFQM.TBLSludgeBlock) continue;
+                                    storage.func_150818_a(x, y, z, MFQM.MireBlock);
+                                    storage.func_76654_b(x, y, z, 0);
+                                    if (y > 0) {
+                                        storage.func_150818_a(x, y - 1, z, MFQM.MireBlock);
+                                        storage.func_76654_b(x, y - 1, z, 12);
+                                    } else {
+                                        ExtendedBlockStorage storage2 = SA[Math.max(yy - 1, 0)];
+                                        if (storage2 != null) {
+                                            storage2.func_150818_a(x, 15, z, MFQM.MireBlock);
+                                            storage2.func_76654_b(x, 15, z, 12);
+                                        }
+                                    }
+                                    if (y > 1) {
+                                        if (storage.func_150819_a(x, y - 2, z) == MFQM.MireBlock) continue;
+                                        storage.func_150818_a(x, y - 2, z, MFQM.PeatBlock);
+                                        continue;
+                                    }
+                                    ExtendedBlockStorage storage2 = SA[Math.max(yy - 1, 0)];
+                                    if (storage2 == null) continue;
+                                    storage2.func_150818_a(x, 14, z, MFQM.MireBlock);
+                                    storage2.func_76654_b(x, 14, z, 12);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }

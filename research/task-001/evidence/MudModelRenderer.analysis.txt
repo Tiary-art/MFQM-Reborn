@@ -1,0 +1,108 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  net.minecraft.client.Minecraft
+6:  *  net.minecraft.client.entity.EntityClientPlayerMP
+7:  *  net.minecraft.client.entity.EntityOtherPlayerMP
+8:  *  net.minecraft.client.model.ModelBase
+9:  *  net.minecraft.client.model.ModelRenderer
+10:  *  net.minecraft.entity.player.EntityPlayer
+11:  *  net.minecraft.world.World
+12:  *  org.lwjgl.opengl.GL11
+13:  */
+14: package MoreFunQuicksandMod.main.client;
+15: 
+16: import MoreFunQuicksandMod.main.CustomVarPlayer;
+17: import MoreFunQuicksandMod.main.MFQM;
+18: import java.util.UUID;
+19: import net.minecraft.client.Minecraft;
+20: import net.minecraft.client.entity.EntityClientPlayerMP;
+21: import net.minecraft.client.entity.EntityOtherPlayerMP;
+22: import net.minecraft.client.model.ModelBase;
+23: import net.minecraft.client.model.ModelRenderer;
+24: import net.minecraft.entity.player.EntityPlayer;
+25: import net.minecraft.world.World;
+26: import org.lwjgl.opengl.GL11;
+27: 
+28: public class MudModelRenderer
+29: extends ModelRenderer {
+30:     public EntityPlayer currentPlayer;
+31:     public UUID currentPlayerUUID;
+32:     public String currentPlayerNick;
+33:     public World world;
+34:     public boolean eventShow = false;
+35: 
+36:     public MudModelRenderer(ModelBase model, String s) {
+37:         super(model, s);
+38:     }
+39: 
+40:     public MudModelRenderer(ModelBase model) {
+41:         super(model);
+42:     }
+43: 
+44:     public MudModelRenderer(ModelBase model, EntityPlayer plr) {
+45:         this(model);
+46:         this.currentPlayer = plr;
+47:         this.currentPlayerUUID = plr.func_110124_au();
+48:         this.currentPlayerNick = this.currentPlayer.func_70005_c_();
+49:         this.world = this.currentPlayer.field_70170_p;
+50:     }
+51: 
+52:     public MudModelRenderer(ModelBase model, int x, int y, EntityPlayer plr) {
+53:         this(model, x, y);
+54:         this.currentPlayer = plr;
+55:         this.currentPlayerUUID = plr.func_110124_au();
+56:         this.currentPlayerNick = this.currentPlayer.func_70005_c_();
+57:         this.world = this.currentPlayer.field_70170_p;
+58:     }
+59: 
+60:     public MudModelRenderer(ModelBase model, int x, int y) {
+61:         super(model, x, y);
+62:     }
+63: 
+64:     public void func_78785_a(float f) {
+65:         if (!this.field_78806_j) {
+66:             return;
+67:         }
+68:         if (!this.eventShow) {
+69:             return;
+70:         }
+71:         CustomVarPlayer props = CustomVarPlayer.get(this.currentPlayer);
+72:         int ml = props.getMuddyLevel();
+73:         int mtp = props.getMuddyType();
+74:         int mt = props.getMuddyTime();
+75:         if (mt > 50 && mtp >= 0 && mtp <= MFQM.mudTypesColors.length && ml > 0) {
+76:             int color = MFQM.mudTypesColors[mtp];
+77:             float red = (float)(color >> 16 & 0xFF) / 255.0f;
+78:             float green = (float)(color >> 8 & 0xFF) / 255.0f;
+79:             float blue = (float)(color & 0xFF) / 255.0f;
+80:             GL11.glColor4f((float)red, (float)green, (float)blue, (float)Math.min(1.0f, (float)mt / 1000.0f));
+81:             GL11.glDepthFunc((int)515);
+82:             GL11.glEnable((int)3008);
+83:             GL11.glEnable((int)3553);
+84:             GL11.glEnable((int)2977);
+85:             GL11.glEnable((int)3042);
+86:             GL11.glBlendFunc((int)770, (int)771);
+87:             if (mtp == 0 || mtp == 1 || mtp == 3 || mtp == 6 || mtp == 7 || mtp == 8 || mtp == 15 || mtp == 19 || mtp == 20 || mtp == 21 || mtp == 25 || mtp == 28 || mtp == 31) {
+88:                 Minecraft.func_71410_x().field_71446_o.func_110577_a(MFQM.slimeTextures[ml - 1]);
+89:             } else {
+90:                 Minecraft.func_71410_x().field_71446_o.func_110577_a(MFQM.mudTextures[ml - 1]);
+91:             }
+92:             super.func_78785_a(f);
+93:             if (this.currentPlayer instanceof EntityClientPlayerMP) {
+94:                 Minecraft.func_71410_x().field_71446_o.func_110577_a(((EntityClientPlayerMP)this.currentPlayer).func_110306_p());
+95:             } else {
+96:                 Minecraft.func_71410_x().field_71446_o.func_110577_a(((EntityOtherPlayerMP)this.currentPlayer).func_110306_p());
+97:             }
+98:             GL11.glColor4f((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
+99:             GL11.glDisable((int)2977);
+100:             GL11.glDisable((int)3042);
+101:             GL11.glDepthFunc((int)515);
+102:             GL11.glEnable((int)3008);
+103:             GL11.glEnable((int)3553);
+104:         }
+105:         this.eventShow = false;
+106:     }
+107: }
+108: 

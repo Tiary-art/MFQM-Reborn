@@ -1,0 +1,164 @@
+// CFR0.152; original decompiler line 6027; NOT original source; inspect **/goto artifacts if present.
+    private void generateAOADimAbyss(World world, Random random, int chunkX, int chunkZ) {
+        int countBlock;
+        int i;
+        boolean Flat;
+        int rad;
+        int genRadP;
+        int genRad;
+        int genPos;
+        int genCount;
+        boolean canGen;
+        boolean isDarkForest;
+        boolean blockGen;
+        int firstBlockZCoord;
+        int firstBlockYCoord;
+        int firstBlockXCoord;
+        int dHeight;
+        block30: {
+            dHeight = 0;
+            firstBlockXCoord = chunkX + random.nextInt(16);
+            firstBlockYCoord = 96 + dHeight;
+            firstBlockZCoord = chunkZ + random.nextInt(16);
+            BiomeGenBase biomegenbase = world.func_72807_a(firstBlockXCoord, firstBlockZCoord);
+            int biomeId = biomegenbase.field_76756_M;
+            blockGen = false;
+            isDarkForest = biomeId == MFQM.AOABiomes[2];
+            int k = 0;
+            while (true) {
+                if (k < 45) {
+                } else {
+                    if (!MFQM.GenMeatS || isDarkForest) break block30;
+                    canGen = false;
+                    genCount = 10 + random.nextInt(2);
+                    genPos = 10;
+                    genRad = 6;
+                    genRadP = 6;
+                    rad = 0;
+                    if (random.nextInt(genPos) == 0) {
+                        break;
+                    }
+                    break block30;
+                }
+                for (int h = 0; h < 16; ++h) {
+                    for (int v = 0; v < 16; ++v) {
+                        firstBlockXCoord = chunkX + h;
+                        firstBlockYCoord = 50 + dHeight - k;
+                        firstBlockZCoord = chunkZ + v;
+                        if (world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) != MFQM.AOAToxicBlock) continue;
+                        world.func_147465_d(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, MFQM.MudBlock, 3, 0);
+                    }
+                }
+                ++k;
+            }
+            for (int i2 = 0; i2 < genCount; ++i2) {
+                firstBlockXCoord = chunkX + random.nextInt(16);
+                firstBlockZCoord = chunkZ + random.nextInt(16);
+                rad = genRad + random.nextInt(genRadP);
+                int countBlock2 = 0;
+                canGen = false;
+                for (firstBlockYCoord = 96 + dHeight; firstBlockYCoord > 60 + dHeight; --firstBlockYCoord) {
+                    if (world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) != MFQM.TarBlock) {
+                        if (this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                            if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                canGen = true;
+                                break;
+                            }
+                            ++countBlock2;
+                        }
+                    } else {
+                        canGen = false;
+                        break;
+                    }
+                    if (countBlock2 > 10) break;
+                }
+                if (!canGen) continue;
+                this.generateBlood(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad * 2, world, random, Material.field_151578_c);
+                this.generateBlood(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad * 2, world, random, Material.field_151578_c);
+                this.generateBlood(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad * 2, world, random, Material.field_151578_c);
+                blockGen = true;
+                if (random.nextInt(20) != 0 || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad + 1, world) || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad + 1, world)) continue;
+                this.generateMire2(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random, Material.field_151568_F, MFQM.SwFleshBlock);
+            }
+        }
+        if (MFQM.GenLiqMire && !blockGen) {
+            canGen = false;
+            genCount = 20 + random.nextInt(10);
+            genPos = 10;
+            genRad = 6;
+            genRadP = 6;
+            rad = 0;
+            genPos = isDarkForest ? 3 : 60;
+            if (random.nextInt(genPos) == 0) {
+                Flat = false;
+                if (random.nextInt(10) == 0) {
+                    Flat = true;
+                }
+                for (i = 0; i < genCount; ++i) {
+                    firstBlockXCoord = chunkX + random.nextInt(16);
+                    firstBlockZCoord = chunkZ + random.nextInt(16);
+                    rad = genRad + random.nextInt(genRadP);
+                    countBlock = 0;
+                    canGen = false;
+                    for (firstBlockYCoord = 96 + dHeight; firstBlockYCoord > 60 + dHeight; --firstBlockYCoord) {
+                        if (world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) != MFQM.MeatBlock) {
+                            if (this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                                if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                    canGen = true;
+                                    break;
+                                }
+                                ++countBlock;
+                            }
+                        } else {
+                            canGen = false;
+                            break;
+                        }
+                        if (countBlock > 10) break;
+                    }
+                    if (!canGen || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad - 2, world) || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad - 2, world)) continue;
+                    this.generateLiquidMire(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random, Material.field_151568_F, 0);
+                    blockGen = true;
+                }
+            }
+        }
+        if (MFQM.GenMoss && MFQM.GenJQS && !blockGen) {
+            canGen = false;
+            genCount = 5 + random.nextInt(2);
+            genPos = 6;
+            genRad = 6;
+            genRadP = 8;
+            rad = 0;
+            genPos = !isDarkForest ? 30 : 60;
+            if (random.nextInt(genPos) == 0) {
+                Flat = false;
+                if (random.nextInt(10) == 0) {
+                    Flat = true;
+                }
+                for (i = 0; i < genCount; ++i) {
+                    firstBlockXCoord = chunkX + random.nextInt(16);
+                    firstBlockZCoord = chunkZ + random.nextInt(16);
+                    rad = genRad + random.nextInt(genRadP);
+                    countBlock = 0;
+                    canGen = false;
+                    for (firstBlockYCoord = 96 + dHeight; firstBlockYCoord > 60 + dHeight; --firstBlockYCoord) {
+                        if (world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) != MFQM.MeatBlock) {
+                            if (this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                                if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                    canGen = true;
+                                    break;
+                                }
+                                ++countBlock;
+                            }
+                        } else {
+                            canGen = false;
+                            break;
+                        }
+                        if (countBlock > 10) break;
+                    }
+                    if (!canGen || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world) || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad, world)) continue;
+                    this.generateMossQS(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random, MFQM.JungleQuicksandBlock);
+                    blockGen = true;
+                }
+            }
+        }
+    }

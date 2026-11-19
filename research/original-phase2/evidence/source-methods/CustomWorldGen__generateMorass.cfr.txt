@@ -1,0 +1,144 @@
+// CFR0.152; original decompiler line 2590; NOT original source; inspect **/goto artifacts if present.
+    private void generateMorass(int xx, int yy, int zz, int rad, World world, Random random, float ty, int lush) {
+        int posz;
+        int posy;
+        int posx;
+        int e;
+        int j;
+        int i;
+        Block sblock = this.soilBlock(xx, zz, world);
+        Block fblock = this.fillerBlock(xx, zz, world);
+        double rad_cof = Math.max((double)rad / 10.0, 1.0);
+        int dif = 0;
+        int dif2 = 1;
+        if ((double)ty < 0.25) {
+            if (random.nextInt(5) == 0) {
+                dif = 1;
+            }
+            if (random.nextInt(10) == 0) {
+                dif = 2;
+            }
+            if (random.nextInt(40) == 0) {
+                dif2 = 2;
+            }
+            if (random.nextInt(80) == 0) {
+                dif2 = 3;
+            }
+        }
+        if ((double)ty >= 0.25 && (double)ty < 0.75) {
+            if (random.nextInt(20) == 0) {
+                dif = 1;
+            }
+            if (random.nextInt(40) == 0) {
+                dif = 2;
+            }
+            if (random.nextInt(160) == 0) {
+                dif2 = 2;
+            }
+            if (random.nextInt(320) == 0) {
+                dif2 = 3;
+            }
+        }
+        if ((double)ty >= 0.75) {
+            if (random.nextInt(40) == 0) {
+                dif = 1;
+            }
+            if (random.nextInt(80) == 0) {
+                dif = 2;
+            }
+            if (random.nextInt(320) == 0) {
+                dif2 = 2;
+            }
+            if (random.nextInt(640) == 0) {
+                dif2 = 3;
+            }
+        }
+        double rax = random.nextDouble() + 0.5;
+        double raz = 1.0 - rax + 0.5 + 0.5;
+        for (i = 0; i <= rad; ++i) {
+            for (j = 0; j <= rad / 2; ++j) {
+                for (e = 0; e <= rad; ++e) {
+                    posx = xx + i - rad / 2;
+                    posy = yy - j;
+                    posz = zz + e - rad / 2;
+                    double dis = Math.sqrt(Math.pow(xx - posx, 2.0) * rax + Math.pow(yy - posy, 2.0) + Math.pow(zz - posz, 2.0) * raz);
+                    if (!(dis < (double)rad / 2.0 / (1.0 + Math.abs(rax - raz) / 3.0) + (random.nextDouble() * rad_cof - rad_cof / 2.0))) continue;
+                    boolean tickGen = false;
+                    if (world.func_147439_a(posx, posy, posz) == MFQM.WetPeatBlock || world.func_147439_a(posx, posy, posz) == MFQM.StableLiquidMireBlock) continue;
+                    if (j == 0) {
+                        if (lush != 1 && this.validSolidMaterial(posx, posy, posz, world) && world.func_147439_a(posx, posy, posz) != MFQM.MorassBlock && world.func_147439_a(posx, posy, posz) != MFQM.MudBlock || this.validWaterMaterial(posx, posy + 1, posz, world)) continue;
+                        if (this.validSolidMaterial(posx, posy + 1, posz, world)) {
+                            if (CustomWorldGen.isAboveFreeSpace(posx, posy + 2, posz, world) && !this.validWaterMaterial(posx, posy + 2, posz, world)) {
+                                world.func_147468_f(posx, posy + 1, posz);
+                                this.spawnMorass(world, posx, posy, posz, Math.max(dif, dif2 - 1));
+                                world.func_147465_d(posx, posy - 1, posz, MFQM.MireBlock, 10, 2);
+                                world.func_147449_b(posx, posy - 2, posz, fblock);
+                                tickGen = true;
+                                if (this.validSolidMaterial(posx, posy + 2, posz, world) && !this.validWaterMaterial(posx, posy + 3, posz, world)) {
+                                    world.func_147468_f(posx, posy + 2, posz);
+                                }
+                            }
+                        } else {
+                            world.func_147468_f(posx, posy + 1, posz);
+                            this.spawnMorass(world, posx, posy, posz, Math.max(dif, dif2 - 1));
+                            world.func_147465_d(posx, posy - 1, posz, MFQM.MireBlock, 10, 2);
+                            world.func_147449_b(posx, posy - 2, posz, fblock);
+                            tickGen = true;
+                        }
+                        if (random.nextInt(100 * dif2) == 0) {
+                            ((BlockMorass)MFQM.MorassBlock).PlantingThis(world, random, posx, posy, posz);
+                            continue;
+                        }
+                        if (random.nextInt(4 / dif2 + 1) == 0 && !this.validSolidMaterial(posx, posy + 1, posz, world)) {
+                            world.func_147465_d(posx, posy + 1, posz, MFQM.MoorGrassBlock, 3, 2);
+                        }
+                        if (random.nextInt(30 * dif2) == 0 && !this.validSolidMaterial(posx, posy + 1, posz, world)) {
+                            world.func_147465_d(posx, posy + 1, posz, MFQM.MoorGrassBlock, 2, 2);
+                        }
+                        if (random.nextInt(40 / (int)Math.floor(Math.pow(dif2, 2.0))) != 0 || this.validSolidMaterial(posx, posy + 1, posz, world)) continue;
+                        if (random.nextInt(10) == 0) {
+                            world.func_147465_d(posx, posy + 1, posz, MFQM.MoorGrassBlock, 4, 2);
+                            continue;
+                        }
+                        world.func_147465_d(posx, posy + 1, posz, MFQM.MoorGrassBlock, 5, 2);
+                        continue;
+                    }
+                    if (world.func_147439_a(posx, posy + 1, posz) != MFQM.MorassBlock && world.func_147439_a(posx, posy + 1, posz) != MFQM.MireBlock) continue;
+                    if (j == 1) {
+                        world.func_147465_d(posx, posy, posz, MFQM.MireBlock, 10, 0);
+                        continue;
+                    }
+                    if (random.nextInt(8 / (dif + 1)) == 0) {
+                        world.func_147449_b(posx, posy, posz, MFQM.WetPeatBlock);
+                    } else {
+                        world.func_147465_d(posx, posy, posz, MFQM.MireBlock, 10, 0);
+                        world.func_147449_b(posx, posy - 1, posz, MFQM.WetPeatBlock);
+                        world.func_147449_b(posx, posy - 2, posz, MFQM.PeatBlock);
+                    }
+                    tickGen = true;
+                    if (world.func_147439_a(posx, posy + 1, posz) == MFQM.WetPeatBlock && random.nextInt(8 / (dif + 1)) == 0) {
+                        world.func_147449_b(posx, posy, posz, MFQM.PeatBlock);
+                    }
+                    if (world.func_147439_a(posx, posy + 1, posz) != MFQM.PeatBlock) continue;
+                    world.func_147449_b(posx, posy, posz, MFQM.PeatBlock);
+                }
+            }
+        }
+        if (lush == 1) {
+            for (i = 0; i <= rad; ++i) {
+                for (j = 0; j <= rad / 2 + 2; ++j) {
+                    for (e = 0; e <= rad; ++e) {
+                        posx = xx + i - rad / 2;
+                        posy = yy - j;
+                        posz = zz + e - rad / 2;
+                        if (world.func_147439_a(posx, posy, posz).func_149688_o().func_76220_a() || world.func_147439_a(posx, posy, posz).func_149688_o().func_76224_d() && world.func_72805_g(posx, posy, posz) == 0 || world.func_147439_a(posx, posy, posz) == MFQM.PeatBlock || world.func_147439_a(posx, posy, posz) == MFQM.WetPeatBlock || world.func_147439_a(posx, posy, posz) == MFQM.MireBlock || world.func_147439_a(posx - 1, posy, posz) != MFQM.MireBlock && world.func_147439_a(posx - 1, posy, posz) == MFQM.WetPeatBlock && world.func_147439_a(posx + 1, posy, posz) != MFQM.MireBlock && world.func_147439_a(posx + 1, posy, posz) == MFQM.WetPeatBlock && world.func_147439_a(posx, posy, posz - 1) != MFQM.MireBlock && world.func_147439_a(posx, posy, posz - 1) == MFQM.WetPeatBlock && world.func_147439_a(posx, posy, posz + 1) != MFQM.MireBlock && world.func_147439_a(posx, posy, posz + 1) == MFQM.WetPeatBlock) continue;
+                        if (this.validSolidMaterial(posx, posy + 1, posz, world)) {
+                            world.func_147449_b(posx, posy, posz, fblock);
+                            continue;
+                        }
+                        world.func_147449_b(posx, posy, posz, sblock);
+                    }
+                }
+            }
+        }
+    }

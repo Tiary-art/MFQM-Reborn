@@ -1,0 +1,95 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.common.ObfuscationReflectionHelper
+6:  *  cpw.mods.fml.relauncher.ReflectionHelper
+7:  */
+8: package MoreFunQuicksandMod.main;
+9: 
+10: import cpw.mods.fml.common.ObfuscationReflectionHelper;
+11: import cpw.mods.fml.relauncher.ReflectionHelper;
+12: import java.lang.reflect.Field;
+13: import java.util.ArrayList;
+14: 
+15: public final class Fields {
+16:     private Fields() {
+17:     }
+18: 
+19:     public static Object findFieldAndGet(Class<?> target, Class<?> fieldType, Object targetObject, int index) {
+20:         for (Field field : target.getDeclaredFields()) {
+21:             field.setAccessible(true);
+22:             if (!field.getType().isAssignableFrom(fieldType)) continue;
+23:             if (index == 0) {
+24:                 try {
+25:                     return field.get(targetObject);
+26:                 }
+27:                 catch (Exception e) {
+28:                     e.printStackTrace();
+29:                 }
+30:             }
+31:             --index;
+32:         }
+33:         return null;
+34:     }
+35: 
+36:     public static Object[] findFieldsAndGet(Class<?> target, Class<?> fieldType, Object targetObject) {
+37:         ArrayList<Object> list = new ArrayList<Object>();
+38:         for (Field field : target.getDeclaredFields()) {
+39:             field.setAccessible(true);
+40:             if (!field.getType().isAssignableFrom(fieldType)) continue;
+41:             try {
+42:                 list.add(field.get(targetObject));
+43:             }
+44:             catch (Exception e) {
+45:                 e.printStackTrace();
+46:             }
+47:         }
+48:         return list.toArray(new Object[0]);
+49:     }
+50: 
+51:     public static Field findField(Class<?> target, Class<?> fieldType, int index) {
+52:         for (Field field : target.getDeclaredFields()) {
+53:             field.setAccessible(true);
+54:             if (!field.getType().isAssignableFrom(fieldType)) continue;
+55:             if (index == 0) {
+56:                 return field;
+57:             }
+58:             --index;
+59:         }
+60:         return null;
+61:     }
+62: 
+63:     public static Field[] findFields(Class<?> target, Class<?> fieldType) {
+64:         return Fields.findFields(target, fieldType, 0);
+65:     }
+66: 
+67:     public static Field[] findFields(Class<?> target, Class<?> fieldType, int depth) {
+68:         ArrayList<Field> list = new ArrayList<Field>();
+69:         while (target != null && target != Object.class) {
+70:             for (Field field : target.getDeclaredFields()) {
+71:                 field.setAccessible(true);
+72:                 if (!field.getType().isAssignableFrom(fieldType)) continue;
+73:                 list.add(field);
+74:             }
+75:             target = target.getSuperclass();
+76:             if (depth == -1 || depth-- != 0) continue;
+77:             break;
+78:         }
+79:         return list.toArray(new Field[0]);
+80:     }
+81: 
+82:     public static <T> Field removeFinal(Class<? super T> classToAccess, T instance, String ... fieldNames) {
+83:         Field field = ReflectionHelper.findField(classToAccess, (String[])ObfuscationReflectionHelper.remapFieldNames((String)classToAccess.getName(), (String[])fieldNames));
+84:         try {
+85:             Field modifiersField = Field.class.getDeclaredField("modifiers");
+86:             modifiersField.setAccessible(true);
+87:             modifiersField.setInt(field, field.getModifiers() & 0xFFFFFFEF);
+88:         }
+89:         catch (Exception e) {
+90:             e.printStackTrace();
+91:         }
+92:         return field;
+93:     }
+94: }
+95: 

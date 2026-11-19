@@ -1,0 +1,253 @@
+// CFR0.152; original decompiler line 5292; NOT original source; inspect **/goto artifacts if present.
+    private void generateAOADimPrecasia(World world, Random random, int chunkX, int chunkZ) {
+        int rad;
+        boolean sandOnly;
+        int countBlock;
+        int i;
+        int rad2;
+        int genRadP;
+        int genRad;
+        int genPos;
+        int genCount;
+        boolean canGen;
+        boolean isDesert;
+        int dHeight = 0;
+        int firstBlockXCoord = chunkX + random.nextInt(16);
+        int firstBlockYCoord = 96 + dHeight;
+        int firstBlockZCoord = chunkZ + random.nextInt(16);
+        BiomeGenBase biomegenbase = world.func_72807_a(firstBlockXCoord, firstBlockZCoord);
+        int biomeId = biomegenbase.field_76756_M;
+        boolean blockGen = false;
+        boolean isJungle = biomeId != MFQM.AOABiomes[37] && biomeId != MFQM.AOABiomes[38];
+        boolean isField = biomeId == MFQM.AOABiomes[38];
+        boolean bl = isDesert = biomeId == MFQM.AOABiomes[37];
+        if (MFQM.GenTar && !blockGen) {
+            boolean trType = false;
+            int tarP1 = 0;
+            int tarP2 = 0;
+            int tarPU = 0;
+            if (isJungle) {
+                tarP1 = 10;
+                tarP2 = 150;
+                tarPU = 5;
+            } else {
+                tarP1 = 10;
+                tarP2 = 15;
+                tarPU = 10;
+            }
+            if (isJungle) {
+                boolean canGen2 = false;
+                int genCount2 = 100 + random.nextInt(20);
+                int genRad2 = 6;
+                int genRadP2 = 10;
+                int rad3 = 0;
+                if (random.nextInt(tarP2) == 0) {
+                    for (int i2 = 0; i2 < genCount2; ++i2) {
+                        firstBlockXCoord = chunkX + random.nextInt(16);
+                        firstBlockZCoord = chunkZ + random.nextInt(16);
+                        rad3 = genRad2 + random.nextInt(genRadP2);
+                        int countBlock2 = 0;
+                        canGen2 = false;
+                        for (firstBlockYCoord = 96 + dHeight; firstBlockYCoord > 60 + dHeight; --firstBlockYCoord) {
+                            if (this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                                if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                    canGen2 = true;
+                                    break;
+                                }
+                                ++countBlock2;
+                            }
+                            if (countBlock2 > 10) break;
+                        }
+                        if (!canGen2 || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad3 - 2, world) || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad3 - 2, world)) continue;
+                        this.generateMireOD(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad3, world, random, Material.field_151568_F, MFQM.TarBlock, 0);
+                        blockGen = true;
+                    }
+                }
+            }
+            if (random.nextInt(tarP1) == 0 && random.nextInt(tarPU) == 0) {
+                int var5 = chunkX + random.nextInt(16) + 8;
+                int var6 = random.nextInt(64) + dHeight;
+                int var7 = chunkZ + random.nextInt(16) + 8;
+                new CustomWorldGenLakes(MFQM.TarBlock).generate(world, random, var5, var6, var7, 1);
+            }
+        }
+        if (MFQM.GenSQSF && !blockGen && isJungle) {
+            canGen = false;
+            genCount = 0;
+            genPos = 0;
+            genRad = 0;
+            genRadP = 0;
+            rad2 = 0;
+            genCount = 5 + random.nextInt(10);
+            genRad = 8;
+            genRadP = 8;
+            genPos = 60;
+            if (random.nextInt(genPos) == 0) {
+                for (int i3 = 0; i3 < genCount; ++i3) {
+                    firstBlockXCoord = chunkX + random.nextInt(16);
+                    firstBlockZCoord = chunkZ + random.nextInt(16);
+                    rad2 = genRad + random.nextInt(genRadP);
+                    int countBlock3 = 0;
+                    canGen = false;
+                    for (firstBlockYCoord = 96 + dHeight; firstBlockYCoord > 60 + dHeight; --firstBlockYCoord) {
+                        if (this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                            if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                canGen = true;
+                                break;
+                            }
+                            ++countBlock3;
+                        }
+                        if (countBlock3 > 10) break;
+                    }
+                    if (!canGen || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad2, world) || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad2, world)) continue;
+                    this.generateSoftQuicksandForest(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad2, world, random, Material.field_151568_F, MFQM.SoftQuicksandBlock);
+                    blockGen = true;
+                }
+            }
+        }
+        if (MFQM.GenJQS && !blockGen && isJungle) {
+            canGen = false;
+            genCount = 10 + random.nextInt(10);
+            genPos = 25;
+            genRad = 8;
+            genRadP = 10;
+            rad2 = 0;
+            if (random.nextInt(genPos) == 0) {
+                boolean Flat = false;
+                if (random.nextInt(10) == 0) {
+                    Flat = true;
+                }
+                for (i = 0; i < genCount; ++i) {
+                    firstBlockXCoord = chunkX + random.nextInt(16);
+                    firstBlockZCoord = chunkZ + random.nextInt(16);
+                    rad2 = genRad + random.nextInt(genRadP);
+                    countBlock = 0;
+                    canGen = false;
+                    for (firstBlockYCoord = 96 + dHeight; firstBlockYCoord > 60 + dHeight; --firstBlockYCoord) {
+                        if (world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) != MFQM.TarBlock) {
+                            if (this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                                if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                    canGen = true;
+                                    break;
+                                }
+                                ++countBlock;
+                            }
+                        } else {
+                            canGen = false;
+                            break;
+                        }
+                        if (countBlock > 10) break;
+                    }
+                    if (!canGen || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad2, world) || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad2, world)) continue;
+                    if (Flat) {
+                        this.generateMireO(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad2, world, random, Material.field_151568_F, MFQM.JungleQuicksandBlock);
+                    } else {
+                        this.generateMireOD(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad2, world, random, Material.field_151568_F, MFQM.JungleQuicksandBlock, 0);
+                    }
+                    this.generateLeavesAround(firstBlockXCoord, firstBlockYCoord + 3, firstBlockZCoord, rad2 + 3, world, random);
+                    blockGen = true;
+                }
+            }
+        }
+        if (MFQM.GenSSand && !blockGen && isDesert) {
+            canGen = false;
+            genCount = 0;
+            genPos = 0;
+            genRad = 0;
+            genRadP = 0;
+            sandOnly = false;
+            rad = 0;
+            genCount = 10 + random.nextInt(5);
+            genRad = 8;
+            genRadP = 15;
+            genPos = 10;
+            if (genPos > 0 && random.nextInt(genPos) == 0) {
+                for (i = 0; i < genCount && !blockGen; ++i) {
+                    firstBlockXCoord = chunkX + random.nextInt(16);
+                    firstBlockZCoord = chunkZ + random.nextInt(16);
+                    rad = genRad + random.nextInt(genRadP);
+                    countBlock = 0;
+                    canGen = false;
+                    for (firstBlockYCoord = 96 + dHeight; firstBlockYCoord > 60 + dHeight; --firstBlockYCoord) {
+                        if (this.validSandMaterial(sandOnly, firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                            if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                canGen = true;
+                                break;
+                            }
+                            ++countBlock;
+                        }
+                        if (countBlock > 10) break;
+                    }
+                    if (!canGen || !this.genIsFlat(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world) || !this.genIsFlat(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad, world)) continue;
+                    this.generateSoftSand(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random);
+                    blockGen = true;
+                }
+            }
+        }
+        if (MFQM.GenQS && !blockGen && isDesert) {
+            canGen = false;
+            genCount = 0;
+            genPos = 0;
+            genRad = 0;
+            genRadP = 0;
+            sandOnly = false;
+            rad = 0;
+            genCount = 10 + random.nextInt(10);
+            genRad = 5;
+            genRadP = 10;
+            genPos = 30;
+            if (random.nextInt(genPos) == 0) {
+                for (i = 0; i < genCount; ++i) {
+                    firstBlockXCoord = chunkX + random.nextInt(16);
+                    firstBlockZCoord = chunkZ + random.nextInt(16);
+                    rad = genRad + random.nextInt(genRadP);
+                    countBlock = 0;
+                    canGen = false;
+                    for (firstBlockYCoord = 96 + dHeight; firstBlockYCoord > 60 + dHeight; --firstBlockYCoord) {
+                        if (this.validSandMaterial(sandOnly, firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                            if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                canGen = true;
+                                break;
+                            }
+                            ++countBlock;
+                        }
+                        if (countBlock > 10) break;
+                    }
+                    if (!canGen || !this.genIsFlat(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world) || !this.genIsFlat(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad, world)) continue;
+                    this.generateMireO(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random, Material.field_151568_F, MFQM.QuicksandBlock);
+                    blockGen = true;
+                }
+            }
+        }
+        if (MFQM.GenSlime) {
+            int genCount3 = 75 + random.nextInt(10);
+            int realGen = 1;
+            genPos = 50;
+            genRad = 7;
+            genRadP = 10;
+            rad2 = 0;
+            boolean canGen3 = false;
+            if (random.nextInt(genPos) == 0) {
+                for (i = 0; i < genCount3 && realGen > 0; ++i) {
+                    firstBlockXCoord = chunkX + random.nextInt(16);
+                    firstBlockZCoord = chunkZ + random.nextInt(16);
+                    rad2 = genRad + random.nextInt(genRadP);
+                    countBlock = 0;
+                    canGen3 = false;
+                    for (firstBlockYCoord = 96 + dHeight; firstBlockYCoord > 16; --firstBlockYCoord) {
+                        if (!this.validSlimeMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) || this.validWaterMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) continue;
+                        if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                            if (!this.isInCave(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world, rad2)) continue;
+                            canGen3 = true;
+                            break;
+                        }
+                        ++countBlock;
+                    }
+                    if (!canGen3 || random.nextInt((int)Math.floor(firstBlockYCoord / 4)) == 0 || !this.genIsFlatSlime(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad2, world) || !this.genIsFlatSlime(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad2, world) || !this.genIsFlatSlime(firstBlockXCoord, firstBlockYCoord - 1, firstBlockZCoord, rad2, world)) continue;
+                    this.generateSlime(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad2, world, random);
+                    --realGen;
+                    blockGen = true;
+                }
+            }
+        }
+    }

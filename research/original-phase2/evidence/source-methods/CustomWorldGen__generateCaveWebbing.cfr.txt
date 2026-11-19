@@ -1,0 +1,52 @@
+// CFR0.152; original decompiler line 2440; NOT original source; inspect **/goto artifacts if present.
+    private void generateCaveWebbing(int xx, int yy, int zz, int rad, World world, Random random) {
+        int posz;
+        int posy;
+        int posx;
+        int e;
+        int j;
+        int i;
+        double rad_cof = Math.max((double)rad / 10.0, 1.0);
+        double rax = random.nextDouble() + 0.5;
+        double raz = 1.0 - rax + 0.5 + 0.5;
+        for (i = 0; i <= rad; ++i) {
+            for (j = 0; j <= rad / 2; ++j) {
+                for (e = 0; e <= rad; ++e) {
+                    posx = xx + i - rad / 2;
+                    posy = yy - j;
+                    posz = zz + e - rad / 2;
+                    double dis = Math.sqrt(Math.pow(xx - posx, 2.0) * rax + Math.pow(yy - posy, 2.0) + Math.pow(zz - posz, 2.0) * raz);
+                    if (!(dis < (double)rad / 2.0 / (1.0 + Math.abs(rax - raz) / 3.0) + (random.nextDouble() * rad_cof - rad_cof / 2.0))) continue;
+                    if (j == 0 && this.validCaveMaterial(posx, posy + 1, posz, world) && !this.validWaterMaterial(posx, posy + 2, posz, world)) {
+                        world.func_147468_f(posx, posy + 1, posz);
+                        if (this.validCaveMaterial(posx, posy + 2, posz, world) && !this.validWaterMaterial(posx, posy + 3, posz, world)) {
+                            world.func_147468_f(posx, posy + 2, posz);
+                            if (random.nextInt(1) == 0 && this.validCaveMaterial(posx, posy + 3, posz, world) && !this.validWaterMaterial(posx, posy + 4, posz, world)) {
+                                world.func_147468_f(posx, posy + 3, posz);
+                                if (random.nextInt(2) == 0 && this.validCaveMaterial(posx, posy + 4, posz, world) && !this.validWaterMaterial(posx, posy + 5, posz, world)) {
+                                    world.func_147468_f(posx, posy + 4, posz);
+                                    if (random.nextInt(3) == 0 && this.validCaveMaterial(posx, posy + 5, posz, world) && !this.validWaterMaterial(posx, posy + 6, posz, world)) {
+                                        world.func_147468_f(posx, posy + 5, posz);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    world.func_147449_b(posx, posy, posz, MFQM.DenseWebBlock);
+                    world.func_147449_b(posx, posy - 1, posz, MFQM.DenseWebBlock);
+                    world.func_147449_b(posx, posy - 2, posz, Blocks.field_150348_b);
+                }
+            }
+        }
+        for (i = 0; i <= rad; ++i) {
+            for (j = 0; j <= rad / 2 + 2; ++j) {
+                for (e = 0; e <= rad; ++e) {
+                    posx = xx + i - rad / 2;
+                    posy = yy - j;
+                    posz = zz + e - rad / 2;
+                    if (world.func_147439_a(posx, posy, posz) == MFQM.DenseWebBlock || this.validGroundMaterial(posx, posy, posz, world) || world.func_147439_a(posx - 1, posy, posz) != MFQM.DenseWebBlock && world.func_147439_a(posx + 1, posy, posz) != MFQM.DenseWebBlock && world.func_147439_a(posx, posy + 1, posz) != MFQM.DenseWebBlock && world.func_147439_a(posx, posy, posz - 1) != MFQM.DenseWebBlock && world.func_147439_a(posx, posy, posz + 1) != MFQM.DenseWebBlock) continue;
+                    world.func_147449_b(posx, posy, posz, Blocks.field_150348_b);
+                }
+            }
+        }
+    }

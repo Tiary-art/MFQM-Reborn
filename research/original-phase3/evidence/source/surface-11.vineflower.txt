@@ -1,0 +1,51 @@
+// Decompiled inference, NOT original source; semantic closure PARTIAL
+      if (MFQM.GenMucBl && !blockGen) {
+         int dT = this.getJungleType(biomeId);
+         if (dT != 0 && this.T_BoP && biomeId != MFQM.JungleBiomes[1] || biomegenbase instanceof BiomeGenJungle && !this.T_BoP || biomeId == MFQM.LarvBiomes[2]
+            )
+          {
+            boolean canGen = false;
+            int genCount = 0;
+            int genPos = 0;
+            int rad = 6;
+            int var137 = 50;
+            int var175 = 125;
+            if (dT == 1) {
+               var175 = 75;
+            }
+
+            if (var175 > 0 && random.nextInt(var175) == 0) {
+               for (int ix = 0; ix < var137 && !blockGen; ix++) {
+                  firstBlockXCoord = chunkX + random.nextInt(16);
+                  firstBlockYCoord = 70 + dHeight;
+                  firstBlockZCoord = chunkZ + random.nextInt(16);
+                  int countBlock = 0;
+
+                  for (canGen = false; firstBlockYCoord > 60 + dHeight; firstBlockYCoord--) {
+                     if (this.validGroundMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                        if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                           if (!this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                              canGen = true;
+                              break;
+                           }
+                        } else {
+                           countBlock++;
+                        }
+                     }
+
+                     if (countBlock > 10) {
+                        break;
+                     }
+                  }
+
+                  if (canGen
+                     && this.genIsFlat(firstBlockXCoord, firstBlockYCoord - 1, firstBlockZCoord, rad, world)
+                     && this.genIsFlat(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world)) {
+                     new GenerateMucusBlossom().func_76484_a(world, random, firstBlockXCoord - 3, firstBlockYCoord - 6, firstBlockZCoord - 3);
+                     blockGen = true;
+                  }
+               }
+            }
+         }
+      }
+

@@ -1,0 +1,139 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.client.renderer.Tessellator
+8:  *  net.minecraft.client.renderer.texture.TextureMap
+9:  *  net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
+10:  *  net.minecraft.tileentity.TileEntity
+11:  *  net.minecraft.util.IIcon
+12:  *  net.minecraft.util.MathHelper
+13:  *  net.minecraft.world.IBlockAccess
+14:  *  org.lwjgl.Sys
+15:  *  org.lwjgl.opengl.GL11
+16:  */
+17: package MoreFunQuicksandMod.main.Tileentity;
+18: 
+19: import MoreFunQuicksandMod.main.MFQM;
+20: import MoreFunQuicksandMod.main.Tileentity.TileEntityLarvae;
+21: import MoreFunQuicksandMod.main.blocks.BlockLarvae;
+22: import cpw.mods.fml.relauncher.Side;
+23: import cpw.mods.fml.relauncher.SideOnly;
+24: import net.minecraft.client.renderer.Tessellator;
+25: import net.minecraft.client.renderer.texture.TextureMap;
+26: import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+27: import net.minecraft.tileentity.TileEntity;
+28: import net.minecraft.util.IIcon;
+29: import net.minecraft.util.MathHelper;
+30: import net.minecraft.world.IBlockAccess;
+31: import org.lwjgl.Sys;
+32: import org.lwjgl.opengl.GL11;
+33: 
+34: @SideOnly(value=Side.CLIENT)
+35: public class TileEntityLarvaeRenderer
+36: extends TileEntitySpecialRenderer {
+37:     public void renderLarvae(TileEntityLarvae par1TileEntityLarvae, double par2, double par4, double par6, float par8) {
+38:         double x = 0.0;
+39:         double y = 0.0;
+40:         double z = 0.0;
+41:         boolean x_inc = true;
+42:         boolean x_dec = true;
+43:         boolean y_inc = true;
+44:         boolean y_dec = true;
+45:         boolean z_inc = true;
+46:         boolean z_dec = true;
+47:         x_inc = ((BlockLarvae)MFQM.LarvaeBlock).shouldSideBeRendered2((IBlockAccess)par1TileEntityLarvae.func_145831_w(), par1TileEntityLarvae.field_145851_c + 1, par1TileEntityLarvae.field_145848_d, par1TileEntityLarvae.field_145849_e, 0);
+48:         x_dec = ((BlockLarvae)MFQM.LarvaeBlock).shouldSideBeRendered2((IBlockAccess)par1TileEntityLarvae.func_145831_w(), par1TileEntityLarvae.field_145851_c - 1, par1TileEntityLarvae.field_145848_d, par1TileEntityLarvae.field_145849_e, 0);
+49:         y_inc = ((BlockLarvae)MFQM.LarvaeBlock).shouldSideBeRendered2((IBlockAccess)par1TileEntityLarvae.func_145831_w(), par1TileEntityLarvae.field_145851_c, par1TileEntityLarvae.field_145848_d, par1TileEntityLarvae.field_145849_e, 1);
+50:         y_dec = ((BlockLarvae)MFQM.LarvaeBlock).shouldSideBeRendered2((IBlockAccess)par1TileEntityLarvae.func_145831_w(), par1TileEntityLarvae.field_145851_c, par1TileEntityLarvae.field_145848_d, par1TileEntityLarvae.field_145849_e, 2);
+51:         z_inc = ((BlockLarvae)MFQM.LarvaeBlock).shouldSideBeRendered2((IBlockAccess)par1TileEntityLarvae.func_145831_w(), par1TileEntityLarvae.field_145851_c, par1TileEntityLarvae.field_145848_d, par1TileEntityLarvae.field_145849_e + 1, 0);
+52:         z_dec = ((BlockLarvae)MFQM.LarvaeBlock).shouldSideBeRendered2((IBlockAccess)par1TileEntityLarvae.func_145831_w(), par1TileEntityLarvae.field_145851_c, par1TileEntityLarvae.field_145848_d, par1TileEntityLarvae.field_145849_e - 1, 0);
+53:         if (!(x_inc || x_dec || y_inc || y_dec || z_inc || z_dec)) {
+54:             return;
+55:         }
+56:         Tessellator tessellator = Tessellator.field_78398_a;
+57:         int lightValue = MFQM.LarvaeBlock.func_149677_c((IBlockAccess)par1TileEntityLarvae.func_145831_w(), par1TileEntityLarvae.field_145851_c, par1TileEntityLarvae.field_145848_d, par1TileEntityLarvae.field_145849_e);
+58:         tessellator.func_78380_c(lightValue);
+59:         tessellator.func_78386_a(1.0f, 1.0f, 1.0f);
+60:         IIcon Icon = MFQM.LarvaeBlock.func_149691_a(0, 0);
+61:         this.func_147499_a(TextureMap.field_110575_b);
+62:         GL11.glPushMatrix();
+63:         GL11.glEnable((int)32826);
+64:         GL11.glTranslatef((float)((float)par2), (float)((float)par4), (float)((float)par6));
+65:         double minU = Icon.func_94209_e();
+66:         double minV = Icon.func_94206_g();
+67:         double maxU = Icon.func_94212_f();
+68:         double maxV = Icon.func_94210_h();
+69:         double height = 0.75;
+70:         if (!y_inc) {
+71:             height = 1.0;
+72:         } else {
+73:             double timd = (double)Sys.getTime() / 175.0 + par1TileEntityLarvae.phase;
+74:             float timf = (float)(timd - Math.floor(timd / 6.28318) * 6.28318);
+75:             height = 0.8 + (double)MathHelper.func_76126_a((float)timf) * 0.025;
+76:         }
+77:         if (height != 1.0) {
+78:             tessellator.func_78382_b();
+79:             tessellator.func_78375_b(0.0f, 1.0f, 0.0f);
+80:             tessellator.func_78374_a(x, y + height, z, maxU, minV);
+81:             tessellator.func_78374_a(x, y + height, z + 1.0, maxU, maxV);
+82:             tessellator.func_78374_a(x + 1.0, y + height, z + 1.0, minU, maxV);
+83:             tessellator.func_78374_a(x + 1.0, y + height, z, minU, minV);
+84:             tessellator.func_78381_a();
+85:         }
+86:         if (y_dec) {
+87:             tessellator.func_78382_b();
+88:             tessellator.func_78375_b(0.0f, -1.0f, 0.0f);
+89:             tessellator.func_78374_a(x + 1.0, y, z, maxU, minV);
+90:             tessellator.func_78374_a(x + 1.0, y, z + 1.0, maxU, maxV);
+91:             tessellator.func_78374_a(x, y, z + 1.0, minU, maxV);
+92:             tessellator.func_78374_a(x, y, z, minU, minV);
+93:             tessellator.func_78381_a();
+94:         }
+95:         if (z_dec) {
+96:             tessellator.func_78382_b();
+97:             tessellator.func_78375_b(0.0f, 0.0f, -1.0f);
+98:             tessellator.func_78374_a(x, y, z, maxU, minV);
+99:             tessellator.func_78374_a(x, y + height, z, maxU, maxV);
+100:             tessellator.func_78374_a(x + 1.0, y + height, z, minU, maxV);
+101:             tessellator.func_78374_a(x + 1.0, y, z, minU, minV);
+102:             tessellator.func_78381_a();
+103:         }
+104:         if (z_inc) {
+105:             tessellator.func_78382_b();
+106:             tessellator.func_78375_b(0.0f, 0.0f, 1.0f);
+107:             tessellator.func_78374_a(x + 1.0, y, z + 1.0, maxU, minV);
+108:             tessellator.func_78374_a(x + 1.0, y + height, z + 1.0, maxU, maxV);
+109:             tessellator.func_78374_a(x, y + height, z + 1.0, minU, maxV);
+110:             tessellator.func_78374_a(x, y, z + 1.0, minU, minV);
+111:             tessellator.func_78381_a();
+112:         }
+113:         if (x_dec) {
+114:             tessellator.func_78382_b();
+115:             tessellator.func_78375_b(-1.0f, 0.0f, 0.0f);
+116:             tessellator.func_78374_a(x, y, z + 1.0, maxU, minV);
+117:             tessellator.func_78374_a(x, y + height, z + 1.0, maxU, maxV);
+118:             tessellator.func_78374_a(x, y + height, z, minU, maxV);
+119:             tessellator.func_78374_a(x, y, z, minU, minV);
+120:             tessellator.func_78381_a();
+121:         }
+122:         if (x_inc) {
+123:             tessellator.func_78382_b();
+124:             tessellator.func_78375_b(1.0f, 0.0f, 0.0f);
+125:             tessellator.func_78374_a(x + 1.0, y, z, minU, minV);
+126:             tessellator.func_78374_a(x + 1.0, y + height, z, minU, maxV);
+127:             tessellator.func_78374_a(x + 1.0, y + height, z + 1.0, maxU, maxV);
+128:             tessellator.func_78374_a(x + 1.0, y, z + 1.0, maxU, minV);
+129:             tessellator.func_78381_a();
+130:         }
+131:         GL11.glDisable((int)32826);
+132:         GL11.glPopMatrix();
+133:     }
+134: 
+135:     public void func_147500_a(TileEntity par1TileEntity, double par2, double par4, double par6, float par8) {
+136:         this.renderLarvae((TileEntityLarvae)par1TileEntity, par2, par4, par6, par8);
+137:     }
+138: }
+139: 

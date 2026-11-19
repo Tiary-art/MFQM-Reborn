@@ -1,0 +1,65 @@
+// Decompiled inference, NOT original source; semantic closure PARTIAL
+      if (MFQM.GenSSnow && !blockGen) {
+         int sT = this.getSnowType(biomeId);
+         if (sT != 0 && this.T_BoP || biomegenbase instanceof BiomeGenSnow && !this.T_BoP) {
+            boolean canGen = false;
+            int genCount = 0;
+            int genPos = 0;
+            int genRad = 0;
+            int genRadP = 0;
+            int rad = 0;
+            switch (sT) {
+               case 0:
+                  genCount = 20 + random.nextInt(10);
+                  genRad = 5;
+                  genRadP = 20;
+                  genPos = 60;
+                  break;
+               case 1:
+                  genCount = 20 + random.nextInt(10);
+                  genRad = 5;
+                  genRadP = 20;
+                  genPos = 60;
+                  break;
+               case 2:
+                  genCount = 20 + random.nextInt(10);
+                  genRad = 5;
+                  genRadP = 20;
+                  genPos = 30;
+            }
+
+            if (random.nextInt(genPos) == 0) {
+               for (int ix = 0; ix < genCount; ix++) {
+                  firstBlockXCoord = chunkX - 16 + random.nextInt(32);
+                  firstBlockYCoord = 96 + dHeight;
+                  firstBlockZCoord = chunkZ - 16 + random.nextInt(32);
+                  rad = genRad + random.nextInt(genRadP);
+                  int countBlock = 0;
+
+                  for (canGen = false; firstBlockYCoord > 60 + dHeight; firstBlockYCoord--) {
+                     if (this.validSnowMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)
+                        && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                        if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                           canGen = true;
+                           break;
+                        }
+
+                        countBlock++;
+                     }
+
+                     if (countBlock > 10) {
+                        break;
+                     }
+                  }
+
+                  if (canGen
+                     && this.genIsFlatSnow(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world)
+                     && this.genIsFlatSnow(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad, world)) {
+                     this.generateSnow(firstBlockXCoord, firstBlockYCoord - 1, firstBlockZCoord, rad, world, random);
+                     blockGen = true;
+                  }
+               }
+            }
+         }
+      }
+

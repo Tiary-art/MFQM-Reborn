@@ -1,0 +1,22 @@
+# 用户观察逐条审计
+
+U均来自本任务附件，不把用户反馈写成本轮亲测。共同复现环境：1.20.1/Forge47.2.0基线JAR，生存、无药水/装备、空背包；独立11×11三层池，底为实心石，分别QS/Mud/Soft。地面/飞行/创造对照单列。结果栏在[人工矩阵](MANUAL_ACCEPTANCE_MATRIX.md)保持空白；目前没有新复现会话。原证据等级和引用键见[README](README.md)。
+
+| ID / 当前状态 | U与复现条件/现状 | 旧版与当前定位 | H：可能根因、性质与风险 | 优先级/阶段；自动与人工验证 |
+| --- | --- | --- | --- | --- |
+| OBS-01 已实现且有证据 | U：生存下沉/挣扎，创造像空气。分别切三模式原地入三池 | ENGINE.exempt L33、QS/SS空collision、Mud动态collision；历史creativeSpectatorAndInvulnerableAreExempt | 正常003模式豁免，不是缺陷；创造仍应受Mud物理碰撞，不能把“像空气”泛化为所有块noclip。旧版精确模式行为未实机 | P2，B回归；沿用模式GameTest，M-C17/OBS-01对照生存、创造、旁观，离池属性不残留 |
+| OBS-02 未实现 | U：减速造成FOV缩放，希望仅MFQM内抵消。入QS眼未覆盖时横移/疾跑，叠速度药水/拉弓对照 | POTION.onFOVUpdateEvent L158；ENGINE.setModifier L152；Vanilla AbstractClientPlayer.getFieldOfViewModifier | N-SRC证实有移动属性、无FOV补偿；属性进入FOV公式可解释反馈。局部反事实补偿待设计，不得冻结全部FOV或全局关闭effects | P1，C-FOV；建议纯函数组合modifier测试；M-C31/OBS-02检查疾跑、药水、弓、望远镜、离池和其他FOV监听器 |
+| OBS-03 未实现 | U：入内部无遮挡。静止降至眼刚入/刚出，三材料各测，含第三人称 | OVERLAY.RenderOverlay L93/renderInsideOfBlockR；SHAPE.isViewBlocking=false L18；当前无overlay注册 | 缺少专用遮挡且默认遮挡被关闭是代码事实，不是贴图分辨率问题；不能把伤害眼判定直接等同摄像机取样 | P1，C-VISION；采样阈值单测、遮挡不影响网络生理；M-C32/OBS-03录像眼面±0.01、视角切换 |
+| OBS-04 实现但行为疑似错误 | U：矮块层叠缝隙。SS同类垂直2/3层，再加QS/Mud上覆对照 | SOFT.func_149719_a L92–97：仅上同类填1.0；当前SHAPE L30+MODEL恒0.85，无邻接state | 同类填满遗漏可由模型高度直接推出0.15格空隙；跨材质自动连接没有同等旧规则证据。生理补满不等于视觉补满 | P1，B-GEOMETRY；模型/邻变GameTest建议；M-C10/OBS-04加块/移块/重载/跨区块，保留顶层0.85与空collision |
+| OBS-05 未实现 | U：Mud无泡。深池中心行走/跳/快速落入/静止；另测无人空池 | MUD.func_149670_a L380–411有body bubble动作/周期条件；QS/SS还有func_149734_b环境泡；MFQM.spawnQSBubble L2446有client/QSBubble门控 | 当前无触发/粒子实现是事实；不能称旧Mud空池必有周期环境泡。随机未出现一次不证明故障 | P2，C-FX；建议事件触发统计而非镜像随机序列；M-C33/OBS-05分别记录动作、深度、配置、观察窗口、实例数 |
+| OBS-06 部分实现 | U：Mud不弄脏玩家。身体浅入、胸深、眼覆盖后离池、淋雨/入清水、死亡重生 | MUD.checkPlayerMuddy L669；MUDDY.level/type/time/wet更新；STATE只有residueType/ticks，未同步污泥外观 | 残留计时不是覆盖等级/渲染系统，缺项有直接证据。不能只加一张满身贴图而遗漏洗净/类型/重生 | P1，C-COVER；建议状态机/NBT/同步单测；M-C24/C25/OBS-06含第一人称手、远端观众、盔甲、清洗 |
+| OBS-07 待验证 | U：偶发Y上下抽搐，最近未复现。**间歇性待复现**，不能称已复现或修好 | ENGINE.reconcilePlayer L117、velocity包L92、MATH预算L20；原003 CSV无correction_count/两端Y/fallDistance | H：客户端积分与END纠偏往返、表面/碰撞状态切换、延迟批次可能耦合；有teleport调用不等于其必然触发用户症状 | P0，B-MOTION诊断先行；建议阈值往返/延迟测试；M-C28/OBS-07，边缘/中心/接触阈值、三材料、0/50/150/300ms、30次进出，采集前后tick字段 |
+| OBS-08 未实现 | U：原MFQM声音缺失。使用可播放音频设备，分别走/跳/入池/窒息/气泡触发 | 三旧碰撞有swim/slime/silverfish；MFQM.spawnQSBubble有lavapop；ASSETS自有两OGG仅bee。当前只有复制的Block soundtype，无相应调用 | 缺少触发与声音ID映射是事实；旧OGG许可未明不允许上传。历史OpenAL错误仅限制旧测试，不能替代对用户设备的诊断 | P2，C-AUDIO；建议触发次数/静默去重单测；M-C34/OBS-08记录现代sound ID、位置、音量、时机和设备 |
+| OBS-09 待验证 | U：池底落地像高处坠落。0/3/10格入三层池后碰石底，与普通石地/水池比较 | ENGINE仅服务端END清fallDistance L89；Vanilla Entity.move→checkFallDamage、LivingEntity.causeFallDamage/playBlockFallSound；原代码多分支清fallDistance | H：碰撞/伤害/声音可能先于END清理，客户端本地历史也未管理；不能凭声音认定发生服务端伤害，也不能全局静音/全清坠落值 | P0，B-MOTION；建议穿材料落地与出池再跌落自动用例；M-C30/OBS-09同时记两端fallDistance、ground、hp、sound ID |
+| OBS-10 未实现 | U：希望原版气泡栏表达耗氧。眼覆盖300/1/0/-1、离池恢复，叠原生水浸 | AIR L128客户端min旧air；OVERLAY.renderAirGUI L50自绘Vanilla图标；当前HUD文本、server air独立 | 不是“旧版只有一个原生air槽”；新需求可只映射显示，不应让Vanilla与MFQM双重扣气/双重伤害。实际EntityRope数组中三核心均参与，不混用渲染数组 | P1，C-AIRUI依赖B-AIR规格；建议UI气泡计数与水/沙交接测试；M-C23/OBS-10，保留原生水下功能和其他HUD布局 |
+| OBS-11 实现但行为疑似错误 | U：跳入时向下惯性过强、沉得快；水仅体验类比。0/3/10格投落三材料、单/多层，跳与不跳分开 | QS/SS旧Y/2，Mud深区/10；MATH L40后仍加net gravity，ENGINE先收既有位置再采样。003 fast_fall历史记录可审但不是水/旧版比较 | H：首次接触前位置已被接受、快降项记忆、玩家积分/包批次和END净重力模型共同作用；“已/2”不保证实际入沙距离小 | P0，B-MOTION；建议首次接触最大穿透/终端曲线而非只测solver边界；M-C29/OBS-11记录入射速度/首次接触/眼覆盖时间，容差待批准 |
+| OBS-12 待验证 | U：身在沙中向外放块却放头顶/表面。持石，眼在内/刚外，朝侧墙/顶面，禁止命令替代真实右键 | SHAPE.getShape非空 L30、无canBeReplaced/射线例外；Vanilla BlockGetter.clip/BlockPlaceContext/BlockItem；空碰撞不代表不选中 | H：内部shape命中及命中面决定邻格；视点纠偏/预测位置差也可能影响。先记录hitPos/face/inside，不能武断让所有射线穿沙 | P1，B-INTERACT依赖B-GEOMETRY/MOTION；建议内起点射线/放置上下文测试；M-C11/OBS-12三材料、Sneak、支撑/实体遮挡/联机 |
+| OBS-13 未实现 | U：像沙一样下落未出现。悬空一格、撤支撑、下方空气/可替换植物/水/固体，各观测调度 | QS L350–436与SS L354–440有条件随机移块；Mud无相同自有路径；三者父类Block，当前copy(SAND)不继承其逻辑 | 旧规则是条件setBlock+remove，不是自动FallingBlock实体；用户目标若要沙式连续实体下降则是新设计，不能当三材料共同旧事实 | P1，B-BLOCK；建议scheduled tick/支撑/meta保留测试；M-C12/OBS-13分别批准QS/SS旧式移块、Mud保持或新重力策略 |
+| OBS-14 待验证 | U：还可能有遗漏。以全部类/注册/资源/方法目录做闭环，不是再搜13个词 | [全量目录](ORIGINAL_MECHANICS_INVENTORY.md)、[逐类](CLASS_COVERAGE.md)、[资源](evidence/resource-coverage.csv)、51单元；旧五处世界生成控制流待补证 | 已找出掉落/丝触/挖掘限制、流体邻接、非Living、装备/兼容/触手等额外差异，并核对同名空气/渲染数组以排除错误推断；未完成1955方法逐路径或旧实机，不能保证再无遗漏 | P1审计闭环；B/C与004/005/未来分别归属；M-G01..G12/OBS-14逐包审核，保留待证条目 |
+
+新增BOAT不是OBS-14的别名，单独计为MFQM-003.5-BOAT-01，见[专项](BOAT_COMPATIBILITY_AUDIT.md)；旧版是否有专用船浮力、当前快速沉底原因和拟修行为分开陈述。

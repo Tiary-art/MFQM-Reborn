@@ -1,0 +1,17 @@
+// CFR0.152; original decompiler line 4503; NOT original source; inspect **/goto artifacts if present.
+    private int isTarBiomeIsNear(int xx, int yy, int zz, World world) {
+        int xxx = xx - 32;
+        int zzz = zz - 32;
+        if (this.T_BoP) {
+            for (int i = 0; i < 5; ++i) {
+                for (int j = 0; j < 5; ++j) {
+                    xxx = xx - 32 + 16 * i;
+                    zzz = zz - 32 + 16 * j;
+                    BiomeGenBase bb = world.func_72807_a(xxx, zzz);
+                    if (this.getTarCount(bb.field_76756_M) <= 0) continue;
+                    return this.getTarCount(bb.field_76756_M);
+                }
+            }
+        }
+        return 0;
+    }

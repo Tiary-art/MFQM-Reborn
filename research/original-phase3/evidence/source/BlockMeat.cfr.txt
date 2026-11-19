@@ -1,0 +1,579 @@
+/*
+ * Decompiled with CFR 0.152.
+ * 
+ * Could not load the following classes:
+ *  cpw.mods.fml.relauncher.Side
+ *  cpw.mods.fml.relauncher.SideOnly
+ *  net.minecraft.block.Block
+ *  net.minecraft.block.BlockContainer
+ *  net.minecraft.block.material.Material
+ *  net.minecraft.client.Minecraft
+ *  net.minecraft.client.renderer.texture.IIconRegister
+ *  net.minecraft.creativetab.CreativeTabs
+ *  net.minecraft.enchantment.EnchantmentHelper
+ *  net.minecraft.entity.Entity
+ *  net.minecraft.entity.EntityLivingBase
+ *  net.minecraft.entity.player.EntityPlayer
+ *  net.minecraft.entity.player.InventoryPlayer
+ *  net.minecraft.init.Items
+ *  net.minecraft.item.Item
+ *  net.minecraft.item.ItemStack
+ *  net.minecraft.tileentity.TileEntity
+ *  net.minecraft.util.AxisAlignedBB
+ *  net.minecraft.util.IIcon
+ *  net.minecraft.world.IBlockAccess
+ *  net.minecraft.world.World
+ *  net.minecraftforge.common.ForgeHooks
+ *  net.minecraftforge.common.util.ForgeDirection
+ */
+package MoreFunQuicksandMod.main.blocks;
+
+import MoreFunQuicksandMod.main.MFQM;
+import MoreFunQuicksandMod.main.Tileentity.TileEntityMeat;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
+import java.util.Random;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.util.ForgeDirection;
+
+public class BlockMeat
+extends BlockContainer {
+    @SideOnly(value=Side.CLIENT)
+    private IIcon[] IIconMArray;
+
+    public BlockMeat() {
+        super(Material.field_151583_m);
+        this.func_149711_c(2.0f);
+        this.func_149672_a(Block.field_149767_g);
+        this.func_149663_c("MeatWall");
+        this.func_149675_a(true);
+        this.func_149647_a(MFQM.tabMFQM);
+    }
+
+    public TileEntity func_149915_a(World world, int i) {
+        if (i > 5 && i < 10) {
+            if (world.field_72995_K) {
+                TileEntityMeat TE = new TileEntityMeat();
+                TE.phase = world.field_73012_v.nextDouble() * 6.28318 * 2.0;
+                return TE;
+            }
+            return null;
+        }
+        return null;
+    }
+
+    public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
+        return false;
+    }
+
+    @SideOnly(value=Side.CLIENT)
+    public void func_149666_a(Item block, CreativeTabs creativeTabs, List list) {
+        list.add(new ItemStack(block, 1, 0));
+        list.add(new ItemStack(block, 1, 1));
+        list.add(new ItemStack(block, 1, 2));
+        list.add(new ItemStack(block, 1, 3));
+        list.add(new ItemStack(block, 1, 4));
+        list.add(new ItemStack(block, 1, 5));
+        list.add(new ItemStack(block, 1, 6));
+        list.add(new ItemStack(block, 1, 7));
+        list.add(new ItemStack(block, 1, 8));
+        list.add(new ItemStack(block, 1, 9));
+        list.add(new ItemStack(block, 1, 10));
+    }
+
+    public void func_149670_a(World world, int x, int y, int z, Entity entity) {
+        int meta = world.func_72805_g(x, y, z);
+        if (entity instanceof EntityPlayer) {
+            InventoryPlayer inventory = ((EntityPlayer)entity).field_71071_by;
+            if (inventory.field_70460_b[0] != null && inventory.field_70460_b[0].func_77973_b() == Item.func_150899_d((int)MFQM.BootsID)) {
+                return;
+            }
+        }
+        entity.field_70159_w *= 0.9;
+        entity.field_70179_y *= 0.9;
+        if (meta > 1) {
+            switch (meta) {
+                case 2: {
+                    entity.field_70179_y = 0.1;
+                    entity.field_70159_w = 0.1;
+                    break;
+                }
+                case 3: {
+                    entity.field_70179_y = 0.1;
+                    entity.field_70159_w = -0.1;
+                    break;
+                }
+                case 4: {
+                    entity.field_70179_y = -0.1;
+                    entity.field_70159_w = -0.1;
+                    break;
+                }
+                case 5: {
+                    entity.field_70179_y = -0.1;
+                    entity.field_70159_w = 0.1;
+                    break;
+                }
+                case 6: {
+                    entity.field_70179_y = -0.15;
+                    break;
+                }
+                case 7: {
+                    entity.field_70179_y = 0.15;
+                    break;
+                }
+                case 8: {
+                    entity.field_70159_w = -0.15;
+                    break;
+                }
+                case 9: {
+                    entity.field_70159_w = 0.15;
+                    break;
+                }
+            }
+        }
+    }
+
+    public AxisAlignedBB func_149668_a(World world, int par2, int par3, int par4) {
+        float f = 0.125f;
+        return AxisAlignedBB.func_72330_a((double)par2, (double)par3, (double)par4, (double)(par2 + 1), (double)((float)(par3 + 1) - f), (double)(par4 + 1));
+    }
+
+    @SideOnly(value=Side.CLIENT)
+    public IIcon func_149691_a(int par1, int par2) {
+        switch (par2) {
+            case 0: {
+                return this.IIconMArray[0];
+            }
+            case 1: {
+                if (par1 == 1) {
+                    return this.IIconMArray[9];
+                }
+                if (par1 == 0) {
+                    return this.IIconMArray[0];
+                }
+                return this.IIconMArray[6];
+            }
+            case 2: {
+                if (par1 == 1 || par1 == 0) {
+                    return this.IIconMArray[1];
+                }
+                if (par1 == 4 || par1 == 2) {
+                    return this.IIconMArray[0];
+                }
+                if (par1 == 3) {
+                    return this.IIconMArray[8];
+                }
+                return this.IIconMArray[4];
+            }
+            case 3: {
+                if (par1 == 1 || par1 == 0) {
+                    return this.IIconMArray[3];
+                }
+                if (par1 == 5 || par1 == 2) {
+                    return this.IIconMArray[0];
+                }
+                if (par1 == 3) {
+                    return this.IIconMArray[4];
+                }
+                return this.IIconMArray[8];
+            }
+            case 4: {
+                if (par1 == 1 || par1 == 0) {
+                    return this.IIconMArray[5];
+                }
+                if (par1 == 3 || par1 == 5) {
+                    return this.IIconMArray[0];
+                }
+                if (par1 == 4) {
+                    return this.IIconMArray[4];
+                }
+                return this.IIconMArray[8];
+            }
+            case 5: {
+                if (par1 == 1 || par1 == 0) {
+                    return this.IIconMArray[7];
+                }
+                if (par1 == 4 || par1 == 3) {
+                    return this.IIconMArray[0];
+                }
+                if (par1 == 2) {
+                    return this.IIconMArray[4];
+                }
+                return this.IIconMArray[8];
+            }
+            case 6: {
+                if (par1 == 1 || par1 == 0) {
+                    return this.IIconMArray[6];
+                }
+                switch (par1) {
+                    case 4: {
+                        return this.IIconMArray[4];
+                    }
+                    case 5: {
+                        return this.IIconMArray[8];
+                    }
+                    case 2: {
+                        return this.IIconMArray[9];
+                    }
+                    case 3: {
+                        return this.IIconMArray[0];
+                    }
+                }
+            }
+            case 7: {
+                if (par1 == 1 || par1 == 0) {
+                    return this.IIconMArray[2];
+                }
+                switch (par1) {
+                    case 4: {
+                        return this.IIconMArray[8];
+                    }
+                    case 5: {
+                        return this.IIconMArray[4];
+                    }
+                    case 2: {
+                        return this.IIconMArray[0];
+                    }
+                    case 3: {
+                        return this.IIconMArray[9];
+                    }
+                }
+            }
+            case 8: {
+                if (par1 == 1 || par1 == 0) {
+                    return this.IIconMArray[4];
+                }
+                switch (par1) {
+                    case 4: {
+                        return this.IIconMArray[9];
+                    }
+                    case 5: {
+                        return this.IIconMArray[0];
+                    }
+                    case 2: {
+                        return this.IIconMArray[8];
+                    }
+                    case 3: {
+                        return this.IIconMArray[4];
+                    }
+                }
+            }
+            case 9: {
+                if (par1 == 1 || par1 == 0) {
+                    return this.IIconMArray[8];
+                }
+                switch (par1) {
+                    case 4: {
+                        return this.IIconMArray[0];
+                    }
+                    case 5: {
+                        return this.IIconMArray[9];
+                    }
+                    case 2: {
+                        return this.IIconMArray[4];
+                    }
+                    case 3: {
+                        return this.IIconMArray[8];
+                    }
+                }
+            }
+            case 10: {
+                if (par1 == 0) {
+                    return this.IIconMArray[10];
+                }
+                return this.IIconMArray[0];
+            }
+        }
+        return this.IIconMArray[9];
+    }
+
+    protected boolean validForSpread(World world, int x, int y, int z) {
+        return !world.func_147439_a(x, y, z).func_149688_o().func_76220_a() && (!world.func_147439_a(x, y, z).func_149688_o().func_76230_c() || world.func_147439_a(x, y, z).func_149688_o().func_76222_j());
+    }
+
+    protected void DropRandomThing(World world, int x, int y, int z) {
+        ItemStack itm = null;
+        if (world.field_73012_v.nextInt(10) == 0) {
+            itm = new ItemStack(Items.field_151103_aS, 1 + world.field_73012_v.nextInt(3), 0);
+            MFQM.dropItem(world, x, y - 1, z, itm);
+            return;
+        }
+        if (world.field_73012_v.nextInt(35) == 0) {
+            itm = new ItemStack(Items.field_151032_g, 1 + world.field_73012_v.nextInt(3), 0);
+            MFQM.dropItem(world, x, y - 1, z, itm);
+            return;
+        }
+        if (world.field_73012_v.nextInt(35) == 0) {
+            itm = new ItemStack(Items.field_151074_bl, 1, 0);
+            MFQM.dropItem(world, x, y - 1, z, itm);
+            return;
+        }
+        if (world.field_73012_v.nextInt(45) == 0) {
+            itm = new ItemStack(Items.field_151042_j, 1, 0);
+            MFQM.dropItem(world, x, y - 1, z, itm);
+            return;
+        }
+        if (world.field_73012_v.nextInt(45) == 0) {
+            itm = new ItemStack(Items.field_151043_k, 1, 0);
+            MFQM.dropItem(world, x, y - 1, z, itm);
+            return;
+        }
+        if (world.field_73012_v.nextInt(50) == 0) {
+            itm = new ItemStack(Items.field_151010_B, 1, 4 + world.field_73012_v.nextInt(12));
+            MFQM.dropItem(world, x, y - 1, z, itm);
+            return;
+        }
+        if (world.field_73012_v.nextInt(60) == 0) {
+            itm = new ItemStack(Items.field_151052_q, 1, 4 + world.field_73012_v.nextInt(12));
+            MFQM.dropItem(world, x, y - 1, z, itm);
+            return;
+        }
+        if (world.field_73012_v.nextInt(100) == 0) {
+            itm = new ItemStack(Items.field_151044_h, 1, 0);
+            MFQM.dropItem(world, x, y - 1, z, itm);
+            return;
+        }
+        if (world.field_73012_v.nextInt(500) == 0) {
+            itm = new ItemStack(Items.field_151144_bL, 1, 1);
+            MFQM.dropItem(world, x, y - 1, z, itm);
+            return;
+        }
+    }
+
+    public boolean CanExt(World world, int x, int y, int z) {
+        if (world.field_73011_w.field_76574_g != -1) {
+            return false;
+        }
+        for (int i = 1; i <= 5; ++i) {
+            if (world.func_147439_a(x, y + i, z) != MFQM.MeatBlock) {
+                return false;
+            }
+            if (i >= 5) continue;
+            if (world.func_147439_a(x + 1, y + i, z) != MFQM.MeatBlock) {
+                return false;
+            }
+            if (world.func_147439_a(x - 1, y + i, z) != MFQM.MeatBlock) {
+                return false;
+            }
+            if (world.func_147439_a(x, y + i, z + 1) != MFQM.MeatBlock) {
+                return false;
+            }
+            if (world.func_147439_a(x, y + i, z - 1) == MFQM.MeatBlock) continue;
+            return false;
+        }
+        return true;
+    }
+
+    public void func_149674_a(World world, int x, int y, int z, Random rand) {
+        if (MFQM.LiqFixer) {
+            return;
+        }
+        int meta = world.func_72805_g(x, y, z);
+        if (meta > 5 && meta < 10) {
+            this.checkMeatHole(world, x, y, z, meta);
+        }
+        if (meta == 10) {
+            if (!world.field_72995_K && rand.nextInt(25) == 0 && this.validForSpread(world, x, y - 1, z) && this.CanExt(world, x, y, z)) {
+                world.func_147465_d(x, y - 1, z, MFQM.SlurryBlock, 0, 2);
+                this.DropRandomThing(world, x, y, z);
+                world.func_72908_a((double)x + (double)rand.nextFloat(), (double)y - 0.5, (double)z + (double)rand.nextFloat(), "game.player.swim", 0.25f, rand.nextFloat() * 0.2f + 0.2f);
+                world.func_72908_a((double)x + (double)rand.nextFloat(), (double)y - 0.5, (double)z + (double)rand.nextFloat(), "mob.silverfish.step", 0.5f, rand.nextFloat() * 0.2f + 0.2f);
+                world.func_72908_a((double)x + (double)rand.nextFloat(), (double)y - 0.5, (double)z + (double)rand.nextFloat(), "mob.silverfish.step", 0.5f, rand.nextFloat() * 0.2f + 0.2f);
+                world.func_72908_a((double)x + (double)rand.nextFloat(), (double)y - 0.5, (double)z + (double)rand.nextFloat(), "mob.slime.attack", 0.5f, rand.nextFloat() * 0.2f + 0.2f);
+                world.func_72908_a((double)x + (double)rand.nextFloat(), (double)y - 0.5, (double)z + (double)rand.nextFloat(), "mob.slime.attack", 0.5f, rand.nextFloat() * 0.2f + 0.2f);
+            }
+            world.func_147464_a(x, y, z, (Block)this, 100);
+        }
+        super.func_149674_a(world, x, y, z, rand);
+    }
+
+    protected boolean func_149700_E() {
+        return true;
+    }
+
+    public void func_149726_b(World par1World, int par2, int par3, int par4) {
+        if (MFQM.LiqFixer) {
+            return;
+        }
+        int meta = par1World.func_72805_g(par2, par3, par4);
+        if (meta > 5 && meta < 10) {
+            this.checkMeatHole(par1World, par2, par3, par4, meta);
+        }
+        if (meta == 10) {
+            par1World.func_147464_a(par2, par3, par4, (Block)this, 100);
+        }
+    }
+
+    public void func_149695_a(World par1World, int par2, int par3, int par4, Block par5) {
+        if (MFQM.LiqFixer) {
+            return;
+        }
+        int meta = par1World.func_72805_g(par2, par3, par4);
+        if (meta > 5 && meta < 10) {
+            this.checkMeatHole(par1World, par2, par3, par4, meta);
+        }
+        if (meta == 10) {
+            par1World.func_147464_a(par2, par3, par4, (Block)this, 100);
+        }
+    }
+
+    public void checkMeatHole(World world, int x, int y, int z, int meta) {
+        int xx = x;
+        int yy = y;
+        int zz = z;
+        switch (meta - 6) {
+            case 0: {
+                xx = x;
+                yy = y;
+                zz = z - 1;
+                break;
+            }
+            case 1: {
+                xx = x;
+                yy = y;
+                zz = z + 1;
+                break;
+            }
+            case 2: {
+                xx = x - 1;
+                yy = y;
+                zz = z;
+                break;
+            }
+            case 3: {
+                xx = x + 1;
+                yy = y;
+                zz = z;
+                break;
+            }
+            default: {
+                return;
+            }
+        }
+        if (world.func_147439_a(xx, yy, zz) != MFQM.MeatHoleBlock && (world.func_147439_a(xx, yy, zz).func_149688_o().func_76224_d() || world.func_147439_a(xx, yy, zz).func_149688_o().func_76222_j()) && world.func_147439_a(xx, yy, zz) != MFQM.AcidBlock) {
+            world.func_147465_d(xx, yy, zz, MFQM.MeatHoleBlock, 0, 2);
+        }
+    }
+
+    public void func_149636_a(World world, EntityPlayer entityPlayer, int x, int y, int z, int par6) {
+        if (EnchantmentHelper.func_77502_d((EntityLivingBase)entityPlayer)) {
+            if (par6 != 10) {
+                MFQM.dropItem(world, x, y, z, new ItemStack((Block)this, 1, par6));
+            } else {
+                MFQM.dropItem(world, x, y, z, new ItemStack((Block)this, 1, 0));
+            }
+            world.func_147471_g(x, y, z);
+            return;
+        }
+        super.func_149636_a(world, entityPlayer, x, y, z, par6);
+    }
+
+    public float func_149737_a(EntityPlayer par1EntityPlayer, World par2World, int par3, int par4, int par5) {
+        if (!par1EntityPlayer.field_70122_E) {
+            return -1.0f;
+        }
+        return par2World.func_72805_g(par3, par4, par5) == 0 ? 0.083333336f : ForgeHooks.blockStrength((Block)this, (EntityPlayer)par1EntityPlayer, (World)par2World, (int)par3, (int)par4, (int)par5);
+    }
+
+    public boolean canHarvestBlock(EntityPlayer player, int meta) {
+        return true;
+    }
+
+    public Item func_149650_a(int par1, Random par2Random, int par3) {
+        if (MFQM.BoP) {
+            if (MFQM.FleshItemID != 0) {
+                return MFQM.FleshItem;
+            }
+            return Item.func_150898_a((Block)this);
+        }
+        return Item.func_150898_a((Block)this);
+    }
+
+    public int func_149745_a(Random random) {
+        if (MFQM.BoP) {
+            return random.nextInt(5);
+        }
+        return 1;
+    }
+
+    @SideOnly(value=Side.CLIENT)
+    public void func_149651_a(IIconRegister par1) {
+        this.IIconMArray = new IIcon[11];
+        this.IIconMArray[0] = par1.func_94245_a("morefunquicksandmod:Meat0");
+        this.IIconMArray[1] = par1.func_94245_a("morefunquicksandmod:Meat1");
+        this.IIconMArray[2] = par1.func_94245_a("morefunquicksandmod:Meat2");
+        this.IIconMArray[3] = par1.func_94245_a("morefunquicksandmod:Meat3");
+        this.IIconMArray[4] = par1.func_94245_a("morefunquicksandmod:Meat4");
+        this.IIconMArray[5] = par1.func_94245_a("morefunquicksandmod:Meat5");
+        this.IIconMArray[6] = par1.func_94245_a("morefunquicksandmod:Meat6");
+        this.IIconMArray[7] = par1.func_94245_a("morefunquicksandmod:Meat7");
+        this.IIconMArray[8] = par1.func_94245_a("morefunquicksandmod:Meat8");
+        this.IIconMArray[9] = par1.func_94245_a("morefunquicksandmod:Meat9");
+        this.IIconMArray[10] = par1.func_94245_a("morefunquicksandmod:Meat11");
+    }
+
+    public int func_149643_k(World par1World, int par2, int par3, int par4) {
+        return par1World.func_72805_g(par2, par3, par4);
+    }
+
+    public int func_149692_a(int par1) {
+        if (MFQM.BoP) {
+            return 3;
+        }
+        return 0;
+    }
+
+    @SideOnly(value=Side.CLIENT)
+    public int func_149635_D() {
+        if (MFQM.AOA && Minecraft.func_71410_x().field_71439_g.field_70170_p.field_73011_w.field_76574_g == MFQM.AOADimAbyss) {
+            return 12664385;
+        }
+        return 0xFFFFFF;
+    }
+
+    @SideOnly(value=Side.CLIENT)
+    public int func_149720_d(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
+        if (MFQM.AOA && Minecraft.func_71410_x().field_71439_g.field_70170_p.field_73011_w.field_76574_g == MFQM.AOADimAbyss) {
+            return 12664385;
+        }
+        return 0xFFFFFF;
+    }
+
+    @SideOnly(value=Side.CLIENT)
+    public int func_149741_i(int par1) {
+        return 0xFFFFFF;
+    }
+
+    @SideOnly(value=Side.CLIENT)
+    public void func_149734_b(World world, int x, int y, int z, Random random) {
+        if (world.func_72805_g(x, y, z) == 0) {
+            if (random.nextInt(4) == 0) {
+                world.func_72869_a("blockcrack_" + Block.func_149682_b((Block)this) + "_0", (double)((float)x + random.nextFloat()), (double)((float)y - 0.4f), (double)((float)z + random.nextFloat()), 0.0, 0.0, 0.0);
+            }
+            if (random.nextInt(12) == 0) {
+                world.func_72869_a("blockcrack_" + Block.func_149682_b((Block)this) + "_0", (double)((float)x + random.nextFloat()), (double)((float)y + 1.0f), (double)((float)z + random.nextFloat()), 0.0, 0.0, 0.0);
+            }
+        }
+    }
+}
+

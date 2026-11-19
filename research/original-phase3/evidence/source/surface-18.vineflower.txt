@@ -1,0 +1,52 @@
+// Decompiled inference, NOT original source; semantic closure PARTIAL
+      if (MFQM.GenSQSF && !blockGen) {
+         int sqtBop = this.getForestTypeBOP(biomeId);
+         int sqtVan = this.getForestTypeVan(biomeId);
+         if (sqtBop != 0 && this.T_BoP || sqtVan != 0 && !this.T_BoP) {
+            boolean canGenxxx = false;
+            int genCountx = 0;
+            int genPosx = 0;
+            int genRad = 0;
+            int genRadP = 0;
+            int radxx = 0;
+            genCountx = 5 + random.nextInt(10);
+            int var260 = 5;
+            int var302 = 6;
+            int var225 = 155;
+            if (random.nextInt(var225) == 0) {
+               for (int ix = 0; ix < genCountx; ix++) {
+                  firstBlockXCoord = chunkX + random.nextInt(16);
+                  firstBlockYCoord = 96 + dHeight;
+                  firstBlockZCoord = chunkZ + random.nextInt(16);
+                  radxx = var260 + random.nextInt(var302);
+                  int countBlock = 0;
+
+                  for (canGenxxx = false; firstBlockYCoord > 60 + dHeight; firstBlockYCoord--) {
+                     if (this.validGroundMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)
+                        && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                        if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                           canGenxxx = true;
+                           break;
+                        }
+
+                        countBlock++;
+                     }
+
+                     if (countBlock > 10) {
+                        break;
+                     }
+                  }
+
+                  if (canGenxxx
+                     && this.genIsFlat(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxx, world)
+                     && this.genIsFlat(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, radxx, world)) {
+                     this.generateSoftQuicksandForest(
+                        firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxx, world, random, Material.field_151568_F, MFQM.SoftQuicksandBlock
+                     );
+                     blockGen = true;
+                  }
+               }
+            }
+         }
+      }
+

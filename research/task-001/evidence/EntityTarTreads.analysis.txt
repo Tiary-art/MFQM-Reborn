@@ -1,0 +1,132 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.entity.Entity
+8:  *  net.minecraft.entity.EntityLivingBase
+9:  *  net.minecraft.nbt.NBTTagCompound
+10:  *  net.minecraft.world.World
+11:  */
+12: package MoreFunQuicksandMod.main.entity;
+13: 
+14: import MoreFunQuicksandMod.main.MFQM;
+15: import MoreFunQuicksandMod.main.PotionStuck;
+16: import cpw.mods.fml.relauncher.Side;
+17: import cpw.mods.fml.relauncher.SideOnly;
+18: import net.minecraft.entity.Entity;
+19: import net.minecraft.entity.EntityLivingBase;
+20: import net.minecraft.nbt.NBTTagCompound;
+21: import net.minecraft.world.World;
+22: 
+23: public class EntityTarTreads
+24: extends Entity {
+25:     public int tickWorld;
+26:     public double hgrab;
+27:     public double rsize;
+28:     public int limbs = 0;
+29:     public EntityLivingBase target;
+30:     public double xs;
+31:     public double zs;
+32:     public int live;
+33: 
+34:     public EntityTarTreads(World world) {
+35:         super(world);
+36:         this.func_70105_a(0.25f, 0.25f);
+37:         this.tickWorld = 0;
+38:         this.field_70158_ak = true;
+39:         if (!world.field_72995_K) {
+40:             this.func_70106_y();
+41:         }
+42:         this.rsize = 0.25 + (double)world.field_73012_v.nextFloat() * 0.25;
+43:         this.xs = (double)world.field_73012_v.nextFloat() * 0.8 - 0.4;
+44:         this.zs = (double)world.field_73012_v.nextFloat() * 0.8 - 0.4;
+45:         this.live = 1000;
+46:     }
+47: 
+48:     public EntityTarTreads(World world, double x, double y, double z, double ahgrab, int tick, EntityLivingBase entity) {
+49:         this(world);
+50:         this.func_70107_b(x, y, z);
+51:         this.hgrab = ahgrab;
+52:         this.tickWorld = tick;
+53:         this.target = entity;
+54:         PotionStuck props = PotionStuck.get(entity);
+55:         if (props == null) {
+56:             this.func_70106_y();
+57:             return;
+58:         }
+59:         props.setTarTreads(props.getTarTreads() + 1);
+60:     }
+61: 
+62:     protected void func_70088_a() {
+63:     }
+64: 
+65:     @SideOnly(value=Side.CLIENT)
+66:     public boolean func_70112_a(double par1) {
+67:         double d1 = this.field_70121_D.func_72320_b() * 4.0;
+68:         return par1 < (d1 *= 64.0) * d1;
+69:     }
+70: 
+71:     public void func_70071_h_() {
+72:         if (!this.field_70170_p.field_72995_K) {
+73:             this.func_70106_y();
+74:             return;
+75:         }
+76:         if (this.target == null) {
+77:             this.func_70106_y();
+78:             return;
+79:         }
+80:         if (!(this.target instanceof EntityLivingBase)) {
+81:             this.func_70106_y();
+82:             return;
+83:         }
+84:         if (this.target.field_70128_L || !this.target.func_70089_S()) {
+85:             PotionStuck props = PotionStuck.get(this.target);
+86:             if (props != null) {
+87:                 props.setTarTreads(Math.max(props.getTarTreads() - 1, 0));
+88:             }
+89:             this.func_70106_y();
+90:             return;
+91:         }
+92:         this.field_70159_w = 0.0;
+93:         this.field_70181_x = 0.0;
+94:         this.field_70179_y = 0.0;
+95:         super.func_70071_h_();
+96:         this.field_70159_w = 0.0;
+97:         this.field_70181_x = 0.0;
+98:         this.field_70179_y = 0.0;
+99:         double dis = Math.sqrt(Math.pow(this.target.field_70165_t - this.field_70165_t, 2.0) + Math.pow(this.target.field_70121_D.field_72338_b + (double)this.target.field_70131_O * this.hgrab - this.field_70163_u, 2.0) + Math.pow(this.target.field_70161_v - this.field_70161_v, 2.0));
+100:         if (dis > 4.0 * this.rsize || this.target.field_70121_D.field_72338_b + (double)this.target.field_70131_O * this.hgrab < this.field_70163_u - 0.25) {
+101:             --this.live;
+102:         }
+103:         if (dis > 6.0 * this.rsize || this.live < 1) {
+104:             PotionStuck props = PotionStuck.get(this.target);
+105:             if (props != null) {
+106:                 props.setTarTreads(Math.max(props.getTarTreads() - 1, 0));
+107:             }
+108:             this.func_70106_y();
+109:             return;
+110:         }
+111:         if (this.field_70170_p.func_147439_a((int)Math.floor(this.field_70165_t), (int)Math.floor(this.field_70163_u - 0.5), (int)Math.floor(this.field_70161_v)) != MFQM.TarBlock && this.field_70170_p.func_147439_a((int)Math.floor(this.field_70165_t), (int)Math.floor(this.field_70163_u + 0.5), (int)Math.floor(this.field_70161_v)) != MFQM.TarBlock) {
+112:             PotionStuck props = PotionStuck.get(this.target);
+113:             if (props != null) {
+114:                 props.setTarTreads(Math.max(props.getTarTreads() - 1, 0));
+115:             }
+116:             this.func_70106_y();
+117:             return;
+118:         }
+119:     }
+120: 
+121:     public void func_70014_b(NBTTagCompound par1NBTTagCompound) {
+122:     }
+123: 
+124:     public void func_70037_a(NBTTagCompound par1NBTTagCompound) {
+125:     }
+126: 
+127:     @SideOnly(value=Side.CLIENT)
+128:     public float func_70053_R() {
+129:         return 0.0f;
+130:     }
+131: }
+132: 

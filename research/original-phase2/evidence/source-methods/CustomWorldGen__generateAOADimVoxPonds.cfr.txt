@@ -1,0 +1,69 @@
+// CFR0.152; original decompiler line 4743; NOT original source; inspect **/goto artifacts if present.
+    private void generateAOADimVoxPonds(World world, Random random, int chunkX, int chunkZ) {
+        int dHeight = 0;
+        int firstBlockXCoord = chunkX + random.nextInt(16);
+        int firstBlockYCoord = 96;
+        int firstBlockZCoord = chunkZ + random.nextInt(16);
+        BiomeGenBase biomegenbase = world.func_72807_a(firstBlockXCoord, firstBlockZCoord);
+        int biomeId = biomegenbase.field_76756_M;
+        boolean blockGen = false;
+        int depth = random.nextInt(4);
+        for (int h = 0; h < 16; ++h) {
+            for (int v = 0; v < 16; ++v) {
+                firstBlockXCoord = chunkX + h;
+                firstBlockZCoord = chunkZ + v;
+                for (int k = 0; k < 4; ++k) {
+                    firstBlockYCoord = 37 + dHeight - k;
+                    if (world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) != MFQM.AOAToxicWaste) continue;
+                    if (k == 0 || depth == 3) {
+                        world.func_147465_d(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, MFQM.MudBlock, depth, 0);
+                        continue;
+                    }
+                    world.func_147465_d(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, MFQM.MudBlock, 0, 0);
+                }
+                if (!this.validLiqMaterial(firstBlockXCoord, 17, firstBlockZCoord, world)) continue;
+                world.func_147465_d(firstBlockXCoord, 16, firstBlockZCoord, MFQM.MudBlock, 3, 0);
+                world.func_147465_d(firstBlockXCoord, 15, firstBlockZCoord, MFQM.MudBlock, 3, 0);
+                world.func_147465_d(firstBlockXCoord, 14, firstBlockZCoord, MFQM.MudBlock, 3, 0);
+                world.func_147465_d(firstBlockXCoord, 13, firstBlockZCoord, Blocks.field_150357_h, 0, 0);
+            }
+        }
+        if (MFQM.GenWastePit && !blockGen) {
+            boolean dep = false;
+            if (random.nextInt(10) == 0) {
+                dep = true;
+            }
+            boolean canGen = false;
+            int genCount = 30 + random.nextInt(30);
+            int genPos = 10;
+            int genRad = 7;
+            int genRadP = 7;
+            int rad = 0;
+            if (random.nextInt(genPos) == 0) {
+                for (int i = 0; i < genCount; ++i) {
+                    firstBlockXCoord = chunkX + random.nextInt(16);
+                    firstBlockZCoord = chunkZ + random.nextInt(16);
+                    rad = genRad + random.nextInt(genRadP);
+                    int countBlock = 0;
+                    canGen = false;
+                    for (firstBlockYCoord = 48 + dHeight; firstBlockYCoord > 36 + dHeight; --firstBlockYCoord) {
+                        if (this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                            if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                canGen = true;
+                                break;
+                            }
+                            ++countBlock;
+                        }
+                        if (countBlock > 5) break;
+                    }
+                    if (!canGen || !this.genIsFlatSlurry(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world) || !this.genIsFlatSlurry(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad, world)) continue;
+                    if (dep) {
+                        this.generateMireOD(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random, Material.field_151568_F, MFQM.SlurryBlock, 0);
+                    } else {
+                        this.generateMireO(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random, Material.field_151568_F, MFQM.SlurryBlock);
+                    }
+                    blockGen = true;
+                }
+            }
+        }
+    }

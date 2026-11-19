@@ -1,0 +1,203 @@
+606:         tabMFQM = new CreativeTabsMFQM(CreativeTabs.getNextID(), "tabMFQM");
+607:         MinecraftForge.EVENT_BUS.register((Object)new CustomPotionEvent());
+608:         Configuration config = new Configuration(new File(event.getModConfigurationDirectory() + "/MFQM.cfg"));
+609:         config.load();
+610:         BoP = config.get("Mods", "Checking BiomesOPlenty", true).getBoolean(false);
+611:         PBoP = config.get("Mods", "Forced using default world", true).getBoolean(false);
+612:         TF = config.get("Mods", "Checking TwilightForest", true).getBoolean(false);
+613:         TBL = config.get("Mods", "Checking TheBetweenLands", true).getBoolean(false);
+614:         ABC = config.get("Mods", "Checking TheAbyssalCraft", true).getBoolean(false);
+615:         WLD = config.get("Mods", "Checking Wildycraft", true).getBoolean(false);
+616:         AOA = config.get("Mods", "Checking AdventOfAscension", true).getBoolean(false);
+617:         EUD = config.get("Mods", "Checking ExtraUtilities", true).getBoolean(false);
+618:         CWG = config.get("Mods", "Forced custom world gen", false).getBoolean(false);
+619:         GenMud = config.get("Terrain Generator", "Generate Mud in swamps", true).getBoolean(false);
+620:         GenMire = config.get("Terrain Generator", "Generate Mire in swamps", true).getBoolean(false);
+621:         GenDeep = config.get("Terrain Generator", "Generate Deep mud in swamps", true).getBoolean(false);
+622:         GenLiqMire = config.get("Terrain Generator", "Generate Liquid Mire in swamps", true).getBoolean(false);
+623:         GenMoor = config.get("Terrain Generator", "Generate Moor in marsh", true).getBoolean(false);
+624:         GenBog = config.get("Terrain Generator", "Generate Bog in swamps", true).getBoolean(false);
+625:         GenMorass = config.get("Terrain Generator", "Generate Peat Bogs", true).getBoolean(false);
+626:         GenJQS = config.get("Terrain Generator", "Generate Quicksand in jungle", true).getBoolean(false);
+627:         GenQS = config.get("Terrain Generator", "Generate Quicksand in desert", true).getBoolean(false);
+628:         GenSQS = config.get("Terrain Generator", "Generate Soft Quicksand in jungle", true).getBoolean(false);
+629:         GenSQSF = config.get("Terrain Generator", "Generate rare Soft Quicksand in forest", true).getBoolean(false);
+630:         GenSSand = config.get("Terrain Generator", "Generate Dry Quicksand pits in desert", true).getBoolean(false);
+631:         GenSSnow = config.get("Terrain Generator", "Generate Soft Snow", true).getBoolean(false);
+632:         GenHClay = config.get("Terrain Generator", "Generate Hardened Clay", true).getBoolean(false);
+633:         GenHPClay = config.get("Terrain Generator", "Generate Hardened Clay path in jungle", true).getBoolean(false);
+634:         GenSClay = config.get("Terrain Generator", "Generate Sinking Clay pits", true).getBoolean(false);
+635:         GenLarv = config.get("Terrain Generator", "Generate Larvae Pits", true).getBoolean(false);
+636:         GenWeb = config.get("Terrain Generator", "Generate Webbing Nest", true).getBoolean(false);
+637:         GenWebU = config.get("Terrain Generator", "Generate Spider Spawner in nests", true).getBoolean(false);
+638:         GenTar = config.get("Terrain Generator", "Generate Tar pits", true).getBoolean(false);
+639:         GenSlime = config.get("Terrain Generator", "Generate Sinking Slime pits", true).getBoolean(false);
+640:         GenCSand = config.get("Terrain Generator", "Generate Corrupted Sands in Nether", true).getBoolean(false);
+641:         GenMeat = config.get("Terrain Generator", "Generate Fleshy Pits in Nether", true).getBoolean(false);
+642:         GenMeatS = config.get("Terrain Generator", "Generate Swallowing Flesh in Nether", true).getBoolean(false);
+643:         GenMeatAss = config.get("Terrain Generator", "Generate Waste pits in Nether", true).getBoolean(false);
+644:         GenMucBl = config.get("Terrain Generator", "Generate Mucus Blossom in jungle and roofed forest", true).getBoolean(false);
+645:         GenMoss = config.get("Terrain Generator", "Generate Tangleroot Moss in swamps", true).getBoolean(false);
+646:         GenBClay = config.get("Terrain Generator", "Generate Brown Clay pits", true).getBoolean(false);
+647:         GenMClay = config.get("Terrain Generator", "Generate Mineral Clay pits", true).getBoolean(false);
+648:         GenWax = config.get("Terrain Generator", "Generate Wax Trees in jungle", true).getBoolean(false);
+649:         GenHoney = config.get("Terrain Generator", "Generate Bee Hives", true).getBoolean(false);
+650:         GenHoney2 = config.get("Terrain Generator", "Generate new Honey in Nether", true).getBoolean(false);
+651:         GenGP = config.get("Terrain Generator", "Generate natural gravel pits", true).getBoolean(false);
+652:         GenWastePit = config.get("Terrain Generator", "Generate slurry pits in Wasteland", true).getBoolean(false);
+653:         GenTempleQS = config.get("Terrain Generator", "Generate replace TNT with Dry QS", true).getBoolean(false);
+654:         AltitudeShift = config.get("Terrain Generator", "Water level (62 Default, 144 TerraFirmaCraft)", 62).getInt(62);
+655:         GenMarshOver = config.get("Terrain Generator", "Reforming marsh (BoP only)", true).getBoolean(false);
+656:         GenWaterColor = config.get("Terrain Generator", "Customize water color in swamps", true).getBoolean(false);
+657:         GenDesertTombs = config.get("Terrain Generator", "Generate Desert Tombs", true).getBoolean(false);
+658:         InitMobs = config.get("Mobs spawn", "Add custom Slimes", true).getBoolean(true);
+659:         SpawnVS = config.get("Mobs spawn", "Spawn Vore Slime in caves", true).getBoolean(false);
+660:         SpawnMB = config.get("Mobs spawn", "Spawn Muddy Blob in swamps", true).getBoolean(false);
+661:         SpawnSB = config.get("Mobs spawn", "Spawn Sandy Blob in desert", true).getBoolean(false);
+662:         SpawnTS = config.get("Mobs spawn", "Spawn Tar Slime near tar pits", true).getBoolean(false);
+663:         TurnBoots = config.get("Items receipts", "Add wading boots", true).getBoolean(true);
+664:         TurnStick = config.get("Items receipts", "Add long stick", true).getBoolean(true);
+665:         TurnRope = config.get("Items receipts", "Add rope", true).getBoolean(true);
+666:         TurnHook = config.get("Items receipts", "Add grappling hook", true).getBoolean(true);
+667:         TurnJacket = config.get("Items receipts", "Add life jacket", true).getBoolean(true);
+668:         TurnGasMask = config.get("Items receipts", "Add gasmask", true).getBoolean(true);
+669:         TurnPotion = config.get("Items receipts", "Add sinking potion", true).getBoolean(true);
+670:         TurnLiqGun = config.get("Items receipts", "Add liquid gun", true).getBoolean(true);
+671:         QSHotTar = config.get("Options", "Make Tar been hot", true).getBoolean(true);
+672:         QSTentacles = config.get("Options", "Add tentacles in fleshy pits", true).getBoolean(false);
+673:         QSMudTentacles = config.get("Options", "Add tentacles in mud and quicksand pits", true).getBoolean(false);
+674:         QSGas = config.get("Options", "Allow gasify for Slurry", true).getBoolean(false);
+675:         QSBubble = config.get("Options", "Spawn bubbles on surface of quicksands", true).getBoolean(false);
+676:         QSTarTreads = config.get("Options", "Add tar threads effect", true).getBoolean(false);
+677:         HookAsRider = config.get("Options", "Hooks used ride script", true).getBoolean(false);
+678:         QSOpacity = config.get("Options", "Makes Quicksands is opacity", false).getBoolean(false);
+679:         QSThirdPerson = config.get("Options", "Force camera to firstperson in deep", true).getBoolean(false);
+680:         QSCover = config.get("Options", "Covering player with mud", true).getBoolean(false);
+681:         QSHandRescue = config.get("Options", "Allow players rescue each other by hands", true).getBoolean(false);
+682:         QSAir = config.get("Options", "More realistic suffocation players", true).getBoolean(false);
+683:         QSMAir = config.get("Options", "More realistic suffocation mobs", true).getBoolean(false);
+684:         QSBootsCalc = config.get("Options", "More realistic boots relations", true).getBoolean(false);
+685:         QSArmorCalc = config.get("Options", "More realistic armor relations", true).getBoolean(false);
+686:         QSWeightCalc = config.get("Options", "Calculate inventory weight", true).getBoolean(false);
+687:         QSCAir = config.get("Options", "Use custom Air HUD", true).getBoolean(false);
+688:         MuddyLevel = config.get("Options", "Muddy Level Datawatcher", 25).getInt(25);
+689:         MuddyAir = config.get("Options", "Muddy Air Datawatcher", 29, "Must be different in range between 20 and 31").getInt(29);
+690:         MuddyMobsAir = config.get("Options", "Muddy Mobs Air Datawatcher", 29).getInt(29);
+691:         DmgMul = (float)config.get("Options", "Drowning damage multiplier", 1.0).getDouble(1.0);
+692:         config.save();
+693:         if (QSCover && (MuddyLevel < 20 || MuddyLevel > 31)) {
+711:             MuddyMobsAir = 29;
+712:             System.out.println("(MFQM)Incorrect MuddyMobsAir DataWatchers, changed to default");
+713:         }
+714:         if (BoP) {
+715:             if (Loader.isModLoaded((String)"BiomesOPlenty")) {
+716:                 config2 = new Configuration(new File(event.getModConfigurationDirectory() + "/biomesoplenty/ids.cfg"));
+717:                 MFQM.SwampBiomes[0] = config2.get("biome ids", "Bayou ID", -1).getInt();
+787:                 MFQM.MineralBiomes[3] = 3;
+788:                 MFQM.MineralBiomes[4] = 131;
+789:                 MFQM.MineralBiomes[5] = 162;
+790:                 System.out.println("(MFQM)BiomesOPlenty not found");
+791:                 BoP = false;
+792:             }
+793:         }
+794:         if (TF) {
+795:             if (Loader.isModLoaded((String)"TwilightForest")) {
+796:                 config2 = new Configuration(new File(event.getModConfigurationDirectory() + "/TwilightForest.cfg"));
+797:                 TFDim = config2.get("dimension", "dimensionID", -999999).getInt(-999999);
+800:                 TFDim = -999999;
+801:             }
+802:         }
+803:         if (TBL) {
+804:             if (Loader.isModLoaded((String)"thebetweenlands")) {
+805:                 config2 = new Configuration(new File(event.getModConfigurationDirectory() + "/thebetweenlands/mainConfig.cfg"));
+806:                 TBLDim = config2.get("world and dimension", "The Betweenlands Dimension ID", -999999).getInt(-999999);
+807:             } else {
+808:                 TBL = false;
+809:                 TBLDim = -999999;
+810:             }
+811:         }
+812:         if (ABC) {
+813:             if (Loader.isModLoaded((String)"abyssalcraft")) {
+814:                 config2 = new Configuration(new File(event.getModConfigurationDirectory() + "/abyssalcraft.cfg"));
+815:                 ABCDim1 = config2.get("dimensions", "The Abyssal Wasteland", -999999, "The first dimension, full of undead monsters.").getInt(-999999);
+829:                 MFQM.ABCBiomes[10] = config2.get("biomes", "Dreadlands Mountains", -1).getInt();
+830:                 MFQM.ABCBiomes[11] = config2.get("biomes", "Dreadlands Forest", -1).getInt();
+831:                 MFQM.ABCBiomes[12] = config2.get("biomes", "Purified Dreadlands", -1).getInt();
+832:             } else {
+833:                 ABC = false;
+834:                 ABCDim1 = -999999;
+835:                 ABCDim2 = -999999;
+837:                 ABCDim4 = -999999;
+838:             }
+839:         }
+840:         if (WLD) {
+841:             if (Loader.isModLoaded((String)"nolpfij_wildycraft")) {
+842:                 config2 = new Configuration(new File(event.getModConfigurationDirectory() + "/nolpfij_wildycraft.cfg"));
+843:                 WLDDim = config2.get("general", "Runescape Dimension ID", -999999).getInt(-999999);
+847:                 MFQM.WLDBiomes[3] = config2.get("general", "Morytania Biome ID", -1).getInt();
+848:                 MFQM.WLDBiomes[4] = config2.get("general", "Wildy Biome ID", -1).getInt();
+849:                 MFQM.WLDBiomes[5] = config2.get("general", "Volcanic Biome ID", -1).getInt();
+850:             } else {
+851:                 WLD = false;
+852:                 WLDDim = -999999;
+853:             }
+854:         }
+855:         if (AOA) {
+856:             if (Loader.isModLoaded((String)"nevermine")) {
+857:                 config2 = new Configuration(new File(event.getModConfigurationDirectory() + "/AoA.cfg"));
+858:                 AOADimHeaven = config2.get("dimension", "Haven ID", -999999).getInt(-999999);
+920:                 MFQM.AOABiomes[43] = config2.get("biome", "Shyrelands Biome ID", -1).getInt();
+921:                 MFQM.AOABiomes[44] = config2.get("biome", "Silvro Biome ID", -1).getInt();
+922:                 MFQM.AOABiomes[45] = config2.get("biome", "Voxponds Biome ID", -1).getInt();
+923:             } else {
+924:                 AOA = false;
+925:                 AOADimHeaven = -999999;
+926:                 AOADimAbyss = -999999;
+942:                 AOADimCandyland = -999999;
+943:             }
+944:         }
+945:         if (EUD) {
+946:             if (Loader.isModLoaded((String)"ExtraUtilities")) {
+947:                 config2 = new Configuration(new File(event.getModConfigurationDirectory() + "/ExtraUtilities.cfg"));
+948:                 EUDDim = config2.get("options", "deepDarkDimensionID", -999999).getInt(-999999);
+1503:             int wdAshID = 0;
+1504:             int wdSwmID = 0;
+1505:             int aaToxicID = 0;
+1506:             int aaWasteID = 0;
+1507:             boolean DoneBoP = !BoP;
+1508:             boolean DoneBL = !TBL;
+1509:             boolean DoneABC = !ABC;
+1510:             boolean DoneWLD = !WLD;
+1511:             boolean DoneAOA = !AOA;
+1512:             for (int i = 4095; i > 0; --i) {
+1513:                 Block tmp = Block.func_149729_e((int)i);
+1514:                 if (tmp == null) continue;
+1515:                 GameRegistry.UniqueIdentifier untmp = GameRegistry.findUniqueIdentifierFor((Block)tmp);
+1516:                 String str1 = tmp.func_149739_a().toLowerCase();
+1517:                 int len = str1.length();
+1607:                         }
+1608:                     }
+1609:                 }
+1610:                 if (solidHoneyID != 0 && honeyID != 0 && hiveID != 0 && fleshID != 0 && ashID != 0 && mudID != 0) {
+1611:                     DoneBoP = true;
+1612:                 }
+1613:                 if (blMudID != 0 && blTarID != 0 && blSolidTarID != 0 && blSludgeID != 0) {
+1614:                     DoneBL = true;
+1615:                 }
+1616:                 if (acSludgeID != 0) {
+1617:                     DoneABC = true;
+1618:                 }
+1619:                 if (wdAshID != 0 && wdSwmID != 0) {
+1620:                     DoneWLD = true;
+1621:                 }
+1622:                 if (aaToxicID != 0 && aaWasteID != 0) {
+1623:                     DoneAOA = true;
+1624:                 }
+1625:                 if (DoneBoP && DoneBL && DoneABC && DoneWLD && DoneAOA) break;
+1726:         for (int i = 31999; i > 255; --i) {
+1727:             Item tmp2 = Item.func_150899_d((int)i);
+1728:             if (tmp2 == null) continue;
+1729:             String str1 = tmp2.func_77658_a();
+1730:             GameRegistry.UniqueIdentifier untmp = GameRegistry.findUniqueIdentifierFor((Item)tmp2);
+1731:             if (BOPMudBlockID != 0 && untmp != null && untmp.modId != null && untmp.modId.toLowerCase().matches("(.*)biomesoplenty(.*)")) {
+1732:                 if (str1.matches("(.*)mudball(.*)")) {

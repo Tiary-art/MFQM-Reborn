@@ -1,0 +1,154 @@
+// CFR0.152; original decompiler line 5545; NOT original source; inspect **/goto artifacts if present.
+    private void generateAOADimIromine(World world, Random random, int chunkX, int chunkZ) {
+        int countBlock;
+        int i;
+        boolean Flat;
+        int rad;
+        int genRadP;
+        int genRad;
+        int genPos;
+        int genCount;
+        boolean canGen;
+        boolean isSilver;
+        int dHeight = 0;
+        int firstBlockXCoord = chunkX + random.nextInt(16);
+        int firstBlockYCoord = 96 + dHeight;
+        int firstBlockZCoord = chunkZ + random.nextInt(16);
+        BiomeGenBase biomegenbase = world.func_72807_a(firstBlockXCoord, firstBlockZCoord);
+        int biomeId = biomegenbase.field_76756_M;
+        boolean blockGen = false;
+        boolean bl = isSilver = biomeId == MFQM.AOABiomes[44];
+        if (MFQM.GenTar && !blockGen) {
+            boolean trType = false;
+            int tarP1 = 0;
+            int tarP2 = 0;
+            int tarPU = 0;
+            tarP1 = 30;
+            if (isSilver) {
+                tarP2 = 15;
+                tarPU = 5;
+            } else {
+                tarP2 = 100;
+                tarPU = 10;
+            }
+            boolean canGen2 = false;
+            int genCount2 = 30 + random.nextInt(10);
+            int genRad2 = 6;
+            int genRadP2 = 10;
+            int rad2 = 0;
+            if (random.nextInt(tarP2) == 0) {
+                for (int i2 = 0; i2 < genCount2; ++i2) {
+                    firstBlockXCoord = chunkX + random.nextInt(16);
+                    firstBlockZCoord = chunkZ + random.nextInt(16);
+                    rad2 = genRad2 + random.nextInt(genRadP2);
+                    int countBlock2 = 0;
+                    canGen2 = false;
+                    for (firstBlockYCoord = 96 + dHeight; firstBlockYCoord > 60 + dHeight; --firstBlockYCoord) {
+                        if (this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                            if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                canGen2 = true;
+                                break;
+                            }
+                            ++countBlock2;
+                        }
+                        if (countBlock2 > 10) break;
+                    }
+                    if (!canGen2 || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad2 - 2, world) || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad2 - 2, world)) continue;
+                    this.generateMireOD(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad2, world, random, Material.field_151568_F, MFQM.TarBlock, 0);
+                    blockGen = true;
+                }
+            }
+            if (random.nextInt(tarP1) == 0 && random.nextInt(tarPU) == 0) {
+                int var5 = chunkX + random.nextInt(16) + 8;
+                int var6 = random.nextInt(64) + dHeight;
+                int var7 = chunkZ + random.nextInt(16) + 8;
+                new CustomWorldGenLakes(MFQM.TarBlock).generate(world, random, var5, var6, var7, 1);
+            }
+        }
+        if (MFQM.GenWax && !blockGen && !isSilver) {
+            canGen = false;
+            genCount = 10 + random.nextInt(5);
+            genPos = 35;
+            genRad = 10;
+            genRadP = 10;
+            rad = 0;
+            if (random.nextInt(genPos) == 0) {
+                Flat = true;
+                if (random.nextInt(10) == 0) {
+                    Flat = false;
+                }
+                for (i = 0; i < genCount; ++i) {
+                    firstBlockXCoord = chunkX + random.nextInt(16);
+                    firstBlockZCoord = chunkZ + random.nextInt(16);
+                    rad = genRad + random.nextInt(genRadP);
+                    countBlock = 0;
+                    canGen = false;
+                    for (firstBlockYCoord = 96 + dHeight; firstBlockYCoord > 60 + dHeight; --firstBlockYCoord) {
+                        if (world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) != MFQM.TarBlock) {
+                            if (this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                                if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                    canGen = true;
+                                    break;
+                                }
+                                ++countBlock;
+                            }
+                        } else {
+                            canGen = false;
+                            break;
+                        }
+                        if (countBlock > 10) break;
+                    }
+                    if (!canGen || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world) || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad, world)) continue;
+                    if (Flat) {
+                        this.generateMireO(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random, Material.field_151568_F, MFQM.WaxBlock);
+                    } else {
+                        this.generateMireOD(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random, Material.field_151568_F, MFQM.WaxBlock, 10);
+                    }
+                    blockGen = true;
+                }
+            }
+        }
+        if (MFQM.GenWax && !blockGen && !isSilver) {
+            canGen = false;
+            genCount = 50 + random.nextInt(10);
+            genPos = 20;
+            genRad = 8;
+            genRadP = 8;
+            rad = 0;
+            if (random.nextInt(genPos) == 0) {
+                Flat = false;
+                if (random.nextInt(10) == 0) {
+                    Flat = true;
+                }
+                for (i = 0; i < genCount; ++i) {
+                    firstBlockXCoord = chunkX - 8 + random.nextInt(32);
+                    firstBlockZCoord = chunkZ - 8 + random.nextInt(32);
+                    rad = genRad + random.nextInt(genRadP);
+                    countBlock = 0;
+                    canGen = false;
+                    for (firstBlockYCoord = 96 + dHeight; firstBlockYCoord > 60 + dHeight; --firstBlockYCoord) {
+                        if (world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) != MFQM.TarBlock) {
+                            if (this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                                if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                    canGen = true;
+                                    break;
+                                }
+                                ++countBlock;
+                            }
+                        } else {
+                            canGen = false;
+                            break;
+                        }
+                        if (countBlock > 10) break;
+                    }
+                    if (!canGen || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad - 2, world) || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad - 2, world)) continue;
+                    if (Flat) {
+                        this.generateMireO(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random, Material.field_151568_F, MFQM.AcidBlock);
+                    } else {
+                        this.generateMireOD(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random, Material.field_151568_F, MFQM.AcidBlock, 0);
+                    }
+                    blockGen = true;
+                }
+            }
+        }
+    }

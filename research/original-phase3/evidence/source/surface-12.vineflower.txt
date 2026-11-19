@@ -1,0 +1,100 @@
+// Decompiled inference, NOT original source; semantic closure PARTIAL
+      if (MFQM.GenQS && !blockGen) {
+         int dT = this.getDesertType(biomeId);
+         if (biomegenbase instanceof BiomeGenBeach) {
+            dT = 5;
+         }
+
+         if (dT != 0 && this.T_BoP || (dT == 5 || biomegenbase instanceof BiomeGenDesert) && !this.T_BoP) {
+            boolean canGenx = false;
+            int genCountx = 0;
+            int genPosx = 0;
+            int genRad = 0;
+            int genRadP = 0;
+            boolean sandOnly = false;
+            int radx = 0;
+            switch (dT) {
+               case 0:
+                  genCountx = 1 + random.nextInt(2);
+                  genRad = 5;
+                  sandOnly = true;
+                  genRadP = 10;
+                  genPosx = 15;
+                  break;
+               case 1:
+                  genCountx = 1 + random.nextInt(2);
+                  genRad = 5;
+                  sandOnly = true;
+                  genRadP = 10;
+                  genPosx = 15;
+                  break;
+               case 2:
+                  genCountx = 5 + random.nextInt(5);
+                  genRad = 5;
+                  sandOnly = true;
+                  genRadP = 5;
+                  genPosx = 10;
+                  break;
+               case 3:
+                  genCountx = 1 + random.nextInt(2);
+                  genRad = 5;
+                  sandOnly = true;
+                  genRadP = 5;
+                  genPosx = 20;
+                  break;
+               case 4:
+                  genCountx = 5 + random.nextInt(10);
+                  genRad = 5;
+                  sandOnly = true;
+                  genRadP = 5;
+                  genPosx = 4;
+                  break;
+               case 5:
+                  genCountx = 5 + random.nextInt(10);
+                  genRad = 5;
+                  sandOnly = true;
+                  genRadP = 5;
+                  genPosx = 20;
+                  break;
+               case 6:
+                  genCountx = 1 + random.nextInt(2);
+                  genRad = 5;
+                  sandOnly = true;
+                  genRadP = 6;
+                  genPosx = 15;
+            }
+
+            if (random.nextInt(genPosx) == 0) {
+               for (int ix = 0; ix < genCountx; ix++) {
+                  firstBlockXCoord = chunkX + random.nextInt(16);
+                  firstBlockYCoord = 96 + dHeight;
+                  firstBlockZCoord = chunkZ + random.nextInt(16);
+                  radx = genRad + random.nextInt(genRadP);
+                  int countBlock = 0;
+
+                  for (canGenx = false; firstBlockYCoord > 60 + dHeight; firstBlockYCoord--) {
+                     if (this.validSandMaterial(sandOnly, firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                        if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                           canGenx = true;
+                           break;
+                        }
+
+                        countBlock++;
+                     }
+
+                     if (countBlock > 10) {
+                        break;
+                     }
+                  }
+
+                  if (canGenx
+                     && this.genIsFlat(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radx, world)
+                     && this.genIsFlat(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, radx, world)) {
+                     this.generateMire(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radx, world, random, Material.field_151568_F, MFQM.QuicksandBlock);
+                     blockGen = true;
+                  }
+               }
+            }
+         }
+      }
+

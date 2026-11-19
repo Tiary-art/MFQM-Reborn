@@ -1,0 +1,62 @@
+exec(open('work/inventory.py').read().split('# exact literal and dynamic texture call evidence')[0])
+# Preserve decompiler diagnostics and analysis of liquids/entities/proxy/worldgen in text form
+(ev/'decompiler_summary.txt').write_text(pathlib.Path('work/decompiled/summary.txt').read_text())
+for f in source.rglob('*.java'):
+ if not (ev/(f.stem+'.analysis.txt')).exists():
+  (ev/(f.stem+'.analysis.txt')).write_text('\n'.join(f'{i}: {l}' for i,l in enumerate(f.read_text().splitlines(),1)))
+def write(n,s): (reports/n).write_text(s,encoding='utf-8')
+def bc(name): return '../evidence/MoreFunQuicksandMod__main__'+name.replace('/','__')+'.bytecode.txt'
+def table(head,rs):return '| '+' | '.join(head)+' |\n| '+' | '.join(['---']*len(head))+' |\n'+''.join('| '+' | '.join(str(x).replace('|','\\|').replace('\n',' ') for x in r)+' |\n' for r in rs)
+a=json.loads((ev/'audit.json').read_text());names=z.namelist()
+common='''本报告为 2026-11-17 静态分析。原始 JAR 未执行，未启动 Minecraft，未验证运行时表现。高置信度表示归档/指令直接支持；中置信度表示反编译控制流与旧版 SRG 名称解释，仍需旧版实机复核；设计建议不代表旧版事实。所有方法描述符与十进制字节码偏移见 `evidence/*bytecode.txt`；`*.analysis.txt` 是 CFR 0.152 反编译的带行号分析文本，不是原始源码，也不是新版实现。\n\n'''
+counts=collections.Counter('/'.join(n.split('/')[:4]) if '/textures/' in n else n.rsplit('.',1)[-1] for n in names if not n.endswith('/'))
+intro=f'''# 01 — JAR 只读盘点\n\n{common}## 输入与完整性\n\n- 原文件：`{p.name}`\n- 字节数：{a['size_bytes']:,}；ZIP 条目：484（文件 463、目录 21）；类 161；方法 1955。\n- 分析前 SHA-256：`{sha}`。分析后记录见 `evidence/audit.json` 与包内 README。\n- ZIP CRC 校验将在打包前执行。未覆盖原文件，未提取原始纹理到交付包，未构建或发布移植版。\n- Java class 文件、各资源的大小、CRC32、SHA-256 逐项列于 [archive_entries.csv](../evidence/archive_entries.csv)；类及父类见 [classes.csv](../evidence/classes.csv)，方法见 [methods.csv](../evidence/methods.csv)。\n\n## 归档结构\n\n'''
+intro+=table(['类别','实测数量'],[['class',161],['方块 PNG',162],['物品 PNG',54],['实体 PNG（含 mudOverlays）',25],['盔甲 PNG',5],['Logo PNG',1],['PNG 合计',247],['动画 mcmeta',48],['语言文件',2],['OGG',2],['sounds.json',1]])
+intro+='''\n## 元数据与依赖\n\n`mcmod.info`：modid `MFQM`，version `1.1.1`，Minecraft `1.7.10`；assets namespace 为 `morefunquicksandmod`。三种名称不能混用。原始文本保存在 evidence。主类 `@Mod` 注解仅给出 modid/name/version，没有 `dependencies=` 硬依赖声明。\n\n元数据列出 Biomes O' Plenty，但 `MFQM.preInit` 在配置 BoP 开启后检查 `Loader.isModLoaded("BiomesOPlenty")`，缺失时走兼容关闭/替代资源路径；`postInit` 在 `!BoP` 分支注册 Emptycomb/HoneycombItem。因此静态证据支持“可选兼容”，不支持仅凭 mcmod.info 宣称必装。仍需用无 BOP 的 1.7.10 独立服务端启动验证类加载与配置路径。\n\n其他探测：TwilightForest、thebetweenlands、abyssalcraft、nolpfij_wildycraft、nevermine、ExtraUtilities；另有注册表扫描/名字匹配和肥料转换路径。完整配置键、默认值与上下文见 [config_and_compatibility.txt](../evidence/config_and_compatibility.txt)，外部类常量池引用见 [external_class_references.txt](../evidence/external_class_references.txt)。后者为空表示未发现过滤后的其他直接类引用，不表示不存在通过字符串或反射实现的兼容。\n\n## 语言、音效与配方\n\n'''
+for n in names:
+ if n.endswith(('.lang','.ogg','.json')):intro+=f'- `{n}`（{z.getinfo(n).file_size} 字节）\n'
+intro+='\n`sounds.json` 原文：\n\n```json\n'+z.read(next(n for n in names if n.endswith('sounds.json'))).decode()+'\n```\n\n'
+intro+='''语言文件原样附在 evidence；`MFQM` 另通过 `LanguageRegistry.addName/addStringLocalization` 注册英文名，语言文件条目不等于内容注册表。音效还调用原版 `game.player.swim`、`mob.slime.attack`、`mob.magmacube.jump` 等键，不能用 OGG 数量推断所有播放行为。\n\n旧版配方以代码注册，没有现代 `data/*/recipes/*.json`。全部配方调用、熔炼、燃料入口与附近条件见 [recipe_calls.txt](../evidence/recipe_calls.txt)；完整 MFQM 分析文本可复核循环。方块、物品、实体、流体的静态注册调用与资源名分开列在报告 03。\n\n## 反编译边界\n\nCFR 0.152，工具 SHA-256：`'''+a['cfr_sha256']+'''`，来源 https://www.benf.org/other/cfr/cfr-0.152.jar 。仅静态读取 JAR。Jawa 用于直接解析 class 并输出指令、常量引用及偏移。缺少 Minecraft/Forge 类路径，反编译中的 `Could not load` 不表示原 Mod 在正确环境下无法运行。\n\nCFR 对 `CustomWorldGen.generateAOADimGardencia/generateWLD/generateABC2/generateNether/generateSurface` 的控制流报告 “Unable to fully structure code”；这五处不当作可直接编译或完全可靠的源代码。原始指令已全部保存。\n\n## 未解决问题与下一步\n\n- 运行时注册成功、客户端资源加载失败、无 BOP 启动、多人表现均尚未实测。建议下一次仍先在隔离的 1.7.10 测试实例记录基线。\n- 注册调用并不保证获取途径、创造栏可见或自然生成；不可用资源需结合运行时 atlas/日志确认。\n- 许可证未提供；发布前按报告 06 核查。新版工程与重绘需单独授权。\n\n## 附录：全部类\n\n'''
+intro+= '\n'.join('- `'+r[0]+'`' for r in classrows)+'\n\n## 附录：全部非 class 文件\n\n'
+intro+='\n'.join('- `'+n+'`' for n in names if not n.endswith(('.class','/')))+'\n'
+write('01_jar_inventory.md',intro)
+# report03 registrations
+mf=sources['MoreFunQuicksandMod/main/MFQM.java']; lines=mf.splitlines(); regs=[]
+for i,l in enumerate(lines,1):
+ m=re.search(r'GameRegistry.register(Block|Item)\(\((?:Block|Item)\)(\w+),.*?\(String\)"([^"]+)"',l)
+ if m:
+  kind,var,id=m.groups();cond='preInit 无条件调用' if i<1478 else 'postInit 无条件调用'
+  if id in ['Emptycomb','HoneycombItem']:cond='postInit: !BoP'
+  if id=='wadingBoots':cond='postInit: BootsID == 1（未复用扫描到的靴子）'
+  prev='\n'.join(lines[max(0,i-6):i]);cl=re.findall(re.escape(var)+r'\s*=.*?new (\w+)',prev)
+  regs.append([kind,var,id,cl[-1] if cl else '见 MFQM 上下文',cond,f'MFQM.analysis.txt:{i}'])
+ent=[]
+for i,l in enumerate(lines,1):
+ m=re.search(r'registerModEntity\((\w+)\.class, \(String\)"([^"]+)", \(int\)(\d+).*?\(int\)(\d+), \(int\)(\d+), \(boolean\)(true|false)',l)
+ if m:
+  cls,id,num,ran,rate,vel=m.groups();cond='无条件调用'
+  if cls=='EntityTentacles':cond='QSTentacles'
+  if cls=='EntityMudTentacles':cond='QSMudTentacles'
+  if cls in ['EntityVoreSlime','EntityMuddyBlob','EntitySandBlob','EntityTarSlime']:cond='InitMobs；自然刷怪另受 SpawnVS/MB/SB/TS 控制'
+  ent.append([cls,id,num,ran,rate,vel,cond,i])
+fluids=[]
+for f,t in sources.items():
+ if f.endswith('Fluid.java'):
+  m=re.search(r'super\("([^"]+)"',t)
+  if m:fluids.append([pathlib.Path(f).stem,m[1],'MFQM.preInit registerFluid；返回值未检查'])
+fluids.extend([['MireFluid','LiquidMire','MFQM.<clinit> 参数；preInit 注册'],['MireFluid','LiquidMireS','MFQM.<clinit> 参数；preInit 注册']])
+r3='# 03 — 注册、网络与兼容风险\n\n'+common+'''## 静态注册表\n\n以下是传入 Forge 注册 API 的**原始字符串**，保留大小写和空格。旧环境通常以活动 modid 附加命名空间（`MFQM:<字符串>`），最终存档序列化键与加载成功情况需要旧实例导出确认；不是纹理名称列表。现代资源路径必须重新规范化为小写，不能直接把这些键作为 1.20.1 ResourceLocation。\n\n'''+table(['类型','字段','注册字符串','构造类型','条件','证据行'],regs)
+r3+='\n方块附带的 ItemBlock 不属于上表显式 registerItem 数量；`Mud` 使用 ItemMud、SoftSnow/Morass/BrownClay 等使用 ItemMeta，SinkingRug/MoorGrass 使用 ItemMetaColor，保留 meta→BlockState/颜色映射。`TempVore/TempMeat` 等技术性方块已见注册调用，但不能因此宣称可在生存或创造栏直接取得。\n\n'
+r3+=table(['实体类','注册字符串','mod 内数字 ID','追踪范围','更新周期 tick','速度同步','条件','MFQM 行'],ent)
+r3+='\n四种史莱姆还调用 `registerGlobalEntityID` 生成旧刷怪蛋；Bee 通过 `registerEntityEgg/getUniqueEntityEggId` 从 300 起寻找数字 ID。数字 ID 不应迁入新版。\n\n'+table(['流体类','流体字符串','条件'],fluids)
+r3+='''\n流体名是 Fluid 构造参数，方块名另行注册。流体密度/黏度参数不是直接的实体下沉速度。流体注册冲突与静态字段是否复用已有流体待实测。TileEntity：`TileEntityLure` → `tileEntityLure`。世界生成：`MFQM.Init(FMLPostInitializationEvent)` 注册 CustomWorldGen，权重 9999999；另注册 CustomGenerationEvent。生成开关不等于方块注册开关，具体 biome/dimension 分支见旧分析文本和指令。\n\n`PotionStuck` 不是继承 Potion 的类，而是 `IExtendedEntityProperties`；未找到自定义 Potion 注册。`Potion`、`SPotion` 是物品字符串；代码还施加原版 PotionEffect（如 10、15、17、19），不能将这些数字误作 MFQM 自有药水 ID。\n\n## CustomRegister：存在的替换机制不等于实际调用\n\n`registerItem/registerBlock` 若 id 不以 `modId + ":"` 开头，调用正常 GameRegistry；否则通过反射获取旧注册表 Map/ObjectIntIdentityMap，用旧数字 ID 放入新对象，将旧对象放到 `removed:<path>` 并隐藏创造栏；尝试修改 Items/Blocks 静态 final 字段，物品还修改 StatCrafting。异常仅打印。\n\n本 JAR 中 MFQM 确实构造 CustomRegister，但对所有 class 指令搜索，未发现对其 registerItem/registerBlock 的调用。因此“具备反射替换分支”是高置信度事实，“本版本启动会替换原版方块/物品”没有证据，不能确认。新版不移植这套反射操作。\n\n## 三类网络消息\n\n频道 `MFQM_REC`，在 MFQM.preInit 注册：\n\n'''+table(['判别 ID','消息','方向','载荷','服务端处理'],[[0,'RopeMessage','C→S / Side.SERVER','1 个 ByteBuf float，4 字节 Len','handleCurLen'],[1,'HookMessage','C→S / Side.SERVER','1 个 float，4 字节 Len','handleCurLenHook'],[2,'RescueMessage','C→S / Side.SERVER','1 个 float，4 字节 Len','handleCurLen']])
+r3+='''\n载荷不含玩家名、UUID 或实体 ID；服务端取 `ctx.getServerHandler().field_147369_b` 的玩家名，扫描对应的固定 64 槽全局数组，对非 null 且名字匹配的实体设置 double `curLen = (double)len`。三个 Handler 直接调用，没有显式主线程排队。网络调用线程的实际行为由旧 Forge 实现决定；这里只确认处理器没有调度代码。\n\n证据表（3 类同构，可逐类复核 bytecode）：\n\n'''+table(['类/方法','字节码证据','结论','置信度'],[
+['RopeMessage.fromBytes','offset 2 invokevirtual ByteBuf.readFloat；5 putfield Len:F','未自行检查包长、范围或有限值；底层 ByteBuf 对短包的行为由 Netty 决定','高'],
+['RopeMessage.toBytes','offset 5 invokevirtual ByteBuf.writeFloat','4 字节 float；默认 ByteBuf 字节序，代码未调用 order()','高'],
+['RopeMessage.handleCurLen','8 bipush 64；27 if_acmpne；40 putfield EntityRope.curLen:D','使用 String 引用比较，不是 equals；直接写长度','高'],
+['HookMessage/RescueMessage.handle…','同构 readFloat / if_acmpne / f2d / putfield curLen，见对应指令文本','同样的边界与关联问题','高'],
+['各 Handler.onMessage','取 ServerHandler.player → 静态 handle；返回 null','无应答消息，无显式调度或节流','高'],
+['MFQM.preInit','newSimpleChannel + registerMessage ×3，Side.SERVER','消息方向与判别 ID 已确认','高']])
+r3+='''\n风险与移植要求：\n\n- **长度校验缺失**：NaN、±Infinity、负数、极大有限值可到达赋值。不能把其他实体 tick 分支的部分 `Math.min(maxLen, curLen)` 当成消息入口校验；NaN 仍会污染后续运算。是否形成可利用后果需独立服务端测试。\n- **关联脆弱**：`if_acmpne` 比较引用，同内容名字可能不匹配；64 槽为全局静态容量。物品/实体生命周期中存在设置与清理操作，不能据此声称从不清理；跨维度、掉线、死亡、容量耗尽仍需全链路压测。\n- **授权不足**：入口没有验证目标实体仍活着、同维度、距离、持有工具、拥有者 UUID、最大长度或调整速率；客户端实体 ID 未传入，攻击面应按实际数组映射评估。\n- **新版建议**：SimpleChannel 明确协议版本与 PLAY_TO_SERVER，解码长度固定，enqueueWork 到服务端主线程；按发送者 UUID 查找活动救援会话，检查实体有效性/同世界/所有权/距离/工具；仅接收增减意图或严格限幅后的参数，所有 float/double 先做 isFinite，限制每 tick 调整量与消息速率。\n\n## 配方与配置条件\n\n全部原始调用附在 `recipe_calls.txt`，包括 TurnStick/TurnRope/TurnHook/TurnJacket/TurnGasMask/TurnPotion/TurnLiqGun/TurnBoots 的配方开关。多数工具即使关闭配方仍见无条件注册，不应写成“关闭就不存在”。毛毯配方有 ix5 0..15 循环，不能以静态调用点数量代替最终配方数量。\n\n现代化时将 shaped/shapeless/smelting、loot、tags、biome modifiers、worldgen 改为数据驱动。旧注册字符串如 `Bucket of Clay` 含空格，必须记录明确的旧名→新名映射，并分别处理显示名、注册名、纹理路径。\n\n## 未解决问题与下一步\n\n- 实际完整 registry dump、配方展开数量、第三方整合存在/缺失矩阵尚未运行验证。\n- 64 槽生命周期与实体物理对恶意长度的最终响应需旧版专服实验；未声称已验证漏洞。\n- CustomWorldGen 五个方法反编译控制流不完整；移植生成规则前按字节码与固定种子样本交叉核对。\n- 下一步建议先建立旧版基线与数据映射；新版工程需另行授权。\n'''
+write('03_registration_and_network.md',r3)
+print('reports 01 and 03 written',len(regs),len(ent),len(fluids))

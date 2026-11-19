@@ -1,0 +1,123 @@
+// CFR0.152; original decompiler line 6191; NOT original source; inspect **/goto artifacts if present.
+    private void generateAOADimDeeplands(World world, Random random, int chunkX, int chunkZ) {
+        int dHeight = 0;
+        int firstBlockXCoord = chunkX + random.nextInt(16);
+        int firstBlockYCoord = 96 + dHeight;
+        int firstBlockZCoord = chunkZ + random.nextInt(16);
+        BiomeGenBase biomegenbase = world.func_72807_a(firstBlockXCoord, firstBlockZCoord);
+        int biomeId = biomegenbase.field_76756_M;
+        boolean blockGen = false;
+        if (MFQM.GenTar && !blockGen) {
+            boolean tarP1 = false;
+            boolean tarP2 = false;
+            boolean tarPU = false;
+            boolean canGen = false;
+            boolean genPosFounded = false;
+            int genCount = 0;
+            int genRealCount = 0;
+            int genPos = 0;
+            int genRad = 0;
+            int genRadP = 0;
+            int rad = 0;
+            int FX = 0;
+            int FZ = 0;
+            int FY = 25;
+            genCount = 20 + random.nextInt(10);
+            genRad = 10;
+            genRadP = 5;
+            int genSand = 0;
+            genRealCount = 20 + random.nextInt(10);
+            int radOfGen = (int)Math.floor(30.0 * Math.min(1.0, (double)genRealCount / 20.0));
+            genPos = 25;
+            int T_genRealCount = genRealCount * 3;
+            Block aBlock = null;
+            int aMeta = 0;
+            boolean aDetBlock = false;
+            if (random.nextInt(genPos) == 0) {
+                for (int i = 0; i < genCount && genRealCount > 0; ++i) {
+                    if (!genPosFounded) {
+                        firstBlockXCoord = chunkX + random.nextInt(32) - 16;
+                        firstBlockYCoord = 25 + dHeight;
+                        firstBlockZCoord = chunkZ + random.nextInt(32) - 16;
+                        rad = genRad + random.nextInt(genRadP);
+                    } else {
+                        firstBlockXCoord = FX + random.nextInt(radOfGen) - radOfGen / 2;
+                        firstBlockYCoord = 25 + dHeight;
+                        firstBlockZCoord = FZ + random.nextInt(radOfGen) - radOfGen / 2;
+                        rad = genRad - 2 + random.nextInt(5);
+                    }
+                    int countBlock = 0;
+                    int upper = 0;
+                    canGen = false;
+                    while (firstBlockYCoord > 18 + dHeight) {
+                        if (this.validTarMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                            if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                canGen = true;
+                                if (world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) == MFQM.TarBlock) {
+                                    upper = -1;
+                                    break;
+                                }
+                                upper = -1;
+                                break;
+                            }
+                            ++countBlock;
+                        }
+                        --firstBlockYCoord;
+                    }
+                    if (canGen) {
+                        canGen = false;
+                        if (this.genIsFlatTar(firstBlockXCoord, firstBlockYCoord - 1, firstBlockZCoord, rad, world) && this.genIsFlatTar(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world) && this.genIsFlatTar(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad, world)) {
+                            if (!aDetBlock) {
+                                aBlock = world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord);
+                                if (aBlock != null && aBlock.func_149688_o().func_76220_a() && aBlock.func_149662_c() && !aBlock.func_149688_o().func_76224_d() && !aBlock.func_149716_u()) {
+                                    aMeta = world.func_72805_g(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord);
+                                    aDetBlock = true;
+                                }
+                            } else {
+                                canGen = true;
+                            }
+                        }
+                    }
+                    if (!canGen) continue;
+                    if (!genPosFounded) {
+                        genPosFounded = true;
+                        FX = firstBlockXCoord;
+                        FZ = firstBlockZCoord;
+                        FY = 19;
+                        genCount = 750;
+                    }
+                    int TgenSand = genSand;
+                    --genRealCount;
+                    this.generateCliffsTar(firstBlockXCoord, FY, firstBlockZCoord, (int)Math.floor((double)rad * 1.5), world, random, aBlock, aMeta);
+                    this.generateFlatTar(firstBlockXCoord, FY, firstBlockZCoord, (int)Math.floor((double)rad * 1.5), world, random, TgenSand, aBlock, aMeta);
+                    blockGen = true;
+                }
+                if (aDetBlock) {
+                    int ccount = genSand * 10 + T_genRealCount + random.nextInt(T_genRealCount / 2);
+                    for (int i = 0; i < ccount; ++i) {
+                        firstBlockXCoord = FX + random.nextInt(radOfGen) - radOfGen / 2;
+                        firstBlockYCoord = FY;
+                        firstBlockZCoord = FZ + random.nextInt(radOfGen) - radOfGen / 2;
+                        float disToC = Math.max((float)Math.sqrt(Math.pow(firstBlockXCoord - FX, 2.0) + Math.pow(firstBlockZCoord - FZ, 2.0)), 1.0f);
+                        int cof_d = Math.max(1, (int)Math.floor(Math.pow(16.0f / disToC, 1.5)));
+                        int rrad = 1;
+                        if (random.nextInt(1 * cof_d) == 0) {
+                            rrad = 2 + random.nextInt(1);
+                        }
+                        if (random.nextInt(2 * cof_d) == 0) {
+                            rrad = 3 + random.nextInt(2);
+                        }
+                        if (random.nextInt(3 * cof_d) == 0) {
+                            rrad = 4 + random.nextInt(3);
+                        }
+                        int qy = 1;
+                        if (random.nextInt(5) == 0) {
+                            qy = 0;
+                        }
+                        if (rrad <= 1) continue;
+                        this.generateRockTar(firstBlockXCoord, firstBlockYCoord - qy - random.nextInt(Math.max(1, (int)Math.floor(rrad / 2))), firstBlockZCoord, rrad, world, random, aBlock, aMeta);
+                    }
+                }
+            }
+        }
+    }

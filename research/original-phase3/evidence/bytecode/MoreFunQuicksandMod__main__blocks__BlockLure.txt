@@ -1,0 +1,128 @@
+public class MoreFunQuicksandMod.main.blocks.BlockLure extends net.minecraft.block.BlockContainer {
+  public net.minecraft.util.IIcon theCSIIcon;
+    descriptor: Lnet/minecraft/util/IIcon;
+
+  public MoreFunQuicksandMod.main.blocks.BlockLure();
+    descriptor: ()V
+    Code:
+       0: aload_0
+       1: getstatic     #20                 // Field net/minecraft/block/material/Material.field_151583_m:Lnet/minecraft/block/material/Material;
+       4: invokespecial #23                 // Method net/minecraft/block/BlockContainer."<init>":(Lnet/minecraft/block/material/Material;)V
+       7: aload_0
+       8: ldc           #24                 // float 1.75f
+      10: invokevirtual #28                 // Method func_149711_c:(F)Lnet/minecraft/block/Block;
+      13: pop
+      14: aload_0
+      15: getstatic     #32                 // Field net/minecraft/block/Block.field_149767_g:Lnet/minecraft/block/Block$SoundType;
+      18: invokevirtual #36                 // Method func_149672_a:(Lnet/minecraft/block/Block$SoundType;)Lnet/minecraft/block/Block;
+      21: pop
+      22: aload_0
+      23: ldc           #38                 // String LureBlock
+      25: invokevirtual #42                 // Method func_149663_c:(Ljava/lang/String;)Lnet/minecraft/block/Block;
+      28: pop
+      29: aload_0
+      30: getstatic     #48                 // Field MoreFunQuicksandMod/main/MFQM.tabMFQM:Lnet/minecraft/creativetab/CreativeTabs;
+      33: invokevirtual #52                 // Method func_149647_a:(Lnet/minecraft/creativetab/CreativeTabs;)Lnet/minecraft/block/Block;
+      36: pop
+      37: return
+
+  public net.minecraft.tileentity.TileEntity func_149915_a(net.minecraft.world.World, int);
+    descriptor: (Lnet/minecraft/world/World;I)Lnet/minecraft/tileentity/TileEntity;
+    Code:
+       0: aload_1
+       1: getfield      #62                 // Field net/minecraft/world/World.field_72995_K:Z
+       4: ifne          17
+       7: new           #64                 // class MoreFunQuicksandMod/main/Tileentity/TileEntityLure
+      10: dup
+      11: invokespecial #66                 // Method MoreFunQuicksandMod/main/Tileentity/TileEntityLure."<init>":()V
+      14: astore_3
+      15: aload_3
+      16: areturn
+      17: aconst_null
+      18: areturn
+
+  public net.minecraft.util.IIcon func_149691_a(int, int);
+    descriptor: (II)Lnet/minecraft/util/IIcon;
+    Code:
+       0: aload_0
+       1: getfield      #80                 // Field theCSIIcon:Lnet/minecraft/util/IIcon;
+       4: areturn
+
+  public void func_149651_a(net.minecraft.client.renderer.texture.IIconRegister);
+    descriptor: (Lnet/minecraft/client/renderer/texture/IIconRegister;)V
+    Code:
+       0: aload_0
+       1: aload_1
+       2: ldc           #86                 // String morefunquicksandmod:Blossom6
+       4: invokeinterface #92,  2           // InterfaceMethod net/minecraft/client/renderer/texture/IIconRegister.func_94245_a:(Ljava/lang/String;)Lnet/minecraft/util/IIcon;
+       9: putfield      #80                 // Field theCSIIcon:Lnet/minecraft/util/IIcon;
+      12: return
+
+  public void func_149734_b(net.minecraft.world.World, int, int, int, java.util.Random);
+    descriptor: (Lnet/minecraft/world/World;IIILjava/util/Random;)V
+    Code:
+       0: aload_1
+       1: getfield      #100                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+       4: iconst_2
+       5: invokevirtual #106                // Method java/util/Random.nextInt:(I)I
+       8: ifne          111
+      11: iload_2
+      12: i2f
+      13: f2d
+      14: aload         5
+      16: invokevirtual #110                // Method java/util/Random.nextFloat:()F
+      19: f2d
+      20: ldc2_w        #111                // double 2.0d
+      23: dmul
+      24: dadd
+      25: dconst_1
+      26: dsub
+      27: dstore        6
+      29: iload_3
+      30: i2f
+      31: f2d
+      32: aload         5
+      34: invokevirtual #110                // Method java/util/Random.nextFloat:()F
+      37: f2d
+      38: ldc2_w        #111                // double 2.0d
+      41: dmul
+      42: dadd
+      43: dconst_1
+      44: dsub
+      45: dstore        8
+      47: iload         4
+      49: i2f
+      50: f2d
+      51: aload         5
+      53: invokevirtual #110                // Method java/util/Random.nextFloat:()F
+      56: f2d
+      57: ldc2_w        #111                // double 2.0d
+      60: dmul
+      61: dadd
+      62: dconst_1
+      63: dsub
+      64: dstore        10
+      66: ldc2_w        #113                // double 0.913d
+      69: dstore        12
+      71: ldc2_w        #115                // double 0.737d
+      74: dstore        14
+      76: ldc2_w        #117                // double 0.996d
+      79: dstore        16
+      81: aload_1
+      82: ldc           #120                // String reddust
+      84: dload         6
+      86: ldc2_w        #121                // double 0.5d
+      89: dadd
+      90: dload         8
+      92: ldc2_w        #121                // double 0.5d
+      95: dadd
+      96: dload         10
+      98: ldc2_w        #121                // double 0.5d
+     101: dadd
+     102: dload         12
+     104: dload         14
+     106: dload         16
+     108: invokevirtual #126                // Method net/minecraft/world/World.func_72869_a:(Ljava/lang/String;DDDDDD)V
+     111: return
+}
+Compiled from "BlockMeat.java"

@@ -1,0 +1,32 @@
+// CFR0.152; original decompiler line 5699; NOT original source; inspect **/goto artifacts if present.
+    private void generateAOADimLandsLelyetia(World world, Random random, int chunkX, int chunkZ) {
+        boolean dHeight = false;
+        boolean blockGen = false;
+        if (MFQM.GenSSnow) {
+            int depth = 0;
+            if (random.nextInt(5) == 0) {
+                depth = 1 + random.nextInt(4);
+            }
+            for (int h = 0; h < 16; ++h) {
+                for (int v = 0; v < 16; ++v) {
+                    int firstBlockXCoord = chunkX + h;
+                    int firstBlockYCoord = 57;
+                    int firstBlockZCoord = chunkZ + v;
+                    if (depth == 0) {
+                        if (this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) continue;
+                        world.func_147465_d(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, MFQM.SoftSnowBlock, 1, 2);
+                        continue;
+                    }
+                    if (depth != 1) continue;
+                    if (!this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                        world.func_147465_d(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, MFQM.SoftSnowBlock, 1, 2);
+                    }
+                    if (!this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                        world.func_147465_d(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, MFQM.SoftSnowBlock, 1, 2);
+                    }
+                    if (this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord - 1, firstBlockZCoord, world)) continue;
+                    world.func_147465_d(firstBlockXCoord, firstBlockYCoord - 1, firstBlockZCoord, MFQM.SoftSnowBlock, 1, 2);
+                }
+            }
+        }
+    }

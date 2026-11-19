@@ -1,0 +1,16 @@
+// CFR0.152; original decompiler line 4679; NOT original source; inspect **/goto artifacts if present.
+    private Vec3 getZcor(World world, int x, int y, int z, int rad) {
+        int zinc = 0;
+        int zdec = 0;
+        for (int i = 1; i < rad; ++i) {
+            if (zinc == 0 && !CustomWorldGen.isAboveFreeSpace(x, y + 3, z + i, world)) {
+                zinc = i - 1;
+            }
+            if (zdec == 0 && !CustomWorldGen.isAboveFreeSpace(x, y + 3, z - i, world)) {
+                zdec = i - 1;
+            }
+            if (zdec == 0 || zinc != 0) continue;
+            return Vec3.func_72443_a((double)((zinc + zdec) / 2 - zdec), (double)((zinc + zdec) / 2), (double)0.0);
+        }
+        return Vec3.func_72443_a((double)0.0, (double)rad, (double)0.0);
+    }

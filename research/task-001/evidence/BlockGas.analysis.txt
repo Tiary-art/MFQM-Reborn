@@ -1,0 +1,461 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.block.Block
+8:  *  net.minecraft.block.Block$SoundType
+9:  *  net.minecraft.block.BlockFalling
+10:  *  net.minecraft.block.material.MapColor
+11:  *  net.minecraft.block.material.Material
+12:  *  net.minecraft.client.Minecraft
+13:  *  net.minecraft.client.renderer.texture.IIconRegister
+14:  *  net.minecraft.enchantment.EnchantmentHelper
+15:  *  net.minecraft.entity.Entity
+16:  *  net.minecraft.entity.EntityLivingBase
+17:  *  net.minecraft.entity.player.EntityPlayer
+18:  *  net.minecraft.init.Blocks
+19:  *  net.minecraft.item.Item
+20:  *  net.minecraft.potion.PotionEffect
+21:  *  net.minecraft.util.AxisAlignedBB
+22:  *  net.minecraft.util.IIcon
+23:  *  net.minecraft.world.IBlockAccess
+24:  *  net.minecraft.world.World
+25:  */
+26: package MoreFunQuicksandMod.main.blocks;
+27: 
+28: import MoreFunQuicksandMod.main.CustomMaterialGas;
+29: import MoreFunQuicksandMod.main.MFQM;
+30: import cpw.mods.fml.relauncher.Side;
+31: import cpw.mods.fml.relauncher.SideOnly;
+32: import java.util.Random;
+33: import net.minecraft.block.Block;
+34: import net.minecraft.block.BlockFalling;
+35: import net.minecraft.block.material.MapColor;
+36: import net.minecraft.block.material.Material;
+37: import net.minecraft.client.Minecraft;
+38: import net.minecraft.client.renderer.texture.IIconRegister;
+39: import net.minecraft.enchantment.EnchantmentHelper;
+40: import net.minecraft.entity.Entity;
+41: import net.minecraft.entity.EntityLivingBase;
+42: import net.minecraft.entity.player.EntityPlayer;
+43: import net.minecraft.init.Blocks;
+44: import net.minecraft.item.Item;
+45: import net.minecraft.potion.PotionEffect;
+46: import net.minecraft.util.AxisAlignedBB;
+47: import net.minecraft.util.IIcon;
+48: import net.minecraft.world.IBlockAccess;
+49: import net.minecraft.world.World;
+50: 
+51: public class BlockGas
+52: extends Block {
+53:     @SideOnly(value=Side.CLIENT)
+54:     private IIcon[] IIconNormalArray;
+55:     private int[] arrayDirection = new int[6];
+56:     public static final Block.SoundType soundTypeGas = new Block.SoundType("stone", 0.0f, 0.0f);
+57:     public static final Material materialGas = new CustomMaterialGas(MapColor.field_151660_b);
+58: 
+59:     public BlockGas() {
+60:         super(materialGas);
+61:         this.func_149711_c(0.0f);
+62:         this.func_149672_a(soundTypeGas);
+63:         this.func_149752_b(0.0f);
+64:         this.func_149663_c("Gas");
+65:         this.func_149675_a(true);
+66:         this.func_149647_a(MFQM.tabMFQM);
+67:     }
+68: 
+69:     public void func_149749_a(World world, int x, int y, int z, Block bl, int meta) {
+70:         if (MFQM.LiqFixer) {
+71:             return;
+72:         }
+73:         if (world.func_147439_a(x, y, z) != MFQM.SlurryBlock) {
+74:             return;
+75:         }
+76:         int met = meta;
+77:         for (int tick = 0; met > 0 && tick < 3; ++tick) {
+78:             met = this.RandomSpread(world, x, y, z, met);
+79:         }
+80:         this.RandomSpread(world, x, y, z, 1);
+81:     }
+82: 
+83:     public int RandomSpread(World world, int x, int y, int z, int Meta) {
+84:         int xx = 0;
+85:         int yy = 0;
+86:         int zz = 0;
+87:         this.arrayDirection[0] = 0;
+88:         this.arrayDirection[1] = 1;
+89:         this.arrayDirection[2] = 2;
+90:         this.arrayDirection[3] = 3;
+91:         this.arrayDirection[4] = 4;
+92:         this.arrayDirection[5] = 5;
+93:         int dir = 0;
+94:         int nMeta = Meta;
+95:         for (int tick = 0; tick < 6 && nMeta > 0; ++tick) {
+96:             int tick2;
+97:             dir = world.field_73012_v.nextInt(6);
+98:             for (tick2 = 0; (this.arrayDirection[dir] == -1 || this.arrayDirection[dir] == 4 && tick2 < 5 && world.field_73012_v.nextInt(2) != 0) && tick2 < 6; ++tick2) {
+99:                 if (++dir <= 5) continue;
+100:                 dir = 0;
+101:             }
+102:             if (tick2 > 5) break;
+103:             switch (this.arrayDirection[dir]) {
+104:                 case 0: {
+105:                     xx = 1;
+106:                     yy = 0;
+107:                     zz = 0;
+108:                     break;
+109:                 }
+110:                 case 1: {
+111:                     xx = -1;
+112:                     yy = 0;
+113:                     zz = 0;
+114:                     break;
+115:                 }
+116:                 case 2: {
+117:                     xx = 0;
+118:                     yy = 0;
+119:                     zz = 1;
+120:                     break;
+121:                 }
+122:                 case 3: {
+123:                     xx = 0;
+124:                     yy = 0;
+125:                     zz = -1;
+126:                     break;
+127:                 }
+128:                 case 4: {
+129:                     xx = 0;
+130:                     yy = 1;
+131:                     zz = 0;
+132:                     break;
+133:                 }
+134:                 case 5: {
+135:                     xx = 0;
+136:                     yy = -1;
+137:                     zz = 0;
+138:                 }
+139:             }
+140:             if (world.func_147439_a(x + xx, y + yy, z + zz) == Blocks.field_150350_a) {
+141:                 world.func_147465_d(x + xx, y + yy, z + zz, (Block)this, 0, 2);
+142:                 --nMeta;
+143:             } else if (world.func_147439_a(x + xx, y + yy, z + zz) == this && world.func_72805_g(x + xx, y + yy, z + zz) < nMeta) {
+144:                 world.func_72921_c(x + xx, y + yy, z + zz, world.func_72805_g(x + xx, y + yy, z + zz) + 1, 2);
+145:                 --nMeta;
+146:             }
+147:             this.arrayDirection[dir] = -1;
+148:         }
+149:         return nMeta;
+150:     }
+151: 
+152:     public void func_149674_a(World world, int x, int y, int z, Random rand) {
+153:         if (MFQM.LiqFixer) {
+154:             return;
+155:         }
+156:         int meta = world.func_72805_g(x, y, z);
+157:         int xx = x;
+158:         int yy = y;
+159:         int zz = z;
+160:         int tickRate = 10;
+161:         if (MFQM.ABC && world.field_73011_w.field_76574_g == MFQM.ABCDim2) {
+162:             tickRate = 20;
+163:         }
+164:         if (world.func_147439_a(x, y - 1, z) == Blocks.field_150350_a) {
+165:             world.func_147465_d(x, y - 1, z, (Block)this, meta, 3);
+166:             world.func_147468_f(x, y, z);
+167:             yy = y - 1;
+168:         }
+169:         if (meta > 0) {
+170:             if (rand.nextInt(Math.max(48 - meta * 5, 1)) == 0) {
+171:                 meta = this.RandomSpread(world, xx, yy, zz, meta);
+172:                 world.func_72921_c(xx, yy, zz, meta, 2);
+173:                 world.func_147464_a(xx, yy, zz, (Block)this, tickRate);
+174:                 return;
+175:             }
+176:             if (rand.nextInt(1000) == 0 && --meta >= 0) {
+177:                 world.func_72921_c(xx, yy, zz, meta, 2);
+178:             }
+179:         } else if (rand.nextInt(50 * tickRate) == 0) {
+180:             world.func_147468_f(xx, yy, zz);
+181:             return;
+182:         }
+183:         world.func_147464_a(xx, yy, zz, (Block)this, tickRate);
+184:     }
+185: 
+186:     public boolean CheckBreathProtect(Entity entity) {
+187:         if (!(entity instanceof EntityPlayer)) {
+188:             return false;
+189:         }
+190:         if (((EntityPlayer)entity).func_82169_q(3) == null) {
+191:             return false;
+192:         }
+193:         String str1 = ((EntityPlayer)entity).func_82169_q(3).func_77973_b().func_77658_a();
+194:         if (str1.toLowerCase().matches("(.*)gas(.*)")) {
+195:             return true;
+196:         }
+197:         if (str1.toLowerCase().matches("(.*)oxygen(.*)")) {
+198:             return true;
+199:         }
+200:         if (str1.matches("(.*)Hazmat(.*)")) {
+201:             return true;
+202:         }
+203:         if (str1.matches("(.*)Nano(.*)")) {
+204:             return true;
+205:         }
+206:         if (str1.matches("(.*)Quantum(.*)")) {
+207:             return true;
+208:         }
+209:         if (str1.toLowerCase().matches("(.*)poison(.*)")) {
+210:             return true;
+211:         }
+212:         return MFQM.AOAFaceMaskItemID != 0 && ((EntityPlayer)entity).func_82169_q(3).func_77973_b() == MFQM.AOAFaceMaskItem;
+213:     }
+214: 
+215:     public void func_149670_a(World world, int x, int y, int z, Entity entity) {
+216:         int mtd = world.func_72805_g(x, y, z);
+217:         if (entity instanceof EntityLivingBase && !world.field_72995_K) {
+218:             boolean BreathProtect = false;
+219:             boolean BreathProtectA = false;
+220:             if (entity instanceof EntityPlayer) {
+221:                 BreathProtect = BreathProtect || EnchantmentHelper.func_77501_a((EntityLivingBase)((EntityPlayer)entity)) > 0;
+222:                 boolean bl = BreathProtectA = BreathProtectA || BreathProtect;
+223:             }
+224:             if (MFQM.ABC && world.field_73011_w.field_76574_g == MFQM.ABCDim2) {
+225:                 if (mtd > 3 && world.func_82737_E() % 200L - (long)(mtd * 5) == 0L && world.field_73012_v.nextInt(5) == 0) {
+226:                     if (!BreathProtectA) {
+227:                         BreathProtect = BreathProtect || this.CheckBreathProtect(entity);
+228:                         BreathProtectA = true;
+229:                     }
+230:                     if (!BreathProtect) {
+231:                         ((EntityLivingBase)entity).func_70690_d(new PotionEffect(15, 200, 0, false));
+232:                     }
+233:                 }
+234:                 if (world.func_82737_E() % 400L - (long)(mtd * 5) == 0L && world.field_73012_v.nextInt(5) == 0) {
+235:                     if (!BreathProtectA) {
+236:                         BreathProtect = BreathProtect || this.CheckBreathProtect(entity);
+237:                         BreathProtectA = true;
+238:                     }
+239:                     if (!BreathProtect) {
+240:                         ((EntityLivingBase)entity).func_70690_d(new PotionEffect(17, 200, 0, false));
+241:                     }
+242:                 }
+243:                 return;
+244:             }
+245:             if (world.func_82737_E() % 80L - (long)(mtd * 5) == 0L && world.field_73012_v.nextInt(5) == 0) {
+246:                 if (!BreathProtectA) {
+247:                     BreathProtect = BreathProtect || this.CheckBreathProtect(entity);
+248:                     BreathProtectA = true;
+249:                 }
+250:                 if (!BreathProtect) {
+251:                     ((EntityLivingBase)entity).func_70690_d(new PotionEffect(17, 200, 0, false));
+252:                 }
+253:             }
+254:             if (world.func_82737_E() % 200L - (long)(mtd * 5) == 0L && world.field_73012_v.nextInt(5) == 0) {
+255:                 if (!BreathProtectA) {
+256:                     BreathProtect = BreathProtect || this.CheckBreathProtect(entity);
+257:                     BreathProtectA = true;
+258:                 }
+259:                 if (!BreathProtect) {
+260:                     ((EntityLivingBase)entity).func_70690_d(new PotionEffect(9, 200, 0, false));
+261:                 }
+262:             }
+263:             if (world.func_82737_E() % 500L - (long)(mtd * 5) == 0L && world.field_73012_v.nextInt(5) == 0) {
+264:                 if (!BreathProtectA) {
+265:                     BreathProtect = BreathProtect || this.CheckBreathProtect(entity);
+266:                     BreathProtectA = true;
+267:                 }
+268:                 if (!BreathProtect) {
+269:                     ((EntityLivingBase)entity).func_70690_d(new PotionEffect(2, 200, 0, false));
+270:                     ((EntityLivingBase)entity).func_70690_d(new PotionEffect(4, 200, 0, false));
+271:                     ((EntityLivingBase)entity).func_70690_d(new PotionEffect(18, 200, 0, false));
+272:                 }
+273:             }
+274:             if (mtd > 2) {
+275:                 if (world.func_82737_E() % 80L - (long)(mtd * 5) == 0L && world.field_73012_v.nextInt(5) == 0) {
+276:                     if (!BreathProtectA) {
+277:                         BreathProtect = BreathProtect || this.CheckBreathProtect(entity);
+278:                         BreathProtectA = true;
+279:                     }
+280:                     if (!BreathProtect) {
+281:                         ((EntityLivingBase)entity).func_70690_d(new PotionEffect(9, 200, 0, false));
+282:                         ((EntityLivingBase)entity).func_70690_d(new PotionEffect(17, 600, 1, false));
+283:                     }
+284:                 }
+285:                 if (world.func_82737_E() % 200L - (long)(mtd * 5) == 0L && world.field_73012_v.nextInt(5) == 0) {
+286:                     if (!BreathProtectA) {
+287:                         BreathProtect = BreathProtect || this.CheckBreathProtect(entity);
+288:                         BreathProtectA = true;
+289:                     }
+290:                     if (!BreathProtect) {
+291:                         ((EntityLivingBase)entity).func_70690_d(new PotionEffect(19, 200, 0, false));
+292:                     }
+293:                 }
+294:             }
+295:             if (mtd > 3) {
+296:                 if (world.func_82737_E() % 100L - (long)(mtd * 5) == 0L && world.field_73012_v.nextInt(5) == 0) {
+297:                     if (!BreathProtectA) {
+298:                         BreathProtect = BreathProtect || this.CheckBreathProtect(entity);
+299:                         BreathProtectA = true;
+300:                     }
+301:                     if (!BreathProtect) {
+302:                         ((EntityLivingBase)entity).func_70690_d(new PotionEffect(2, 200, 1, false));
+303:                         ((EntityLivingBase)entity).func_70690_d(new PotionEffect(4, 200, 1, false));
+304:                         ((EntityLivingBase)entity).func_70690_d(new PotionEffect(18, 200, 1, false));
+305:                         ((EntityLivingBase)entity).func_70690_d(new PotionEffect(17, 1200, 2, false));
+306:                         ((EntityLivingBase)entity).func_70690_d(new PotionEffect(9, 600, 0, false));
+307:                     }
+308:                 }
+309:                 if (world.func_82737_E() % 150L - (long)(mtd * 5) == 0L && world.field_73012_v.nextInt(5) == 0) {
+310:                     if (!BreathProtectA) {
+311:                         BreathProtect = BreathProtect || this.CheckBreathProtect(entity);
+312:                         BreathProtectA = true;
+313:                     }
+314:                     if (!BreathProtect) {
+315:                         ((EntityLivingBase)entity).func_70690_d(new PotionEffect(19, 200, 0, false));
+316:                     }
+317:                 }
+318:             }
+319:             if (mtd > 4) {
+320:                 if (world.func_82737_E() % 150L - (long)(mtd * 5) == 0L && world.field_73012_v.nextInt(5) == 0) {
+321:                     if (!BreathProtectA) {
+322:                         BreathProtect = BreathProtect || this.CheckBreathProtect(entity);
+323:                         BreathProtectA = true;
+324:                     }
+325:                     if (!BreathProtect) {
+326:                         ((EntityLivingBase)entity).func_70690_d(new PotionEffect(19, 600, 0, false));
+327:                         ((EntityLivingBase)entity).func_70690_d(new PotionEffect(2, 200, 2, false));
+328:                         ((EntityLivingBase)entity).func_70690_d(new PotionEffect(4, 200, 2, false));
+329:                         ((EntityLivingBase)entity).func_70690_d(new PotionEffect(18, 200, 2, false));
+330:                         ((EntityLivingBase)entity).func_70690_d(new PotionEffect(17, 2400, 3, false));
+331:                         ((EntityLivingBase)entity).func_70690_d(new PotionEffect(15, 100, 100, false));
+332:                         ((EntityLivingBase)entity).func_70690_d(new PotionEffect(9, 1200, 0, false));
+333:                     }
+334:                 }
+335:                 if (world.func_82737_E() % 500L - (long)(mtd * 5) == 0L && world.field_73012_v.nextInt(5) == 0) {
+336:                     if (!BreathProtectA) {
+337:                         BreathProtect = BreathProtect || this.CheckBreathProtect(entity);
+338:                         BreathProtectA = true;
+339:                     }
+340:                     if (!BreathProtect) {
+341:                         ((EntityLivingBase)entity).func_70690_d(new PotionEffect(20, 200, 0, false));
+342:                     }
+343:                 }
+344:             }
+345:         }
+346:     }
+347: 
+348:     public void func_149726_b(World par1World, int par2, int par3, int par4) {
+349:         if (MFQM.LiqFixer) {
+350:             return;
+351:         }
+352:         par1World.func_147464_a(par2, par3, par4, (Block)this, 10);
+353:     }
+354: 
+355:     public void func_149695_a(World world, int x, int y, int z, Block bl) {
+356:         if (MFQM.LiqFixer) {
+357:             return;
+358:         }
+359:         if (world.func_147439_a(x, y + 1, z) instanceof BlockFalling) {
+360:             world.func_147465_d(x, y, z, Blocks.field_150350_a, 0, 2);
+361:             return;
+362:         }
+363:     }
+364: 
+365:     public int func_149643_k(World par1World, int par2, int par3, int par4) {
+366:         return par1World.func_72805_g(par2, par3, par4);
+367:     }
+368: 
+369:     public boolean func_149678_a(int p_149678_1_, boolean p_149678_2_) {
+370:         return false;
+371:     }
+372: 
+373:     public int func_149701_w() {
+374:         return 1;
+375:     }
+376: 
+377:     @SideOnly(value=Side.CLIENT)
+378:     public IIcon func_149691_a(int par1, int par2) {
+379:         return this.IIconNormalArray[par2];
+380:     }
+381: 
+382:     public boolean func_149662_c() {
+383:         return false;
+384:     }
+385: 
+386:     public boolean func_149721_r() {
+387:         return false;
+388:     }
+389: 
+390:     public boolean isSolid() {
+391:         return false;
+392:     }
+393: 
+394:     public Item func_149650_a(int par1, Random par2Random, int par3) {
+395:         return null;
+396:     }
+397: 
+398:     public AxisAlignedBB func_149668_a(World world, int x, int y, int z) {
+399:         return null;
+400:     }
+401: 
+402:     public boolean func_149646_a(IBlockAccess world, int x, int y, int z, int side) {
+403:         int meta = 0;
+404:         switch (side) {
+405:             case 0: {
+406:                 meta = world.func_72805_g(x, y + 1, z);
+407:                 break;
+408:             }
+409:             case 1: {
+410:                 meta = world.func_72805_g(x, y - 1, z);
+411:                 break;
+412:             }
+413:             case 2: {
+414:                 meta = world.func_72805_g(x, y, z + 1);
+415:                 break;
+416:             }
+417:             case 3: {
+418:                 meta = world.func_72805_g(x, y, z - 1);
+419:                 break;
+420:             }
+421:             case 4: {
+422:                 meta = world.func_72805_g(x + 1, y, z);
+423:                 break;
+424:             }
+425:             case 5: {
+426:                 meta = world.func_72805_g(x - 1, y, z);
+427:             }
+428:         }
+429:         return !world.func_147439_a(x, y, z).func_149662_c() && (world.func_147439_a(x, y, z) != this || world.func_72805_g(x, y, z) + 3 <= meta);
+430:     }
+431: 
+432:     @SideOnly(value=Side.CLIENT)
+433:     public void func_149651_a(IIconRegister par1IIconRegister) {
+434:         this.IIconNormalArray = new IIcon[16];
+435:         for (int i = 0; i < this.IIconNormalArray.length; ++i) {
+436:             this.IIconNormalArray[i] = par1IIconRegister.func_94245_a("morefunquicksandmod:Gas" + i);
+437:         }
+438:     }
+439: 
+440:     @SideOnly(value=Side.CLIENT)
+441:     public int func_149635_D() {
+442:         if (MFQM.ABC && Minecraft.func_71410_x().field_71439_g.field_70170_p.field_73011_w.field_76574_g == MFQM.ABCDim2) {
+443:             return 0;
+444:         }
+445:         return 0xFFFFFF;
+446:     }
+447: 
+448:     @SideOnly(value=Side.CLIENT)
+449:     public int func_149741_i(int par1) {
+450:         return 0xFFFFFF;
+451:     }
+452: 
+453:     @SideOnly(value=Side.CLIENT)
+454:     public int func_149720_d(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
+455:         if (MFQM.ABC && Minecraft.func_71410_x().field_71439_g.field_70170_p.field_73011_w.field_76574_g == MFQM.ABCDim2) {
+456:             return 0;
+457:         }
+458:         return 0xFFFFFF;
+459:     }
+460: }
+461: 

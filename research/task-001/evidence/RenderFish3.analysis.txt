@@ -1,0 +1,373 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.client.Minecraft
+8:  *  net.minecraft.client.renderer.RenderHelper
+9:  *  net.minecraft.client.renderer.Tessellator
+10:  *  net.minecraft.client.renderer.entity.Render
+11:  *  net.minecraft.entity.Entity
+12:  *  net.minecraft.item.ItemStack
+13:  *  net.minecraft.util.MathHelper
+14:  *  net.minecraft.util.ResourceLocation
+15:  *  net.minecraft.util.Vec3
+16:  *  org.lwjgl.opengl.GL11
+17:  */
+18: package MoreFunQuicksandMod.main.client;
+19: 
+20: import MoreFunQuicksandMod.main.entity.EntityHook;
+21: import cpw.mods.fml.relauncher.Side;
+22: import cpw.mods.fml.relauncher.SideOnly;
+23: import net.minecraft.client.Minecraft;
+24: import net.minecraft.client.renderer.RenderHelper;
+25: import net.minecraft.client.renderer.Tessellator;
+26: import net.minecraft.client.renderer.entity.Render;
+27: import net.minecraft.entity.Entity;
+28: import net.minecraft.item.ItemStack;
+29: import net.minecraft.util.MathHelper;
+30: import net.minecraft.util.ResourceLocation;
+31: import net.minecraft.util.Vec3;
+32: import org.lwjgl.opengl.GL11;
+33: 
+34: @SideOnly(value=Side.CLIENT)
+35: public class RenderFish3
+36: extends Render {
+37:     private static final ResourceLocation BeamTextures = new ResourceLocation("morefunquicksandmod", "textures/items/CableTex.png");
+38:     private static final ResourceLocation BaseTextures = new ResourceLocation("morefunquicksandmod", "textures/items/GrapplingHookTex.png");
+39: 
+40:     public void doRenderFishHook(EntityHook par1EntityHook, double par2, double par4, double par6, float par8, float par9) {
+41:         Tessellator tessellator = Tessellator.field_78398_a;
+42:         if (par1EntityHook.curPlayer != null) {
+43:             Vec3 nv1;
+44:             Vec3 nv3;
+45:             double npzn;
+46:             double npyn;
+47:             double npxn;
+48:             double npz;
+49:             double npy;
+50:             double npx;
+51:             float f12;
+52:             int i;
+53:             double d6;
+54:             double d5;
+55:             double d4;
+56:             double d3;
+57:             ItemStack itemStack;
+58:             boolean hookInHand = false;
+59:             if (par1EntityHook.curPlayer.func_71045_bC() != null && (itemStack = par1EntityHook.curPlayer.func_71045_bC()).func_77960_j() % 2 != 0) {
+60:                 hookInHand = true;
+61:             }
+62:             float f9 = par1EntityHook.curPlayer.func_70678_g(par9);
+63:             float f10 = MathHelper.func_76126_a((float)(MathHelper.func_76129_c((float)f9) * (float)Math.PI));
+64:             if (hookInHand) {
+65:                 Vec3 vec3 = Vec3.func_72443_a((double)-0.5, (double)0.03, (double)0.8);
+66:                 vec3.func_72440_a(-(par1EntityHook.curPlayer.field_70127_C + (par1EntityHook.curPlayer.field_70125_A - par1EntityHook.curPlayer.field_70127_C) * par9) * (float)Math.PI / 180.0f);
+67:                 vec3.func_72442_b(-(par1EntityHook.curPlayer.field_70126_B + (par1EntityHook.curPlayer.field_70177_z - par1EntityHook.curPlayer.field_70126_B) * par9) * (float)Math.PI / 180.0f);
+68:                 vec3.func_72442_b(f10 * 0.5f);
+69:                 vec3.func_72440_a(-f10 * 0.7f);
+70:                 d3 = par1EntityHook.curPlayer.field_70169_q + (par1EntityHook.curPlayer.field_70165_t - par1EntityHook.curPlayer.field_70169_q) * (double)par9 + vec3.field_72450_a;
+71:                 d4 = par1EntityHook.curPlayer.field_70167_r + (par1EntityHook.curPlayer.field_70163_u - par1EntityHook.curPlayer.field_70167_r) * (double)par9 + vec3.field_72448_b;
+72:                 d5 = par1EntityHook.curPlayer.field_70166_s + (par1EntityHook.curPlayer.field_70161_v - par1EntityHook.curPlayer.field_70166_s) * (double)par9 + vec3.field_72449_c;
+73:                 d6 = par1EntityHook.curPlayer == Minecraft.func_71410_x().field_71439_g ? 0.0 : (double)par1EntityHook.curPlayer.func_70047_e();
+74:             } else {
+75:                 float f11a = (par1EntityHook.curPlayer.field_70126_B + (par1EntityHook.curPlayer.field_70177_z - par1EntityHook.curPlayer.field_70126_B) * par9) * (float)Math.PI / 180.0f;
+76:                 double d7a = MathHelper.func_76126_a((float)f11a);
+77:                 double d8a = MathHelper.func_76134_b((float)f11a);
+78:                 d3 = par1EntityHook.curPlayer.field_70169_q + (par1EntityHook.curPlayer.field_70165_t - par1EntityHook.curPlayer.field_70169_q) * (double)par9 - d8a * 0.35 - d7a * (0.2 + (double)f10 * 0.5);
+79:                 d4 = par1EntityHook.curPlayer.field_70167_r + (par1EntityHook.curPlayer.field_70163_u - par1EntityHook.curPlayer.field_70167_r) * (double)par9 - 0.5 + (double)f10 * 0.7;
+80:                 d5 = par1EntityHook.curPlayer.field_70166_s + (par1EntityHook.curPlayer.field_70161_v - par1EntityHook.curPlayer.field_70166_s) * (double)par9 - d7a * 0.35 + d8a * (0.2 + (double)f10 * 0.5);
+81:                 double d = d6 = par1EntityHook.curPlayer == Minecraft.func_71410_x().field_71439_g ? 0.0 : (double)par1EntityHook.curPlayer.func_70047_e();
+82:             }
+83:             if (this.field_76990_c.field_78733_k.field_74320_O > 0 || par1EntityHook.curPlayer != Minecraft.func_71410_x().field_71439_g) {
+84:                 double d8;
+85:                 double d7;
+86:                 if (!hookInHand) {
+87:                     float f11 = (par1EntityHook.curPlayer.field_70760_ar + (par1EntityHook.curPlayer.field_70761_aq - par1EntityHook.curPlayer.field_70760_ar) * par9) * (float)Math.PI / 180.0f;
+88:                     d7 = MathHelper.func_76126_a((float)f11);
+89:                     d8 = MathHelper.func_76134_b((float)f11);
+90:                     d3 = par1EntityHook.curPlayer.field_70169_q + (par1EntityHook.curPlayer.field_70165_t - par1EntityHook.curPlayer.field_70169_q) * (double)par9 - d8 * 0.35 - d7 * (0.2 + (double)f10 * 0.5);
+91:                     d4 = par1EntityHook.curPlayer.field_70167_r + d6 + (par1EntityHook.curPlayer.field_70163_u - par1EntityHook.curPlayer.field_70167_r) * (double)par9 - 1.05 + (double)f10 * 0.7;
+92:                     d5 = par1EntityHook.curPlayer.field_70166_s + (par1EntityHook.curPlayer.field_70161_v - par1EntityHook.curPlayer.field_70166_s) * (double)par9 - d7 * 0.35 + d8 * (0.2 + (double)f10 * 0.5);
+93:                 } else {
+94:                     float f11 = (par1EntityHook.curPlayer.field_70760_ar + (par1EntityHook.curPlayer.field_70761_aq - par1EntityHook.curPlayer.field_70760_ar) * par9) * (float)Math.PI / 180.0f;
+95:                     d7 = MathHelper.func_76126_a((float)f11);
+96:                     d8 = MathHelper.func_76134_b((float)f11);
+97:                     d3 = par1EntityHook.curPlayer.field_70169_q + (par1EntityHook.curPlayer.field_70165_t - par1EntityHook.curPlayer.field_70169_q) * (double)par9 - d8 * 0.35 - d7 * (0.3 + (double)f10 * 0.5);
+98:                     d4 = par1EntityHook.curPlayer.field_70167_r + d6 + (par1EntityHook.curPlayer.field_70163_u - par1EntityHook.curPlayer.field_70167_r) * (double)par9 - 0.25 + (double)f10 * 0.7;
+99:                     d5 = par1EntityHook.curPlayer.field_70166_s + (par1EntityHook.curPlayer.field_70161_v - par1EntityHook.curPlayer.field_70166_s) * (double)par9 - d7 * 0.35 + d8 * (0.3 + (double)f10 * 0.5);
+100:                 }
+101:             }
+102:             double d9 = par1EntityHook.field_70169_q + (par1EntityHook.field_70165_t - par1EntityHook.field_70169_q) * (double)par9;
+103:             double d10 = par1EntityHook.field_70167_r + (par1EntityHook.field_70163_u - par1EntityHook.field_70167_r) * (double)par9;
+104:             double d11 = par1EntityHook.field_70166_s + (par1EntityHook.field_70161_v - par1EntityHook.field_70166_s) * (double)par9;
+105:             double d12 = (float)(d3 - d9);
+106:             double d13 = (float)(d4 - d10);
+107:             double d14 = (float)(d5 - d11);
+108:             GL11.glDisable((int)2896);
+109:             GL11.glDisable((int)2884);
+110:             RenderHelper.func_74518_a();
+111:             this.func_110776_a(BeamTextures);
+112:             Vec3 nvU = Vec3.func_72443_a((double)0.0, (double)1.0, (double)0.0);
+113:             tessellator.func_78371_b(5);
+114:             tessellator.func_78369_a(1.0f, 1.0f, 1.0f, 1.0f);
+115:             int b2 = 16;
+116:             double rad = 0.05;
+117:             double lpx = 0.0;
+118:             double lpy = 0.0;
+119:             double lpz = 0.0;
+120:             boolean setDir = false;
+121:             double truePar2 = par2;
+122:             double truePar4 = par4;
+123:             double truePar6 = par6;
+124:             Vec3 dir = Vec3.func_72443_a((double)0.0, (double)0.0, (double)0.0);
+125:             switch (par1EntityHook.GrabType) {
+126:                 case 1: {
+127:                     dir.field_72450_a = 0.0;
+128:                     dir.field_72448_b = -1.001;
+129:                     dir.field_72449_c = 0.0;
+130:                     setDir = true;
+131:                     break;
+132:                 }
+133:                 case 2: {
+134:                     dir.field_72450_a = 0.0;
+135:                     dir.field_72448_b = 1.001;
+136:                     dir.field_72449_c = 0.0;
+137:                     setDir = true;
+138:                     break;
+139:                 }
+140:                 case 3: {
+141:                     dir.field_72450_a = -1.001;
+142:                     dir.field_72448_b = 0.0;
+143:                     dir.field_72449_c = 0.0;
+144:                     setDir = true;
+145:                     break;
+146:                 }
+147:                 case 4: {
+148:                     dir.field_72450_a = 1.001;
+149:                     dir.field_72448_b = 0.0;
+150:                     dir.field_72449_c = 0.0;
+151:                     setDir = true;
+152:                     break;
+153:                 }
+154:                 case 5: {
+155:                     dir.field_72450_a = 0.0;
+156:                     dir.field_72448_b = 0.0;
+157:                     dir.field_72449_c = -1.001;
+158:                     setDir = true;
+159:                     break;
+160:                 }
+161:                 case 6: {
+162:                     dir.field_72450_a = 0.0;
+163:                     dir.field_72448_b = 0.0;
+164:                     dir.field_72449_c = 1.001;
+165:                     setDir = true;
+166:                 }
+167:             }
+168:             truePar2 -= dir.field_72450_a * 0.625;
+169:             truePar4 -= dir.field_72448_b * 0.625;
+170:             truePar6 -= dir.field_72449_c * 0.625;
+171:             if (setDir) {
+172:                 truePar4 -= 0.15;
+173:             }
+174:             if (par1EntityHook.GrabType > 6) {
+175:                 truePar4 = par4 - 0.25;
+176:             }
+177:             for (i = 0; i <= b2; ++i) {
+178:                 f12 = (float)i / (float)b2;
+179:                 npx = truePar2 + d12 * (double)f12;
+180:                 npy = truePar4 + d13 * (double)f12 + 0.15;
+181:                 npz = truePar6 + d14 * (double)f12;
+182:                 f12 = (float)(i + 1) / (float)b2;
+183:                 npxn = truePar2 + d12 * (double)f12;
+184:                 npyn = truePar4 + d13 * (double)f12 + 0.15;
+185:                 npzn = truePar6 + d14 * (double)f12;
+186:                 nv3 = Vec3.func_72443_a((double)(npxn - npx), (double)(npyn - npy), (double)(npzn - npz));
+187:                 nv3 = nv3.func_72432_b();
+188:                 if (i == 0) {
+189:                     lpx = -nv3.field_72450_a;
+190:                     lpy = -nv3.field_72448_b;
+191:                     lpz = -nv3.field_72449_c;
+192:                 }
+193:                 nv1 = nv3.func_72431_c(nvU);
+194:                 nv1 = nv1.func_72432_b();
+195:                 double upx = nv1.field_72450_a * rad;
+196:                 double upy = nv1.field_72448_b * rad;
+197:                 double upz = nv1.field_72449_c * rad;
+198:                 tessellator.func_78374_a(npx - upx / 2.0, npy - upy / 2.0, npz - upz / 2.0, 0.0, 1.0);
+199:                 tessellator.func_78374_a(npx + upx - upx / 2.0, npy + upy - upy / 2.0, npz + upz - upz / 2.0, 1.5, 1.0);
+200:             }
+201:             tessellator.func_78381_a();
+202:             tessellator.func_78371_b(5);
+203:             tessellator.func_78369_a(1.0f, 1.0f, 1.0f, 1.0f);
+204:             for (i = 0; i <= b2; ++i) {
+205:                 f12 = (float)i / (float)b2;
+206:                 npx = truePar2 + d12 * (double)f12;
+207:                 npy = truePar4 + d13 * (double)f12 + 0.15;
+208:                 npz = truePar6 + d14 * (double)f12;
+209:                 f12 = (float)(i + 1) / (float)b2;
+210:                 npxn = truePar2 + d12 * (double)f12;
+211:                 npyn = truePar4 + d13 * (double)f12 + 0.15;
+212:                 npzn = truePar6 + d14 * (double)f12;
+213:                 nv3 = Vec3.func_72443_a((double)(npxn - npx), (double)(npyn - npy), (double)(npzn - npz));
+214:                 nv3 = nv3.func_72432_b();
+215:                 nv1 = nv3.func_72431_c(nvU);
+216:                 nv1 = nv1.func_72432_b();
+217:                 Vec3 nv2 = nv1.func_72431_c(nv3);
+218:                 nv2 = nv2.func_72432_b();
+219:                 double vpx = nv2.field_72450_a * rad;
+220:                 double vpy = nv2.field_72448_b * rad;
+221:                 double vpz = nv2.field_72449_c * rad;
+222:                 tessellator.func_78374_a(npx - vpx / 2.0, npy - vpy / 2.0, npz - vpz / 2.0, 0.0, 1.0);
+223:                 tessellator.func_78374_a(npx + vpx - vpx / 2.0, npy + vpy - vpy / 2.0, npz + vpz - vpz / 2.0, 1.5, 1.0);
+224:             }
+225:             tessellator.func_78381_a();
+226:             RenderHelper.func_74519_b();
+227:             GL11.glEnable((int)2896);
+228:             GL11.glEnable((int)2884);
+229:             Vec3 benor = Vec3.func_72443_a((double)lpx, (double)lpy, (double)lpz);
+230:             if (setDir) {
+231:                 benor = dir;
+232:             }
+233:             this.func_110776_a(BaseTextures);
+234:             GL11.glPushMatrix();
+235:             GL11.glEnable((int)32826);
+236:             GL11.glTranslatef((float)((float)truePar2), (float)((float)(truePar4 + 0.15)), (float)((float)truePar6));
+237:             this.renderHook(tessellator, par1EntityHook, 0.0, 0.0, 0.0, benor);
+238:             GL11.glDisable((int)32826);
+239:             GL11.glPopMatrix();
+240:         }
+241:     }
+242: 
+243:     protected ResourceLocation func_110791_a(EntityHook par1EntityHook) {
+244:         return BeamTextures;
+245:     }
+246: 
+247:     protected ResourceLocation func_110775_a(Entity par1Entity) {
+248:         return this.func_110791_a((EntityHook)par1Entity);
+249:     }
+250: 
+251:     public void func_76986_a(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
+252:         this.doRenderFishHook((EntityHook)par1Entity, par2, par4, par6, par8, par9);
+253:     }
+254: 
+255:     public void renderRope(Tessellator tessellator, Vec3 nvU, Entity par1EntityHook, double x1, double y1, double z1, double x2, double y2, double z2) {
+256:         double rad = 0.035;
+257:         double npx = x1;
+258:         double npxn = x2;
+259:         double npy = y1;
+260:         double npyn = y2;
+261:         double npz = z1;
+262:         double npzn = z2;
+263:         Vec3 nv3 = Vec3.func_72443_a((double)(npxn - npx), (double)(npyn - npy), (double)(npzn - npz));
+264:         Vec3 nv1 = nv3.func_72431_c(nvU);
+265:         nv1 = nv1.func_72432_b();
+266:         Vec3 nv2 = nv1.func_72431_c(nv3);
+267:         nv2 = nv2.func_72432_b();
+268:         double upx = nv1.field_72450_a * rad;
+269:         double upy = nv1.field_72448_b * rad;
+270:         double upz = nv1.field_72449_c * rad;
+271:         double vpx = nv2.field_72450_a * rad;
+272:         double vpy = nv2.field_72448_b * rad;
+273:         double vpz = nv2.field_72449_c * rad;
+274:         this.func_110776_a(BeamTextures);
+275:         tessellator.func_78371_b(5);
+276:         tessellator.func_78369_a(1.0f, 1.0f, 1.0f, 1.0f);
+277:         tessellator.func_78374_a(npxn - upx / 2.0, npyn - upy / 2.0, npzn - upz / 2.0, 0.0, 1.0);
+278:         tessellator.func_78374_a(npxn + upx - upx / 2.0, npyn + upy - upy / 2.0, npzn + upz - upz / 2.0, 1.5, 1.0);
+279:         tessellator.func_78374_a(npx - upx / 2.0, npy - upy / 2.0, npz - upz / 2.0, 0.0, 1.0);
+280:         tessellator.func_78374_a(npx + upx - upx / 2.0, npy + upy - upy / 2.0, npz + upz - upz / 2.0, 1.5, 1.0);
+281:         tessellator.func_78381_a();
+282:         tessellator.func_78371_b(5);
+283:         tessellator.func_78369_a(1.0f, 1.0f, 1.0f, 1.0f);
+284:         tessellator.func_78374_a(npxn - vpx / 2.0, npyn - vpy / 2.0, npzn - vpz / 2.0, 0.0, 1.0);
+285:         tessellator.func_78374_a(npxn + vpx - vpx / 2.0, npyn + vpy - vpy / 2.0, npzn + vpz - vpz / 2.0, 1.5, 1.0);
+286:         tessellator.func_78374_a(npx - vpx / 2.0, npy - vpy / 2.0, npz - vpz / 2.0, 0.0, 1.0);
+287:         tessellator.func_78374_a(npx + vpx - vpx / 2.0, npy + vpy - vpy / 2.0, npz + vpz - vpz / 2.0, 1.5, 1.0);
+288:         tessellator.func_78381_a();
+289:     }
+290: 
+291:     public void renderHook(Tessellator tessellator, Entity par1EntityHook, double x, double y, double z, Vec3 nvN) {
+292:         double ss = 0.75;
+293:         float PITCH = 0.0f;
+294:         float YAW = 0.0f;
+295:         nvN = nvN.func_72432_b();
+296:         float len = MathHelper.func_76129_c((float)((float)(Math.pow(nvN.field_72450_a, 2.0) + Math.pow(nvN.field_72448_b, 2.0) + Math.pow(nvN.field_72449_c, 2.0))));
+297:         float wSlenwY = (float)(Math.pow(nvN.field_72449_c, 2.0) + Math.pow(nvN.field_72450_a, 2.0));
+298:         float wSlenwZ = (float)(Math.pow(nvN.field_72448_b, 2.0) + Math.pow(nvN.field_72450_a, 2.0));
+299:         float lenwY = MathHelper.func_76129_c((float)wSlenwY);
+300:         float lenwZ = MathHelper.func_76129_c((float)wSlenwZ);
+301:         int nega = 0;
+302:         if (nvN.field_72450_a < 0.0) {
+303:             wSlenwY = -wSlenwY;
+304:             wSlenwZ = -wSlenwZ;
+305:             nega = 1;
+306:         }
+307:         PITCH = (float)Math.acos(wSlenwY / len * lenwY) / (float)Math.PI * 180.0f;
+308:         if (nvN.field_72448_b < 0.0) {
+309:             PITCH = -PITCH;
+310:         }
+311:         YAW = (float)Math.acos(wSlenwZ / len * lenwZ) / (float)Math.PI * 180.0f;
+312:         if (nvN.field_72449_c > 0.0) {
+313:             YAW = -YAW;
+314:         }
+315:         GL11.glRotatef((float)(YAW + (float)(180 * nega)), (float)0.0f, (float)1.0f, (float)0.0f);
+316:         GL11.glRotatef((float)PITCH, (float)0.0f, (float)0.0f, (float)1.0f);
+317:         this.renderCube(tessellator, x - 0.1 * ss, y - 0.055 * ss, z - 0.055 * ss, 0.25 * ss, 0.11 * ss, 0.11 * ss);
+318:         this.renderCube(tessellator, x + 0.05 * ss, y + 0.05499999999999999 * ss, z - 0.02 * ss, 0.2 * ss, 0.04 * ss, 0.04 * ss);
+319:         this.renderCube(tessellator, x + 0.05 * ss, y + -0.095 * ss, z - 0.02 * ss, 0.2 * ss, 0.04 * ss, 0.04 * ss);
+320:         this.renderCube(tessellator, x + 0.05 * ss, y - 0.02 * ss, z + 0.05499999999999999 * ss, 0.2 * ss, 0.04 * ss, 0.04 * ss);
+321:         this.renderCube(tessellator, x + 0.05 * ss, y - 0.02 * ss, z + -0.095 * ss, 0.2 * ss, 0.04 * ss, 0.04 * ss);
+322:     }
+323: 
+324:     public void renderCube(Tessellator tessellator, double x, double y, double z, double xs, double ys, double zs) {
+325:         double minU = 0.0;
+326:         double minV = 0.0;
+327:         double maxU = 1.0;
+328:         double maxV = 1.0;
+329:         tessellator.func_78382_b();
+330:         tessellator.func_78375_b(0.0f, 1.0f, 0.0f);
+331:         tessellator.func_78374_a(x, y + ys, z, maxU, minV);
+332:         tessellator.func_78374_a(x, y + ys, z + zs, maxU, maxV);
+333:         tessellator.func_78374_a(x + xs, y + ys, z + zs, minU, maxV);
+334:         tessellator.func_78374_a(x + xs, y + ys, z, minU, minV);
+335:         tessellator.func_78381_a();
+336:         tessellator.func_78382_b();
+337:         tessellator.func_78375_b(0.0f, -1.0f, 0.0f);
+338:         tessellator.func_78374_a(x + xs, y, z, maxU, minV);
+339:         tessellator.func_78374_a(x + xs, y, z + zs, maxU, maxV);
+340:         tessellator.func_78374_a(x, y, z + zs, minU, maxV);
+341:         tessellator.func_78374_a(x, y, z, minU, minV);
+342:         tessellator.func_78381_a();
+343:         tessellator.func_78382_b();
+344:         tessellator.func_78375_b(0.0f, 0.0f, -1.0f);
+345:         tessellator.func_78374_a(x, y, z, maxU, minV);
+346:         tessellator.func_78374_a(x, y + ys, z, maxU, maxV);
+347:         tessellator.func_78374_a(x + xs, y + ys, z, minU, maxV);
+348:         tessellator.func_78374_a(x + xs, y, z, minU, minV);
+349:         tessellator.func_78381_a();
+350:         tessellator.func_78382_b();
+351:         tessellator.func_78375_b(0.0f, 0.0f, 1.0f);
+352:         tessellator.func_78374_a(x + xs, y, z + zs, maxU, minV);
+353:         tessellator.func_78374_a(x + xs, y + ys, z + zs, maxU, maxV);
+354:         tessellator.func_78374_a(x, y + ys, z + zs, minU, maxV);
+355:         tessellator.func_78374_a(x, y, z + zs, minU, minV);
+356:         tessellator.func_78381_a();
+357:         tessellator.func_78382_b();
+358:         tessellator.func_78375_b(-1.0f, 0.0f, 0.0f);
+359:         tessellator.func_78374_a(x, y, z + zs, maxU, minV);
+360:         tessellator.func_78374_a(x, y + ys, z + zs, maxU, maxV);
+361:         tessellator.func_78374_a(x, y + ys, z, minU, maxV);
+362:         tessellator.func_78374_a(x, y, z, minU, minV);
+363:         tessellator.func_78381_a();
+364:         tessellator.func_78382_b();
+365:         tessellator.func_78375_b(1.0f, 0.0f, 0.0f);
+366:         tessellator.func_78374_a(x + xs, y, z, minU, minV);
+367:         tessellator.func_78374_a(x + xs, y + ys, z, minU, maxV);
+368:         tessellator.func_78374_a(x + xs, y + ys, z + zs, maxU, maxV);
+369:         tessellator.func_78374_a(x + xs, y, z + zs, maxU, minV);
+370:         tessellator.func_78381_a();
+371:     }
+372: }
+373: 

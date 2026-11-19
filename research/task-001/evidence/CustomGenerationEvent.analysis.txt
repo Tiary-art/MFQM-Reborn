@@ -1,0 +1,181 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.common.eventhandler.SubscribeEvent
+6:  *  net.minecraft.block.Block
+7:  *  net.minecraft.init.Blocks
+8:  *  net.minecraft.world.WorldType
+9:  *  net.minecraft.world.biome.BiomeGenBase
+10:  *  net.minecraft.world.biome.BiomeGenForest
+11:  *  net.minecraft.world.biome.BiomeGenJungle
+12:  *  net.minecraft.world.biome.BiomeGenSwamp
+13:  *  net.minecraft.world.chunk.Chunk
+14:  *  net.minecraft.world.chunk.storage.ExtendedBlockStorage
+15:  *  net.minecraftforge.event.terraingen.PopulateChunkEvent$Post
+16:  */
+17: package MoreFunQuicksandMod.main;
+18: 
+19: import MoreFunQuicksandMod.main.MFQM;
+20: import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+21: import net.minecraft.block.Block;
+22: import net.minecraft.init.Blocks;
+23: import net.minecraft.world.WorldType;
+24: import net.minecraft.world.biome.BiomeGenBase;
+25: import net.minecraft.world.biome.BiomeGenForest;
+26: import net.minecraft.world.biome.BiomeGenJungle;
+27: import net.minecraft.world.biome.BiomeGenSwamp;
+28: import net.minecraft.world.chunk.Chunk;
+29: import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
+30: import net.minecraftforge.event.terraingen.PopulateChunkEvent;
+31: 
+32: public class CustomGenerationEvent {
+33:     boolean T_BoP;
+34: 
+35:     @SubscribeEvent
+36:     public void populateChunk(PopulateChunkEvent.Post event) {
+37:         int y;
+38:         Chunk chunk;
+39:         int zz;
+40:         int xx;
+41:         this.T_BoP = MFQM.BoP;
+42:         if (MFQM.PBoP && MFQM.BoP && (event.world.func_72912_H().func_76067_t() == WorldType.field_77135_d || event.world.func_72912_H().func_76067_t() == WorldType.field_77137_b)) {
+43:             this.T_BoP = false;
+44:         }
+45:         if (event.world.field_73011_w.field_76574_g == 0) {
+46:             for (xx = 0; xx < 3; ++xx) {
+47:                 for (zz = 0; zz < 3; ++zz) {
+48:                     if (!event.world.func_72899_e((event.chunkX + xx - 1) * 16, 64, (event.chunkZ + zz - 1) * 16) || (chunk = event.world.func_72964_e(event.chunkX + xx - 1, event.chunkZ + zz - 1)) == null) continue;
+49:                     boolean GenType = false;
+50:                     BiomeGenBase biomegenbase = event.world.func_72807_a((event.chunkX + xx - 1) * 16, (event.chunkZ + zz - 1) * 16);
+51:                     int biomeId = biomegenbase.field_76756_M;
+52:                     if (this.T_BoP) {
+53:                         for (int i = 0; i < MFQM.QSJungleBiomes.length; ++i) {
+54:                             if (biomeId != MFQM.QSJungleBiomes[i]) continue;
+55:                             GenType = true;
+56:                         }
+57:                     } else if (biomegenbase instanceof BiomeGenSwamp || biomegenbase instanceof BiomeGenJungle || biomegenbase instanceof BiomeGenForest) {
+58:                         GenType = true;
+59:                     }
+60:                     ExtendedBlockStorage[] SA = chunk.func_76587_i();
+61:                     for (int yy = 0; yy < 16; ++yy) {
+62:                         ExtendedBlockStorage storage = SA[yy];
+63:                         if (storage == null) continue;
+64:                         for (int x = 0; x < 16; ++x) {
+65:                             for (int y2 = 0; y2 < 16; ++y2) {
+66:                                 for (int z = 0; z < 16; ++z) {
+67:                                     int gz;
+68:                                     int gy;
+69:                                     int gx;
+70:                                     if (MFQM.GenTempleQS && storage.func_150819_a(x, y2, z) == Blocks.field_150335_W && event.world.func_147439_a(gx = x + (event.chunkX + xx - 1) * 16, (gy = y2 + yy * 16) + 1, gz = z + (event.chunkZ + zz - 1) * 16) == Blocks.field_150322_A) {
+71:                                         storage.func_150818_a(x, y2, z, MFQM.QuicksandBlock);
+72:                                         storage.func_76654_b(x, y2, z, 0);
+73:                                         event.world.func_147465_d(gx, gy + 1, gz, MFQM.SandstoneTrapBlock, 0, 2);
+74:                                         event.world.func_147465_d(gx, gy - 1, gz, MFQM.QuicksandBlock, 0, 2);
+75:                                         event.world.func_147465_d(gx, gy - 2, gz, Blocks.field_150322_A, 0, 2);
+76:                                     }
+77:                                     if (storage.func_150819_a(x, y2, z) != MFQM.BOPMudBlock) continue;
+78:                                     if (storage.func_76665_b(x, y2, z) != 1) {
+79:                                         storage.func_150818_a(x, y2, z, MFQM.MudBlock);
+80:                                         continue;
+81:                                     }
+82:                                     gx = x + (event.chunkX + xx - 1) * 16;
+83:                                     gz = z + (event.chunkZ + zz - 1) * 16;
+84:                                     gy = y2 + yy * 16;
+85:                                     if (GenType) {
+86:                                         if (event.world.func_147439_a(gx, gy + 1, gz).func_149688_o().func_76220_a()) {
+87:                                             storage.func_150818_a(x, y2, z, Blocks.field_150346_d);
+88:                                             continue;
+89:                                         }
+90:                                         storage.func_150818_a(x, y2, z, (Block)Blocks.field_150349_c);
+91:                                         continue;
+92:                                     }
+93:                                     storage.func_150818_a(x, y2, z, (Block)Blocks.field_150354_m);
+94:                                     storage.func_76654_b(x, y2, z, 0);
+95:                                 }
+96:                             }
+97:                         }
+98:                     }
+99:                 }
+100:             }
+101:         }
+102:         if (event.world.field_73011_w.field_76574_g == -1 && MFQM.GenHoney2) {
+103:             for (xx = 0; xx < 3; ++xx) {
+104:                 for (zz = 0; zz < 3; ++zz) {
+105:                     if (!event.world.func_72899_e((event.chunkX + xx - 1) * 16, 64, (event.chunkZ + zz - 1) * 16) || (chunk = event.world.func_72964_e(event.chunkX + xx - 1, event.chunkZ + zz - 1)) == null) continue;
+106:                     ExtendedBlockStorage[] SA = chunk.func_76587_i();
+107:                     for (int yy = 0; yy < 16; ++yy) {
+108:                         ExtendedBlockStorage storage = SA[yy];
+109:                         if (storage == null) continue;
+110:                         for (int x = 0; x < 16; ++x) {
+111:                             for (y = 0; y < 16; ++y) {
+112:                                 for (int z = 0; z < 16; ++z) {
+113:                                     if (storage.func_150819_a(x, y, z) == MFQM.BOPHoneyBlock) {
+114:                                         int meta = storage.func_76665_b(x, y, z);
+115:                                         storage.func_150818_a(x, y, z, MFQM.HoneyBlock);
+116:                                         storage.func_76654_b(x, y, z, 0);
+117:                                     }
+118:                                     if (storage.func_150819_a(x, y, z) != MFQM.BOPSolidHoneyBlock) continue;
+119:                                     storage.func_150818_a(x, y, z, MFQM.SolidHoneyBlock);
+120:                                     storage.func_76654_b(x, y, z, 0);
+121:                                 }
+122:                             }
+123:                         }
+124:                     }
+125:                 }
+126:             }
+127:         }
+128:         if (MFQM.TBL && event.world.field_73011_w.field_76574_g == MFQM.TBLDim) {
+129:             for (xx = 0; xx < 5; ++xx) {
+130:                 for (zz = 0; zz < 5; ++zz) {
+131:                     if (!event.world.func_72899_e((event.chunkX + xx - 2) * 16, 64, (event.chunkZ + zz - 2) * 16) || (chunk = event.world.func_72964_e(event.chunkX + xx - 2, event.chunkZ + zz - 2)) == null) continue;
+132:                     ExtendedBlockStorage[] SA = chunk.func_76587_i();
+133:                     for (int yy = 0; yy < 16; ++yy) {
+134:                         ExtendedBlockStorage storage = SA[yy];
+135:                         if (storage == null) continue;
+136:                         for (int x = 0; x < 16; ++x) {
+137:                             for (y = 0; y < 16; ++y) {
+138:                                 for (int z = 0; z < 16; ++z) {
+139:                                     if (storage.func_150819_a(x, y, z) == MFQM.TBLMudBlock) {
+140:                                         storage.func_150818_a(x, y, z, MFQM.MudBlock);
+141:                                         storage.func_76654_b(x, y, z, 3);
+142:                                         continue;
+143:                                     }
+144:                                     if (storage.func_150819_a(x, y, z) == MFQM.TBLTarBlock) {
+145:                                         int mtd = storage.func_76665_b(x, y, z);
+146:                                         storage.func_150818_a(x, y, z, MFQM.TarBlock);
+147:                                         storage.func_76654_b(x, y, z, mtd);
+148:                                         continue;
+149:                                     }
+150:                                     if (storage.func_150819_a(x, y, z) != MFQM.TBLSludgeBlock) continue;
+151:                                     storage.func_150818_a(x, y, z, MFQM.MireBlock);
+152:                                     storage.func_76654_b(x, y, z, 0);
+153:                                     if (y > 0) {
+154:                                         storage.func_150818_a(x, y - 1, z, MFQM.MireBlock);
+155:                                         storage.func_76654_b(x, y - 1, z, 12);
+156:                                     } else {
+157:                                         ExtendedBlockStorage storage2 = SA[Math.max(yy - 1, 0)];
+158:                                         if (storage2 != null) {
+159:                                             storage2.func_150818_a(x, 15, z, MFQM.MireBlock);
+160:                                             storage2.func_76654_b(x, 15, z, 12);
+161:                                         }
+162:                                     }
+163:                                     if (y > 1) {
+164:                                         if (storage.func_150819_a(x, y - 2, z) == MFQM.MireBlock) continue;
+165:                                         storage.func_150818_a(x, y - 2, z, MFQM.PeatBlock);
+166:                                         continue;
+167:                                     }
+168:                                     ExtendedBlockStorage storage2 = SA[Math.max(yy - 1, 0)];
+169:                                     if (storage2 == null) continue;
+170:                                     storage2.func_150818_a(x, 14, z, MFQM.MireBlock);
+171:                                     storage2.func_76654_b(x, 14, z, 12);
+172:                                 }
+173:                             }
+174:                         }
+175:                     }
+176:                 }
+177:             }
+178:         }
+179:     }
+180: }
+181: 

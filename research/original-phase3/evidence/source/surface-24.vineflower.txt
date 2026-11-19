@@ -1,0 +1,347 @@
+// Decompiled inference, NOT original source; semantic closure PARTIAL
+      if ((MFQM.GenMire || MFQM.GenMud) && !blockGen) {
+         int swD = this.getSwampDifficult(biomeId);
+         int swType = this.getSwampType(biomeId);
+         int flag1 = 0;
+         if (swD != 0 && this.T_BoP || (biomegenbase instanceof BiomeGenSwamp || flag1 != 0) && !this.T_BoP) {
+            boolean canGenxxxxx = false;
+            int genTypexx = 0;
+            int genCountxx = 0;
+            int genPosxx = 0;
+            int genRadx = 0;
+            int genRadPx = 0;
+            int radxxxx = 0;
+            if (flag1 == 1) {
+               swD = 2;
+               swType = 1;
+            }
+
+            switch (swD) {
+               case 0:
+                  genCountxx = 1 + random.nextInt(1);
+                  genRadx = 6;
+                  genRadPx = 9;
+                  genPosxx = 4;
+                  break;
+               case 1:
+                  genCountxx = 5 + random.nextInt(10);
+                  genRadx = 6;
+                  genRadPx = 12;
+                  genPosxx = 999;
+                  break;
+               case 2:
+                  genCountxx = 3 + random.nextInt(5);
+                  genRadx = 6;
+                  genRadPx = 9;
+                  genPosxx = 4;
+                  break;
+               case 3:
+                  genCountxx = 1 + random.nextInt(1);
+                  genRadx = 6;
+                  genRadPx = 7;
+                  genPosxx = 6;
+            }
+
+            if (flag1 == 1) {
+               genPosxx = 3;
+               genCountxx *= 2;
+            }
+
+            int jur = 0;
+            boolean try_gen_mud = false;
+            boolean gen_mud = false;
+            if (random.nextInt(genPosxx / 3 + 1) == 0 || genPosxx == 999) {
+               gen_mud = true;
+               if (random.nextInt(genPosxx + 1) == 0) {
+                  try_gen_mud = true;
+               }
+            }
+
+            if (random.nextInt(genPosxx) == 0 || genPosxx == 999) {
+               switch (swType) {
+                  case 0:
+                     if (MFQM.GenMire || MFQM.GenMud) {
+                        for (int ix = 0; ix < genCountxx; ix++) {
+                           firstBlockXCoord = chunkX + random.nextInt(16);
+                           firstBlockYCoord = 96 + dHeight;
+                           firstBlockZCoord = chunkZ + random.nextInt(16);
+                           radxxxx = genRadx + random.nextInt(genRadPx);
+                           int countBlock = 0;
+
+                           for (canGenxxxxx = false; firstBlockYCoord > 60 + dHeight; firstBlockYCoord--) {
+                              if (this.validGroundOrLMireMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                 if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                    canGenxxxxx = true;
+                                    break;
+                                 }
+
+                                 countBlock++;
+                              }
+
+                              if (countBlock > 10) {
+                                 break;
+                              }
+                           }
+
+                           if (canGenxxxxx
+                              && this.genIsFlat(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxxxx, world)
+                              && this.genIsFlat(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, radxxxx, world)) {
+                              if (MFQM.GenMire) {
+                                 this.generateMireD(
+                                    firstBlockXCoord,
+                                    firstBlockYCoord,
+                                    firstBlockZCoord,
+                                    radxxxx,
+                                    world,
+                                    random,
+                                    Material.field_151568_F,
+                                    MFQM.MireBlock,
+                                    false
+                                 );
+                              }
+
+                              try_gen_mud = true;
+                              blockGen = true;
+                           }
+                        }
+
+                        if (try_gen_mud && gen_mud && MFQM.GenMud) {
+                           genCountxx = 30 + random.nextInt(20);
+
+                           for (int ix = 0; ix < genCountxx; ix++) {
+                              firstBlockXCoord = chunkX + random.nextInt(16);
+                              firstBlockYCoord = 96 + dHeight;
+                              firstBlockZCoord = chunkZ + random.nextInt(16);
+                              radxxxx = genRadx * 3 + random.nextInt(genRadPx);
+                              int countBlock = 0;
+
+                              for (canGenxxxxx = false; firstBlockYCoord > 55 + dHeight; firstBlockYCoord--) {
+                                 if (this.validGroundOrLMireMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                    if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                       canGenxxxxx = true;
+                                       break;
+                                    }
+
+                                    countBlock++;
+                                 }
+
+                                 if (countBlock > 10) {
+                                    break;
+                                 }
+                              }
+
+                              if (canGenxxxxx) {
+                                 this.generateMud(firstBlockXCoord, firstBlockYCoord + 2, firstBlockZCoord, radxxxx, world, random);
+                              }
+                           }
+                        }
+                     }
+                     break;
+                  case 1:
+                     try_gen_mud = false;
+                     if (biomeId == MFQM.SwampBiomes[7]) {
+                        genRadx *= 2;
+                     }
+
+                     if (biomeId == MFQM.SwampBiomes[2]) {
+                        genCountxx *= 3;
+                     }
+
+                     for (int ix = 0; ix < genCountxx; ix++) {
+                        firstBlockXCoord = chunkX + random.nextInt(16);
+                        firstBlockYCoord = 96 + dHeight;
+                        firstBlockZCoord = chunkZ + random.nextInt(16);
+                        radxxxx = (int)Math.floor(genRadx * 1.5) + random.nextInt(genRadPx);
+                        int countBlock = 0;
+
+                        for (canGenxxxxx = false; firstBlockYCoord > 60 + dHeight; firstBlockYCoord--) {
+                           if (this.validWaterMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                              if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                 canGenxxxxx = true;
+                                 break;
+                              }
+
+                              countBlock++;
+                           }
+
+                           if (countBlock > 10) {
+                              break;
+                           }
+                        }
+
+                        if (canGenxxxxx && this.isGroundNear(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxxxx, world)) {
+                           try_gen_mud = true;
+                           if (MFQM.GenMire) {
+                              this.generateMire(
+                                 firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxxxx, world, random, Material.field_151586_h, MFQM.MireBlock
+                              );
+                           }
+
+                           blockGen = true;
+                        }
+                     }
+
+                     if (try_gen_mud && gen_mud && MFQM.GenMud) {
+                        genCountxx = 30 + random.nextInt(20);
+
+                        for (int ix = 0; ix < genCountxx; ix++) {
+                           firstBlockXCoord = chunkX + random.nextInt(16);
+                           firstBlockYCoord = 96 + dHeight;
+                           firstBlockZCoord = chunkZ + random.nextInt(16);
+                           radxxxx = genRadx * 3 + random.nextInt(genRadPx);
+                           int countBlock = 0;
+
+                           for (canGenxxxxx = false; firstBlockYCoord > 55 + dHeight; firstBlockYCoord--) {
+                              if (this.validGroundOrLMireMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                 if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                    canGenxxxxx = true;
+                                    break;
+                                 }
+
+                                 countBlock++;
+                              }
+
+                              if (countBlock > 10) {
+                                 break;
+                              }
+                           }
+
+                           if (canGenxxxxx) {
+                              this.generateMud(firstBlockXCoord, firstBlockYCoord + 2, firstBlockZCoord, radxxxx, world, random);
+                           }
+                        }
+                     }
+                     break;
+                  case 2:
+                     if (MFQM.GenMire || MFQM.GenMud) {
+                        for (int ix = 0; ix < genCountxx; ix++) {
+                           if (jur == 1) {
+                              firstBlockXCoord = chunkX + random.nextInt(64) - 32;
+                              firstBlockYCoord = 62 + dHeight;
+                              firstBlockZCoord = chunkZ + random.nextInt(64) - 32;
+                           } else {
+                              firstBlockXCoord = chunkX + random.nextInt(16);
+                              firstBlockYCoord = 96 + dHeight;
+                              firstBlockZCoord = chunkZ + random.nextInt(16);
+                           }
+
+                           radxxxx = genRadx + random.nextInt(genRadPx);
+                           int countBlock1 = 0;
+                           int countBlock2 = 0;
+                           int var237 = false;
+
+                           for (canGenxxxxx = false; firstBlockYCoord > 60 + dHeight; firstBlockYCoord--) {
+                              if (this.validWaterMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                 if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                    canGenxxxxx = true;
+                                    var237 = true;
+                                    break;
+                                 }
+
+                                 countBlock1++;
+                              }
+
+                              if (jur == 0 && this.validGroundMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                 if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                    canGenxxxxx = true;
+                                    var237 = false;
+                                    break;
+                                 }
+
+                                 countBlock2++;
+                              }
+
+                              if (countBlock1 > 10 || countBlock2 > 10) {
+                                 break;
+                              }
+                           }
+
+                           if (canGenxxxxx) {
+                              if (!var237) {
+                                 if (MFQM.GenMire || MFQM.GenMud) {
+                                    if (this.isWaterNear(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxxxx, world)) {
+                                       if (MFQM.GenMire) {
+                                          this.generateMire(
+                                             firstBlockXCoord,
+                                             firstBlockYCoord,
+                                             firstBlockZCoord,
+                                             radxxxx,
+                                             world,
+                                             random,
+                                             Material.field_151586_h,
+                                             MFQM.MireBlock
+                                          );
+                                       }
+
+                                       try_gen_mud = true;
+                                       blockGen = true;
+                                    } else if (this.genIsFlat(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxxxx, world)
+                                       && this.genIsFlat(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, radxxxx, world)) {
+                                       if (MFQM.GenMire) {
+                                          this.generateMireD(
+                                             firstBlockXCoord,
+                                             firstBlockYCoord,
+                                             firstBlockZCoord,
+                                             radxxxx,
+                                             world,
+                                             random,
+                                             Material.field_151568_F,
+                                             MFQM.MireBlock,
+                                             false
+                                          );
+                                       }
+
+                                       try_gen_mud = true;
+                                       blockGen = true;
+                                    }
+                                 }
+                              } else if ((MFQM.GenMire || jur == 1 || MFQM.GenMud)
+                                 && this.isGroundNear(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxxxx, world)) {
+                                 if (MFQM.GenMire) {
+                                    this.generateMire(
+                                       firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxxxx, world, random, Material.field_151586_h, MFQM.MireBlock
+                                    );
+                                 }
+
+                                 try_gen_mud = true;
+                                 blockGen = true;
+                              }
+                           }
+                        }
+
+                        if (try_gen_mud && gen_mud && MFQM.GenMud) {
+                           genCountxx = 30 + random.nextInt(20);
+
+                           for (int ix = 0; ix < genCountxx; ix++) {
+                              firstBlockXCoord = chunkX + random.nextInt(16);
+                              firstBlockYCoord = 96 + dHeight;
+                              firstBlockZCoord = chunkZ + random.nextInt(16);
+                              radxxxx = genRadx * 3 + random.nextInt(genRadPx);
+                              int countBlock = 0;
+
+                              for (canGenxxxxx = false; firstBlockYCoord > 55 + dHeight; firstBlockYCoord--) {
+                                 if (this.validGroundOrLMireMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                    if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                       canGenxxxxx = true;
+                                       break;
+                                    }
+
+                                    countBlock++;
+                                 }
+
+                                 if (countBlock > 10) {
+                                    break;
+                                 }
+                              }
+
+                              if (canGenxxxxx) {
+                                 this.generateMud(firstBlockXCoord, firstBlockYCoord + 2, firstBlockZCoord, radxxxx, world, random);
+                              }
+                           }
+                        }
+                     }
+               }
+            }
+         }
+      }
+

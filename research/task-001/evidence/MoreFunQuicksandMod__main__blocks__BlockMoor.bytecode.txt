@@ -1,0 +1,793 @@
+Archive: MoreFunQuicksandMod/main/blocks/BlockMoor.class
+SHA256: eaaa54eb8045a2af7563e95571133e0afc82fc3ae3665827f1be89e93b0db03c
+Superclass: net/minecraft/block/Block
+Offsets are decimal byte offsets; branch operands are relative offsets.
+
+
+METHOD <init> (III)V
+000000: aload_0 
+000001: getstatic #26 net/minecraft/block/material/Material.field_151583_m:Lnet/minecraft/block/material/Material;
+000004: invokespecial #29 net/minecraft/block/Block.<init>:(Lnet/minecraft/block/material/Material;)V
+000007: aload_0 
+000008: ldc #30 2.75
+000010: invokevirtual #34 MoreFunQuicksandMod/main/blocks/BlockMoor.func_149711_c:(F)Lnet/minecraft/block/Block;
+000013: pop 
+000014: aload_0 
+000015: ldc #35 1000.0
+000017: invokevirtual #38 MoreFunQuicksandMod/main/blocks/BlockMoor.func_149752_b:(F)Lnet/minecraft/block/Block;
+000020: pop 
+000021: aload_0 
+000022: getstatic #42 net/minecraft/block/Block.field_149779_h:Lnet/minecraft/block/Block$SoundType;
+000025: invokevirtual #46 MoreFunQuicksandMod/main/blocks/BlockMoor.func_149672_a:(Lnet/minecraft/block/Block$SoundType;)Lnet/minecraft/block/Block;
+000028: pop 
+000029: aload_0 
+000030: iconst_1 
+000031: invokevirtual #50 MoreFunQuicksandMod/main/blocks/BlockMoor.func_149675_a:(Z)Lnet/minecraft/block/Block;
+000034: pop 
+000035: getstatic #56 MoreFunQuicksandMod/main/MFQM.QSOpacity:Z
+000038: ifeq 14
+000041: aload_0 
+000042: sipush 255
+000045: invokevirtual #60 MoreFunQuicksandMod/main/blocks/BlockMoor.func_149713_g:(I)Lnet/minecraft/block/Block;
+000048: pop 
+000049: goto 9
+000052: aload_0 
+000053: iconst_3 
+000054: invokevirtual #60 MoreFunQuicksandMod/main/blocks/BlockMoor.func_149713_g:(I)Lnet/minecraft/block/Block;
+000057: pop 
+000058: aload_0 
+000059: ldc #62 'Moor'
+000061: invokevirtual #66 MoreFunQuicksandMod/main/blocks/BlockMoor.func_149663_c:(Ljava/lang/String;)Lnet/minecraft/block/Block;
+000064: pop 
+000065: aload_0 
+000066: getstatic #70 MoreFunQuicksandMod/main/MFQM.tabMFQM:Lnet/minecraft/creativetab/CreativeTabs;
+000069: invokevirtual #74 MoreFunQuicksandMod/main/blocks/BlockMoor.func_149647_a:(Lnet/minecraft/creativetab/CreativeTabs;)Lnet/minecraft/block/Block;
+000072: pop 
+000073: aload_0 
+000074: iload_1 
+000075: putfield #76 MoreFunQuicksandMod/main/blocks/BlockMoor.maxOpacity:I
+000078: aload_0 
+000079: iload_2 
+000080: putfield #78 MoreFunQuicksandMod/main/blocks/BlockMoor.lastOpacity:I
+000083: aload_0 
+000084: iload_3 
+000085: putfield #80 MoreFunQuicksandMod/main/blocks/BlockMoor.incOpacity:I
+000088: return 
+
+METHOD SetBlockThere (Lnet/minecraft/world/World;IIILnet/minecraft/block/Block;II)V
+000000: aload_1 
+000001: iload_2 
+000002: iload_3 
+000003: iload 4
+000005: invokevirtual #93 net/minecraft/world/World.func_147438_o:(III)Lnet/minecraft/tileentity/TileEntity;
+000008: ifnull 4
+000011: return 
+000012: aload_1 
+000013: iload_2 
+000014: iload_3 
+000015: iload 4
+000017: invokevirtual #97 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+000020: getstatic #103 net/minecraft/init/Blocks.field_150357_h:Lnet/minecraft/block/Block;
+000023: if_acmpne 4
+000026: return 
+000027: aload_1 
+000028: iload_2 
+000029: iload_3 
+000030: iload 4
+000032: aload 5
+000034: iload 6
+000036: iload 7
+000038: invokevirtual #107 net/minecraft/world/World.func_147465_d:(IIILnet/minecraft/block/Block;II)Z
+000041: pop 
+000042: return 
+
+METHOD SetBlockThere (Lnet/minecraft/world/World;IIILnet/minecraft/block/Block;)V
+000000: aload_1 
+000001: iload_2 
+000002: iload_3 
+000003: iload 4
+000005: invokevirtual #93 net/minecraft/world/World.func_147438_o:(III)Lnet/minecraft/tileentity/TileEntity;
+000008: ifnull 4
+000011: return 
+000012: aload_1 
+000013: iload_2 
+000014: iload_3 
+000015: iload 4
+000017: invokevirtual #97 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+000020: getstatic #103 net/minecraft/init/Blocks.field_150357_h:Lnet/minecraft/block/Block;
+000023: if_acmpne 4
+000026: return 
+000027: aload_1 
+000028: iload_2 
+000029: iload_3 
+000030: iload 4
+000032: aload 5
+000034: invokevirtual #120 net/minecraft/world/World.func_147449_b:(IIILnet/minecraft/block/Block;)Z
+000037: pop 
+000038: return 
+
+METHOD func_149674_a (Lnet/minecraft/world/World;IIILjava/util/Random;)V
+000000: aload_1 
+000001: iload_2 
+000002: iload_3 
+000003: iload 4
+000005: invokevirtual #126 net/minecraft/world/World.func_72805_g:(III)I
+000008: istore 6
+000010: iload 6
+000012: bipush 10
+000014: if_icmpge 683
+000017: aload_1 
+000018: iload_2 
+000019: iload_3 
+000020: iconst_1 
+000021: iadd 
+000022: iload 4
+000024: invokevirtual #97 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+000027: getstatic #129 MoreFunQuicksandMod/main/MFQM.MireBlock:Lnet/minecraft/block/Block;
+000030: if_acmpeq 33
+000033: aload_1 
+000034: iload_2 
+000035: iload_3 
+000036: iconst_1 
+000037: iadd 
+000038: iload 4
+000040: invokevirtual #97 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+000043: getstatic #132 MoreFunQuicksandMod/main/MFQM.MorassBlock:Lnet/minecraft/block/Block;
+000046: if_acmpeq 17
+000049: aload_1 
+000050: iload_2 
+000051: iload_3 
+000052: iconst_1 
+000053: iadd 
+000054: iload 4
+000056: invokevirtual #97 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+000059: aload_0 
+000060: if_acmpne 19
+000063: aload_0 
+000064: aload_1 
+000065: iload_2 
+000066: iload_3 
+000067: iload 4
+000069: getstatic #129 MoreFunQuicksandMod/main/MFQM.MireBlock:Lnet/minecraft/block/Block;
+000072: bipush 10
+000074: iconst_3 
+000075: invokevirtual #134 MoreFunQuicksandMod/main/blocks/BlockMoor.SetBlockThere:(Lnet/minecraft/world/World;IIILnet/minecraft/block/Block;II)V
+000078: return 
+000079: iload_2 
+000080: istore 7
+000082: iload_3 
+000083: istore 8
+000085: iload 4
+000087: istore 9
+000089: bipush 10
+000091: istore 10
+000093: iconst_0 
+000094: istore 11
+000096: iconst_0 
+000097: istore 12
+000099: iload 12
+000101: bipush 6
+000103: if_icmpgt 135
+000106: iload 12
+000108: tableswitch 89, 0, 3, 32, 47, 62, 77
+000140: iload_2 
+000141: iconst_1 
+000142: isub 
+000143: istore 7
+000145: iload_3 
+000146: istore 8
+000148: iload 4
+000150: istore 9
+000152: goto 45
+000155: iload_2 
+000156: iconst_1 
+000157: iadd 
+000158: istore 7
+000160: iload_3 
+000161: istore 8
+000163: iload 4
+000165: istore 9
+000167: goto 30
+000170: iload_2 
+000171: istore 7
+000173: iload_3 
+000174: istore 8
+000176: iload 4
+000178: iconst_1 
+000179: isub 
+000180: istore 9
+000182: goto 15
+000185: iload_2 
+000186: istore 7
+000188: iload_3 
+000189: istore 8
+000191: iload 4
+000193: iconst_1 
+000194: iadd 
+000195: istore 9
+000197: aload_1 
+000198: iload 7
+000200: iload 8
+000202: iload 9
+000204: invokevirtual #97 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+000207: getstatic #132 MoreFunQuicksandMod/main/MFQM.MorassBlock:Lnet/minecraft/block/Block;
+000210: if_acmpne 22
+000213: iconst_1 
+000214: iload 10
+000216: aload_1 
+000217: iload 7
+000219: iload 8
+000221: iload 9
+000223: invokevirtual #126 net/minecraft/world/World.func_72805_g:(III)I
+000226: isub 
+000227: invokestatic #142 java/lang/Math.max:(II)I
+000230: istore 10
+000232: iinc 12, 1
+000235: goto -136
+000238: iload 11
+000240: ifne 44
+000243: aload_1 
+000244: getfield #146 net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+000247: iload 10
+000249: iconst_5 
+000250: imul 
+000251: invokevirtual #150 java/util/Random.nextInt:(I)I
+000254: ifne 30
+000257: aload_0 
+000258: aload_1 
+000259: iload_2 
+000260: iload_3 
+000261: iload 4
+000263: getstatic #132 MoreFunQuicksandMod/main/MFQM.MorassBlock:Lnet/minecraft/block/Block;
+000266: aload_1 
+000267: getfield #146 net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+000270: iconst_2 
+000271: invokevirtual #150 java/util/Random.nextInt:(I)I
+000274: bipush 7
+000276: iadd 
+000277: iconst_3 
+000278: invokevirtual #134 MoreFunQuicksandMod/main/blocks/BlockMoor.SetBlockThere:(Lnet/minecraft/world/World;IIILnet/minecraft/block/Block;II)V
+000281: iconst_1 
+000282: istore 11
+000284: iload 11
+000286: ifne 43
+000289: aload_1 
+000290: getfield #146 net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+000293: iload 10
+000295: iconst_3 
+000296: imul 
+000297: invokevirtual #150 java/util/Random.nextInt:(I)I
+000300: ifne 29
+000303: aload_0 
+000304: aload_1 
+000305: iload_2 
+000306: iload_3 
+000307: iload 4
+000309: getstatic #132 MoreFunQuicksandMod/main/MFQM.MorassBlock:Lnet/minecraft/block/Block;
+000312: aload_1 
+000313: getfield #146 net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+000316: iconst_4 
+000317: invokevirtual #150 java/util/Random.nextInt:(I)I
+000320: iconst_3 
+000321: iadd 
+000322: iconst_3 
+000323: invokevirtual #134 MoreFunQuicksandMod/main/blocks/BlockMoor.SetBlockThere:(Lnet/minecraft/world/World;IIILnet/minecraft/block/Block;II)V
+000326: iconst_2 
+000327: istore 11
+000329: iload 11
+000331: ifne 34
+000334: aload_1 
+000335: getfield #146 net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+000338: iload 10
+000340: iconst_2 
+000341: imul 
+000342: invokevirtual #150 java/util/Random.nextInt:(I)I
+000345: ifne 20
+000348: aload_0 
+000349: aload_1 
+000350: iload_2 
+000351: iload_3 
+000352: iload 4
+000354: getstatic #132 MoreFunQuicksandMod/main/MFQM.MorassBlock:Lnet/minecraft/block/Block;
+000357: iconst_2 
+000358: iconst_3 
+000359: invokevirtual #134 MoreFunQuicksandMod/main/blocks/BlockMoor.SetBlockThere:(Lnet/minecraft/world/World;IIILnet/minecraft/block/Block;II)V
+000362: iconst_2 
+000363: istore 11
+000365: iload 11
+000367: ifne 34
+000370: aload_1 
+000371: getfield #146 net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+000374: iload 10
+000376: iconst_3 
+000377: imul 
+000378: invokevirtual #150 java/util/Random.nextInt:(I)I
+000381: ifne 20
+000384: aload_0 
+000385: aload_1 
+000386: iload_2 
+000387: iload_3 
+000388: iload 4
+000390: getstatic #132 MoreFunQuicksandMod/main/MFQM.MorassBlock:Lnet/minecraft/block/Block;
+000393: iconst_0 
+000394: iconst_3 
+000395: invokevirtual #134 MoreFunQuicksandMod/main/blocks/BlockMoor.SetBlockThere:(Lnet/minecraft/world/World;IIILnet/minecraft/block/Block;II)V
+000398: iconst_3 
+000399: istore 11
+000401: iload 11
+000403: ifne 20
+000406: aload_0 
+000407: aload_1 
+000408: iload_2 
+000409: iload_3 
+000410: iload 4
+000412: getstatic #132 MoreFunQuicksandMod/main/MFQM.MorassBlock:Lnet/minecraft/block/Block;
+000415: iconst_1 
+000416: iconst_3 
+000417: invokevirtual #134 MoreFunQuicksandMod/main/blocks/BlockMoor.SetBlockThere:(Lnet/minecraft/world/World;IIILnet/minecraft/block/Block;II)V
+000420: iconst_1 
+000421: istore 11
+000423: aload_0 
+000424: aload_1 
+000425: iload_2 
+000426: iload_3 
+000427: iconst_1 
+000428: isub 
+000429: iload 4
+000431: getstatic #129 MoreFunQuicksandMod/main/MFQM.MireBlock:Lnet/minecraft/block/Block;
+000434: bipush 10
+000436: iconst_2 
+000437: invokevirtual #134 MoreFunQuicksandMod/main/blocks/BlockMoor.SetBlockThere:(Lnet/minecraft/world/World;IIILnet/minecraft/block/Block;II)V
+000440: aload_1 
+000441: iload_2 
+000442: iload_3 
+000443: iconst_2 
+000444: isub 
+000445: iload 4
+000447: invokevirtual #97 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+000450: getstatic #129 MoreFunQuicksandMod/main/MFQM.MireBlock:Lnet/minecraft/block/Block;
+000453: if_acmpeq 17
+000456: aload_0 
+000457: aload_1 
+000458: iload_2 
+000459: iload_3 
+000460: iconst_2 
+000461: isub 
+000462: iload 4
+000464: getstatic #153 net/minecraft/init/Blocks.field_150346_d:Lnet/minecraft/block/Block;
+000467: invokevirtual #155 MoreFunQuicksandMod/main/blocks/BlockMoor.SetBlockThere:(Lnet/minecraft/world/World;IIILnet/minecraft/block/Block;)V
+000470: aload 5
+000472: iconst_5 
+000473: invokevirtual #150 java/util/Random.nextInt:(I)I
+000476: ifne 218
+000479: aload 5
+000481: bipush 100
+000483: iload 11
+000485: imul 
+000486: invokevirtual #150 java/util/Random.nextInt:(I)I
+000489: ifne 22
+000492: getstatic #132 MoreFunQuicksandMod/main/MFQM.MorassBlock:Lnet/minecraft/block/Block;
+000495: checkcast #157 MoreFunQuicksandMod/main/blocks/BlockMorass
+000498: aload_1 
+000499: aload 5
+000501: iload_2 
+000502: iload_3 
+000503: iload 4
+000505: invokevirtual #161 MoreFunQuicksandMod/main/blocks/BlockMorass.PlantingThis:(Lnet/minecraft/world/World;Ljava/util/Random;III)V
+000508: goto 186
+000511: aload 5
+000513: iconst_4 
+000514: iload 11
+000516: idiv 
+000517: invokevirtual #150 java/util/Random.nextInt:(I)I
+000520: ifne 38
+000523: aload_1 
+000524: iload_2 
+000525: iload_3 
+000526: iconst_1 
+000527: iadd 
+000528: iload 4
+000530: invokevirtual #97 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+000533: invokevirtual #165 net/minecraft/block/Block.func_149688_o:()Lnet/minecraft/block/material/Material;
+000536: invokevirtual #169 net/minecraft/block/material/Material.func_76220_a:()Z
+000539: ifne 19
+000542: aload_0 
+000543: aload_1 
+000544: iload_2 
+000545: iload_3 
+000546: iconst_1 
+000547: iadd 
+000548: iload 4
+000550: getstatic #172 MoreFunQuicksandMod/main/MFQM.MoorGrassBlock:Lnet/minecraft/block/Block;
+000553: iconst_3 
+000554: iconst_2 
+000555: invokevirtual #134 MoreFunQuicksandMod/main/blocks/BlockMoor.SetBlockThere:(Lnet/minecraft/world/World;IIILnet/minecraft/block/Block;II)V
+000558: aload 5
+000560: bipush 30
+000562: iload 11
+000564: imul 
+000565: invokevirtual #150 java/util/Random.nextInt:(I)I
+000568: ifne 38
+000571: aload_1 
+000572: iload_2 
+000573: iload_3 
+000574: iconst_1 
+000575: iadd 
+000576: iload 4
+000578: invokevirtual #97 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+000581: invokevirtual #165 net/minecraft/block/Block.func_149688_o:()Lnet/minecraft/block/material/Material;
+000584: invokevirtual #169 net/minecraft/block/material/Material.func_76220_a:()Z
+000587: ifne 19
+000590: aload_0 
+000591: aload_1 
+000592: iload_2 
+000593: iload_3 
+000594: iconst_1 
+000595: iadd 
+000596: iload 4
+000598: getstatic #172 MoreFunQuicksandMod/main/MFQM.MoorGrassBlock:Lnet/minecraft/block/Block;
+000601: iconst_2 
+000602: iconst_2 
+000603: invokevirtual #134 MoreFunQuicksandMod/main/blocks/BlockMoor.SetBlockThere:(Lnet/minecraft/world/World;IIILnet/minecraft/block/Block;II)V
+000606: aload 5
+000608: bipush 40
+000610: iload 11
+000612: i2d 
+000613: ldc2_w #173 2.0
+000616: invokestatic #178 java/lang/Math.pow:(DD)D
+000619: invokestatic #182 java/lang/Math.floor:(D)D
+000622: d2i 
+000623: idiv 
+000624: invokevirtual #150 java/util/Random.nextInt:(I)I
+000627: ifne 67
+000630: aload_1 
+000631: iload_2 
+000632: iload_3 
+000633: iconst_1 
+000634: iadd 
+000635: iload 4
+000637: invokevirtual #97 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+000640: invokevirtual #165 net/minecraft/block/Block.func_149688_o:()Lnet/minecraft/block/material/Material;
+000643: invokevirtual #169 net/minecraft/block/material/Material.func_76220_a:()Z
+000646: ifne 48
+000649: aload 5
+000651: bipush 10
+000653: invokevirtual #150 java/util/Random.nextInt:(I)I
+000656: ifne 22
+000659: aload_0 
+000660: aload_1 
+000661: iload_2 
+000662: iload_3 
+000663: iconst_1 
+000664: iadd 
+000665: iload 4
+000667: getstatic #172 MoreFunQuicksandMod/main/MFQM.MoorGrassBlock:Lnet/minecraft/block/Block;
+000670: iconst_4 
+000671: iconst_2 
+000672: invokevirtual #134 MoreFunQuicksandMod/main/blocks/BlockMoor.SetBlockThere:(Lnet/minecraft/world/World;IIILnet/minecraft/block/Block;II)V
+000675: goto 19
+000678: aload_0 
+000679: aload_1 
+000680: iload_2 
+000681: iload_3 
+000682: iconst_1 
+000683: iadd 
+000684: iload 4
+000686: getstatic #172 MoreFunQuicksandMod/main/MFQM.MoorGrassBlock:Lnet/minecraft/block/Block;
+000689: iconst_5 
+000690: iconst_2 
+000691: invokevirtual #134 MoreFunQuicksandMod/main/blocks/BlockMoor.SetBlockThere:(Lnet/minecraft/world/World;IIILnet/minecraft/block/Block;II)V
+000694: goto 398
+000697: iload 6
+000699: bipush 10
+000701: if_icmpne 391
+000704: aload_1 
+000705: iload_2 
+000706: iload_3 
+000707: iload 4
+000709: invokevirtual #186 net/minecraft/world/World.func_147468_f:(III)Z
+000712: pop 
+000713: sipush 128
+000716: istore 7
+000718: iconst_0 
+000719: istore 8
+000721: iload 8
+000723: iload 7
+000725: iconst_2 
+000726: idiv 
+000727: if_icmpgt 236
+000730: iconst_0 
+000731: istore 9
+000733: iload 9
+000735: iload 7
+000737: if_icmpgt 220
+000740: iconst_0 
+000741: istore 10
+000743: iload 10
+000745: iload 7
+000747: if_icmpgt 204
+000750: iload_2 
+000751: iload 9
+000753: iadd 
+000754: iload 7
+000756: iconst_2 
+000757: idiv 
+000758: isub 
+000759: istore 11
+000761: iload_3 
+000762: iload 8
+000764: isub 
+000765: istore 12
+000767: iload 4
+000769: iload 10
+000771: iadd 
+000772: iload 7
+000774: iconst_2 
+000775: idiv 
+000776: isub 
+000777: istore 13
+000779: iload_2 
+000780: iload 11
+000782: isub 
+000783: i2d 
+000784: ldc2_w #173 2.0
+000787: invokestatic #178 java/lang/Math.pow:(DD)D
+000790: iload_3 
+000791: iload 12
+000793: isub 
+000794: i2d 
+000795: ldc2_w #173 2.0
+000798: invokestatic #178 java/lang/Math.pow:(DD)D
+000801: dadd 
+000802: iload 4
+000804: iload 13
+000806: isub 
+000807: i2d 
+000808: ldc2_w #173 2.0
+000811: invokestatic #178 java/lang/Math.pow:(DD)D
+000814: dadd 
+000815: invokestatic #189 java/lang/Math.sqrt:(D)D
+000818: dstore 14
+000820: dload 14
+000822: iload 7
+000824: i2d 
+000825: ldc2_w #173 2.0
+000828: ddiv 
+000829: dcmpg 
+000830: ifge 115
+000833: aload_1 
+000834: iload 11
+000836: iload 12
+000838: iload 13
+000840: invokevirtual #97 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+000843: invokevirtual #165 net/minecraft/block/Block.func_149688_o:()Lnet/minecraft/block/material/Material;
+000846: getstatic #192 net/minecraft/block/material/Material.field_151586_h:Lnet/minecraft/block/material/Material;
+000849: if_acmpne 96
+000852: aload_1 
+000853: iload 11
+000855: iload 12
+000857: iload 13
+000859: invokevirtual #126 net/minecraft/world/World.func_72805_g:(III)I
+000862: ifne 72
+000865: aload_1 
+000866: iload 11
+000868: iload 12
+000870: iconst_1 
+000871: isub 
+000872: iload 13
+000874: invokevirtual #97 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+000877: invokevirtual #165 net/minecraft/block/Block.func_149688_o:()Lnet/minecraft/block/material/Material;
+000880: getstatic #192 net/minecraft/block/material/Material.field_151586_h:Lnet/minecraft/block/material/Material;
+000883: if_acmpne 18
+000886: aload_1 
+000887: iload 11
+000889: iload 12
+000891: iconst_1 
+000892: isub 
+000893: iload 13
+000895: invokevirtual #126 net/minecraft/world/World.func_72805_g:(III)I
+000898: ifne 47
+000901: aload_1 
+000902: iload 11
+000904: iload 12
+000906: iload 13
+000908: getstatic #195 MoreFunQuicksandMod/main/MFQM.TarBlock:Lnet/minecraft/block/Block;
+000911: invokevirtual #120 net/minecraft/world/World.func_147449_b:(IIILnet/minecraft/block/Block;)Z
+000914: pop 
+000915: aload_1 
+000916: iload 11
+000918: iload 12
+000920: iconst_1 
+000921: isub 
+000922: iload 13
+000924: getstatic #195 MoreFunQuicksandMod/main/MFQM.TarBlock:Lnet/minecraft/block/Block;
+000927: invokevirtual #120 net/minecraft/world/World.func_147449_b:(IIILnet/minecraft/block/Block;)Z
+000930: pop 
+000931: goto 14
+000934: aload_1 
+000935: iload 11
+000937: iload 12
+000939: iload 13
+000941: invokevirtual #186 net/minecraft/world/World.func_147468_f:(III)Z
+000944: pop 
+000945: iinc 10, 1
+000948: goto -205
+000951: iinc 9, 1
+000954: goto -221
+000957: iinc 8, 1
+000960: goto -239
+000963: iconst_0 
+000964: istore 8
+000966: iload 8
+000968: iload 7
+000970: if_icmpgt 122
+000973: iconst_0 
+000974: istore 9
+000976: iload 9
+000978: iload 7
+000980: iconst_2 
+000981: idiv 
+000982: iconst_2 
+000983: iadd 
+000984: if_icmpgt 102
+000987: iconst_0 
+000988: istore 10
+000990: iload 10
+000992: iload 7
+000994: if_icmpgt 86
+000997: iload_2 
+000998: iload 8
+001000: iadd 
+001001: iload 7
+001003: iconst_2 
+001004: idiv 
+001005: isub 
+001006: istore 11
+001008: iload_3 
+001009: iload 9
+001011: isub 
+001012: istore 12
+001014: iload 4
+001016: iload 10
+001018: iadd 
+001019: iload 7
+001021: iconst_2 
+001022: idiv 
+001023: isub 
+001024: istore 13
+001026: aload_1 
+001027: iload 11
+001029: iload 12
+001031: iload 13
+001033: invokevirtual #97 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+001036: getstatic #195 MoreFunQuicksandMod/main/MFQM.TarBlock:Lnet/minecraft/block/Block;
+001039: if_acmpeq 35
+001042: aload_1 
+001043: iload 11
+001045: iload 12
+001047: iconst_1 
+001048: iadd 
+001049: iload 13
+001051: invokevirtual #97 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+001054: getstatic #195 MoreFunQuicksandMod/main/MFQM.TarBlock:Lnet/minecraft/block/Block;
+001057: if_acmpne 17
+001060: aload_1 
+001061: iload 11
+001063: iload 12
+001065: iload 13
+001067: getstatic #198 net/minecraft/init/Blocks.field_150348_b:Lnet/minecraft/block/Block;
+001070: invokevirtual #120 net/minecraft/world/World.func_147449_b:(IIILnet/minecraft/block/Block;)Z
+001073: pop 
+001074: iinc 10, 1
+001077: goto -87
+001080: iinc 9, 1
+001083: goto -107
+001086: iinc 8, 1
+001089: goto -123
+001092: aload_1 
+001093: iload_2 
+001094: iload_3 
+001095: iload 4
+001097: aload_0 
+001098: aload_0 
+001099: aload_1 
+001100: invokevirtual #202 MoreFunQuicksandMod/main/blocks/BlockMoor.func_149738_a:(Lnet/minecraft/world/World;)I
+001103: invokevirtual #206 net/minecraft/world/World.func_147464_a:(IIILnet/minecraft/block/Block;I)V
+001106: aload_0 
+001107: aload_1 
+001108: iload_2 
+001109: iload_3 
+001110: iload 4
+001112: aload 5
+001114: invokespecial #208 net/minecraft/block/Block.func_149674_a:(Lnet/minecraft/world/World;IIILjava/util/Random;)V
+001117: return 
+
+METHOD func_149670_a (Lnet/minecraft/world/World;IIILnet/minecraft/entity/Entity;)V
+000000: aload 5
+000002: invokevirtual #233 net/minecraft/entity/Entity.func_70110_aj:()V
+000005: return 
+
+METHOD func_149726_b (Lnet/minecraft/world/World;III)V
+000000: aload_1 
+000001: iload_2 
+000002: iload_3 
+000003: iload 4
+000005: aload_0 
+000006: aload_0 
+000007: aload_1 
+000008: invokevirtual #202 MoreFunQuicksandMod/main/blocks/BlockMoor.func_149738_a:(Lnet/minecraft/world/World;)I
+000011: invokevirtual #206 net/minecraft/world/World.func_147464_a:(IIILnet/minecraft/block/Block;I)V
+000014: return 
+
+METHOD func_149695_a (Lnet/minecraft/world/World;IIILnet/minecraft/block/Block;)V
+000000: aload_1 
+000001: iload_2 
+000002: iload_3 
+000003: iconst_1 
+000004: isub 
+000005: iload 4
+000007: invokevirtual #97 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+000010: invokevirtual #165 net/minecraft/block/Block.func_149688_o:()Lnet/minecraft/block/material/Material;
+000013: invokevirtual #169 net/minecraft/block/material/Material.func_76220_a:()Z
+000016: ifne 36
+000019: aload_1 
+000020: iload_2 
+000021: iload_3 
+000022: iconst_1 
+000023: isub 
+000024: iload 4
+000026: invokevirtual #97 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+000029: invokevirtual #165 net/minecraft/block/Block.func_149688_o:()Lnet/minecraft/block/material/Material;
+000032: invokevirtual #245 net/minecraft/block/material/Material.func_76222_j:()Z
+000035: ifeq 17
+000038: aload_1 
+000039: iload_2 
+000040: iload_3 
+000041: iload 4
+000043: aload_0 
+000044: aload_0 
+000045: aload_1 
+000046: invokevirtual #202 MoreFunQuicksandMod/main/blocks/BlockMoor.func_149738_a:(Lnet/minecraft/world/World;)I
+000049: invokevirtual #206 net/minecraft/world/World.func_147464_a:(IIILnet/minecraft/block/Block;I)V
+000052: return 
+
+METHOD func_149668_a (Lnet/minecraft/world/World;III)Lnet/minecraft/util/AxisAlignedBB;
+000000: aconst_null 
+000001: areturn 
+
+METHOD func_149650_a (ILjava/util/Random;I)Lnet/minecraft/item/Item;
+000000: aconst_null 
+000001: areturn 
+
+METHOD func_149659_a (Lnet/minecraft/world/Explosion;)Z
+000000: iconst_0 
+000001: ireturn 
+
+METHOD func_149691_a (II)Lnet/minecraft/util/IIcon;
+000000: aload_0 
+000001: getfield #259 MoreFunQuicksandMod/main/blocks/BlockMoor.IIconSide0:Lnet/minecraft/util/IIcon;
+000004: areturn 
+
+METHOD func_149651_a (Lnet/minecraft/client/renderer/texture/IIconRegister;)V
+000000: aload_0 
+000001: aload_1 
+000002: ldc_w #263 'morefunquicksandmod:Moor0'
+000005: invokeinterface #269 net/minecraft/client/renderer/texture/IIconRegister.func_94245_a:(Ljava/lang/String;)Lnet/minecraft/util/IIcon;, 2, 0
+000010: putfield #259 MoreFunQuicksandMod/main/blocks/BlockMoor.IIconSide0:Lnet/minecraft/util/IIcon;
+000013: return 
+
+METHOD func_149700_E ()Z
+000000: iconst_1 
+000001: ireturn 
+
+METHOD func_149721_r ()Z
+000000: iconst_0 
+000001: ireturn 
+
+METHOD func_149662_c ()Z
+000000: iconst_0 
+000001: ireturn 
+
+METHOD isSolid ()Z
+000000: iconst_1 
+000001: ireturn 

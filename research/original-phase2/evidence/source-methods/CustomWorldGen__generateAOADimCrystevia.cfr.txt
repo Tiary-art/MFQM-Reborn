@@ -1,0 +1,75 @@
+// CFR0.152; original decompiler line 4885; NOT original source; inspect **/goto artifacts if present.
+    private void generateAOADimCrystevia(World world, Random random, int chunkX, int chunkZ) {
+        int tarP2;
+        int firstBlockXCoord = chunkX + random.nextInt(16);
+        int firstBlockYCoord = 96;
+        int firstBlockZCoord = chunkZ + random.nextInt(16);
+        BiomeGenBase biomegenbase = world.func_72807_a(firstBlockXCoord, firstBlockZCoord);
+        int biomeId = biomegenbase.field_76756_M;
+        boolean blockGen = false;
+        if (MFQM.GenLiqMire) {
+            for (int hc = -1; hc <= 1; ++hc) {
+                for (int vc = -1; vc <= 1; ++vc) {
+                    if (!world.func_72899_e(chunkX + 8 + hc * 16, 32, chunkZ + 8 + vc * 16)) continue;
+                    for (int h = 0; h < 16; ++h) {
+                        for (int v = 0; v < 16; ++v) {
+                            firstBlockXCoord = chunkX + hc * 16 + h;
+                            firstBlockZCoord = chunkZ + vc * 16 + v;
+                            for (firstBlockYCoord = 128; firstBlockYCoord > 30; --firstBlockYCoord) {
+                                if (!this.validWaterMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) continue;
+                                world.func_147468_f(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (!blockGen) {
+            boolean trType = false;
+            tarP2 = 10;
+            int realGen = 1 + random.nextInt(3);
+            boolean canGen = false;
+            int genCount = 150;
+            int genRad = 7;
+            int genRadP = 9;
+            int rad = 0;
+            if (random.nextInt(tarP2) == 0) {
+                for (int i = 0; i < genCount && realGen > 0; ++i) {
+                    firstBlockXCoord = chunkX + random.nextInt(16);
+                    firstBlockZCoord = chunkZ + random.nextInt(16);
+                    rad = genRad + random.nextInt(genRadP);
+                    int countBlock = 0;
+                    canGen = false;
+                    for (firstBlockYCoord = 30 + random.nextInt(98); firstBlockYCoord > 10; --firstBlockYCoord) {
+                        if (this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                            if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                canGen = true;
+                                break;
+                            }
+                            ++countBlock;
+                        }
+                        if (countBlock > 10) break;
+                    }
+                    if (!canGen || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad - 2, world) || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad - 2, world)) continue;
+                    this.generateMireOD(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random, Material.field_151568_F, MFQM.MucusBlock, 0);
+                    --realGen;
+                    blockGen = true;
+                }
+            }
+        }
+        if (MFQM.GenTar) {
+            int tarP1 = 0;
+            tarP2 = 0;
+            int tarPU = 0;
+            tarP1 = 1;
+            tarP2 = 3;
+            tarPU = 3;
+            if (random.nextInt(tarP1) == 0 && random.nextInt(tarP2) == 0) {
+                int var5 = chunkX + random.nextInt(16) + 8;
+                int var6 = random.nextInt(128);
+                int var7 = chunkZ + random.nextInt(16) + 8;
+                new CustomWorldGenLakes(MFQM.TarBlock).generate(world, random, var5, var6, var7, 0);
+                blockGen = true;
+            }
+        }
+    }

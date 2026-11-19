@@ -1,0 +1,18 @@
+// CFR0.152; original decompiler line 5808; NOT original source; inspect **/goto artifacts if present.
+    private void generateAOADimMysterium(World world, Random random, int chunkX, int chunkZ) {
+        boolean dHeight = false;
+        boolean blockGen = false;
+        if (MFQM.GenDeep) {
+            for (int h = 0; h < 16; ++h) {
+                for (int v = 0; v < 16; ++v) {
+                    int firstBlockXCoord = chunkX + h;
+                    int firstBlockYCoord = 11;
+                    int firstBlockZCoord = chunkZ + v;
+                    if (!this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) continue;
+                    world.func_147465_d(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, MFQM.MudBlock, 3, 2);
+                    world.func_147465_d(firstBlockXCoord, firstBlockYCoord - 1, firstBlockZCoord, MFQM.MudBlock, 3, 2);
+                    world.func_147465_d(firstBlockXCoord, firstBlockYCoord - 2, firstBlockZCoord, MFQM.MudBlock, 3, 2);
+                }
+            }
+        }
+    }

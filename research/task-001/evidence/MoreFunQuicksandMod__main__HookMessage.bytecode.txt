@@ -1,0 +1,67 @@
+Archive: MoreFunQuicksandMod/main/HookMessage.class
+SHA256: d0764b6a756d602528ad0f066bcf876ed7b48bc6e81ea771e91e0f84aaa00dd2
+Superclass: java/lang/Object
+Offsets are decimal byte offsets; branch operands are relative offsets.
+
+
+METHOD <init> ()V
+000000: aload_0 
+000001: invokespecial #16 java/lang/Object.<init>:()V
+000004: return 
+
+METHOD <init> (F)V
+000000: aload_0 
+000001: invokespecial #16 java/lang/Object.<init>:()V
+000004: aload_0 
+000005: fload_1 
+000006: putfield #21 MoreFunQuicksandMod/main/HookMessage.Len:F
+000009: return 
+
+METHOD fromBytes (Lio/netty/buffer/ByteBuf;)V
+000000: aload_0 
+000001: aload_1 
+000002: invokevirtual #30 io/netty/buffer/ByteBuf.readFloat:()F
+000005: putfield #21 MoreFunQuicksandMod/main/HookMessage.Len:F
+000008: return 
+
+METHOD toBytes (Lio/netty/buffer/ByteBuf;)V
+000000: aload_1 
+000001: aload_0 
+000002: getfield #21 MoreFunQuicksandMod/main/HookMessage.Len:F
+000005: invokevirtual #37 io/netty/buffer/ByteBuf.writeFloat:(F)Lio/netty/buffer/ByteBuf;
+000008: pop 
+000009: return 
+
+METHOD handleCurLenHook (FLnet/minecraft/entity/player/EntityPlayerMP;)V
+000000: aload_1 
+000001: invokevirtual #45 net/minecraft/entity/player/EntityPlayerMP.func_70005_c_:()Ljava/lang/String;
+000004: astore_2 
+000005: iconst_0 
+000006: istore_3 
+000007: iload_3 
+000008: bipush 64
+000010: if_icmpge 39
+000013: getstatic #53 MoreFunQuicksandMod/main/MFQM.arrayHooks:[Lnet/minecraft/entity/Entity;
+000016: iload_3 
+000017: aaload 
+000018: ifnull 25
+000021: getstatic #57 MoreFunQuicksandMod/main/MFQM.arrayPlayersHooks:[Ljava/lang/String;
+000024: iload_3 
+000025: aaload 
+000026: aload_2 
+000027: if_acmpne 16
+000030: getstatic #53 MoreFunQuicksandMod/main/MFQM.arrayHooks:[Lnet/minecraft/entity/Entity;
+000033: iload_3 
+000034: aaload 
+000035: checkcast #59 MoreFunQuicksandMod/main/entity/EntityHook
+000038: fload_0 
+000039: f2d 
+000040: putfield #63 MoreFunQuicksandMod/main/entity/EntityHook.curLen:D
+000043: iinc 3, 1
+000046: goto -39
+000049: return 
+
+METHOD access$000 (LMoreFunQuicksandMod/main/HookMessage;)F
+000000: aload_0 
+000001: getfield #21 MoreFunQuicksandMod/main/HookMessage.Len:F
+000004: freturn 

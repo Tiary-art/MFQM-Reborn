@@ -1,0 +1,132 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.common.registry.GameRegistry
+6:  *  net.minecraft.block.Block
+7:  *  net.minecraft.init.Blocks
+8:  *  net.minecraft.init.Items
+9:  *  net.minecraft.item.Item
+10:  *  net.minecraft.stats.StatCrafting
+11:  *  net.minecraft.stats.StatList
+12:  *  net.minecraft.util.ObjectIntIdentityMap
+13:  *  net.minecraft.util.RegistryNamespaced
+14:  *  net.minecraft.util.RegistrySimple
+15:  */
+16: package MoreFunQuicksandMod.main;
+17: 
+18: import MoreFunQuicksandMod.main.Fields;
+19: import cpw.mods.fml.common.registry.GameRegistry;
+20: import java.lang.reflect.Field;
+21: import java.lang.reflect.Modifier;
+22: import java.util.List;
+23: import java.util.Map;
+24: import net.minecraft.block.Block;
+25: import net.minecraft.init.Blocks;
+26: import net.minecraft.init.Items;
+27: import net.minecraft.item.Item;
+28: import net.minecraft.stats.StatCrafting;
+29: import net.minecraft.stats.StatList;
+30: import net.minecraft.util.ObjectIntIdentityMap;
+31: import net.minecraft.util.RegistryNamespaced;
+32: import net.minecraft.util.RegistrySimple;
+33: 
+34: public final class CustomRegister {
+35:     public void registerItem(String id, Item item, String modId) {
+36:         if (!id.startsWith(modId + ":")) {
+37:             GameRegistry.registerItem((Item)item, (String)id);
+38:         } else {
+39:             RegistryNamespaced registry = Item.field_150901_e;
+40:             try {
+41:                 Item item0 = (Item)registry.func_82594_a(id);
+42:                 Integer id0 = registry.func_148757_b((Object)item0);
+43:                 Map map0 = null;
+44:                 ObjectIntIdentityMap map1 = null;
+45:                 Field field0 = Fields.findField(RegistrySimple.class, Map.class, 0);
+46:                 field0.setAccessible(true);
+47:                 Field field1 = Fields.findField(RegistryNamespaced.class, ObjectIntIdentityMap.class, 0);
+48:                 field1.setAccessible(true);
+49:                 map0 = (Map)field0.get(registry);
+50:                 map1 = (ObjectIntIdentityMap)field1.get(registry);
+51:                 map0.remove(id);
+52:                 map1.func_148746_a((Object)item, id0.intValue());
+53:                 map0.put(id, item);
+54:                 map0.put("removed:" + id.replace(modId + ":", ""), item0);
+55:                 item0.func_77637_a(null);
+56:                 for (Field field : Items.class.getFields()) {
+57:                     int modifiers = field.getModifiers();
+58:                     if (!Modifier.isStatic(modifiers)) continue;
+59:                     try {
+60:                         if (!field.get(null).equals(item0)) continue;
+61:                         Field field2 = Field.class.getDeclaredField("modifiers");
+62:                         field2.setAccessible(true);
+63:                         field2.set(field, modifiers & 0xFFFFFFEF);
+64:                         field.setAccessible(true);
+65:                         field.set(null, item);
+66:                     }
+67:                     catch (Exception e) {
+68:                         e.printStackTrace();
+69:                     }
+70:                 }
+71:                 Field field2 = Fields.findField(StatCrafting.class, Item.class, 0);
+72:                 field2.setAccessible(true);
+73:                 List list = StatList.field_75938_d;
+74:                 for (StatCrafting stat : list) {
+75:                     if (field2.get(stat) != item0) continue;
+76:                     Field field3 = Field.class.getDeclaredField("modifiers");
+77:                     field3.setAccessible(true);
+78:                     field3.set(field2, field2.getModifiers() & 0xFFFFFFEF);
+79:                     field2.setAccessible(true);
+80:                     field2.set(stat, item);
+81:                 }
+82:             }
+83:             catch (Exception e) {
+84:                 e.printStackTrace();
+85:             }
+86:         }
+87:     }
+88: 
+89:     public void registerBlock(String id, Block block, String modId) {
+90:         if (!id.startsWith(modId + ":")) {
+91:             GameRegistry.registerBlock((Block)block, (String)id);
+92:         } else {
+93:             RegistryNamespaced registry = Block.field_149771_c;
+94:             try {
+95:                 Block block0 = (Block)registry.func_82594_a(id);
+96:                 Integer id0 = registry.func_148757_b((Object)block0);
+97:                 Map map0 = null;
+98:                 ObjectIntIdentityMap map1 = null;
+99:                 Field field0 = Fields.findField(RegistrySimple.class, Map.class, 0);
+100:                 field0.setAccessible(true);
+101:                 Field field1 = Fields.findField(RegistryNamespaced.class, ObjectIntIdentityMap.class, 0);
+102:                 field1.setAccessible(true);
+103:                 map0 = (Map)field0.get(registry);
+104:                 map1 = (ObjectIntIdentityMap)field1.get(registry);
+105:                 map0.remove(id);
+106:                 map1.func_148746_a((Object)block, id0.intValue());
+107:                 map0.put(id, block);
+108:                 map0.put("removed:" + id.replace(modId + ":", ""), block0);
+109:                 block0.func_149647_a(null);
+110:                 for (Field field : Blocks.class.getFields()) {
+111:                     int modifiers = field.getModifiers();
+112:                     if (!Modifier.isStatic(modifiers)) continue;
+113:                     try {
+114:                         if (!field.get(null).equals(block0)) continue;
+115:                         Field field2 = Field.class.getDeclaredField("modifiers");
+116:                         field2.setAccessible(true);
+117:                         field2.set(field, modifiers & 0xFFFFFFEF);
+118:                         field.setAccessible(true);
+119:                         field.set(null, block);
+120:                     }
+121:                     catch (Exception e) {
+122:                         e.printStackTrace();
+123:                     }
+124:                 }
+125:             }
+126:             catch (Exception e) {
+127:                 e.printStackTrace();
+128:             }
+129:         }
+130:     }
+131: }
+132: 

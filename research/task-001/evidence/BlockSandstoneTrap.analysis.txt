@@ -1,0 +1,81 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  net.minecraft.block.Block
+6:  *  net.minecraft.block.BlockSandStone
+7:  *  net.minecraft.creativetab.CreativeTabs
+8:  *  net.minecraft.entity.player.EntityPlayer
+9:  *  net.minecraft.init.Blocks
+10:  *  net.minecraft.item.Item
+11:  *  net.minecraft.world.World
+12:  */
+13: package MoreFunQuicksandMod.main.blocks;
+14: 
+15: import MoreFunQuicksandMod.main.MFQM;
+16: import java.util.List;
+17: import java.util.Random;
+18: import net.minecraft.block.Block;
+19: import net.minecraft.block.BlockSandStone;
+20: import net.minecraft.creativetab.CreativeTabs;
+21: import net.minecraft.entity.player.EntityPlayer;
+22: import net.minecraft.init.Blocks;
+23: import net.minecraft.item.Item;
+24: import net.minecraft.world.World;
+25: 
+26: public class BlockSandstoneTrap
+27: extends BlockSandStone {
+28:     public BlockSandstoneTrap() {
+29:         this.func_149663_c("SandstoneTrapBlock");
+30:         this.func_149658_d("sandstone");
+31:         this.func_149647_a(MFQM.tabMFQM);
+32:     }
+33: 
+34:     public void func_149726_b(World world, int x, int y, int z) {
+35:         super.func_149726_b(world, x, y, z);
+36:         if (world.func_72864_z(x, y, z)) {
+37:             this.chainReaction(world, x, y, z);
+38:         }
+39:     }
+40: 
+41:     public void func_149695_a(World world, int x, int y, int z, Block block) {
+42:         if (world.func_72864_z(x, y, z)) {
+43:             this.chainReaction(world, x, y, z);
+44:         }
+45:     }
+46: 
+47:     public void chainReaction(World world, int x, int y, int z) {
+48:         if (world.func_147439_a(x, y, z) == this) {
+49:             world.func_147465_d(x, y, z, MFQM.QuicksandBlock, 0, 2);
+50:             world.func_72908_a((double)x + 0.5, (double)y + 0.5, (double)z + 0.5, "mob.silverfish.step", 0.15f, world.field_73012_v.nextFloat() * 0.1f + 0.1f);
+51:             this.chainReaction(world, x + 1, y, z);
+52:             this.chainReaction(world, x - 1, y, z);
+53:             this.chainReaction(world, x, y, z - 1);
+54:             this.chainReaction(world, x, y, z + 1);
+55:         }
+56:     }
+57: 
+58:     public int func_149692_a(int p_149692_1_) {
+59:         return 0;
+60:     }
+61: 
+62:     public void func_149666_a(Item p_149666_1_, CreativeTabs p_149666_2_, List p_149666_3_) {
+63:     }
+64: 
+65:     protected boolean func_149700_E() {
+66:         return true;
+67:     }
+68: 
+69:     public boolean canHarvestBlock(EntityPlayer player, int meta) {
+70:         return true;
+71:     }
+72: 
+73:     public Item func_149650_a(int par1, Random par2Random, int par3) {
+74:         return Item.func_150898_a((Block)Blocks.field_150322_A);
+75:     }
+76: 
+77:     public int func_149745_a(Random random) {
+78:         return 1;
+79:     }
+80: }
+81: 

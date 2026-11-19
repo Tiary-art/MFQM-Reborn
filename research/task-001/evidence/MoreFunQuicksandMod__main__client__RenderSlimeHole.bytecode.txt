@@ -1,0 +1,903 @@
+Archive: MoreFunQuicksandMod/main/client/RenderSlimeHole.class
+SHA256: 4916ed2e6b39a2e15ee97d7913d7820f79b635ba0eeec9c7edd0028574f699f0
+Superclass: net/minecraft/client/renderer/entity/Render
+Offsets are decimal byte offsets; branch operands are relative offsets.
+
+
+METHOD <init> ()V
+000000: aload_0 
+000001: invokespecial #18 net/minecraft/client/renderer/entity/Render.<init>:()V
+000004: return 
+
+METHOD doRenderSlimeHole (LMoreFunQuicksandMod/main/entity/EntitySlimeHole;DDDFF)V
+000000: dconst_0 
+000001: dstore 10
+000003: dconst_0 
+000004: dstore 12
+000006: dconst_0 
+000007: dstore 14
+000009: getstatic #28 net/minecraft/client/renderer/Tessellator.field_78398_a:Lnet/minecraft/client/renderer/Tessellator;
+000012: astore 16
+000014: bipush 9
+000016: newarray 6
+000018: astore 17
+000020: bipush 9
+000022: newarray 10
+000024: astore 18
+000026: bipush 9
+000028: newarray 10
+000030: astore 19
+000032: bipush 9
+000034: newarray 10
+000036: astore 20
+000038: aload_1 
+000039: getfield #34 MoreFunQuicksandMod/main/entity/EntitySlimeHole.field_70165_t:D
+000042: invokestatic #40 java/lang/Math.floor:(D)D
+000045: d2i 
+000046: istore 21
+000048: aload_1 
+000049: getfield #43 MoreFunQuicksandMod/main/entity/EntitySlimeHole.field_70163_u:D
+000052: dconst_1 
+000053: dadd 
+000054: invokestatic #40 java/lang/Math.floor:(D)D
+000057: d2i 
+000058: istore 22
+000060: aload_1 
+000061: getfield #46 MoreFunQuicksandMod/main/entity/EntitySlimeHole.field_70161_v:D
+000064: invokestatic #40 java/lang/Math.floor:(D)D
+000067: d2i 
+000068: istore 23
+000070: iload 21
+000072: i2d 
+000073: aload_1 
+000074: getfield #34 MoreFunQuicksandMod/main/entity/EntitySlimeHole.field_70165_t:D
+000077: dsub 
+000078: dstore 24
+000080: iload 23
+000082: i2d 
+000083: aload_1 
+000084: getfield #46 MoreFunQuicksandMod/main/entity/EntitySlimeHole.field_70161_v:D
+000087: dsub 
+000088: dstore 26
+000090: iconst_0 
+000091: istore 28
+000093: iconst_m1 
+000094: istore 29
+000096: iload 29
+000098: iconst_2 
+000099: if_icmpge 184
+000102: iconst_m1 
+000103: istore 30
+000105: iload 30
+000107: iconst_2 
+000108: if_icmpge 169
+000111: aload 19
+000113: iload 28
+000115: sipush -9999
+000118: iastore 
+000119: aload_1 
+000120: getfield #54 MoreFunQuicksandMod/main/entity/EntitySlimeHole.field_70170_p:Lnet/minecraft/world/World;
+000123: iload 21
+000125: iload 30
+000127: iadd 
+000128: iload 22
+000130: iconst_1 
+000131: isub 
+000132: iload 23
+000134: iload 29
+000136: iadd 
+000137: invokevirtual #60 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+000140: getstatic #66 MoreFunQuicksandMod/main/MFQM.SlimeBlock:Lnet/minecraft/block/Block;
+000143: if_acmpne 33
+000146: aload_1 
+000147: getfield #54 MoreFunQuicksandMod/main/entity/EntitySlimeHole.field_70170_p:Lnet/minecraft/world/World;
+000150: iload 21
+000152: iload 30
+000154: iadd 
+000155: iload 22
+000157: iconst_1 
+000158: isub 
+000159: iload 23
+000161: iload 29
+000163: iadd 
+000164: invokevirtual #70 net/minecraft/world/World.func_72805_g:(III)I
+000167: ifne 9
+000170: aload 19
+000172: iload 28
+000174: iconst_0 
+000175: iastore 
+000176: aload 19
+000178: iload 28
+000180: iaload 
+000181: sipush -9999
+000184: if_icmpeq 84
+000187: aload 17
+000189: iload 28
+000191: iconst_4 
+000192: getstatic #66 MoreFunQuicksandMod/main/MFQM.SlimeBlock:Lnet/minecraft/block/Block;
+000195: aload_1 
+000196: getfield #54 MoreFunQuicksandMod/main/entity/EntitySlimeHole.field_70170_p:Lnet/minecraft/world/World;
+000199: iload 21
+000201: iload 30
+000203: iadd 
+000204: iload 22
+000206: iload 23
+000208: iload 29
+000210: iadd 
+000211: invokevirtual #76 net/minecraft/block/Block.func_149677_c:(Lnet/minecraft/world/IBlockAccess;III)I
+000214: imul 
+000215: i2f 
+000216: fastore 
+000217: aload 18
+000219: iload 28
+000221: aload_1 
+000222: getfield #54 MoreFunQuicksandMod/main/entity/EntitySlimeHole.field_70170_p:Lnet/minecraft/world/World;
+000225: iload 21
+000227: iload 30
+000229: iadd 
+000230: iload 22
+000232: iload 23
+000234: iload 29
+000236: iadd 
+000237: iconst_0 
+000238: invokevirtual #80 net/minecraft/world/World.func_72802_i:(IIII)I
+000241: iastore 
+000242: aload 19
+000244: iload 28
+000246: aload 18
+000248: iload 28
+000250: iaload 
+000251: ldc #81 65536
+000253: irem 
+000254: iastore 
+000255: aload 20
+000257: iload 28
+000259: aload 18
+000261: iload 28
+000263: iaload 
+000264: ldc #81 65536
+000266: idiv 
+000267: iastore 
+000268: iinc 28, 1
+000271: iinc 30, 1
+000274: goto -169
+000277: iinc 29, 1
+000280: goto -184
+000283: aload_0 
+000284: aload_0 
+000285: aload_1 
+000286: invokevirtual #85 MoreFunQuicksandMod/main/client/RenderSlimeHole.getHoleType:(LMoreFunQuicksandMod/main/entity/EntitySlimeHole;)Lnet/minecraft/util/ResourceLocation;
+000289: invokevirtual #89 MoreFunQuicksandMod/main/client/RenderSlimeHole.func_110776_a:(Lnet/minecraft/util/ResourceLocation;)V
+000292: invokestatic #94 org/lwjgl/opengl/GL11.glPushMatrix:()V
+000295: ldc #95 32826
+000297: invokestatic #99 org/lwjgl/opengl/GL11.glEnable:(I)V
+000300: dload_2 
+000301: d2f 
+000302: dload 4
+000304: d2f 
+000305: dload 6
+000307: d2f 
+000308: invokestatic #103 org/lwjgl/opengl/GL11.glTranslatef:(FFF)V
+000311: dconst_0 
+000312: dstore 29
+000314: dconst_0 
+000315: dstore 31
+000317: dconst_0 
+000318: dstore 33
+000320: dconst_0 
+000321: dstore 35
+000323: iconst_0 
+000324: istore 37
+000326: dload 24
+000328: dstore 29
+000330: dload 26
+000332: dstore 31
+000334: dload 24
+000336: dconst_1 
+000337: dadd 
+000338: dstore 33
+000340: dload 26
+000342: dconst_1 
+000343: dadd 
+000344: dstore 35
+000346: iconst_4 
+000347: istore 37
+000349: aload 19
+000351: iload 37
+000353: iaload 
+000354: sipush -9999
+000357: if_icmpeq 88
+000360: getstatic #109 net/minecraft/client/renderer/OpenGlHelper.field_77476_b:I
+000363: aload 19
+000365: iload 37
+000367: iaload 
+000368: i2f 
+000369: aload 20
+000371: iload 37
+000373: iaload 
+000374: i2f 
+000375: invokestatic #113 net/minecraft/client/renderer/OpenGlHelper.func_77475_a:(IFF)V
+000378: aload 16
+000380: aload 17
+000382: iload 37
+000384: faload 
+000385: aload 17
+000387: iload 37
+000389: faload 
+000390: aload 17
+000392: iload 37
+000394: faload 
+000395: invokevirtual #116 net/minecraft/client/renderer/Tessellator.func_78386_a:(FFF)V
+000398: aload_0 
+000399: aload 16
+000401: dconst_0 
+000402: dload 29
+000404: dload 31
+000406: dload 33
+000408: dload 35
+000410: dload 29
+000412: dconst_1 
+000413: dadd 
+000414: ldc2_w #117 2.0
+000417: ddiv 
+000418: dload 31
+000420: dconst_1 
+000421: dadd 
+000422: ldc2_w #117 2.0
+000425: ddiv 
+000426: dload 33
+000428: dconst_1 
+000429: dadd 
+000430: ldc2_w #117 2.0
+000433: ddiv 
+000434: dload 35
+000436: dconst_1 
+000437: dadd 
+000438: ldc2_w #117 2.0
+000441: ddiv 
+000442: invokevirtual #122 MoreFunQuicksandMod/main/client/RenderSlimeHole.drawQuad:(Lnet/minecraft/client/renderer/Tessellator;DDDDDDDDD)V
+000445: ldc2_w #123 -1.0
+000448: dstore 29
+000450: ldc2_w #123 -1.0
+000453: dstore 31
+000455: dload 24
+000457: dstore 33
+000459: dload 26
+000461: dstore 35
+000463: iconst_0 
+000464: istore 37
+000466: aload 19
+000468: iload 37
+000470: iaload 
+000471: sipush -9999
+000474: if_icmpeq 88
+000477: getstatic #109 net/minecraft/client/renderer/OpenGlHelper.field_77476_b:I
+000480: aload 19
+000482: iload 37
+000484: iaload 
+000485: i2f 
+000486: aload 20
+000488: iload 37
+000490: iaload 
+000491: i2f 
+000492: invokestatic #113 net/minecraft/client/renderer/OpenGlHelper.func_77475_a:(IFF)V
+000495: aload 16
+000497: aload 17
+000499: iload 37
+000501: faload 
+000502: aload 17
+000504: iload 37
+000506: faload 
+000507: aload 17
+000509: iload 37
+000511: faload 
+000512: invokevirtual #116 net/minecraft/client/renderer/Tessellator.func_78386_a:(FFF)V
+000515: aload_0 
+000516: aload 16
+000518: dconst_0 
+000519: dload 29
+000521: dload 31
+000523: dload 33
+000525: dload 35
+000527: dload 29
+000529: dconst_1 
+000530: dadd 
+000531: ldc2_w #117 2.0
+000534: ddiv 
+000535: dload 31
+000537: dconst_1 
+000538: dadd 
+000539: ldc2_w #117 2.0
+000542: ddiv 
+000543: dload 33
+000545: dconst_1 
+000546: dadd 
+000547: ldc2_w #117 2.0
+000550: ddiv 
+000551: dload 35
+000553: dconst_1 
+000554: dadd 
+000555: ldc2_w #117 2.0
+000558: ddiv 
+000559: invokevirtual #122 MoreFunQuicksandMod/main/client/RenderSlimeHole.drawQuad:(Lnet/minecraft/client/renderer/Tessellator;DDDDDDDDD)V
+000562: dload 24
+000564: dstore 29
+000566: ldc2_w #123 -1.0
+000569: dstore 31
+000571: dload 24
+000573: dconst_1 
+000574: dadd 
+000575: dstore 33
+000577: dload 26
+000579: dstore 35
+000581: iconst_1 
+000582: istore 37
+000584: aload 19
+000586: iload 37
+000588: iaload 
+000589: sipush -9999
+000592: if_icmpeq 88
+000595: getstatic #109 net/minecraft/client/renderer/OpenGlHelper.field_77476_b:I
+000598: aload 19
+000600: iload 37
+000602: iaload 
+000603: i2f 
+000604: aload 20
+000606: iload 37
+000608: iaload 
+000609: i2f 
+000610: invokestatic #113 net/minecraft/client/renderer/OpenGlHelper.func_77475_a:(IFF)V
+000613: aload 16
+000615: aload 17
+000617: iload 37
+000619: faload 
+000620: aload 17
+000622: iload 37
+000624: faload 
+000625: aload 17
+000627: iload 37
+000629: faload 
+000630: invokevirtual #116 net/minecraft/client/renderer/Tessellator.func_78386_a:(FFF)V
+000633: aload_0 
+000634: aload 16
+000636: dconst_0 
+000637: dload 29
+000639: dload 31
+000641: dload 33
+000643: dload 35
+000645: dload 29
+000647: dconst_1 
+000648: dadd 
+000649: ldc2_w #117 2.0
+000652: ddiv 
+000653: dload 31
+000655: dconst_1 
+000656: dadd 
+000657: ldc2_w #117 2.0
+000660: ddiv 
+000661: dload 33
+000663: dconst_1 
+000664: dadd 
+000665: ldc2_w #117 2.0
+000668: ddiv 
+000669: dload 35
+000671: dconst_1 
+000672: dadd 
+000673: ldc2_w #117 2.0
+000676: ddiv 
+000677: invokevirtual #122 MoreFunQuicksandMod/main/client/RenderSlimeHole.drawQuad:(Lnet/minecraft/client/renderer/Tessellator;DDDDDDDDD)V
+000680: dload 24
+000682: dconst_1 
+000683: dadd 
+000684: dstore 29
+000686: ldc2_w #123 -1.0
+000689: dstore 31
+000691: dconst_1 
+000692: dstore 33
+000694: dload 26
+000696: dstore 35
+000698: iconst_2 
+000699: istore 37
+000701: aload 19
+000703: iload 37
+000705: iaload 
+000706: sipush -9999
+000709: if_icmpeq 88
+000712: getstatic #109 net/minecraft/client/renderer/OpenGlHelper.field_77476_b:I
+000715: aload 19
+000717: iload 37
+000719: iaload 
+000720: i2f 
+000721: aload 20
+000723: iload 37
+000725: iaload 
+000726: i2f 
+000727: invokestatic #113 net/minecraft/client/renderer/OpenGlHelper.func_77475_a:(IFF)V
+000730: aload 16
+000732: aload 17
+000734: iload 37
+000736: faload 
+000737: aload 17
+000739: iload 37
+000741: faload 
+000742: aload 17
+000744: iload 37
+000746: faload 
+000747: invokevirtual #116 net/minecraft/client/renderer/Tessellator.func_78386_a:(FFF)V
+000750: aload_0 
+000751: aload 16
+000753: dconst_0 
+000754: dload 29
+000756: dload 31
+000758: dload 33
+000760: dload 35
+000762: dload 29
+000764: dconst_1 
+000765: dadd 
+000766: ldc2_w #117 2.0
+000769: ddiv 
+000770: dload 31
+000772: dconst_1 
+000773: dadd 
+000774: ldc2_w #117 2.0
+000777: ddiv 
+000778: dload 33
+000780: dconst_1 
+000781: dadd 
+000782: ldc2_w #117 2.0
+000785: ddiv 
+000786: dload 35
+000788: dconst_1 
+000789: dadd 
+000790: ldc2_w #117 2.0
+000793: ddiv 
+000794: invokevirtual #122 MoreFunQuicksandMod/main/client/RenderSlimeHole.drawQuad:(Lnet/minecraft/client/renderer/Tessellator;DDDDDDDDD)V
+000797: ldc2_w #123 -1.0
+000800: dstore 29
+000802: dload 26
+000804: dstore 31
+000806: dload 24
+000808: dstore 33
+000810: dload 26
+000812: dconst_1 
+000813: dadd 
+000814: dstore 35
+000816: iconst_3 
+000817: istore 37
+000819: aload 19
+000821: iload 37
+000823: iaload 
+000824: sipush -9999
+000827: if_icmpeq 88
+000830: getstatic #109 net/minecraft/client/renderer/OpenGlHelper.field_77476_b:I
+000833: aload 19
+000835: iload 37
+000837: iaload 
+000838: i2f 
+000839: aload 20
+000841: iload 37
+000843: iaload 
+000844: i2f 
+000845: invokestatic #113 net/minecraft/client/renderer/OpenGlHelper.func_77475_a:(IFF)V
+000848: aload 16
+000850: aload 17
+000852: iload 37
+000854: faload 
+000855: aload 17
+000857: iload 37
+000859: faload 
+000860: aload 17
+000862: iload 37
+000864: faload 
+000865: invokevirtual #116 net/minecraft/client/renderer/Tessellator.func_78386_a:(FFF)V
+000868: aload_0 
+000869: aload 16
+000871: dconst_0 
+000872: dload 29
+000874: dload 31
+000876: dload 33
+000878: dload 35
+000880: dload 29
+000882: dconst_1 
+000883: dadd 
+000884: ldc2_w #117 2.0
+000887: ddiv 
+000888: dload 31
+000890: dconst_1 
+000891: dadd 
+000892: ldc2_w #117 2.0
+000895: ddiv 
+000896: dload 33
+000898: dconst_1 
+000899: dadd 
+000900: ldc2_w #117 2.0
+000903: ddiv 
+000904: dload 35
+000906: dconst_1 
+000907: dadd 
+000908: ldc2_w #117 2.0
+000911: ddiv 
+000912: invokevirtual #122 MoreFunQuicksandMod/main/client/RenderSlimeHole.drawQuad:(Lnet/minecraft/client/renderer/Tessellator;DDDDDDDDD)V
+000915: dload 24
+000917: dconst_1 
+000918: dadd 
+000919: dstore 29
+000921: dload 26
+000923: dstore 31
+000925: dconst_1 
+000926: dstore 33
+000928: dload 26
+000930: dconst_1 
+000931: dadd 
+000932: dstore 35
+000934: iconst_5 
+000935: istore 37
+000937: aload 19
+000939: iload 37
+000941: iaload 
+000942: sipush -9999
+000945: if_icmpeq 88
+000948: getstatic #109 net/minecraft/client/renderer/OpenGlHelper.field_77476_b:I
+000951: aload 19
+000953: iload 37
+000955: iaload 
+000956: i2f 
+000957: aload 20
+000959: iload 37
+000961: iaload 
+000962: i2f 
+000963: invokestatic #113 net/minecraft/client/renderer/OpenGlHelper.func_77475_a:(IFF)V
+000966: aload 16
+000968: aload 17
+000970: iload 37
+000972: faload 
+000973: aload 17
+000975: iload 37
+000977: faload 
+000978: aload 17
+000980: iload 37
+000982: faload 
+000983: invokevirtual #116 net/minecraft/client/renderer/Tessellator.func_78386_a:(FFF)V
+000986: aload_0 
+000987: aload 16
+000989: dconst_0 
+000990: dload 29
+000992: dload 31
+000994: dload 33
+000996: dload 35
+000998: dload 29
+001000: dconst_1 
+001001: dadd 
+001002: ldc2_w #117 2.0
+001005: ddiv 
+001006: dload 31
+001008: dconst_1 
+001009: dadd 
+001010: ldc2_w #117 2.0
+001013: ddiv 
+001014: dload 33
+001016: dconst_1 
+001017: dadd 
+001018: ldc2_w #117 2.0
+001021: ddiv 
+001022: dload 35
+001024: dconst_1 
+001025: dadd 
+001026: ldc2_w #117 2.0
+001029: ddiv 
+001030: invokevirtual #122 MoreFunQuicksandMod/main/client/RenderSlimeHole.drawQuad:(Lnet/minecraft/client/renderer/Tessellator;DDDDDDDDD)V
+001033: ldc2_w #123 -1.0
+001036: dstore 29
+001038: dload 26
+001040: dconst_1 
+001041: dadd 
+001042: dstore 31
+001044: dload 24
+001046: dstore 33
+001048: dconst_1 
+001049: dstore 35
+001051: bipush 6
+001053: istore 37
+001055: aload 19
+001057: iload 37
+001059: iaload 
+001060: sipush -9999
+001063: if_icmpeq 88
+001066: getstatic #109 net/minecraft/client/renderer/OpenGlHelper.field_77476_b:I
+001069: aload 19
+001071: iload 37
+001073: iaload 
+001074: i2f 
+001075: aload 20
+001077: iload 37
+001079: iaload 
+001080: i2f 
+001081: invokestatic #113 net/minecraft/client/renderer/OpenGlHelper.func_77475_a:(IFF)V
+001084: aload 16
+001086: aload 17
+001088: iload 37
+001090: faload 
+001091: aload 17
+001093: iload 37
+001095: faload 
+001096: aload 17
+001098: iload 37
+001100: faload 
+001101: invokevirtual #116 net/minecraft/client/renderer/Tessellator.func_78386_a:(FFF)V
+001104: aload_0 
+001105: aload 16
+001107: dconst_0 
+001108: dload 29
+001110: dload 31
+001112: dload 33
+001114: dload 35
+001116: dload 29
+001118: dconst_1 
+001119: dadd 
+001120: ldc2_w #117 2.0
+001123: ddiv 
+001124: dload 31
+001126: dconst_1 
+001127: dadd 
+001128: ldc2_w #117 2.0
+001131: ddiv 
+001132: dload 33
+001134: dconst_1 
+001135: dadd 
+001136: ldc2_w #117 2.0
+001139: ddiv 
+001140: dload 35
+001142: dconst_1 
+001143: dadd 
+001144: ldc2_w #117 2.0
+001147: ddiv 
+001148: invokevirtual #122 MoreFunQuicksandMod/main/client/RenderSlimeHole.drawQuad:(Lnet/minecraft/client/renderer/Tessellator;DDDDDDDDD)V
+001151: dload 24
+001153: dstore 29
+001155: dload 26
+001157: dconst_1 
+001158: dadd 
+001159: dstore 31
+001161: dload 24
+001163: dconst_1 
+001164: dadd 
+001165: dstore 33
+001167: dconst_1 
+001168: dstore 35
+001170: bipush 7
+001172: istore 37
+001174: aload 19
+001176: iload 37
+001178: iaload 
+001179: sipush -9999
+001182: if_icmpeq 88
+001185: getstatic #109 net/minecraft/client/renderer/OpenGlHelper.field_77476_b:I
+001188: aload 19
+001190: iload 37
+001192: iaload 
+001193: i2f 
+001194: aload 20
+001196: iload 37
+001198: iaload 
+001199: i2f 
+001200: invokestatic #113 net/minecraft/client/renderer/OpenGlHelper.func_77475_a:(IFF)V
+001203: aload 16
+001205: aload 17
+001207: iload 37
+001209: faload 
+001210: aload 17
+001212: iload 37
+001214: faload 
+001215: aload 17
+001217: iload 37
+001219: faload 
+001220: invokevirtual #116 net/minecraft/client/renderer/Tessellator.func_78386_a:(FFF)V
+001223: aload_0 
+001224: aload 16
+001226: dconst_0 
+001227: dload 29
+001229: dload 31
+001231: dload 33
+001233: dload 35
+001235: dload 29
+001237: dconst_1 
+001238: dadd 
+001239: ldc2_w #117 2.0
+001242: ddiv 
+001243: dload 31
+001245: dconst_1 
+001246: dadd 
+001247: ldc2_w #117 2.0
+001250: ddiv 
+001251: dload 33
+001253: dconst_1 
+001254: dadd 
+001255: ldc2_w #117 2.0
+001258: ddiv 
+001259: dload 35
+001261: dconst_1 
+001262: dadd 
+001263: ldc2_w #117 2.0
+001266: ddiv 
+001267: invokevirtual #122 MoreFunQuicksandMod/main/client/RenderSlimeHole.drawQuad:(Lnet/minecraft/client/renderer/Tessellator;DDDDDDDDD)V
+001270: dload 24
+001272: dconst_1 
+001273: dadd 
+001274: dstore 29
+001276: dload 26
+001278: dconst_1 
+001279: dadd 
+001280: dstore 31
+001282: dconst_1 
+001283: dstore 33
+001285: dconst_1 
+001286: dstore 35
+001288: bipush 8
+001290: istore 37
+001292: aload 19
+001294: iload 37
+001296: iaload 
+001297: sipush -9999
+001300: if_icmpeq 88
+001303: getstatic #109 net/minecraft/client/renderer/OpenGlHelper.field_77476_b:I
+001306: aload 19
+001308: iload 37
+001310: iaload 
+001311: i2f 
+001312: aload 20
+001314: iload 37
+001316: iaload 
+001317: i2f 
+001318: invokestatic #113 net/minecraft/client/renderer/OpenGlHelper.func_77475_a:(IFF)V
+001321: aload 16
+001323: aload 17
+001325: iload 37
+001327: faload 
+001328: aload 17
+001330: iload 37
+001332: faload 
+001333: aload 17
+001335: iload 37
+001337: faload 
+001338: invokevirtual #116 net/minecraft/client/renderer/Tessellator.func_78386_a:(FFF)V
+001341: aload_0 
+001342: aload 16
+001344: dconst_0 
+001345: dload 29
+001347: dload 31
+001349: dload 33
+001351: dload 35
+001353: dload 29
+001355: dconst_1 
+001356: dadd 
+001357: ldc2_w #117 2.0
+001360: ddiv 
+001361: dload 31
+001363: dconst_1 
+001364: dadd 
+001365: ldc2_w #117 2.0
+001368: ddiv 
+001369: dload 33
+001371: dconst_1 
+001372: dadd 
+001373: ldc2_w #117 2.0
+001376: ddiv 
+001377: dload 35
+001379: dconst_1 
+001380: dadd 
+001381: ldc2_w #117 2.0
+001384: ddiv 
+001385: invokevirtual #122 MoreFunQuicksandMod/main/client/RenderSlimeHole.drawQuad:(Lnet/minecraft/client/renderer/Tessellator;DDDDDDDDD)V
+001388: ldc #95 32826
+001390: invokestatic #127 org/lwjgl/opengl/GL11.glDisable:(I)V
+001393: invokestatic #130 org/lwjgl/opengl/GL11.glPopMatrix:()V
+001396: return 
+
+METHOD drawQuad (Lnet/minecraft/client/renderer/Tessellator;DDDDDDDDD)V
+000000: aload_1 
+000001: invokevirtual #162 net/minecraft/client/renderer/Tessellator.func_78382_b:()V
+000004: aload_1 
+000005: fconst_0 
+000006: fconst_1 
+000007: fconst_0 
+000008: invokevirtual #165 net/minecraft/client/renderer/Tessellator.func_78375_b:(FFF)V
+000011: aload_1 
+000012: dload 4
+000014: dload_2 
+000015: dload 6
+000017: dload 12
+000019: dload 14
+000021: invokevirtual #169 net/minecraft/client/renderer/Tessellator.func_78374_a:(DDDDD)V
+000024: aload_1 
+000025: dload 4
+000027: dload_2 
+000028: dload 10
+000030: dload 12
+000032: dload 18
+000034: invokevirtual #169 net/minecraft/client/renderer/Tessellator.func_78374_a:(DDDDD)V
+000037: aload_1 
+000038: dload 8
+000040: dload_2 
+000041: dload 10
+000043: dload 16
+000045: dload 18
+000047: invokevirtual #169 net/minecraft/client/renderer/Tessellator.func_78374_a:(DDDDD)V
+000050: aload_1 
+000051: dload 8
+000053: dload_2 
+000054: dload 6
+000056: dload 16
+000058: dload 14
+000060: invokevirtual #169 net/minecraft/client/renderer/Tessellator.func_78374_a:(DDDDD)V
+000063: aload_1 
+000064: invokevirtual #173 net/minecraft/client/renderer/Tessellator.func_78381_a:()I
+000067: pop 
+000068: return 
+
+METHOD func_110775_a (Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/ResourceLocation;
+000000: aload_0 
+000001: aload_1 
+000002: checkcast #30 MoreFunQuicksandMod/main/entity/EntitySlimeHole
+000005: invokevirtual #85 MoreFunQuicksandMod/main/client/RenderSlimeHole.getHoleType:(LMoreFunQuicksandMod/main/entity/EntitySlimeHole;)Lnet/minecraft/util/ResourceLocation;
+000008: areturn 
+
+METHOD getHoleType (LMoreFunQuicksandMod/main/entity/EntitySlimeHole;)Lnet/minecraft/util/ResourceLocation;
+000000: aload_1 
+000001: getfield #184 MoreFunQuicksandMod/main/entity/EntitySlimeHole.size:I
+000004: iconst_3 
+000005: if_icmpne 7
+000008: getstatic #186 MoreFunQuicksandMod/main/client/RenderSlimeHole.slimeHole3:Lnet/minecraft/util/ResourceLocation;
+000011: areturn 
+000012: aload_1 
+000013: getfield #184 MoreFunQuicksandMod/main/entity/EntitySlimeHole.size:I
+000016: iconst_2 
+000017: if_icmpne 7
+000020: getstatic #188 MoreFunQuicksandMod/main/client/RenderSlimeHole.slimeHole2:Lnet/minecraft/util/ResourceLocation;
+000023: areturn 
+000024: aload_1 
+000025: getfield #184 MoreFunQuicksandMod/main/entity/EntitySlimeHole.size:I
+000028: iconst_1 
+000029: if_icmpne 7
+000032: getstatic #190 MoreFunQuicksandMod/main/client/RenderSlimeHole.slimeHole1:Lnet/minecraft/util/ResourceLocation;
+000035: areturn 
+000036: getstatic #192 MoreFunQuicksandMod/main/client/RenderSlimeHole.slimeHole0:Lnet/minecraft/util/ResourceLocation;
+000039: areturn 
+
+METHOD func_76986_a (Lnet/minecraft/entity/Entity;DDDFF)V
+000000: aload_0 
+000001: aload_1 
+000002: checkcast #30 MoreFunQuicksandMod/main/entity/EntitySlimeHole
+000005: dload_2 
+000006: dload 4
+000008: dload 6
+000010: fload 8
+000012: fload 9
+000014: invokevirtual #196 MoreFunQuicksandMod/main/client/RenderSlimeHole.doRenderSlimeHole:(LMoreFunQuicksandMod/main/entity/EntitySlimeHole;DDDFF)V
+000017: return 
+
+METHOD <clinit> ()V
+000000: new #199 net/minecraft/util/ResourceLocation
+000003: dup 
+000004: ldc #201 'morefunquicksandmod'
+000006: ldc #203 'textures/blocks/SlimeHole0.png'
+000008: invokespecial #206 net/minecraft/util/ResourceLocation.<init>:(Ljava/lang/String;Ljava/lang/String;)V
+000011: putstatic #192 MoreFunQuicksandMod/main/client/RenderSlimeHole.slimeHole0:Lnet/minecraft/util/ResourceLocation;
+000014: new #199 net/minecraft/util/ResourceLocation
+000017: dup 
+000018: ldc #201 'morefunquicksandmod'
+000020: ldc #208 'textures/blocks/SlimeHole1.png'
+000022: invokespecial #206 net/minecraft/util/ResourceLocation.<init>:(Ljava/lang/String;Ljava/lang/String;)V
+000025: putstatic #190 MoreFunQuicksandMod/main/client/RenderSlimeHole.slimeHole1:Lnet/minecraft/util/ResourceLocation;
+000028: new #199 net/minecraft/util/ResourceLocation
+000031: dup 
+000032: ldc #201 'morefunquicksandmod'
+000034: ldc #210 'textures/blocks/SlimeHole2.png'
+000036: invokespecial #206 net/minecraft/util/ResourceLocation.<init>:(Ljava/lang/String;Ljava/lang/String;)V
+000039: putstatic #188 MoreFunQuicksandMod/main/client/RenderSlimeHole.slimeHole2:Lnet/minecraft/util/ResourceLocation;
+000042: new #199 net/minecraft/util/ResourceLocation
+000045: dup 
+000046: ldc #201 'morefunquicksandmod'
+000048: ldc #212 'textures/blocks/SlimeHole3.png'
+000050: invokespecial #206 net/minecraft/util/ResourceLocation.<init>:(Ljava/lang/String;Ljava/lang/String;)V
+000053: putstatic #186 MoreFunQuicksandMod/main/client/RenderSlimeHole.slimeHole3:Lnet/minecraft/util/ResourceLocation;
+000056: return 

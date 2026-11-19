@@ -1,0 +1,205 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.client.renderer.OpenGlHelper
+8:  *  net.minecraft.client.renderer.Tessellator
+9:  *  net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
+10:  *  net.minecraft.tileentity.TileEntity
+11:  *  net.minecraft.util.MathHelper
+12:  *  net.minecraft.util.ResourceLocation
+13:  *  net.minecraft.world.IBlockAccess
+14:  *  org.lwjgl.Sys
+15:  *  org.lwjgl.opengl.GL11
+16:  */
+17: package MoreFunQuicksandMod.main.Tileentity;
+18: 
+19: import MoreFunQuicksandMod.main.MFQM;
+20: import MoreFunQuicksandMod.main.Tileentity.TileEntityBlossom;
+21: import cpw.mods.fml.relauncher.Side;
+22: import cpw.mods.fml.relauncher.SideOnly;
+23: import net.minecraft.client.renderer.OpenGlHelper;
+24: import net.minecraft.client.renderer.Tessellator;
+25: import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+26: import net.minecraft.tileentity.TileEntity;
+27: import net.minecraft.util.MathHelper;
+28: import net.minecraft.util.ResourceLocation;
+29: import net.minecraft.world.IBlockAccess;
+30: import org.lwjgl.Sys;
+31: import org.lwjgl.opengl.GL11;
+32: 
+33: @SideOnly(value=Side.CLIENT)
+34: public class TileEntityBlossomRenderer
+35: extends TileEntitySpecialRenderer {
+36:     private final ResourceLocation field_110637_a = new ResourceLocation("morefunquicksandmod", "textures/blocks/Meat10.png");
+37: 
+38:     public void renderBlossom(TileEntityBlossom par1TileEntityBlossom, double par2, double par4, double par6, float par8) {
+39:         double x = 0.0;
+40:         double y = 0.0;
+41:         double z = 0.0;
+42:         int meta = par1TileEntityBlossom.func_145831_w().func_72805_g(par1TileEntityBlossom.field_145851_c, par1TileEntityBlossom.field_145848_d, par1TileEntityBlossom.field_145849_e);
+43:         double upper = 1.0;
+44:         if (meta > 5 && meta < 10) {
+45:             int side = meta - 6;
+46:             Tessellator tessellator = Tessellator.field_78398_a;
+47:             int lightValue = 0;
+48:             if (side == 0) {
+49:                 lightValue = MFQM.MeatBlock.func_149677_c((IBlockAccess)par1TileEntityBlossom.func_145831_w(), par1TileEntityBlossom.field_145851_c, par1TileEntityBlossom.field_145848_d, par1TileEntityBlossom.field_145849_e - 1);
+50:             }
+51:             if (side == 1) {
+52:                 lightValue = MFQM.MeatBlock.func_149677_c((IBlockAccess)par1TileEntityBlossom.func_145831_w(), par1TileEntityBlossom.field_145851_c + 1, par1TileEntityBlossom.field_145848_d, par1TileEntityBlossom.field_145849_e);
+53:             }
+54:             if (side == 2) {
+55:                 lightValue = MFQM.MeatBlock.func_149677_c((IBlockAccess)par1TileEntityBlossom.func_145831_w(), par1TileEntityBlossom.field_145851_c, par1TileEntityBlossom.field_145848_d, par1TileEntityBlossom.field_145849_e + 1);
+56:             }
+57:             if (side == 3) {
+58:                 lightValue = MFQM.MeatBlock.func_149677_c((IBlockAccess)par1TileEntityBlossom.func_145831_w(), par1TileEntityBlossom.field_145851_c - 1, par1TileEntityBlossom.field_145848_d, par1TileEntityBlossom.field_145849_e);
+59:             }
+60:             int bright = lightValue;
+61:             int brightX = bright % 65536;
+62:             int brightY = bright / 65536;
+63:             OpenGlHelper.func_77475_a((int)OpenGlHelper.field_77476_b, (float)brightX, (float)brightY);
+64:             tessellator.func_78380_c(lightValue);
+65:             tessellator.func_78386_a(1.0f, 1.0f, 1.0f);
+66:             this.func_147499_a(this.field_110637_a);
+67:             GL11.glPushMatrix();
+68:             GL11.glEnable((int)32826);
+69:             GL11.glTranslatef((float)((float)par2), (float)((float)par4), (float)((float)par6));
+70:             double ph = par1TileEntityBlossom.phase;
+71:             double ampl2 = par1TileEntityBlossom.ampl;
+72:             double ampl = 0.025 + upper / 30.0;
+73:             double sz = 0.5 + upper / 15.0;
+74:             double ampld = 0.025 + upper / 30.0;
+75:             double timd1 = (double)Sys.getTime() / (200.0 + upper * 100.0) + ph;
+76:             float timf1 = (float)(timd1 - Math.floor(timd1 / 6.28318) * 6.28318);
+77:             double timd2 = (double)Sys.getTime() / (200.0 + upper * 100.0) + ph + 1.570795;
+78:             float timf2 = (float)(timd2 - Math.floor(timd2 / 6.28318) * 6.28318);
+79:             double timd3 = (double)Sys.getTime() / (200.0 + upper * 100.0) + ph + 3.14159;
+80:             float timf3 = (float)(timd3 - Math.floor(timd3 / 6.28318) * 6.28318);
+81:             double timd4 = (double)Sys.getTime() / (200.0 + upper * 100.0) + ph + 1.570795 + 3.14159;
+82:             float timf4 = (float)(timd4 - Math.floor(timd4 / 6.28318) * 6.28318);
+83:             double sina = 0.0;
+84:             double sinb = 0.0;
+85:             double sinc = 0.0;
+86:             double sind = 0.0;
+87:             double szd = ampl2;
+88:             double cof = Math.max((ampl2 - 0.25) / 0.05, 0.25);
+89:             sina = (double)MathHelper.func_76126_a((float)timf1) * cof;
+90:             sinb = (double)MathHelper.func_76126_a((float)timf2) * cof;
+91:             sinc = (double)MathHelper.func_76126_a((float)timf3) * cof;
+92:             sind = (double)MathHelper.func_76126_a((float)timf4) * cof;
+93:             if (side == 0) {
+94:                 this.renderFleshCube(tessellator, x - 0.3125, y + 0.25, z - 0.25 - szd - szd * sina / 4.0, side, sz + sina * ampl);
+95:                 this.renderFleshCube(tessellator, x, y, z - 0.25 - szd - szd * sinc / 4.0, side, sz + sinc * ampl);
+96:                 this.renderFleshCube(tessellator, x - 0.3125, y - 0.25, z - 0.25 - szd - szd * sinb / 4.0, side, sz + sinb * ampl);
+97:                 this.renderFleshCube(tessellator, x + 0.0625, y - 0.375, z - 0.25 - szd - szd * sina / 4.0, side, sz + sina * ampl);
+98:                 this.renderFleshCube(tessellator, x + 0.1875, y + 0.3125, z - 0.25 - szd - szd * sinb / 4.0, side, sz + sinb * ampl);
+99:                 this.renderFleshCube(tessellator, x + 0.3125, y - 0.0625, z - 0.25 - szd - szd * sind / 4.0, side, sz + sind * ampl);
+100:             }
+101:             if (side == 2) {
+102:                 this.renderFleshCube(tessellator, x - 0.3125, y + 0.25, z + szd + szd * sina / 4.0, side, sz + sina * ampl);
+103:                 this.renderFleshCube(tessellator, x, y, z + szd + szd * sinc / 4.0, side, sz + sinc * ampl);
+104:                 this.renderFleshCube(tessellator, x - 0.3125, y - 0.25, z + szd + szd * sinb / 4.0, side, sz + sinb * ampl);
+105:                 this.renderFleshCube(tessellator, x + 0.0625, y - 0.375, z + szd + szd * sina / 4.0, side, sz + sina * ampl);
+106:                 this.renderFleshCube(tessellator, x + 0.1875, y + 0.3125, z + szd + szd * sinb / 4.0, side, sz + sinb * ampl);
+107:                 this.renderFleshCube(tessellator, x + 0.3125, y - 0.0625, z + szd + szd * sind / 4.0, side, sz + sind * ampl);
+108:             }
+109:             if (side == 3) {
+110:                 this.renderFleshCube(tessellator, x - 0.25 - szd - szd * sina / 4.0, y + 0.25, z - 0.3125, side, sz + sina * ampl);
+111:                 this.renderFleshCube(tessellator, x - 0.25 - szd - szd * sinc / 4.0, y, z, side, sz + sinc * ampl);
+112:                 this.renderFleshCube(tessellator, x - 0.25 - szd - szd * sinb / 4.0, y - 0.25, z - 0.3125, side, sz + sinb * ampl);
+113:                 this.renderFleshCube(tessellator, x - 0.25 - szd - szd * sina / 4.0, y - 0.375, z + 0.0625, side, sz + sina * ampl);
+114:                 this.renderFleshCube(tessellator, x - 0.25 - szd - szd * sinb / 4.0, y + 0.3125, z + 0.1875, side, sz + sinb * ampl);
+115:                 this.renderFleshCube(tessellator, x - 0.25 - szd - szd * sind / 4.0, y - 0.0625, z + 0.3125, side, sz + sind * ampl);
+116:             }
+117:             if (side == 1) {
+118:                 this.renderFleshCube(tessellator, x + szd + szd * sina / 4.0, y + 0.25, z - 0.3125, side, sz + sina * ampl);
+119:                 this.renderFleshCube(tessellator, x + szd + szd * sinc / 4.0, y, z, side, sz + sinc * ampl);
+120:                 this.renderFleshCube(tessellator, x + szd + szd * sinb / 4.0, y - 0.25, z - 0.3125, side, sz + sinb * ampl);
+121:                 this.renderFleshCube(tessellator, x + szd + szd * sina / 4.0, y - 0.375, z + 0.0625, side, sz + sina * ampl);
+122:                 this.renderFleshCube(tessellator, x + szd + szd * sinb / 4.0, y + 0.3125, z + 0.1875, side, sz + sinb * ampl);
+123:                 this.renderFleshCube(tessellator, x + szd + szd * sind / 4.0, y - 0.0625, z + 0.3125, side, sz + sind * ampl);
+124:             }
+125:             GL11.glDisable((int)32826);
+126:             GL11.glPopMatrix();
+127:         }
+128:     }
+129: 
+130:     public void func_147500_a(TileEntity par1TileEntity, double par2, double par4, double par6, float par8) {
+131:         this.renderBlossom((TileEntityBlossom)par1TileEntity, par2, par4, par6, par8);
+132:     }
+133: 
+134:     public void renderFleshCube(Tessellator tessellator, double x, double y, double z, int side, double scale) {
+135:         double minU = 0.0;
+136:         double minV = 0.0;
+137:         double maxU = 1.0;
+138:         double maxV = 1.0;
+139:         double ss = 0.4 * scale;
+140:         double sh = (1.0 - ss) / 2.0;
+141:         double ssx = 1.25 * scale;
+142:         double shx = (1.25 - ssx) / 2.0;
+143:         double ssz = 1.25 * scale;
+144:         double shz = (1.25 - ssz) / 2.0;
+145:         if (side == 0 || side == 2) {
+146:             ssx = ss;
+147:             shx = sh;
+148:         }
+149:         if (side == 1 || side == 3) {
+150:             ssz = ss;
+151:             shz = sh;
+152:         }
+153:         tessellator.func_78382_b();
+154:         tessellator.func_78375_b(0.0f, 1.0f, 0.0f);
+155:         tessellator.func_78374_a(x + shx, y + sh + ss, z + shz, maxU, minV);
+156:         tessellator.func_78374_a(x + shx, y + sh + ss, z + shz + ssz, maxU, maxV);
+157:         tessellator.func_78374_a(x + shx + ssx, y + sh + ss, z + shz + ssz, minU, maxV);
+158:         tessellator.func_78374_a(x + shx + ssx, y + sh + ss, z + shz, minU, minV);
+159:         tessellator.func_78381_a();
+160:         tessellator.func_78382_b();
+161:         tessellator.func_78375_b(0.0f, -1.0f, 0.0f);
+162:         tessellator.func_78374_a(x + shx + ssx, y + sh, z + shz, maxU, minV);
+163:         tessellator.func_78374_a(x + shx + ssx, y + sh, z + shz + ssz, maxU, maxV);
+164:         tessellator.func_78374_a(x + shx, y + sh, z + shz + ssz, minU, maxV);
+165:         tessellator.func_78374_a(x + shx, y + sh, z + shz, minU, minV);
+166:         tessellator.func_78381_a();
+167:         if (side != 2) {
+168:             tessellator.func_78382_b();
+169:             tessellator.func_78375_b(0.0f, 0.0f, -1.0f);
+170:             tessellator.func_78374_a(x + shx, y + sh, z + shz, maxU, minV);
+171:             tessellator.func_78374_a(x + shx, y + sh + ss, z + shz, maxU, maxV);
+172:             tessellator.func_78374_a(x + shx + ssx, y + sh + ss, z + shz, minU, maxV);
+173:             tessellator.func_78374_a(x + shx + ssx, y + sh, z + shz, minU, minV);
+174:             tessellator.func_78381_a();
+175:         }
+176:         if (side != 0) {
+177:             tessellator.func_78382_b();
+178:             tessellator.func_78375_b(0.0f, 0.0f, 1.0f);
+179:             tessellator.func_78374_a(x + shx + ssx, y + sh, z + shz + ssz, maxU, minV);
+180:             tessellator.func_78374_a(x + shx + ssx, y + sh + ss, z + shz + ssz, maxU, maxV);
+181:             tessellator.func_78374_a(x + shx, y + sh + ss, z + shz + ssz, minU, maxV);
+182:             tessellator.func_78374_a(x + shx, y + sh, z + shz + ssz, minU, minV);
+183:             tessellator.func_78381_a();
+184:         }
+185:         if (side != 1) {
+186:             tessellator.func_78382_b();
+187:             tessellator.func_78375_b(-1.0f, 0.0f, 0.0f);
+188:             tessellator.func_78374_a(x + shx, y + sh, z + shz + ssz, maxU, minV);
+189:             tessellator.func_78374_a(x + shx, y + sh + ss, z + shz + ssz, maxU, maxV);
+190:             tessellator.func_78374_a(x + shx, y + sh + ss, z + shz, minU, maxV);
+191:             tessellator.func_78374_a(x + shx, y + sh, z + shz, minU, minV);
+192:             tessellator.func_78381_a();
+193:         }
+194:         if (side != 3) {
+195:             tessellator.func_78382_b();
+196:             tessellator.func_78375_b(1.0f, 0.0f, 0.0f);
+197:             tessellator.func_78374_a(x + shx + ssx, y + sh, z + shz, minU, minV);
+198:             tessellator.func_78374_a(x + shx + ssx, y + sh + ss, z + shz, minU, maxV);
+199:             tessellator.func_78374_a(x + shx + ssx, y + sh + ss, z + shz + ssz, maxU, maxV);
+200:             tessellator.func_78374_a(x + shx + ssx, y + sh, z + shz + ssz, maxU, minV);
+201:             tessellator.func_78381_a();
+202:         }
+203:     }
+204: }
+205: 

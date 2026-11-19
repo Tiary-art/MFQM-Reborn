@@ -1,0 +1,206 @@
+Archive: MoreFunQuicksandMod/main/HandEvent.class
+SHA256: 3286c9c2c904b8096650cf36ea7e277cbb37114b6278be2384c8cf506cd63060
+Superclass: java/lang/Object
+Offsets are decimal byte offsets; branch operands are relative offsets.
+
+
+METHOD <init> ()V
+000000: aload_0 
+000001: invokespecial #9 java/lang/Object.<init>:()V
+000004: return 
+
+METHOD onEntityInteractEvent (Lnet/minecraftforge/event/entity/player/EntityInteractEvent;)V
+000000: aload_1 
+000001: getfield #20 net/minecraftforge/event/entity/player/EntityInteractEvent.entityPlayer:Lnet/minecraft/entity/player/EntityPlayer;
+000004: instanceof #22 net/minecraft/entity/player/EntityPlayer
+000007: ifeq 443
+000010: aload_1 
+000011: getfield #20 net/minecraftforge/event/entity/player/EntityInteractEvent.entityPlayer:Lnet/minecraft/entity/player/EntityPlayer;
+000014: getfield #26 net/minecraft/entity/player/EntityPlayer.field_70170_p:Lnet/minecraft/world/World;
+000017: getfield #32 net/minecraft/world/World.field_72995_K:Z
+000020: ifne 430
+000023: aload_1 
+000024: getfield #20 net/minecraftforge/event/entity/player/EntityInteractEvent.entityPlayer:Lnet/minecraft/entity/player/EntityPlayer;
+000027: invokevirtual #36 net/minecraft/entity/player/EntityPlayer.func_71045_bC:()Lnet/minecraft/item/ItemStack;
+000030: astore_2 
+000031: aload_2 
+000032: ifnonnull 418
+000035: aload_1 
+000036: getfield #40 net/minecraftforge/event/entity/player/EntityInteractEvent.target:Lnet/minecraft/entity/Entity;
+000039: instanceof #42 net/minecraft/entity/EntityLivingBase
+000042: ifeq 408
+000045: aload_1 
+000046: getfield #40 net/minecraftforge/event/entity/player/EntityInteractEvent.target:Lnet/minecraft/entity/Entity;
+000049: getfield #48 net/minecraft/entity/Entity.field_70165_t:D
+000052: aload_1 
+000053: getfield #20 net/minecraftforge/event/entity/player/EntityInteractEvent.entityPlayer:Lnet/minecraft/entity/player/EntityPlayer;
+000056: getfield #49 net/minecraft/entity/player/EntityPlayer.field_70165_t:D
+000059: dsub 
+000060: ldc2_w #50 2.0
+000063: invokestatic #57 java/lang/Math.pow:(DD)D
+000066: aload_1 
+000067: getfield #40 net/minecraftforge/event/entity/player/EntityInteractEvent.target:Lnet/minecraft/entity/Entity;
+000070: getfield #60 net/minecraft/entity/Entity.field_70163_u:D
+000073: aload_1 
+000074: getfield #20 net/minecraftforge/event/entity/player/EntityInteractEvent.entityPlayer:Lnet/minecraft/entity/player/EntityPlayer;
+000077: getfield #61 net/minecraft/entity/player/EntityPlayer.field_70163_u:D
+000080: dsub 
+000081: ldc2_w #50 2.0
+000084: invokestatic #57 java/lang/Math.pow:(DD)D
+000087: dadd 
+000088: aload_1 
+000089: getfield #40 net/minecraftforge/event/entity/player/EntityInteractEvent.target:Lnet/minecraft/entity/Entity;
+000092: getfield #64 net/minecraft/entity/Entity.field_70161_v:D
+000095: aload_1 
+000096: getfield #20 net/minecraftforge/event/entity/player/EntityInteractEvent.entityPlayer:Lnet/minecraft/entity/player/EntityPlayer;
+000099: getfield #65 net/minecraft/entity/player/EntityPlayer.field_70161_v:D
+000102: dsub 
+000103: ldc2_w #50 2.0
+000106: invokestatic #57 java/lang/Math.pow:(DD)D
+000109: dadd 
+000110: ldc2_w #66 0.5
+000113: invokestatic #57 java/lang/Math.pow:(DD)D
+000116: dstore_3 
+000117: dload_3 
+000118: ldc2_w #68 2.5
+000121: dcmpg 
+000122: ifge 328
+000125: aload_1 
+000126: getfield #40 net/minecraftforge/event/entity/player/EntityInteractEvent.target:Lnet/minecraft/entity/Entity;
+000129: checkcast #42 net/minecraft/entity/EntityLivingBase
+000132: invokestatic #75 MoreFunQuicksandMod/main/entity/EntityRescue.isInsideOfQuicksand:(Lnet/minecraft/entity/EntityLivingBase;)I
+000135: istore 5
+000137: aload_1 
+000138: getfield #40 net/minecraftforge/event/entity/player/EntityInteractEvent.target:Lnet/minecraft/entity/Entity;
+000141: instanceof #22 net/minecraft/entity/player/EntityPlayer
+000144: ifne 13
+000147: aload_1 
+000148: getfield #20 net/minecraftforge/event/entity/player/EntityInteractEvent.entityPlayer:Lnet/minecraft/entity/player/EntityPlayer;
+000151: invokevirtual #79 net/minecraft/entity/player/EntityPlayer.func_70093_af:()Z
+000154: ifeq 296
+000157: aload_1 
+000158: getfield #20 net/minecraftforge/event/entity/player/EntityInteractEvent.entityPlayer:Lnet/minecraft/entity/player/EntityPlayer;
+000161: getfield #26 net/minecraft/entity/player/EntityPlayer.field_70170_p:Lnet/minecraft/world/World;
+000164: astore 6
+000166: aload_1 
+000167: getfield #20 net/minecraftforge/event/entity/player/EntityInteractEvent.entityPlayer:Lnet/minecraft/entity/player/EntityPlayer;
+000170: getfield #85 net/minecraft/entity/player/EntityPlayer.field_71071_by:Lnet/minecraft/entity/player/InventoryPlayer;
+000173: getfield #91 net/minecraft/entity/player/InventoryPlayer.field_70461_c:I
+000176: istore 7
+000178: aload_1 
+000179: getfield #20 net/minecraftforge/event/entity/player/EntityInteractEvent.entityPlayer:Lnet/minecraft/entity/player/EntityPlayer;
+000182: getfield #85 net/minecraft/entity/player/EntityPlayer.field_71071_by:Lnet/minecraft/entity/player/InventoryPlayer;
+000185: iload 7
+000187: new #81 net/minecraft/item/ItemStack
+000190: dup 
+000191: getstatic #97 MoreFunQuicksandMod/main/MFQM.RescueItem:Lnet/minecraft/item/Item;
+000194: iconst_1 
+000195: invokespecial #100 net/minecraft/item/ItemStack.<init>:(Lnet/minecraft/item/Item;I)V
+000198: invokevirtual #104 net/minecraft/entity/player/InventoryPlayer.func_70299_a:(ILnet/minecraft/item/ItemStack;)V
+000201: new #71 MoreFunQuicksandMod/main/entity/EntityRescue
+000204: dup 
+000205: aload 6
+000207: aload_1 
+000208: getfield #20 net/minecraftforge/event/entity/player/EntityInteractEvent.entityPlayer:Lnet/minecraft/entity/player/EntityPlayer;
+000211: invokespecial #107 MoreFunQuicksandMod/main/entity/EntityRescue.<init>:(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/EntityPlayer;)V
+000214: astore 8
+000216: aload 6
+000218: aload 8
+000220: invokevirtual #111 net/minecraft/world/World.func_72838_d:(Lnet/minecraft/entity/Entity;)Z
+000223: pop 
+000224: aload 8
+000226: iconst_1 
+000227: putfield #114 MoreFunQuicksandMod/main/entity/EntityRescue.hitted:Z
+000230: aload 8
+000232: aload_1 
+000233: getfield #40 net/minecraftforge/event/entity/player/EntityInteractEvent.target:Lnet/minecraft/entity/Entity;
+000236: checkcast #42 net/minecraft/entity/EntityLivingBase
+000239: putfield #118 MoreFunQuicksandMod/main/entity/EntityRescue.curGrabbed:Lnet/minecraft/entity/EntityLivingBase;
+000242: aload 8
+000244: dconst_0 
+000245: putfield #121 MoreFunQuicksandMod/main/entity/EntityRescue.field_70159_w:D
+000248: aload 8
+000250: dconst_0 
+000251: putfield #124 MoreFunQuicksandMod/main/entity/EntityRescue.field_70181_x:D
+000254: aload 8
+000256: dconst_0 
+000257: putfield #127 MoreFunQuicksandMod/main/entity/EntityRescue.field_70179_y:D
+000260: aload 8
+000262: aload 8
+000264: getfield #118 MoreFunQuicksandMod/main/entity/EntityRescue.curGrabbed:Lnet/minecraft/entity/EntityLivingBase;
+000267: getfield #128 net/minecraft/entity/EntityLivingBase.field_70165_t:D
+000270: putfield #129 MoreFunQuicksandMod/main/entity/EntityRescue.field_70165_t:D
+000273: aload 8
+000275: aload 8
+000277: getfield #118 MoreFunQuicksandMod/main/entity/EntityRescue.curGrabbed:Lnet/minecraft/entity/EntityLivingBase;
+000280: getfield #133 net/minecraft/entity/EntityLivingBase.field_70121_D:Lnet/minecraft/util/AxisAlignedBB;
+000283: getfield #138 net/minecraft/util/AxisAlignedBB.field_72338_b:D
+000286: aload 8
+000288: getfield #118 MoreFunQuicksandMod/main/entity/EntityRescue.curGrabbed:Lnet/minecraft/entity/EntityLivingBase;
+000291: getfield #142 net/minecraft/entity/EntityLivingBase.field_70131_O:F
+000294: f2d 
+000295: ldc2_w #143 0.75
+000298: dmul 
+000299: dadd 
+000300: putfield #145 MoreFunQuicksandMod/main/entity/EntityRescue.field_70163_u:D
+000303: aload 8
+000305: aload 8
+000307: getfield #118 MoreFunQuicksandMod/main/entity/EntityRescue.curGrabbed:Lnet/minecraft/entity/EntityLivingBase;
+000310: getfield #146 net/minecraft/entity/EntityLivingBase.field_70161_v:D
+000313: putfield #147 MoreFunQuicksandMod/main/entity/EntityRescue.field_70161_v:D
+000316: aload 8
+000318: aload 8
+000320: getfield #129 MoreFunQuicksandMod/main/entity/EntityRescue.field_70165_t:D
+000323: putfield #150 MoreFunQuicksandMod/main/entity/EntityRescue.BlockPosX:D
+000326: aload 8
+000328: aload 8
+000330: getfield #145 MoreFunQuicksandMod/main/entity/EntityRescue.field_70163_u:D
+000333: putfield #153 MoreFunQuicksandMod/main/entity/EntityRescue.BlockPosY:D
+000336: aload 8
+000338: aload 8
+000340: getfield #147 MoreFunQuicksandMod/main/entity/EntityRescue.field_70161_v:D
+000343: putfield #156 MoreFunQuicksandMod/main/entity/EntityRescue.BlockPosZ:D
+000346: aload 8
+000348: getfield #118 MoreFunQuicksandMod/main/entity/EntityRescue.curGrabbed:Lnet/minecraft/entity/EntityLivingBase;
+000351: instanceof #22 net/minecraft/entity/player/EntityPlayer
+000354: ifne 24
+000357: aload 8
+000359: iconst_5 
+000360: putfield #159 MoreFunQuicksandMod/main/entity/EntityRescue.GrabType:I
+000363: aload 8
+000365: getfield #118 MoreFunQuicksandMod/main/entity/EntityRescue.curGrabbed:Lnet/minecraft/entity/EntityLivingBase;
+000368: aload_1 
+000369: getfield #20 net/minecraftforge/event/entity/player/EntityInteractEvent.entityPlayer:Lnet/minecraft/entity/player/EntityPlayer;
+000372: invokevirtual #163 net/minecraft/entity/EntityLivingBase.func_70604_c:(Lnet/minecraft/entity/EntityLivingBase;)V
+000375: goto 10
+000378: aload 8
+000380: bipush 6
+000382: putfield #159 MoreFunQuicksandMod/main/entity/EntityRescue.GrabType:I
+000385: aload 8
+000387: aload 8
+000389: getfield #118 MoreFunQuicksandMod/main/entity/EntityRescue.curGrabbed:Lnet/minecraft/entity/EntityLivingBase;
+000392: invokevirtual #167 MoreFunQuicksandMod/main/entity/EntityRescue.getMoCreatureValid:(Lnet/minecraft/entity/EntityLivingBase;)Z
+000395: ifeq 23
+000398: aload 8
+000400: aload 8
+000402: getfield #118 MoreFunQuicksandMod/main/entity/EntityRescue.curGrabbed:Lnet/minecraft/entity/EntityLivingBase;
+000405: putfield #170 MoreFunQuicksandMod/main/entity/EntityRescue.field_70153_n:Lnet/minecraft/entity/Entity;
+000408: aload 8
+000410: aload 8
+000412: getfield #118 MoreFunQuicksandMod/main/entity/EntityRescue.curGrabbed:Lnet/minecraft/entity/EntityLivingBase;
+000415: invokevirtual #174 MoreFunQuicksandMod/main/entity/EntityRescue.func_70078_a:(Lnet/minecraft/entity/Entity;)V
+000418: aload 8
+000420: dload_3 
+000421: putfield #177 MoreFunQuicksandMod/main/entity/EntityRescue.curLen:D
+000424: aload 8
+000426: aload 8
+000428: getfield #177 MoreFunQuicksandMod/main/entity/EntityRescue.curLen:D
+000431: putfield #180 MoreFunQuicksandMod/main/entity/EntityRescue.beginCurLen:D
+000434: aload 8
+000436: invokevirtual #183 MoreFunQuicksandMod/main/entity/EntityRescue.GrabSound:()V
+000439: aload 8
+000441: invokevirtual #186 MoreFunQuicksandMod/main/entity/EntityRescue.setWatcherGrabbed:()V
+000444: aload 8
+000446: invokevirtual #189 MoreFunQuicksandMod/main/entity/EntityRescue.setWatcherLenMP:()V
+000449: return 
+000450: return 

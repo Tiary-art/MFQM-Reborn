@@ -1,0 +1,68 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.common.eventhandler.SubscribeEvent
+6:  *  net.minecraft.entity.Entity
+7:  *  net.minecraft.entity.EntityLivingBase
+8:  *  net.minecraft.entity.player.EntityPlayer
+9:  *  net.minecraft.item.ItemStack
+10:  *  net.minecraft.world.World
+11:  *  net.minecraftforge.event.entity.player.EntityInteractEvent
+12:  */
+13: package MoreFunQuicksandMod.main;
+14: 
+15: import MoreFunQuicksandMod.main.MFQM;
+16: import MoreFunQuicksandMod.main.entity.EntityRescue;
+17: import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+18: import net.minecraft.entity.Entity;
+19: import net.minecraft.entity.EntityLivingBase;
+20: import net.minecraft.entity.player.EntityPlayer;
+21: import net.minecraft.item.ItemStack;
+22: import net.minecraft.world.World;
+23: import net.minecraftforge.event.entity.player.EntityInteractEvent;
+24: 
+25: public class HandEvent {
+26:     @SubscribeEvent
+27:     public void onEntityInteractEvent(EntityInteractEvent event) {
+28:         double dis;
+29:         ItemStack curItm;
+30:         if (event.entityPlayer instanceof EntityPlayer && !event.entityPlayer.field_70170_p.field_72995_K && (curItm = event.entityPlayer.func_71045_bC()) == null && event.target instanceof EntityLivingBase && (dis = Math.pow(Math.pow(event.target.field_70165_t - event.entityPlayer.field_70165_t, 2.0) + Math.pow(event.target.field_70163_u - event.entityPlayer.field_70163_u, 2.0) + Math.pow(event.target.field_70161_v - event.entityPlayer.field_70161_v, 2.0), 0.5)) < 2.5) {
+31:             int inqs = EntityRescue.isInsideOfQuicksand((EntityLivingBase)event.target);
+32:             if (event.target instanceof EntityPlayer || event.entityPlayer.func_70093_af()) {
+33:                 World world = event.entityPlayer.field_70170_p;
+34:                 int ropeNum = event.entityPlayer.field_71071_by.field_70461_c;
+35:                 event.entityPlayer.field_71071_by.func_70299_a(ropeNum, new ItemStack(MFQM.RescueItem, 1));
+36:                 EntityRescue rescue = new EntityRescue(world, event.entityPlayer);
+37:                 world.func_72838_d((Entity)rescue);
+38:                 rescue.hitted = true;
+39:                 rescue.curGrabbed = (EntityLivingBase)event.target;
+40:                 rescue.field_70159_w = 0.0;
+41:                 rescue.field_70181_x = 0.0;
+42:                 rescue.field_70179_y = 0.0;
+43:                 rescue.field_70165_t = rescue.curGrabbed.field_70165_t;
+44:                 rescue.field_70163_u = rescue.curGrabbed.field_70121_D.field_72338_b + (double)rescue.curGrabbed.field_70131_O * 0.75;
+45:                 rescue.field_70161_v = rescue.curGrabbed.field_70161_v;
+46:                 rescue.BlockPosX = rescue.field_70165_t;
+47:                 rescue.BlockPosY = rescue.field_70163_u;
+48:                 rescue.BlockPosZ = rescue.field_70161_v;
+49:                 if (!(rescue.curGrabbed instanceof EntityPlayer)) {
+50:                     rescue.GrabType = 5;
+51:                     rescue.curGrabbed.func_70604_c((EntityLivingBase)event.entityPlayer);
+52:                 } else {
+53:                     rescue.GrabType = 6;
+54:                 }
+55:                 if (rescue.getMoCreatureValid(rescue.curGrabbed)) {
+56:                     rescue.field_70153_n = rescue.curGrabbed;
+57:                     rescue.func_70078_a((Entity)rescue.curGrabbed);
+58:                 }
+59:                 rescue.beginCurLen = rescue.curLen = dis;
+60:                 rescue.GrabSound();
+61:                 rescue.setWatcherGrabbed();
+62:                 rescue.setWatcherLenMP();
+63:                 return;
+64:             }
+65:         }
+66:     }
+67: }
+68: 

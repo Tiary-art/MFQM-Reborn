@@ -1,0 +1,121 @@
+// Decompiled inference, NOT original source; semantic closure PARTIAL
+      if (MFQM.GenHClay) {
+         boolean canGenxxxxxx = false;
+         int genCountxxx = 0;
+         int genPosxxx = 0;
+         int genRadxx = 0;
+         int genRadPxx = 0;
+         int radxxxxx = 0;
+         genCountxxx = 10 + random.nextInt(10);
+         int var203 = 6;
+         int var239 = 14;
+         int var162 = 0;
+         boolean canGenWater = false;
+         boolean canGenGround = true;
+         if (biomegenbase instanceof BiomeGenBeach) {
+            var162 = 0;
+         }
+
+         int dTxx = this.getDesertType(biomeId);
+         if (dTxx != 0 && this.T_BoP || biomegenbase instanceof BiomeGenDesert && !this.T_BoP) {
+            var162 = 0;
+         }
+
+         int jngT = this.getJungleType(biomeId);
+         if (jngT != 0 && this.T_BoP || biomegenbase instanceof BiomeGenJungle && !this.T_BoP) {
+            var162 = 2;
+            if (biomegenbase instanceof BiomeGenJungle || jngT == 3) {
+               var162 = 1;
+               canGenGround = false;
+            }
+
+            genCountxxx *= 2;
+            canGenWater = true;
+            if (random.nextInt(1) == 0) {
+               canGenGround = false;
+            }
+         }
+
+         if (biomegenbase instanceof BiomeGenRiver) {
+            var162 = 0;
+            canGenGround = false;
+            genCountxxx *= 2;
+            canGenWater = true;
+            if (this.isJungleIsNear(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+               var162 = 999;
+            }
+         }
+
+         if (var162 > 0 && (var162 == 999 || random.nextInt(var162) == 0)) {
+            for (int ix = 0; ix < genCountxxx && !blockGen; ix++) {
+               firstBlockXCoord = chunkX + random.nextInt(16);
+               firstBlockYCoord = 96;
+               firstBlockZCoord = chunkZ + random.nextInt(16);
+               radxxxxx = var203 + random.nextInt(var239);
+               int countBlock1 = 0;
+               int countBlock2 = 0;
+               int genTypexxx = 0;
+
+               for (canGenxxxxxx = false; firstBlockYCoord > 60; firstBlockYCoord--) {
+                  if (canGenWater && this.validWaterMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                     if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                        canGenxxxxxx = true;
+                        genTypexxx = 1;
+                        if (biomegenbase instanceof BiomeGenRiver) {
+                           radxxxxx *= 3;
+                        }
+
+                        radxxxxx *= 2;
+                        radxxxxx = Math.min(radxxxxx, 32);
+                        break;
+                     }
+
+                     countBlock1++;
+                  }
+
+                  if (canGenGround && world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) == Blocks.field_150354_m) {
+                     if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                        if (!this.validWaterMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                           canGenxxxxxx = true;
+                           genTypexxx = 0;
+                           break;
+                        }
+                     } else {
+                        countBlock2++;
+                     }
+                  }
+
+                  if (countBlock1 > 20 || countBlock2 > 20) {
+                     break;
+                  }
+               }
+
+               if (canGenxxxxxx && (genTypexxx == 0 || this.isItLake(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxxxxx, world))) {
+                  int ccount = random.nextInt(2) + 1;
+                  if (genTypexxx == 1) {
+                     radxxxxx *= 2;
+                     ccount *= 2;
+                  }
+
+                  this.generateClay(genTypexxx, firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxxxxx, world, random, 0);
+                  radxxxxx = var203 + random.nextInt(var239);
+
+                  for (int j = 0; j < ccount; j++) {
+                     this.generateClay(
+                        0,
+                        firstBlockXCoord + (random.nextInt(radxxxxx * 2) - radxxxxx),
+                        firstBlockYCoord,
+                        firstBlockZCoord + (random.nextInt(radxxxxx * 2) - radxxxxx),
+                        radxxxxx,
+                        world,
+                        random,
+                        0
+                     );
+                  }
+
+                  blockGen = true;
+               }
+            }
+         }
+      }
+

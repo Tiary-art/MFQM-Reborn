@@ -1,0 +1,116 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  net.minecraft.block.Block
+6:  *  net.minecraft.client.Minecraft
+7:  *  net.minecraft.client.renderer.texture.IIconRegister
+8:  *  net.minecraft.entity.Entity
+9:  *  net.minecraft.entity.player.EntityPlayer
+10:  *  net.minecraft.item.ItemArmor
+11:  *  net.minecraft.item.ItemArmor$ArmorMaterial
+12:  *  net.minecraft.item.ItemStack
+13:  *  net.minecraft.util.EnumChatFormatting
+14:  *  net.minecraft.util.MathHelper
+15:  *  net.minecraft.util.StatCollector
+16:  *  net.minecraft.world.World
+17:  *  org.lwjgl.input.Keyboard
+18:  */
+19: package MoreFunQuicksandMod.main.items;
+20: 
+21: import MoreFunQuicksandMod.main.MFQM;
+22: import MoreFunQuicksandMod.main.entity.EntityRope;
+23: import java.util.List;
+24: import net.minecraft.block.Block;
+25: import net.minecraft.client.Minecraft;
+26: import net.minecraft.client.renderer.texture.IIconRegister;
+27: import net.minecraft.entity.Entity;
+28: import net.minecraft.entity.player.EntityPlayer;
+29: import net.minecraft.item.ItemArmor;
+30: import net.minecraft.item.ItemStack;
+31: import net.minecraft.util.EnumChatFormatting;
+32: import net.minecraft.util.MathHelper;
+33: import net.minecraft.util.StatCollector;
+34: import net.minecraft.world.World;
+35: import org.lwjgl.input.Keyboard;
+36: 
+37: public class ItemLifeJacket
+38: extends ItemArmor {
+39:     public static float[] quicksandHardCoof = new float[]{10.25f, 0.0f, 0.0f, 0.3f, 0.5f, 0.4f, 1.5f, 1.5f, 0.0f, 0.3f, 0.2f, 0.4f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.3f, 0.0f, 0.0f, 10.25f, 10.25f, 10.25f, 10.25f, 0.3f, 0.75f, 0.5f, 0.25f, 0.3f, 0.04f};
+40: 
+41:     public ItemLifeJacket(ItemArmor.ArmorMaterial armorMaterial, int renderIndex, int armorType) {
+42:         super(armorMaterial, renderIndex, armorType);
+43:         this.func_77655_b("LifeJacket");
+44:         this.func_77656_e(0);
+45:         this.func_77637_a(MFQM.tabMFQM);
+46:     }
+47: 
+48:     public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
+49:         if (!world.field_72995_K) {
+50:             return;
+51:         }
+52:         if (this.crouchKey(player)) {
+53:             return;
+54:         }
+55:         double deep = player.field_70163_u + (double)player.func_70047_e() - 0.75;
+56:         int x = MathHelper.func_76128_c((double)player.field_70165_t);
+57:         int y = MathHelper.func_76141_d((float)MathHelper.func_76128_c((double)deep));
+58:         int z = MathHelper.func_76128_c((double)player.field_70161_v);
+59:         Block blc = world.func_147439_a(x, y, z);
+60:         float blc_dif = this.getQSDifficult(blc);
+61:         boolean blc_us = false;
+62:         Block blc_up = world.func_147439_a(x, y + 1, z);
+63:         float blc_up_dif = this.getQSDifficult(blc_up);
+64:         boolean blc_up_us = false;
+65:         double surf = y + 1;
+66:         if (blc_up_dif > 0.0f) {
+67:             surf = y + 2;
+68:         }
+69:         if (blc_up_dif > blc_dif) {
+70:             blc_dif = blc_up_dif;
+71:         }
+72:         if (blc_dif > 0.0f) {
+73:             if (blc_dif > 10.0f) {
+74:                 blc_dif -= 10.0f;
+75:                 blc_us = true;
+76:             }
+77:             if (surf == (double)(y + 2) || world.field_73012_v.nextInt(Math.max((int)Math.floor(Math.max(Math.min(surf - deep, 1.0), 0.0) * 10.0), 1)) != 0) {
+78:                 player.field_70181_x = !blc_us ? (player.field_70181_x += Math.max(Math.min((surf - deep) / 10.0, 0.065), 0.0) * (double)blc_dif) : (player.field_70181_x += Math.max(Math.min((surf - deep) / 10.0, 0.065 * (double)blc_dif), 0.0));
+79:             }
+80:         }
+81:     }
+82: 
+83:     public float getQSDifficult(Block blc) {
+84:         for (int i = 0; i < EntityRope.quicksandIDS.length; ++i) {
+85:             if (EntityRope.quicksandIDS[i] != blc) continue;
+86:             return quicksandHardCoof[i];
+87:         }
+88:         if (blc.func_149688_o().func_76224_d()) {
+89:             return 1.0f;
+90:         }
+91:         return 0.0f;
+92:     }
+93: 
+94:     public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
+95:         return "morefunquicksandmod:textures/armor/LifeJacket.png";
+96:     }
+97: 
+98:     public void func_94581_a(IIconRegister iconRegister) {
+99:         this.field_77791_bV = iconRegister.func_94245_a("morefunquicksandmod:LifeJacket");
+100:     }
+101: 
+102:     public boolean crouchKey(EntityPlayer curPlayer) {
+103:         if (curPlayer.field_70170_p.field_72995_K && Minecraft.func_71410_x().field_71439_g == curPlayer) {
+104:             return Keyboard.isKeyDown((int)Minecraft.func_71410_x().field_71474_y.field_74311_E.func_151463_i());
+105:         }
+106:         return false;
+107:     }
+108: 
+109:     public void func_77624_a(ItemStack item, EntityPlayer player, List list, boolean bool) {
+110:         list.add(StatCollector.func_74838_a((String)"itemLifeJacket.instruction1") + ",");
+111:         list.add(StatCollector.func_74838_a((String)"itemLifeJacket.instruction2") + ".");
+112:         list.add(StatCollector.func_74838_a((String)"itemLifeJacket.instruction3") + ".");
+113:         list.add(EnumChatFormatting.GOLD + StatCollector.func_74838_a((String)"itemLifeJacket.instruction4") + EnumChatFormatting.GRAY + " " + StatCollector.func_74838_a((String)"itemLifeJacket.instruction5"));
+114:     }
+115: }
+116: 

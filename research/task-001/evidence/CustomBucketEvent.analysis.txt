@@ -1,0 +1,99 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.common.eventhandler.Event$Result
+6:  *  cpw.mods.fml.common.eventhandler.SubscribeEvent
+7:  *  net.minecraft.block.Block
+8:  *  net.minecraft.init.Blocks
+9:  *  net.minecraft.item.ItemStack
+10:  *  net.minecraft.util.MovingObjectPosition
+11:  *  net.minecraft.world.World
+12:  *  net.minecraftforge.event.entity.player.FillBucketEvent
+13:  */
+14: package MoreFunQuicksandMod.main;
+15: 
+16: import MoreFunQuicksandMod.main.MFQM;
+17: import cpw.mods.fml.common.eventhandler.Event;
+18: import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+19: import net.minecraft.block.Block;
+20: import net.minecraft.init.Blocks;
+21: import net.minecraft.item.ItemStack;
+22: import net.minecraft.util.MovingObjectPosition;
+23: import net.minecraft.world.World;
+24: import net.minecraftforge.event.entity.player.FillBucketEvent;
+25: 
+26: public class CustomBucketEvent {
+27:     @SubscribeEvent
+28:     public void onBucketFill(FillBucketEvent event) {
+29:         ItemStack result = this.fillBucket(event.world, event.target);
+30:         if (result == null) {
+31:             return;
+32:         }
+33:         event.result = result;
+34:         event.setResult(Event.Result.ALLOW);
+35:     }
+36: 
+37:     public ItemStack fillBucket(World world, MovingObjectPosition pos) {
+38:         Block blockID = world.func_147439_a(pos.field_72311_b, pos.field_72312_c, pos.field_72309_d);
+39:         int mtd = world.func_72805_g(pos.field_72311_b, pos.field_72312_c, pos.field_72309_d);
+40:         if (blockID == MFQM.BogBlock && mtd == 0) {
+41:             world.func_147449_b(pos.field_72311_b, pos.field_72312_c, pos.field_72309_d, Blocks.field_150350_a);
+42:             return new ItemStack(MFQM.BogBucketItem, 1);
+43:         }
+44:         if (blockID == MFQM.LiquidMireBlock && mtd == 0) {
+45:             world.func_147449_b(pos.field_72311_b, pos.field_72312_c, pos.field_72309_d, Blocks.field_150350_a);
+46:             return new ItemStack(MFQM.MireBucketItem, 1);
+47:         }
+48:         if (blockID == MFQM.StableLiquidMireBlock && mtd == 0) {
+49:             world.func_147449_b(pos.field_72311_b, pos.field_72312_c, pos.field_72309_d, Blocks.field_150350_a);
+50:             return new ItemStack(MFQM.MireBucketItem, 1);
+51:         }
+52:         if (blockID == MFQM.JungleQuicksandBlock && mtd == 0) {
+53:             world.func_147449_b(pos.field_72311_b, pos.field_72312_c, pos.field_72309_d, Blocks.field_150350_a);
+54:             return new ItemStack(MFQM.QuicksandBucketItem, 1);
+55:         }
+56:         if (blockID == MFQM.SlimeBlock && mtd == 0) {
+57:             world.func_147449_b(pos.field_72311_b, pos.field_72312_c, pos.field_72309_d, Blocks.field_150350_a);
+58:             return new ItemStack(MFQM.SlimeBucketItem, 1);
+59:         }
+60:         if (blockID == MFQM.SandBlock && mtd == 0) {
+61:             world.func_147449_b(pos.field_72311_b, pos.field_72312_c, pos.field_72309_d, Blocks.field_150350_a);
+62:             return new ItemStack(MFQM.SandBucketItem, 1);
+63:         }
+64:         if (blockID == MFQM.TarBlock && mtd == 0) {
+65:             world.func_147449_b(pos.field_72311_b, pos.field_72312_c, pos.field_72309_d, Blocks.field_150350_a);
+66:             return new ItemStack(MFQM.TarBucketItem, 1);
+67:         }
+68:         if (blockID == MFQM.AcidBlock && mtd == 0) {
+69:             world.func_147449_b(pos.field_72311_b, pos.field_72312_c, pos.field_72309_d, Blocks.field_150350_a);
+70:             return new ItemStack(MFQM.AcidBucketItem, 1);
+71:         }
+72:         if (blockID == MFQM.MucusBlock && mtd == 0) {
+73:             world.func_147449_b(pos.field_72311_b, pos.field_72312_c, pos.field_72309_d, Blocks.field_150350_a);
+74:             return new ItemStack(MFQM.MucusBucketItem, 1);
+75:         }
+76:         if (blockID == MFQM.BrownClayBlock && mtd < 4) {
+77:             world.func_147449_b(pos.field_72311_b, pos.field_72312_c, pos.field_72309_d, Blocks.field_150350_a);
+78:             return new ItemStack(MFQM.ClayBucketItem, 1, 0);
+79:         }
+80:         if (blockID == MFQM.BrownClayBlock && mtd > 3) {
+81:             world.func_147449_b(pos.field_72311_b, pos.field_72312_c, pos.field_72309_d, Blocks.field_150350_a);
+82:             return new ItemStack(MFQM.ClayBucketItem, 1, 1);
+83:         }
+84:         if (blockID == MFQM.LiquidChocolateBlock && mtd == 0) {
+85:             world.func_147449_b(pos.field_72311_b, pos.field_72312_c, pos.field_72309_d, Blocks.field_150350_a);
+86:             return new ItemStack(MFQM.ChocolateBucketItem, 1);
+87:         }
+88:         if (blockID == MFQM.SlurryBlock && mtd == 0) {
+89:             world.func_147449_b(pos.field_72311_b, pos.field_72312_c, pos.field_72309_d, Blocks.field_150350_a);
+90:             return new ItemStack(MFQM.SlurryBucketItem, 1);
+91:         }
+92:         if (blockID == MFQM.HoneyBlock && mtd == 0) {
+93:             world.func_147449_b(pos.field_72311_b, pos.field_72312_c, pos.field_72309_d, Blocks.field_150350_a);
+94:             return new ItemStack(MFQM.HoneyBucketItem, 1);
+95:         }
+96:         return null;
+97:     }
+98: }
+99: 

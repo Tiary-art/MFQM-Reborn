@@ -1,0 +1,95 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.client.renderer.texture.IIconRegister
+8:  *  net.minecraft.entity.Entity
+9:  *  net.minecraft.entity.item.EntityItem
+10:  *  net.minecraft.entity.player.EntityPlayer
+11:  *  net.minecraft.item.EnumAction
+12:  *  net.minecraft.item.Item
+13:  *  net.minecraft.item.ItemStack
+14:  *  net.minecraft.util.IIcon
+15:  *  net.minecraft.world.World
+16:  */
+17: package MoreFunQuicksandMod.main.items;
+18: 
+19: import cpw.mods.fml.relauncher.Side;
+20: import cpw.mods.fml.relauncher.SideOnly;
+21: import net.minecraft.client.renderer.texture.IIconRegister;
+22: import net.minecraft.entity.Entity;
+23: import net.minecraft.entity.item.EntityItem;
+24: import net.minecraft.entity.player.EntityPlayer;
+25: import net.minecraft.item.EnumAction;
+26: import net.minecraft.item.Item;
+27: import net.minecraft.item.ItemStack;
+28: import net.minecraft.util.IIcon;
+29: import net.minecraft.world.World;
+30: 
+31: public class ItemRescue
+32: extends Item {
+33:     @SideOnly(value=Side.CLIENT)
+34:     private IIcon itemIIcon1;
+35: 
+36:     public ItemRescue() {
+37:         this.func_77625_d(1);
+38:         this.func_77655_b("Rescuing");
+39:     }
+40: 
+41:     public EnumAction func_77661_b(ItemStack par1ItemStack) {
+42:         return EnumAction.bow;
+43:     }
+44: 
+45:     public int func_77626_a(ItemStack par1ItemStack) {
+46:         return 72000;
+47:     }
+48: 
+49:     @SideOnly(value=Side.CLIENT)
+50:     public boolean func_77662_d() {
+51:         return false;
+52:     }
+53: 
+54:     @SideOnly(value=Side.CLIENT)
+55:     public boolean func_77629_n_() {
+56:         return false;
+57:     }
+58: 
+59:     public void func_77663_a(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
+60:         if (par3Entity instanceof EntityPlayer) {
+61:             if (((EntityPlayer)par3Entity).func_71045_bC() == par1ItemStack) {
+62:                 if (!((EntityPlayer)par3Entity).func_71039_bw()) {
+63:                     ((EntityPlayer)par3Entity).func_71008_a(par1ItemStack, 36000);
+64:                 } else {
+65:                     ((EntityPlayer)par3Entity).func_71041_bz();
+66:                     ((EntityPlayer)par3Entity).func_71008_a(par1ItemStack, 36000);
+67:                 }
+68:             }
+69:             if (!par5) {
+70:                 if (!par2World.field_72995_K) {
+71:                     ((EntityPlayer)par3Entity).field_71071_by.func_70299_a(par4, (ItemStack)null);
+72:                 } else {
+73:                     ((EntityPlayer)par3Entity).field_71071_by.func_70299_a(par4, (ItemStack)null);
+74:                 }
+75:                 return;
+76:             }
+77:         }
+78:     }
+79: 
+80:     @SideOnly(value=Side.CLIENT)
+81:     public void func_94581_a(IIconRegister iuconRegister) {
+82:         this.itemIIcon1 = iuconRegister.func_94245_a("morefunquicksandmod:Rescue");
+83:     }
+84: 
+85:     @SideOnly(value=Side.CLIENT)
+86:     public IIcon func_77617_a(int par1) {
+87:         return this.itemIIcon1;
+88:     }
+89: 
+90:     public boolean onEntityItemUpdate(EntityItem entityItem) {
+91:         entityItem.func_70106_y();
+92:         return false;
+93:     }
+94: }
+95: 

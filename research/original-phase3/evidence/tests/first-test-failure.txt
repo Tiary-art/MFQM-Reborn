@@ -1,0 +1,8 @@
+First test_trace.py run failed (exit 1) in unknown-helper negative test:
+AttributeError: 'NoneType' object has no attribute 'startswith'
+VM.invoke called directly without an active method; current was None.
+Fixed guard to use (self.current or '').startswith(...).
+This was a harness robustness bug; not an original Minecraft runtime failure.
+Second run failed (exit 1): independent CFR literal decoder counted 8412 versus 8489 direct writes.
+Cause: 77 literals have explicit (Block) casts before Blocks fields.
+Fixed optional-cast handling; original bytecode interpreter/write count was unchanged.

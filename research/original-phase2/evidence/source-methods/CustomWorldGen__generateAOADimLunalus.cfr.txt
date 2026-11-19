@@ -1,0 +1,17 @@
+// CFR0.152; original decompiler line 5791; NOT original source; inspect **/goto artifacts if present.
+    private void generateAOADimLunalus(World world, Random random, int chunkX, int chunkZ) {
+        boolean dHeight = false;
+        boolean blockGen = false;
+        if (MFQM.GenTar) {
+            for (int h = 0; h < 16; ++h) {
+                for (int v = 0; v < 16; ++v) {
+                    int firstBlockXCoord = chunkX + h;
+                    int firstBlockZCoord = chunkZ + v;
+                    for (int firstBlockYCoord = 1; firstBlockYCoord <= 6; ++firstBlockYCoord) {
+                        if (this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) continue;
+                        world.func_147465_d(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, MFQM.TarBlock, 0, 2);
+                    }
+                }
+            }
+        }
+    }

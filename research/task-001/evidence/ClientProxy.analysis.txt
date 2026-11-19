@@ -1,0 +1,103 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.client.registry.ClientRegistry
+6:  *  cpw.mods.fml.client.registry.RenderingRegistry
+7:  *  net.minecraft.client.renderer.entity.Render
+8:  *  net.minecraft.client.renderer.entity.RenderSnowball
+9:  *  net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
+10:  *  net.minecraft.item.Item
+11:  *  net.minecraftforge.client.IItemRenderer
+12:  *  net.minecraftforge.client.MinecraftForgeClient
+13:  */
+14: package MoreFunQuicksandMod.main.client;
+15: 
+16: import MoreFunQuicksandMod.main.CommonProxy;
+17: import MoreFunQuicksandMod.main.MFQM;
+18: import MoreFunQuicksandMod.main.Tileentity.TileEntityBlossom;
+19: import MoreFunQuicksandMod.main.Tileentity.TileEntityBlossomRenderer;
+20: import MoreFunQuicksandMod.main.Tileentity.TileEntityLarvae;
+21: import MoreFunQuicksandMod.main.Tileentity.TileEntityLarvaeRenderer;
+22: import MoreFunQuicksandMod.main.Tileentity.TileEntityMeat;
+23: import MoreFunQuicksandMod.main.Tileentity.TileEntityMeatRenderer;
+24: import MoreFunQuicksandMod.main.client.ModelVoreSlime;
+25: import MoreFunQuicksandMod.main.client.RenderBee;
+26: import MoreFunQuicksandMod.main.client.RenderBubble;
+27: import MoreFunQuicksandMod.main.client.RenderFish2;
+28: import MoreFunQuicksandMod.main.client.RenderFish3;
+29: import MoreFunQuicksandMod.main.client.RenderLongStick;
+30: import MoreFunQuicksandMod.main.client.RenderMuddyBlob;
+31: import MoreFunQuicksandMod.main.client.RenderSandBlob;
+32: import MoreFunQuicksandMod.main.client.RenderSlimeHole;
+33: import MoreFunQuicksandMod.main.client.RenderTarSlime;
+34: import MoreFunQuicksandMod.main.client.RenderTarTreads;
+35: import MoreFunQuicksandMod.main.client.RenderTentacles;
+36: import MoreFunQuicksandMod.main.client.RenderVoreSlime;
+37: import MoreFunQuicksandMod.main.entity.EntityBee;
+38: import MoreFunQuicksandMod.main.entity.EntityBubble;
+39: import MoreFunQuicksandMod.main.entity.EntityHook;
+40: import MoreFunQuicksandMod.main.entity.EntityMudTentacles;
+41: import MoreFunQuicksandMod.main.entity.EntityMuddyBlob;
+42: import MoreFunQuicksandMod.main.entity.EntityRope;
+43: import MoreFunQuicksandMod.main.entity.EntitySPotion;
+44: import MoreFunQuicksandMod.main.entity.EntitySandBlob;
+45: import MoreFunQuicksandMod.main.entity.EntitySlimeHole;
+46: import MoreFunQuicksandMod.main.entity.EntityTarSlime;
+47: import MoreFunQuicksandMod.main.entity.EntityTarTreads;
+48: import MoreFunQuicksandMod.main.entity.EntityTentacles;
+49: import MoreFunQuicksandMod.main.entity.EntityVoreSlime;
+50: import cpw.mods.fml.client.registry.ClientRegistry;
+51: import cpw.mods.fml.client.registry.RenderingRegistry;
+52: import net.minecraft.client.renderer.entity.Render;
+53: import net.minecraft.client.renderer.entity.RenderSnowball;
+54: import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+55: import net.minecraft.item.Item;
+56: import net.minecraftforge.client.IItemRenderer;
+57: import net.minecraftforge.client.MinecraftForgeClient;
+58: 
+59: public class ClientProxy
+60: extends CommonProxy {
+61:     @Override
+62:     public void registerRenderInformation() {
+63:         RenderingRegistry.registerEntityRenderingHandler(EntityRope.class, (Render)new RenderFish2());
+64:         System.out.println("(MFQM)Init rope render");
+65:         RenderingRegistry.registerEntityRenderingHandler(EntityHook.class, (Render)new RenderFish3());
+66:         System.out.println("(MFQM)Init hook render");
+67:         MinecraftForgeClient.registerItemRenderer((Item)MFQM.LongStickItem, (IItemRenderer)new RenderLongStick());
+68:         System.out.println("(MFQM)Init long stick render");
+69:         RenderingRegistry.registerEntityRenderingHandler(EntitySlimeHole.class, (Render)new RenderSlimeHole());
+70:         System.out.println("(MFQM)Init slime hole render");
+71:         RenderingRegistry.registerEntityRenderingHandler(EntityTentacles.class, (Render)new RenderTentacles(0));
+72:         System.out.println("(MFQM)Init tentacles render");
+73:         RenderingRegistry.registerEntityRenderingHandler(EntityMudTentacles.class, (Render)new RenderTentacles(1));
+74:         System.out.println("(MFQM)Init mud tentacles render");
+75:         RenderingRegistry.registerEntityRenderingHandler(EntityVoreSlime.class, (Render)new RenderVoreSlime(new ModelVoreSlime(16), new ModelVoreSlime(0), 0.25f));
+76:         System.out.println("(MFQM)Init vore slime render");
+77:         RenderingRegistry.registerEntityRenderingHandler(EntityMuddyBlob.class, (Render)new RenderMuddyBlob(new ModelVoreSlime(16), new ModelVoreSlime(0), 0.25f));
+78:         System.out.println("(MFQM)Init muddy blob render");
+79:         RenderingRegistry.registerEntityRenderingHandler(EntityTarSlime.class, (Render)new RenderTarSlime(new ModelVoreSlime(16), new ModelVoreSlime(0), 0.25f));
+80:         System.out.println("(MFQM)Init tar slime render");
+81:         RenderingRegistry.registerEntityRenderingHandler(EntitySandBlob.class, (Render)new RenderSandBlob(new ModelVoreSlime(16), new ModelVoreSlime(0), 0.25f));
+82:         System.out.println("(MFQM)Init sandy blob render");
+83:         RenderingRegistry.registerEntityRenderingHandler(EntityBee.class, (Render)new RenderBee());
+84:         System.out.println("(MFQM)Init bee render");
+85:         ClientRegistry.registerTileEntity(TileEntityLarvae.class, (String)"TileEntityLarvae", (TileEntitySpecialRenderer)new TileEntityLarvaeRenderer());
+86:         System.out.println("(MFQM)Init Larvae render");
+87:         ClientRegistry.registerTileEntity(TileEntityMeat.class, (String)"TileEntityMeat", (TileEntitySpecialRenderer)new TileEntityMeatRenderer());
+88:         System.out.println("(MFQM)Init Meat wall render");
+89:         ClientRegistry.registerTileEntity(TileEntityBlossom.class, (String)"TileEntityBlossom", (TileEntitySpecialRenderer)new TileEntityBlossomRenderer());
+90:         System.out.println("(MFQM)Init Plant wall render");
+91:         RenderingRegistry.registerEntityRenderingHandler(EntityBubble.class, (Render)new RenderBubble());
+92:         System.out.println("(MFQM)Init bubble render");
+93:         RenderingRegistry.registerEntityRenderingHandler(EntityTarTreads.class, (Render)new RenderTarTreads());
+94:         System.out.println("(MFQM)Init tar treads render");
+95:         RenderingRegistry.registerEntityRenderingHandler(EntitySPotion.class, (Render)new RenderSnowball(MFQM.ThrPotionItem));
+96:     }
+97: 
+98:     @Override
+99:     public int addArmor(String armor) {
+100:         return RenderingRegistry.addNewArmourRendererPrefix((String)armor);
+101:     }
+102: }
+103: 

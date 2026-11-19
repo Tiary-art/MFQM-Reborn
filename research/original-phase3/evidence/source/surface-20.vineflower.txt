@@ -1,0 +1,75 @@
+// Decompiled inference, NOT original source; semantic closure PARTIAL
+      if (MFQM.GenMoss) {
+         int swD = this.getSwampDifficult(biomeId);
+         int swType = this.getSwampType(biomeId);
+         int MossP = 0;
+         int genCountx = 0;
+         int genRad = 0;
+         int genRadP = 0;
+         if (swType == 2 && this.T_BoP || biomegenbase instanceof BiomeGenSwamp && !this.T_BoP) {
+            byte var152;
+            byte var229;
+            byte var264;
+            switch (swD) {
+               case 1:
+                  var152 = 60;
+                  genCountx = random.nextInt(5) + 10;
+                  var229 = 10;
+                  var264 = 10;
+                  break;
+               case 2:
+                  var152 = 31;
+                  genCountx = random.nextInt(5) + 10;
+                  var229 = 10;
+                  var264 = 10;
+                  break;
+               default:
+                  var152 = 31;
+                  genCountx = random.nextInt(5) + 10;
+                  var229 = 10;
+                  var264 = 10;
+            }
+
+            if (biomeId == MFQM.SwampBiomes[0]) {
+               var152 = 32;
+            }
+
+            if (random.nextInt(var152) == 0) {
+               for (int ix = 0; ix < genCountx; ix++) {
+                  firstBlockXCoord = chunkX + random.nextInt(16);
+                  firstBlockYCoord = 67 + dHeight;
+                  firstBlockZCoord = chunkZ + random.nextInt(16);
+                  int radxx = var229 + random.nextInt(var264);
+                  int genTypex = 0;
+                  boolean canGenxxx = false;
+
+                  for (int countBlock = 0; firstBlockYCoord > 60 + dHeight; firstBlockYCoord--) {
+                     if (this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)
+                        && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                        if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                           canGenxxx = true;
+                           break;
+                        }
+
+                        countBlock++;
+                     }
+
+                     if (countBlock > 10) {
+                        break;
+                     }
+                  }
+
+                  if (canGenxxx) {
+                     if (this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                        if (this.isGroundMossNear(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxx, world)) {
+                           this.generateMoss(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, radxx, world, random);
+                        }
+                     } else {
+                        this.generateMoss(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, radxx, world, random);
+                     }
+                  }
+               }
+            }
+         }
+      }
+

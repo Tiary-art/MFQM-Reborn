@@ -1,0 +1,93 @@
+// CFR0.152; original decompiler line 4367; NOT original source; inspect **/goto artifacts if present.
+    private void generateHill(int xx, int yy, int zz, int rad, World world, Random random) {
+        int posz;
+        int posy;
+        int posx;
+        int e;
+        int j;
+        int i;
+        double rad_cof = Math.max((double)rad / 10.0, 1.0);
+        double rax = 1.0;
+        double raz = 1.0;
+        for (i = 0; i <= rad; ++i) {
+            for (j = 0; j <= rad * 2; ++j) {
+                for (e = 0; e <= rad; ++e) {
+                    int posyp;
+                    posx = xx + i - rad / 2;
+                    posy = yy - j + rad;
+                    posz = zz + e - rad / 2;
+                    double dis = Math.sqrt(Math.pow(xx - posx, 2.0) + Math.pow(yy - posy, 2.0) + Math.pow(zz - posz, 2.0));
+                    if (!(dis < (double)rad / 2.0 / (1.0 + Math.abs(rax - raz) / 3.0) + (random.nextDouble() * rad_cof - rad_cof / 2.0)) || j <= rad - rad / 4 || world.func_147439_a(posx, posyp = posy - rad / 4, posz).func_149688_o() == Material.field_151575_d) continue;
+                    if (world.func_147439_a(posx, posyp + 1, posz).func_149688_o().func_76218_k()) {
+                        world.func_147449_b(posx, posyp, posz, Blocks.field_150346_d);
+                        world.func_147449_b(posx, posyp - 1, posz, Blocks.field_150346_d);
+                        world.func_147449_b(posx, posyp - 2, posz, Blocks.field_150346_d);
+                        continue;
+                    }
+                    if (!world.func_147439_a(posx, posyp + 1, posz).func_149688_o().func_76224_d()) {
+                        world.func_147449_b(posx, posyp, posz, (Block)Blocks.field_150349_c);
+                        if (random.nextInt(5) == 0) {
+                            Blocks.field_150349_c.func_149853_b(world, random, posx, posy, posz);
+                        }
+                        world.func_147449_b(posx, posyp - 1, posz, Blocks.field_150346_d);
+                        world.func_147449_b(posx, posyp - 2, posz, Blocks.field_150346_d);
+                        continue;
+                    }
+                    world.func_147449_b(posx, posyp, posz, Blocks.field_150346_d);
+                    world.func_147449_b(posx, posyp - 1, posz, Blocks.field_150346_d);
+                    world.func_147449_b(posx, posyp - 2, posz, Blocks.field_150346_d);
+                }
+            }
+        }
+        for (i = 0; i <= rad; ++i) {
+            for (j = 0; j <= rad * 2 + 2; ++j) {
+                for (e = 0; e <= rad; ++e) {
+                    posx = xx + i - rad / 2;
+                    posy = yy - j + rad;
+                    int posyp = posy - rad / 4;
+                    posz = zz + e - rad / 2;
+                    if (world.func_147439_a(posx, posyp, posz) != Blocks.field_150349_c && world.func_147439_a(posx, posyp, posz) != Blocks.field_150346_d) continue;
+                    int cnt = 0;
+                    if (world.func_147439_a(posx + 1, posyp, posz).func_149688_o().func_76220_a()) {
+                        ++cnt;
+                    }
+                    if (world.func_147439_a(posx - 1, posyp, posz).func_149688_o().func_76220_a()) {
+                        ++cnt;
+                    }
+                    if (world.func_147439_a(posx, posyp, posz - 1).func_149688_o().func_76220_a()) {
+                        ++cnt;
+                    }
+                    if (world.func_147439_a(posx, posyp, posz + 1).func_149688_o().func_76220_a()) {
+                        ++cnt;
+                    }
+                    if (cnt >= 2) continue;
+                    int cnt2 = 0;
+                    if (world.func_147439_a(posx + 1, posyp, posz).func_149688_o() == Material.field_151586_h) {
+                        ++cnt2;
+                    }
+                    if (world.func_147439_a(posx - 1, posyp, posz).func_149688_o() == Material.field_151586_h) {
+                        ++cnt2;
+                    }
+                    if (world.func_147439_a(posx, posyp, posz - 1).func_149688_o() == Material.field_151586_h) {
+                        ++cnt2;
+                    }
+                    if (world.func_147439_a(posx, posyp, posz + 1).func_149688_o() == Material.field_151586_h) {
+                        ++cnt2;
+                    }
+                    if (world.func_147439_a(posx, posyp + 1, posz).func_149688_o() == Material.field_151586_h) {
+                        ++cnt2;
+                    }
+                    if (cnt2 > 0) {
+                        world.func_147449_b(posx, posyp, posz, (Block)Blocks.field_150358_i);
+                    } else {
+                        world.func_147468_f(posx, posyp, posz);
+                        if (world.func_147439_a(posx, posyp - 1, posz) == Blocks.field_150346_d) {
+                            world.func_147449_b(posx, posyp - 1, posz, (Block)Blocks.field_150349_c);
+                        }
+                    }
+                    if (!this.validPlantMaterial(posx, posyp + 1, posz, world)) continue;
+                    world.func_147468_f(posx, posyp + 1, posz);
+                }
+            }
+        }
+    }

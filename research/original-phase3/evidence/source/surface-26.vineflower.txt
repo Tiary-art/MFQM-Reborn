@@ -1,0 +1,155 @@
+// Decompiled inference, NOT original source; semantic closure PARTIAL
+      if (MFQM.GenHPClay) {
+         boolean canGenxxxxxxx = false;
+         boolean canGenV = false;
+         int genCountxxxx = 0;
+         int genPosxxxx = 0;
+         int genRadxxx = 0;
+         int genRadPxxx = 0;
+         int radxxxxxx = 0;
+         int radV = 0;
+         genCountxxxx = 30 + random.nextInt(10);
+         int var241 = 6;
+         int var281 = 6;
+         int var205 = 0;
+         boolean canGenWaterx = false;
+         boolean canGenGroundx = true;
+         int jngTx = this.getJungleType(biomeId);
+         if (jngTx != 0 && this.T_BoP || biomegenbase instanceof BiomeGenJungle && !this.T_BoP) {
+            var205 = 20;
+            if (biomegenbase instanceof BiomeGenJungle || jngTx == 3) {
+               var205 = 20;
+            }
+         }
+
+         if (var205 > 0 && (var205 == 999 || random.nextInt(var205) == 0)) {
+            int XC = chunkX + random.nextInt(16);
+            int YC = 68;
+            int ZC = chunkZ + random.nextInt(16);
+            int XCV = XC;
+            int YCV = YC;
+            int ZCV = ZC;
+            int PXC = XC;
+            int PYC = YC;
+            int PZC = ZC;
+            int PAC = 0;
+            boolean TacktGen = false;
+            boolean isSinking = false;
+
+            for (int ix = 0; ix < genCountxxxx; ix++) {
+               TacktGen = false;
+               firstBlockXCoord = XCV;
+               firstBlockYCoord = YCV;
+               firstBlockZCoord = ZCV;
+               radV = var241 + random.nextInt(var281);
+               int countBlock1 = 0;
+               int countBlock2 = 0;
+
+               for (canGenxxxxxxx = false; firstBlockYCoord > 60; firstBlockYCoord--) {
+                  if (this.validGroundClayMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                     if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                        if (!this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                           canGenxxxxxxx = true;
+                           break;
+                        }
+                     } else {
+                        countBlock2++;
+                     }
+                  }
+
+                  if (countBlock1 > 20 || countBlock2 > 20) {
+                     break;
+                  }
+               }
+
+               if (canGenxxxxxxx && this.genIsFlatClay(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radV, world)) {
+                  isSinking = false;
+                  int notGen = 200;
+                  if (radV > 7) {
+                     if (isAboveFreeSpace(firstBlockXCoord - radV, firstBlockYCoord, firstBlockZCoord, world)
+                        && isAboveFreeSpace(firstBlockXCoord + radV, firstBlockYCoord, firstBlockZCoord, world)
+                        && isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord - radV, world)
+                        && isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord + radV, world)) {
+                        notGen = 1;
+                     }
+
+                     if (random.nextInt(Math.max(1, firstBlockYCoord - 64) * 2 * notGen) == 0 && MFQM.GenSClay) {
+                        biomegenbase = world.func_72807_a(firstBlockXCoord, firstBlockZCoord);
+                        biomeId = biomegenbase.field_76756_M;
+                        jngTx = this.getJungleType(biomeId);
+                        if (jngTx != 0 && this.T_BoP || biomegenbase instanceof BiomeGenJungle && !this.T_BoP) {
+                           isSinking = true;
+                        }
+                     }
+                  }
+
+                  if (isSinking || random.nextInt(Math.max(1, firstBlockYCoord - 64) * notGen) == 0) {
+                     this.generateOnlyClay(isSinking, firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, (int)Math.floor(radV * 1.5F), world, random);
+                     TacktGen = true;
+                     PXC = firstBlockXCoord;
+                     PYC = firstBlockYCoord + 2;
+                     PZC = firstBlockZCoord;
+                     if (PAC == 0) {
+                        genCountxxxx = 40 + random.nextInt(10);
+                        PAC = 1;
+                     }
+
+                     blockGen = true;
+                  }
+               }
+
+               if (!TacktGen) {
+                  firstBlockXCoord = XC;
+                  firstBlockYCoord = YC;
+                  firstBlockZCoord = ZC;
+                  radxxxxxx = 4 + random.nextInt(1);
+                  int var500 = 0;
+                  countBlock2 = 0;
+
+                  for (canGenxxxxxxx = false; firstBlockYCoord > 60; firstBlockYCoord--) {
+                     if (this.validGroundClayMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                        if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                           if (!this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                              canGenxxxxxxx = true;
+                              break;
+                           }
+                        } else {
+                           countBlock2++;
+                        }
+                     }
+
+                     if (var500 > 20 || countBlock2 > 20) {
+                        break;
+                     }
+                  }
+
+                  if (canGenxxxxxxx) {
+                     this.generateOnlyClay(false, firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, (int)Math.floor(radxxxxxx * 1.5F), world, random);
+                     TacktGen = true;
+                     PXC = firstBlockXCoord;
+                     PYC = firstBlockYCoord + 2;
+                     PZC = firstBlockZCoord;
+                     if (PAC == 0) {
+                        genCountxxxx = 40 + random.nextInt(10);
+                        PAC = 1;
+                     }
+
+                     blockGen = true;
+                  }
+               }
+
+               float rg = world.field_73012_v.nextFloat() * 360.0F;
+               float imp = 2.0F + world.field_73012_v.nextFloat() * 1.0F;
+               float impV = 7.0F + world.field_73012_v.nextFloat() * 5.0F;
+               rg = (float)Math.toRadians(rg);
+               XCV = PXC + (int)Math.floor(Math.sin(rg) * impV);
+               YCV = PYC;
+               ZCV = PZC + (int)Math.floor(Math.cos(rg) * impV);
+               XC = PXC + (int)Math.floor(Math.sin(rg) * imp);
+               YC = PYC;
+               ZC = PZC + (int)Math.floor(Math.cos(rg) * imp);
+            }
+         }
+      }
+   }
+}

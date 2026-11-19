@@ -1,0 +1,82 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.block.Block
+8:  *  net.minecraft.block.IGrowable
+9:  *  net.minecraft.client.renderer.texture.IIconRegister
+10:  *  net.minecraft.entity.player.EntityPlayer
+11:  *  net.minecraft.init.Items
+12:  *  net.minecraft.item.ItemBucket
+13:  *  net.minecraft.item.ItemStack
+14:  *  net.minecraft.world.World
+15:  */
+16: package MoreFunQuicksandMod.main.items;
+17: 
+18: import MoreFunQuicksandMod.main.MFQM;
+19: import cpw.mods.fml.relauncher.Side;
+20: import cpw.mods.fml.relauncher.SideOnly;
+21: import net.minecraft.block.Block;
+22: import net.minecraft.block.IGrowable;
+23: import net.minecraft.client.renderer.texture.IIconRegister;
+24: import net.minecraft.entity.player.EntityPlayer;
+25: import net.minecraft.init.Items;
+26: import net.minecraft.item.ItemBucket;
+27: import net.minecraft.item.ItemStack;
+28: import net.minecraft.world.World;
+29: 
+30: public class ItemSlurryBucket
+31: extends ItemBucket {
+32:     public ItemSlurryBucket(Block blockID) {
+33:         super(blockID);
+34:         this.func_77655_b("BucketOfSlurry");
+35:         this.func_77637_a(MFQM.tabMFQM);
+36:     }
+37: 
+38:     @SideOnly(value=Side.CLIENT)
+39:     public void func_94581_a(IIconRegister par1IconRegister) {
+40:         this.field_77791_bV = par1IconRegister.func_94245_a("morefunquicksandmod:BucketOfSlurry");
+41:     }
+42: 
+43:     public boolean func_77648_a(ItemStack item, EntityPlayer ply, World world, int x, int y, int z, int side, float px, float py, float pz) {
+44:         if (!ply.func_82247_a(x, y, z, side, item)) {
+45:             return false;
+46:         }
+47:         if (side == 1 && this.GrowThings(item, world, x, y, z)) {
+48:             if (world.field_72995_K) {
+49:                 world.func_72926_e(2005, x, y, z, 0);
+50:                 world.func_72926_e(2005, x, y, z, 0);
+51:                 world.func_72926_e(2005, x, y, z, 0);
+52:             } else if (!ply.field_71075_bZ.field_75098_d) {
+53:                 ply.field_71071_by.func_70299_a(ply.field_71071_by.field_70461_c, new ItemStack(Items.field_151133_ar));
+54:             }
+55:             world.func_72908_a((double)x, (double)y, (double)z, "game.player.swim", 0.15f, world.field_73012_v.nextFloat() * 0.25f + 0.1f);
+56:             world.func_72908_a((double)x, (double)y, (double)z, "mob.silverfish.step", 0.5f, world.field_73012_v.nextFloat() * 0.25f + 0.1f);
+57:             return true;
+58:         }
+59:         return false;
+60:     }
+61: 
+62:     public boolean GrowThings(ItemStack item, World world, int x, int y, int z) {
+63:         IGrowable grow;
+64:         Block bl = world.func_147439_a(x, y, z);
+65:         if (bl instanceof IGrowable && (grow = (IGrowable)bl).func_149851_a(world, x, y, z, !world.field_72995_K)) {
+66:             if (!world.field_72995_K) {
+67:                 grow.func_149853_b(world, world.field_73012_v, x, y, z);
+68:                 bl = world.func_147439_a(x, y, z);
+69:                 if (bl instanceof IGrowable) {
+70:                     grow.func_149853_b(world, world.field_73012_v, x, y, z);
+71:                     bl = world.func_147439_a(x, y, z);
+72:                     if (bl instanceof IGrowable) {
+73:                         grow.func_149853_b(world, world.field_73012_v, x, y, z);
+74:                     }
+75:                 }
+76:             }
+77:             return true;
+78:         }
+79:         return false;
+80:     }
+81: }
+82: 

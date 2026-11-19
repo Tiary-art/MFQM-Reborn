@@ -1,0 +1,127 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.block.Block
+8:  *  net.minecraft.block.BlockBush
+9:  *  net.minecraft.block.material.Material
+10:  *  net.minecraft.client.renderer.texture.IIconRegister
+11:  *  net.minecraft.init.Blocks
+12:  *  net.minecraft.item.Item
+13:  *  net.minecraft.item.ItemStack
+14:  *  net.minecraft.util.IIcon
+15:  *  net.minecraft.world.Explosion
+16:  *  net.minecraft.world.IBlockAccess
+17:  *  net.minecraft.world.World
+18:  *  net.minecraftforge.common.IShearable
+19:  */
+20: package MoreFunQuicksandMod.main.blocks;
+21: 
+22: import MoreFunQuicksandMod.main.MFQM;
+23: import cpw.mods.fml.relauncher.Side;
+24: import cpw.mods.fml.relauncher.SideOnly;
+25: import java.util.ArrayList;
+26: import java.util.Random;
+27: import net.minecraft.block.Block;
+28: import net.minecraft.block.BlockBush;
+29: import net.minecraft.block.material.Material;
+30: import net.minecraft.client.renderer.texture.IIconRegister;
+31: import net.minecraft.init.Blocks;
+32: import net.minecraft.item.Item;
+33: import net.minecraft.item.ItemStack;
+34: import net.minecraft.util.IIcon;
+35: import net.minecraft.world.Explosion;
+36: import net.minecraft.world.IBlockAccess;
+37: import net.minecraft.world.World;
+38: import net.minecraftforge.common.IShearable;
+39: 
+40: public class BlockLeaves
+41: extends BlockBush
+42: implements IShearable {
+43:     @SideOnly(value=Side.CLIENT)
+44:     private IIcon ic1;
+45: 
+46:     public BlockLeaves() {
+47:         super(Material.field_151585_k);
+48:         float var1 = 0.5f;
+49:         float var2 = 0.015625f;
+50:         this.func_149676_a(0.5f - var1, 0.0f, 0.5f - var1, 0.5f + var1, var2, 0.5f + var1);
+51:         this.func_149663_c("LeavesPile");
+52:         this.func_149711_c(0.0f);
+53:         this.func_149672_a(field_149779_h);
+54:         this.func_149675_a(true);
+55:         this.func_149647_a(MFQM.tabMFQM);
+56:     }
+57: 
+58:     public int func_149645_b() {
+59:         return 23;
+60:     }
+61: 
+62:     @SideOnly(value=Side.CLIENT)
+63:     public IIcon func_149691_a(int par1, int par2) {
+64:         return this.ic1;
+65:     }
+66: 
+67:     public Item func_149650_a(int par1, Random par2Random, int par3) {
+68:         return null;
+69:     }
+70: 
+71:     public int func_149745_a(Random par1Random) {
+72:         return 0;
+73:     }
+74: 
+75:     public int quantityDropped(int meta, int fortune, Random par1Random) {
+76:         return 0;
+77:     }
+78: 
+79:     public int func_149679_a(int par1, Random par2Random) {
+80:         return 0;
+81:     }
+82: 
+83:     @SideOnly(value=Side.CLIENT)
+84:     public void func_149651_a(IIconRegister par1IIconRegister) {
+85:         this.ic1 = par1IIconRegister.func_94245_a("morefunquicksandmod:Leaves");
+86:     }
+87: 
+88:     public boolean func_149718_j(World world, int x, int y, int z) {
+89:         return world.func_147439_a(x, y - 1, z).func_149688_o().func_76220_a() || world.func_147439_a(x, y - 1, z).func_149688_o().func_76224_d();
+90:     }
+91: 
+92:     public void func_149726_b(World par1World, int par2, int par3, int par4) {
+93:         if (MFQM.LiqFixer) {
+94:             return;
+95:         }
+96:         par1World.func_147464_a(par2, par3, par4, (Block)this, this.func_149738_a(par1World));
+97:     }
+98: 
+99:     public void func_149695_a(World par1World, int par2, int par3, int par4, Block par5) {
+100:         if (MFQM.LiqFixer) {
+101:             return;
+102:         }
+103:         if (!this.func_149718_j(par1World, par2, par3, par4)) {
+104:             par1World.func_147468_f(par2, par3, par4);
+105:         }
+106:     }
+107: 
+108:     protected boolean canThisPlantGrowOnThisBlock(Block par1) {
+109:         return par1 != Blocks.field_150350_a;
+110:     }
+111: 
+112:     public boolean func_149659_a(Explosion par1Explosion) {
+113:         return false;
+114:     }
+115: 
+116:     public boolean isShearable(ItemStack item, IBlockAccess world, int x, int y, int z) {
+117:         return true;
+118:     }
+119: 
+120:     public ArrayList<ItemStack> onSheared(ItemStack item, IBlockAccess world, int x, int y, int z, int fortune) {
+121:         ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
+122:         int meta = world.func_72805_g(x, y, z);
+123:         ret.add(new ItemStack((Block)this, 1, meta));
+124:         return ret;
+125:     }
+126: }
+127: 

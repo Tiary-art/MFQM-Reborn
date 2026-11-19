@@ -1,0 +1,60 @@
+// CFR0.152; original decompiler line 5731; NOT original source; inspect **/goto artifacts if present.
+    private void generateAOADimCeleve(World world, Random random, int chunkX, int chunkZ) {
+        int dHeight = 0;
+        int firstBlockXCoord = chunkX + random.nextInt(16);
+        int firstBlockYCoord = 96 + dHeight;
+        int firstBlockZCoord = chunkZ + random.nextInt(16);
+        BiomeGenBase biomegenbase = world.func_72807_a(firstBlockXCoord, firstBlockZCoord);
+        int biomeId = biomegenbase.field_76756_M;
+        boolean blockGen = false;
+        if (!blockGen) {
+            boolean canGen = false;
+            boolean genType = false;
+            int genCount = 0;
+            int genPos = 0;
+            int genRad = 0;
+            int genRadP = 0;
+            int rad = 0;
+            int aMeta = random.nextInt(16);
+            genCount = 100 + random.nextInt(20);
+            genRad = 6;
+            genRadP = 8;
+            genPos = 1;
+            if (random.nextInt(genPos) == 0 && genPos != 999) {
+                for (int i = 0; i < genCount; ++i) {
+                    boolean Flat = false;
+                    if (random.nextInt(5) == 0) {
+                        Flat = true;
+                    } else if (random.nextInt(5) == 0) {
+                        aMeta = random.nextInt(16);
+                    }
+                    firstBlockXCoord = chunkX + random.nextInt(16);
+                    firstBlockZCoord = chunkZ + random.nextInt(16);
+                    rad = genRad + random.nextInt(genRadP);
+                    int countBlock = 0;
+                    canGen = false;
+                    for (firstBlockYCoord = random.nextInt(80) + 32 + dHeight; firstBlockYCoord > 16 + dHeight; --firstBlockYCoord) {
+                        if (this.validGroundMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                            if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                canGen = true;
+                                break;
+                            }
+                            ++countBlock;
+                        }
+                        if (countBlock > 10) break;
+                    }
+                    if (canGen) {
+                        if (!this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world) || !this.genIsFlat(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad - 4, world)) continue;
+                        if (Flat) {
+                            this.generateMireM(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random, Material.field_151578_c, MFQM.SinkingWoolBlock, aMeta);
+                        } else {
+                            this.generateMireM(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random, Material.field_151578_c, Blocks.field_150325_L, aMeta);
+                        }
+                        blockGen = true;
+                        continue;
+                    }
+                    if (firstBlockYCoord < 17 + dHeight) break;
+                }
+            }
+        }
+    }

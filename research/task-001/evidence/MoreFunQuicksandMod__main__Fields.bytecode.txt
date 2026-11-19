@@ -1,0 +1,221 @@
+Archive: MoreFunQuicksandMod/main/Fields.class
+SHA256: bd3eb7cfe75d53cff2cf986b0ec8a296fc193c20d1bf97840a3c09c029c99591
+Superclass: java/lang/Object
+Offsets are decimal byte offsets; branch operands are relative offsets.
+
+
+METHOD <init> ()V
+000000: aload_0 
+000001: invokespecial #9 java/lang/Object.<init>:()V
+000004: return 
+
+METHOD findFieldAndGet (Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Object;I)Ljava/lang/Object;
+000000: aload_0 
+000001: invokevirtual #22 java/lang/Class.getDeclaredFields:()[Ljava/lang/reflect/Field;
+000004: astore 4
+000006: aload 4
+000008: arraylength 
+000009: istore 5
+000011: iconst_0 
+000012: istore 6
+000014: iload 6
+000016: iload 5
+000018: if_icmpge 55
+000021: aload 4
+000023: iload 6
+000025: aaload 
+000026: astore 7
+000028: aload 7
+000030: iconst_1 
+000031: invokevirtual #30 java/lang/reflect/Field.setAccessible:(Z)V
+000034: aload 7
+000036: invokevirtual #34 java/lang/reflect/Field.getType:()Ljava/lang/Class;
+000039: aload_1 
+000040: invokevirtual #38 java/lang/Class.isAssignableFrom:(Ljava/lang/Class;)Z
+000043: ifeq 24
+000046: iload_3 
+000047: ifne 17
+000050: aload 7
+000052: aload_2 
+000053: invokevirtual #42 java/lang/reflect/Field.get:(Ljava/lang/Object;)Ljava/lang/Object;
+000056: areturn 
+000057: astore 8
+000059: aload 8
+000061: invokevirtual #45 java/lang/Exception.printStackTrace:()V
+000064: iinc 3, 255
+000067: iinc 6, 1
+000070: goto -56
+000073: aconst_null 
+000074: areturn 
+
+METHOD findFieldsAndGet (Ljava/lang/Class;Ljava/lang/Class;Ljava/lang/Object;)[Ljava/lang/Object;
+000000: new #62 java/util/ArrayList
+000003: dup 
+000004: invokespecial #63 java/util/ArrayList.<init>:()V
+000007: astore_3 
+000008: aload_0 
+000009: invokevirtual #22 java/lang/Class.getDeclaredFields:()[Ljava/lang/reflect/Field;
+000012: astore 4
+000014: aload 4
+000016: arraylength 
+000017: istore 5
+000019: iconst_0 
+000020: istore 6
+000022: iload 6
+000024: iload 5
+000026: if_icmpge 57
+000029: aload 4
+000031: iload 6
+000033: aaload 
+000034: astore 7
+000036: aload 7
+000038: iconst_1 
+000039: invokevirtual #30 java/lang/reflect/Field.setAccessible:(Z)V
+000042: aload 7
+000044: invokevirtual #34 java/lang/reflect/Field.getType:()Ljava/lang/Class;
+000047: aload_1 
+000048: invokevirtual #38 java/lang/Class.isAssignableFrom:(Ljava/lang/Class;)Z
+000051: ifeq 26
+000054: aload_3 
+000055: aload 7
+000057: aload_2 
+000058: invokevirtual #42 java/lang/reflect/Field.get:(Ljava/lang/Object;)Ljava/lang/Object;
+000061: invokeinterface #69 java/util/List.add:(Ljava/lang/Object;)Z, 2, 0
+000066: pop 
+000067: goto 10
+000070: astore 8
+000072: aload 8
+000074: invokevirtual #45 java/lang/Exception.printStackTrace:()V
+000077: iinc 6, 1
+000080: goto -58
+000083: aload_3 
+000084: iconst_0 
+000085: anewarray 4
+000088: invokeinterface #73 java/util/List.toArray:([Ljava/lang/Object;)[Ljava/lang/Object;, 2, 0
+000093: areturn 
+
+METHOD findField (Ljava/lang/Class;Ljava/lang/Class;I)Ljava/lang/reflect/Field;
+000000: aload_0 
+000001: invokevirtual #22 java/lang/Class.getDeclaredFields:()[Ljava/lang/reflect/Field;
+000004: astore_3 
+000005: aload_3 
+000006: arraylength 
+000007: istore 4
+000009: iconst_0 
+000010: istore 5
+000012: iload 5
+000014: iload 4
+000016: if_icmpge 43
+000019: aload_3 
+000020: iload 5
+000022: aaload 
+000023: astore 6
+000025: aload 6
+000027: iconst_1 
+000028: invokevirtual #30 java/lang/reflect/Field.setAccessible:(Z)V
+000031: aload 6
+000033: invokevirtual #34 java/lang/reflect/Field.getType:()Ljava/lang/Class;
+000036: aload_1 
+000037: invokevirtual #38 java/lang/Class.isAssignableFrom:(Ljava/lang/Class;)Z
+000040: ifeq 13
+000043: iload_2 
+000044: ifne 6
+000047: aload 6
+000049: areturn 
+000050: iinc 2, 255
+000053: iinc 5, 1
+000056: goto -44
+000059: aconst_null 
+000060: areturn 
+
+METHOD findFields (Ljava/lang/Class;Ljava/lang/Class;)[Ljava/lang/reflect/Field;
+000000: aload_0 
+000001: aload_1 
+000002: iconst_0 
+000003: invokestatic #85 MoreFunQuicksandMod/main/Fields.findFields:(Ljava/lang/Class;Ljava/lang/Class;I)[Ljava/lang/reflect/Field;
+000006: areturn 
+
+METHOD findFields (Ljava/lang/Class;Ljava/lang/Class;I)[Ljava/lang/reflect/Field;
+000000: new #62 java/util/ArrayList
+000003: dup 
+000004: invokespecial #63 java/util/ArrayList.<init>:()V
+000007: astore_3 
+000008: aload_0 
+000009: ifnull 90
+000012: aload_0 
+000013: ldc #4 java/lang/Object
+000015: if_acmpeq 84
+000018: aload_0 
+000019: invokevirtual #22 java/lang/Class.getDeclaredFields:()[Ljava/lang/reflect/Field;
+000022: astore 4
+000024: aload 4
+000026: arraylength 
+000027: istore 5
+000029: iconst_0 
+000030: istore 6
+000032: iload 6
+000034: iload 5
+000036: if_icmpge 43
+000039: aload 4
+000041: iload 6
+000043: aaload 
+000044: astore 7
+000046: aload 7
+000048: iconst_1 
+000049: invokevirtual #30 java/lang/reflect/Field.setAccessible:(Z)V
+000052: aload 7
+000054: invokevirtual #34 java/lang/reflect/Field.getType:()Ljava/lang/Class;
+000057: aload_1 
+000058: invokevirtual #38 java/lang/Class.isAssignableFrom:(Ljava/lang/Class;)Z
+000061: ifeq 12
+000064: aload_3 
+000065: aload 7
+000067: invokeinterface #69 java/util/List.add:(Ljava/lang/Object;)Z, 2, 0
+000072: pop 
+000073: iinc 6, 1
+000076: goto -44
+000079: aload_0 
+000080: invokevirtual #89 java/lang/Class.getSuperclass:()Ljava/lang/Class;
+000083: astore_0 
+000084: iload_2 
+000085: iconst_m1 
+000086: if_icmpeq -78
+000089: iload_2 
+000090: iinc 2, 255
+000093: ifne -85
+000096: goto 3
+000099: aload_3 
+000100: iconst_0 
+000101: anewarray 26
+000104: invokeinterface #73 java/util/List.toArray:([Ljava/lang/Object;)[Ljava/lang/Object;, 2, 0
+000109: checkcast #24 [Ljava/lang/reflect/Field;
+000112: areturn 
+
+METHOD removeFinal (Ljava/lang/Class;Ljava/lang/Object;[Ljava/lang/String;)Ljava/lang/reflect/Field;
+000000: aload_0 
+000001: aload_0 
+000002: invokevirtual #98 java/lang/Class.getName:()Ljava/lang/String;
+000005: aload_2 
+000006: invokestatic #104 cpw/mods/fml/common/ObfuscationReflectionHelper.remapFieldNames:(Ljava/lang/String;[Ljava/lang/String;)[Ljava/lang/String;
+000009: invokestatic #109 cpw/mods/fml/relauncher/ReflectionHelper.findField:(Ljava/lang/Class;[Ljava/lang/String;)Ljava/lang/reflect/Field;
+000012: astore_3 
+000013: ldc #26 java/lang/reflect/Field
+000015: ldc #111 'modifiers'
+000017: invokevirtual #115 java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+000020: astore 4
+000022: aload 4
+000024: iconst_1 
+000025: invokevirtual #30 java/lang/reflect/Field.setAccessible:(Z)V
+000028: aload 4
+000030: aload_3 
+000031: aload_3 
+000032: invokevirtual #119 java/lang/reflect/Field.getModifiers:()I
+000035: bipush -17
+000037: iand 
+000038: invokevirtual #123 java/lang/reflect/Field.setInt:(Ljava/lang/Object;I)V
+000041: goto 10
+000044: astore 4
+000046: aload 4
+000048: invokevirtual #45 java/lang/Exception.printStackTrace:()V
+000051: aload_3 
+000052: areturn 

@@ -1,0 +1,115 @@
+// Decompiled inference, NOT original source; semantic closure PARTIAL
+      if (MFQM.GenSQS && !blockGen) {
+         boolean canGenxxx = false;
+         boolean genPosFounded = false;
+         int genCountx = 0;
+         int genRealCount = 0;
+         int genPosx = 0;
+         int genRad = 0;
+         int genRadP = 0;
+         int radxx = 0;
+         int FX = 0;
+         int FZ = 0;
+         int FY = 60;
+         int jngT = this.getJungleType(biomeId);
+         if (jngT != 0 && jngT != 2 && this.T_BoP || biomegenbase instanceof BiomeGenJungle && !this.T_BoP) {
+            genCountx = 20 + random.nextInt(10);
+            int var262 = 10;
+            int var304 = 5;
+            int genSand = 0;
+            genRealCount = 1 + random.nextInt(29);
+            int radOfGen = (int)Math.floor(30.0 * Math.min(1.0, genRealCount / 20.0));
+            genPosx = 1 + genRealCount * 4;
+            int T_genRealCount = genRealCount * 4;
+            if (random.nextInt(genPosx) == 0) {
+               for (int ix = 0; ix < genCountx && genRealCount > 0; ix++) {
+                  if (!genPosFounded) {
+                     firstBlockXCoord = chunkX + random.nextInt(32) - 16;
+                     firstBlockYCoord = 96 + dHeight;
+                     firstBlockZCoord = chunkZ + random.nextInt(32) - 16;
+                     radxx = var262 + random.nextInt(var304);
+                  } else {
+                     firstBlockXCoord = FX + random.nextInt(radOfGen) - radOfGen / 2;
+                     firstBlockYCoord = 96 + dHeight;
+                     firstBlockZCoord = FZ + random.nextInt(radOfGen) - radOfGen / 2;
+                     radxx = var262 / 2 + random.nextInt(7) + radOfGen / 6;
+                  }
+
+                  int countBlock = 0;
+                  int upper = 0;
+
+                  for (canGenxxx = false; firstBlockYCoord > 60 + dHeight; firstBlockYCoord--) {
+                     if (this.validSoftQuicksandMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)
+                        && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                        if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                           canGenxxx = true;
+                           if (world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) == MFQM.SoftQuicksandBlock) {
+                              upper = -1;
+                           } else {
+                              upper = -1;
+                           }
+                           break;
+                        }
+
+                        countBlock++;
+                     }
+                  }
+
+                  if (canGenxxx
+                     && this.genIsFlatSoftQuicksand(firstBlockXCoord, firstBlockYCoord - 1, firstBlockZCoord, radxx, world)
+                     && this.genIsFlatSoftQuicksand(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxx, world)
+                     && this.genIsFlatSoftQuicksand(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, radxx, world)) {
+                     if (!genPosFounded) {
+                        genPosFounded = true;
+                        FX = firstBlockXCoord;
+                        FZ = firstBlockZCoord;
+                        FY = firstBlockYCoord;
+                        genCountx = 750;
+                     }
+
+                     genRealCount--;
+                     this.generateCliffs(firstBlockXCoord, FY, firstBlockZCoord, (int)Math.floor(radxx * 1.5), world, random);
+                     this.generateSoftQuicksand(firstBlockXCoord, FY - upper - 1, firstBlockZCoord, radxx, world, random, genSand);
+                     blockGen = true;
+                  }
+               }
+
+               int ccount = genSand * 10 + T_genRealCount + random.nextInt(T_genRealCount / 2);
+               int rcount = 0;
+
+               for (int ix = 0; rcount < ccount; ix++) {
+                  firstBlockXCoord = FX + random.nextInt(radOfGen) - radOfGen / 2;
+                  firstBlockYCoord = FY;
+                  firstBlockZCoord = FZ + random.nextInt(radOfGen) - radOfGen / 2;
+                  float disToC = Math.max((float)Math.sqrt(Math.pow(firstBlockXCoord - FX, 2.0) + Math.pow(firstBlockZCoord - FZ, 2.0)), 1.0F);
+                  int cof_d = Math.max(1, (int)Math.floor(Math.pow(16.0F / disToC, 1.5)));
+                  int rrad = 1;
+                  if (random.nextInt(1 * cof_d) == 0) {
+                     rrad = 2 + random.nextInt(1);
+                  }
+
+                  if (random.nextInt(2 * cof_d) == 0) {
+                     rrad = 3 + random.nextInt(2);
+                  }
+
+                  if (random.nextInt(3 * cof_d) == 0) {
+                     rrad = 4 + random.nextInt(3);
+                  }
+
+                  int qy = 1;
+                  if (random.nextInt(5) == 0) {
+                     qy = 0;
+                  }
+
+                  if (rrad > 1) {
+                     this.generateRock(
+                        firstBlockXCoord, FY - qy - random.nextInt(Math.max(1, (int)Math.floor(rrad / 2))), firstBlockZCoord, rrad, world, random
+                     );
+                  }
+
+                  rcount++;
+               }
+            }
+         }
+      }
+

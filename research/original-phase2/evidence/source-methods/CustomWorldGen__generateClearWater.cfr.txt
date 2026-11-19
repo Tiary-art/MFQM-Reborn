@@ -1,0 +1,18 @@
+// CFR0.152; original decompiler line 1039; NOT original source; inspect **/goto artifacts if present.
+    private void generateClearWater(int xx, int yy, int zz, int rad, World world, Random random) {
+        double rad_cof = Math.max((double)rad / 10.0, 1.0);
+        double rax = 1.0;
+        double raz = 1.0;
+        for (int j = 0; j <= rad / 2; ++j) {
+            for (int i = 0; i <= rad; ++i) {
+                for (int e = 0; e <= rad; ++e) {
+                    int posx = xx + i - rad / 2;
+                    int posy = yy - j;
+                    int posz = zz + e - rad / 2;
+                    double dis = Math.sqrt(Math.pow(xx - posx, 2.0) + Math.pow(yy - posy, 2.0) + Math.pow(zz - posz, 2.0));
+                    if (!(dis < (double)rad / 2.0 / (1.0 + Math.abs(rax - raz) / 3.0) + (random.nextDouble() * rad_cof - rad_cof / 2.0)) || this.validWaterMaterial(posx, posy + 1, posz, world) || !this.validWaterMaterial(posx, posy, posz, world)) continue;
+                    world.func_147468_f(posx, posy, posz);
+                }
+            }
+        }
+    }

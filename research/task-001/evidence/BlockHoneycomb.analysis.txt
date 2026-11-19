@@ -1,0 +1,152 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.block.Block
+8:  *  net.minecraft.block.material.Material
+9:  *  net.minecraft.client.renderer.texture.IIconRegister
+10:  *  net.minecraft.creativetab.CreativeTabs
+11:  *  net.minecraft.enchantment.EnchantmentHelper
+12:  *  net.minecraft.entity.Entity
+13:  *  net.minecraft.entity.EntityLivingBase
+14:  *  net.minecraft.entity.player.EntityPlayer
+15:  *  net.minecraft.item.Item
+16:  *  net.minecraft.item.ItemStack
+17:  *  net.minecraft.util.IIcon
+18:  *  net.minecraft.world.World
+19:  */
+20: package MoreFunQuicksandMod.main.blocks;
+21: 
+22: import MoreFunQuicksandMod.main.MFQM;
+23: import MoreFunQuicksandMod.main.entity.EntityBee;
+24: import cpw.mods.fml.relauncher.Side;
+25: import cpw.mods.fml.relauncher.SideOnly;
+26: import java.util.List;
+27: import java.util.Random;
+28: import net.minecraft.block.Block;
+29: import net.minecraft.block.material.Material;
+30: import net.minecraft.client.renderer.texture.IIconRegister;
+31: import net.minecraft.creativetab.CreativeTabs;
+32: import net.minecraft.enchantment.EnchantmentHelper;
+33: import net.minecraft.entity.Entity;
+34: import net.minecraft.entity.EntityLivingBase;
+35: import net.minecraft.entity.player.EntityPlayer;
+36: import net.minecraft.item.Item;
+37: import net.minecraft.item.ItemStack;
+38: import net.minecraft.util.IIcon;
+39: import net.minecraft.world.World;
+40: 
+41: public class BlockHoneycomb
+42: extends Block {
+43:     @SideOnly(value=Side.CLIENT)
+44:     private IIcon[] IIconMArray;
+45: 
+46:     public BlockHoneycomb() {
+47:         super(Material.field_151580_n);
+48:         this.func_149711_c(0.5f);
+49:         this.func_149672_a(Block.field_149769_e);
+50:         this.func_149752_b(1.0f);
+51:         this.func_149663_c("Honeycomb");
+52:         this.func_149675_a(true);
+53:         this.func_149647_a(MFQM.tabMFQM);
+54:     }
+55: 
+56:     @SideOnly(value=Side.CLIENT)
+57:     public void func_149666_a(Item block, CreativeTabs creativeTabs, List list) {
+58:         list.add(new ItemStack(block, 1, 0));
+59:         list.add(new ItemStack(block, 1, 1));
+60:         list.add(new ItemStack(block, 1, 2));
+61:     }
+62: 
+63:     @SideOnly(value=Side.CLIENT)
+64:     public IIcon func_149691_a(int par1, int par2) {
+65:         return this.IIconMArray[Math.min(par2, 2)];
+66:     }
+67: 
+68:     public Item func_149650_a(int par1, Random par2Random, int par3) {
+69:         if (par1 != 2) {
+70:             if (MFQM.BoP && MFQM.FleshItemID != 0) {
+71:                 return MFQM.FleshItem;
+72:             }
+73:             return MFQM.EmptycombItem;
+74:         }
+75:         if (MFQM.BoP && MFQM.FoodItemID != 0) {
+76:             return MFQM.FoodItem;
+77:         }
+78:         return MFQM.HoneycombItem;
+79:     }
+80: 
+81:     public int quantityDropped(int meta, int fortune, Random random) {
+82:         if (meta != 2) {
+83:             return random.nextInt(3) + 1;
+84:         }
+85:         if (meta < 3) {
+86:             return random.nextInt(2);
+87:         }
+88:         return 0;
+89:     }
+90: 
+91:     public int func_149692_a(int meta) {
+92:         if (meta != 2) {
+93:             if (MFQM.BoP && MFQM.FleshItemID != 0) {
+94:                 return 2;
+95:             }
+96:             return 0;
+97:         }
+98:         if (MFQM.BoP && MFQM.FoodItemID != 0) {
+99:             return 9;
+100:         }
+101:         return 0;
+102:     }
+103: 
+104:     public void func_149674_a(World world, int x, int y, int z, Random rand) {
+105:         if (world.func_72805_g(x, y, z) == 3) {
+106:             world.func_147468_f(x, y, z);
+107:         }
+108:     }
+109: 
+110:     public boolean canHarvestBlock(EntityPlayer player, int meta) {
+111:         return true;
+112:     }
+113: 
+114:     public void func_149636_a(World world, EntityPlayer entityPlayer, int x, int y, int z, int par6) {
+115:         if (par6 == 0 && world.field_73012_v.nextInt(2) == 0) {
+116:             EntityBee bee = new EntityBee(world);
+117:             bee.func_70012_b((double)x + 0.5, y, (double)z + 0.5, 0.0f, 0.0f);
+118:             world.func_72838_d((Entity)bee);
+119:         }
+120:         if (EnchantmentHelper.func_77502_d((EntityLivingBase)entityPlayer)) {
+121:             MFQM.dropItem(world, x, y, z, new ItemStack((Block)this));
+122:             world.func_147471_g(x, y, z);
+123:             return;
+124:         }
+125:         if (par6 == 2) {
+126:             world.func_72908_a((double)((float)x + 0.5f), (double)((float)y + 0.5f), (double)((float)z + 0.5f), "mob.silverfish.step", 0.15f, world.field_73012_v.nextFloat() * 0.2f + 0.6f);
+127:             if (!world.field_72995_K) {
+128:                 world.func_147465_d(x, y, z, MFQM.HoneyBlock, 0, 2);
+129:             }
+130:         }
+131:         super.func_149636_a(world, entityPlayer, x, y, z, par6);
+132:     }
+133: 
+134:     public void func_149726_b(World par1World, int par2, int par3, int par4) {
+135:         if (par1World.func_72805_g(par2, par3, par4) == 3) {
+136:             par1World.func_147464_a(par2, par3, par4, (Block)this, this.func_149738_a(par1World));
+137:         }
+138:     }
+139: 
+140:     @SideOnly(value=Side.CLIENT)
+141:     public void func_149651_a(IIconRegister par1) {
+142:         this.IIconMArray = new IIcon[3];
+143:         this.IIconMArray[0] = par1.func_94245_a("morefunquicksandmod:honeycomb0");
+144:         this.IIconMArray[1] = par1.func_94245_a("morefunquicksandmod:honeycomb1");
+145:         this.IIconMArray[2] = par1.func_94245_a("morefunquicksandmod:honeycomb2");
+146:     }
+147: 
+148:     public int func_149643_k(World par1World, int par2, int par3, int par4) {
+149:         return par1World.func_72805_g(par2, par3, par4);
+150:     }
+151: }
+152: 

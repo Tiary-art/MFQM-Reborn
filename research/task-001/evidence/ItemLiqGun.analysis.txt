@@ -1,0 +1,172 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.block.Block
+8:  *  net.minecraft.client.renderer.texture.IIconRegister
+9:  *  net.minecraft.entity.Entity
+10:  *  net.minecraft.entity.EntityLivingBase
+11:  *  net.minecraft.entity.player.EntityPlayer
+12:  *  net.minecraft.item.EnumAction
+13:  *  net.minecraft.item.Item
+14:  *  net.minecraft.item.ItemStack
+15:  *  net.minecraft.nbt.NBTTagCompound
+16:  *  net.minecraft.util.EnumChatFormatting
+17:  *  net.minecraft.util.IIcon
+18:  *  net.minecraft.util.MovingObjectPosition
+19:  *  net.minecraft.util.MovingObjectPosition$MovingObjectType
+20:  *  net.minecraft.util.StatCollector
+21:  *  net.minecraft.world.World
+22:  */
+23: package MoreFunQuicksandMod.main.items;
+24: 
+25: import MoreFunQuicksandMod.main.MFQM;
+26: import MoreFunQuicksandMod.main.entity.EntityLiqBall;
+27: import cpw.mods.fml.relauncher.Side;
+28: import cpw.mods.fml.relauncher.SideOnly;
+29: import java.util.List;
+30: import net.minecraft.block.Block;
+31: import net.minecraft.client.renderer.texture.IIconRegister;
+32: import net.minecraft.entity.Entity;
+33: import net.minecraft.entity.EntityLivingBase;
+34: import net.minecraft.entity.player.EntityPlayer;
+35: import net.minecraft.item.EnumAction;
+36: import net.minecraft.item.Item;
+37: import net.minecraft.item.ItemStack;
+38: import net.minecraft.nbt.NBTTagCompound;
+39: import net.minecraft.util.EnumChatFormatting;
+40: import net.minecraft.util.IIcon;
+41: import net.minecraft.util.MovingObjectPosition;
+42: import net.minecraft.util.StatCollector;
+43: import net.minecraft.world.World;
+44: 
+45: public class ItemLiqGun
+46: extends Item {
+47:     @SideOnly(value=Side.CLIENT)
+48:     private IIcon itemIcon;
+49: 
+50:     public ItemLiqGun() {
+51:         this.func_77625_d(1);
+52:         this.func_77656_e(32);
+53:         this.func_77655_b("LiqGunItem");
+54:         this.func_77637_a(MFQM.tabMFQM);
+55:     }
+56: 
+57:     public EnumAction func_77661_b(ItemStack p_77661_1_) {
+58:         return EnumAction.bow;
+59:     }
+60: 
+61:     public boolean func_77645_m() {
+62:         return false;
+63:     }
+64: 
+65:     public int func_77626_a(ItemStack p_77626_1_) {
+66:         return 72000;
+67:     }
+68: 
+69:     @SideOnly(value=Side.CLIENT)
+70:     public boolean func_77662_d() {
+71:         return true;
+72:     }
+73: 
+74:     @SideOnly(value=Side.CLIENT)
+75:     public boolean func_77629_n_() {
+76:         return false;
+77:     }
+78: 
+79:     public void func_77615_a(ItemStack item, World world, EntityPlayer player, int p_77615_4_) {
+80:         if (player.field_71075_bZ.field_75098_d || item.func_77960_j() < item.func_77958_k()) {
+81:             Block liqBlock = null;
+82:             if (item.func_77942_o() && item.field_77990_d.func_74764_b("liqBlockID")) {
+83:                 liqBlock = Block.func_149729_e((int)item.field_77990_d.func_74762_e("liqBlockID"));
+84:             }
+85:             EntityLiqBall liqBall = liqBlock != null ? new EntityLiqBall(world, (EntityLivingBase)player, liqBlock) : new EntityLiqBall(world, (EntityLivingBase)player);
+86:             item.func_77972_a(1, (EntityLivingBase)player);
+87:             world.func_72956_a((Entity)player, "random.bow", 1.0f, 1.0f / (field_77697_d.nextFloat() * 0.4f + 1.2f) + 0.5f);
+88:             if (!world.field_72995_K) {
+89:                 world.func_72838_d((Entity)liqBall);
+90:             }
+91:             if (item.func_77960_j() >= item.func_77958_k()) {
+92:                 if (!item.func_77942_o()) {
+93:                     item.func_77982_d(new NBTTagCompound());
+94:                 }
+95:                 item.field_77990_d.func_74768_a("liqBlockID", 8);
+96:                 item.field_77990_d.func_74778_a("liqDisplayName", "");
+97:             }
+98:         }
+99:     }
+100: 
+101:     public void func_77622_d(ItemStack item, World world, EntityPlayer player) {
+102:         if (!item.func_77942_o()) {
+103:             item.func_77982_d(new NBTTagCompound());
+104:         }
+105:         Block block = Block.func_149729_e((int)8);
+106:         String dspName = block.func_149732_F();
+107:         item.field_77990_d.func_74768_a("liqBlockID", 8);
+108:         item.field_77990_d.func_74778_a("liqDisplayName", dspName);
+109:     }
+110: 
+111:     public ItemStack func_77659_a(ItemStack item, World world, EntityPlayer player) {
+112:         if (!player.func_70093_af() && item.func_77960_j() < item.func_77958_k()) {
+113:             player.func_71008_a(item, this.func_77626_a(item));
+114:         } else {
+115:             MovingObjectPosition mop = this.func_77621_a(world, player, true);
+116:             if (mop == null) {
+117:                 return item;
+118:             }
+119:             if (mop.field_72313_a == MovingObjectPosition.MovingObjectType.BLOCK) {
+120:                 int x = mop.field_72311_b;
+121:                 int y = mop.field_72312_c;
+122:                 int z = mop.field_72309_d;
+123:                 if (!world.func_72962_a(player, x, y, z)) {
+124:                     return item;
+125:                 }
+126:                 if (!player.func_82247_a(x, y, z, mop.field_72310_e, item)) {
+127:                     return item;
+128:                 }
+129:                 if (world.func_147439_a(x, y, z).func_149688_o().func_76224_d()) {
+130:                     Block block = world.func_147439_a(x, y, z);
+131:                     int meta = world.func_72805_g(x, y, z);
+132:                     if (meta == 0) {
+133:                         int blkID = Block.func_149682_b((Block)block);
+134:                         String dspName = block.func_149732_F();
+135:                         if (!item.func_77942_o()) {
+136:                             item.func_77982_d(new NBTTagCompound());
+137:                         }
+138:                         item.field_77990_d.func_74768_a("liqBlockID", blkID);
+139:                         item.field_77990_d.func_74778_a("liqDisplayName", dspName);
+140:                         item.func_77964_b(0);
+141:                         world.func_147468_f(x, y, z);
+142:                     }
+143:                 }
+144:             }
+145:         }
+146:         return item;
+147:     }
+148: 
+149:     @SideOnly(value=Side.CLIENT)
+150:     public void func_94581_a(IIconRegister iuconRegister) {
+151:         this.itemIcon = iuconRegister.func_94245_a("morefunquicksandmod:LiqGun");
+152:     }
+153: 
+154:     @SideOnly(value=Side.CLIENT)
+155:     public IIcon func_77617_a(int par1) {
+156:         return this.itemIcon;
+157:     }
+158: 
+159:     public void func_77624_a(ItemStack item, EntityPlayer player, List list, boolean bool) {
+160:         String liqName = "itemLiqGun.maybewater";
+161:         if (item.func_77942_o() && item.field_77990_d.func_74764_b("liqDisplayName") && item.field_77990_d.func_74779_i("liqDisplayName") != "") {
+162:             liqName = item.field_77990_d.func_74779_i("liqDisplayName");
+163:         }
+164:         if (item.func_77960_j() >= item.func_77958_k()) {
+165:             liqName = "itemLiqGun.empty";
+166:         }
+167:         list.add(EnumChatFormatting.BOLD + StatCollector.func_74838_a((String)liqName));
+168:         list.add(StatCollector.func_74838_a((String)"itemLiqGun.instruction1"));
+169:         list.add(StatCollector.func_74838_a((String)"itemLiqGun.instruction2") + ".");
+170:     }
+171: }
+172: 

@@ -1,0 +1,254 @@
+// CFR0.152; original decompiler line 7576; NOT original source; inspect **/goto artifacts if present.
+    private void generateABC2(World world, Random random, int chunkX, int chunkZ) {
+        dHeight = 0;
+        firstBlockXCoord = chunkX + random.nextInt(16);
+        firstBlockYCoord = 96 + dHeight;
+        firstBlockZCoord = chunkZ + random.nextInt(16);
+        biomegenbase = world.func_72807_a(firstBlockXCoord, firstBlockZCoord);
+        biomeId = biomegenbase.field_76756_M;
+        blockGen = false;
+        isDreadlands = biomeId == MFQM.ABCBiomes[9] || biomeId == MFQM.ABCBiomes[10];
+        isDreadForest = biomeId == MFQM.ABCBiomes[11];
+        v0 = isDreadPurified = biomeId == MFQM.ABCBiomes[12];
+        if (MFQM.GenMoss && MFQM.GenJQS && !blockGen) {
+            canGen = false;
+            genCount = 10 + random.nextInt(10);
+            genPos = 7;
+            genRad = 6;
+            genRadP = 6;
+            rad = 0;
+            if (isDreadForest && random.nextInt(genPos) == 0) {
+                Flat = false;
+                if (random.nextInt(10) == 0) {
+                    Flat = true;
+                }
+                for (i = 0; i < genCount; ++i) {
+                    firstBlockXCoord = chunkX + random.nextInt(16);
+                    firstBlockZCoord = chunkZ + random.nextInt(16);
+                    rad = genRad + random.nextInt(genRadP);
+                    countBlock = 0;
+                    canGen = false;
+                    for (firstBlockYCoord = 96 + dHeight; firstBlockYCoord > 60 + dHeight; --firstBlockYCoord) {
+                        if (world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) != MFQM.TarBlock) {
+                            if (this.validGroundMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                                if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                    canGen = true;
+                                    break;
+                                }
+                                ++countBlock;
+                            }
+                        } else {
+                            canGen = false;
+                            break;
+                        }
+                        if (countBlock > 10) break;
+                    }
+                    if (!canGen || !this.genIsFlat(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world) || !this.genIsFlat(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad, world)) continue;
+                    this.generateMossQS(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random, MFQM.JungleQuicksandBlock);
+                    blockGen = true;
+                }
+            }
+        }
+        if (MFQM.GenLiqMire && !blockGen) {
+            canGen = false;
+            genCount = 10 + random.nextInt(10);
+            genPos = 10;
+            genRad = 6;
+            genRadP = 6;
+            rad = 0;
+            if (isDreadForest && random.nextInt(genPos) == 0) {
+                Flat = false;
+                if (random.nextInt(10) == 0) {
+                    Flat = true;
+                }
+                for (i = 0; i < genCount; ++i) {
+                    firstBlockXCoord = chunkX + random.nextInt(16);
+                    firstBlockZCoord = chunkZ + random.nextInt(16);
+                    rad = genRad + random.nextInt(genRadP);
+                    countBlock = 0;
+                    canGen = false;
+                    for (firstBlockYCoord = 96 + dHeight; firstBlockYCoord > 60 + dHeight; --firstBlockYCoord) {
+                        if (world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) != MFQM.TarBlock) {
+                            if (this.validGroundMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                                if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                    canGen = true;
+                                    break;
+                                }
+                                ++countBlock;
+                            }
+                        } else {
+                            canGen = false;
+                            break;
+                        }
+                        if (countBlock > 10) break;
+                    }
+                    if (!canGen || !this.genIsFlatOrLMire(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world) || !this.genIsFlatOrLMire(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad, world)) continue;
+                    this.generateLiquidMire(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random, Material.field_151568_F, 0);
+                    blockGen = true;
+                }
+            }
+        }
+        if (MFQM.GenMeatS && isDreadlands) {
+            canGen = false;
+            genCount = 5 + random.nextInt(2);
+            genPos = 3;
+            genRad = 6;
+            genRadP = 6;
+            rad = 0;
+            ** if (random.nextInt((int)genPos) != 0) goto lbl112
+            for (i = 0; i < genCount; ++i) {
+                firstBlockXCoord = chunkX + random.nextInt(16);
+                firstBlockZCoord = chunkZ + random.nextInt(16);
+                rad = genRad + random.nextInt(genRadP);
+                countBlock = 0;
+                canGen = false;
+                for (firstBlockYCoord = 96 + dHeight; firstBlockYCoord > 60 + dHeight; --firstBlockYCoord) {
+                    if (world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) != MFQM.TarBlock) {
+                        if (this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                            if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                canGen = true;
+                                break;
+                            }
+                            ++countBlock;
+                        }
+                    } else {
+                        canGen = false;
+                        break;
+                    }
+                    if (countBlock > 10) break;
+                }
+                if (!canGen) continue;
+                this.generateBlood(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad * 2, world, random, Material.field_151576_e);
+                this.generateBlood(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad * 2, world, random, Material.field_151576_e);
+                this.generateBlood(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad * 2, world, random, Material.field_151576_e);
+                if (!this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad + 1, world) || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad + 1, world)) continue;
+                this.generateMire2(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random, Material.field_151568_F, MFQM.SwFleshBlock);
+                this.generateTendrils(firstBlockXCoord, firstBlockYCoord + 5, firstBlockZCoord, rad * 2, world, random);
+                blockGen = true;
+lbl-1000:
+                // 2 sources
+
+                {
+                    continue;
+                }
+            }
+        }
+lbl112:
+        // 4 sources
+
+        if (MFQM.GenTar && !blockGen) {
+            canGen = false;
+            genPosFounded = false;
+            genCount = 0;
+            genRealCount = 0;
+            genPos = 0;
+            genRad = 0;
+            genRadP = 0;
+            rad = 0;
+            FX = 0;
+            FZ = 0;
+            FY = 60;
+            if (isDreadPurified) {
+                genCount = 20 + random.nextInt(10);
+                genRad = 10;
+                genRadP = 5;
+                genSand = 0;
+                genRealCount = 10 + random.nextInt(20);
+                radOfGen = (int)Math.floor(30.0 * Math.min(1.0, (double)genRealCount / 20.0));
+                genPos = 4;
+                T_genRealCount = genRealCount * 4;
+                aBlock = null;
+                aMeta = 0;
+                aDetBlock = false;
+                if (random.nextInt(genPos) == 0) {
+                    for (i = 0; i < genCount && genRealCount > 0; ++i) {
+                        if (!genPosFounded) {
+                            firstBlockXCoord = chunkX + random.nextInt(32) - 16;
+                            firstBlockYCoord = 96 + dHeight;
+                            firstBlockZCoord = chunkZ + random.nextInt(32) - 16;
+                            rad = genRad + random.nextInt(genRadP);
+                        } else {
+                            firstBlockXCoord = FX + random.nextInt(radOfGen) - radOfGen / 2;
+                            firstBlockYCoord = 96 + dHeight;
+                            firstBlockZCoord = FZ + random.nextInt(radOfGen) - radOfGen / 2;
+                            rad = genRad / 2 + random.nextInt(7) + radOfGen / 6;
+                        }
+                        countBlock = 0;
+                        upper = 0;
+                        canGen = false;
+                        while (firstBlockYCoord > 60 + dHeight) {
+                            if (this.validTarMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                                if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                    canGen = true;
+                                    if (world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) == MFQM.TarBlock) {
+                                        upper = -1;
+                                        break;
+                                    }
+                                    upper = -1;
+                                    break;
+                                }
+                                ++countBlock;
+                            }
+                            --firstBlockYCoord;
+                        }
+                        if (canGen) {
+                            canGen = false;
+                            if (!aDetBlock) {
+                                aBlock = world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord);
+                                if (aBlock != null && aBlock.func_149688_o().func_76220_a() && aBlock.func_149662_c() && !aBlock.func_149688_o().func_76224_d() && !aBlock.func_149716_u()) {
+                                    aMeta = world.func_72805_g(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord);
+                                    aDetBlock = true;
+                                }
+                            } else {
+                                canGen = true;
+                            }
+                        }
+                        if (!canGen || !this.genIsFlatTar(firstBlockXCoord, firstBlockYCoord - 1, firstBlockZCoord, rad, world) || !this.genIsFlatTar(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world) || !this.genIsFlatTar(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad, world)) continue;
+                        if (!genPosFounded) {
+                            genPosFounded = true;
+                            FX = firstBlockXCoord;
+                            FZ = firstBlockZCoord;
+                            FY = firstBlockYCoord;
+                            genCount = 750;
+                        }
+                        TgenSand = genSand;
+                        --genRealCount;
+                        this.generateCliffsTar(firstBlockXCoord, FY, firstBlockZCoord, (int)Math.floor((double)rad * 1.5), world, random, aBlock, aMeta);
+                        this.generateFlatTar(firstBlockXCoord, FY - upper - 1, firstBlockZCoord, rad, world, random, TgenSand, aBlock, aMeta);
+                        blockGen = true;
+                    }
+                    if (aDetBlock) {
+                        ccount = genSand * 10 + T_genRealCount + random.nextInt(T_genRealCount / 2);
+                        rcount = 0;
+                        i = 0;
+                        while (rcount < ccount) {
+                            firstBlockXCoord = FX + random.nextInt(radOfGen) - radOfGen / 2;
+                            firstBlockYCoord = FY;
+                            firstBlockZCoord = FZ + random.nextInt(radOfGen) - radOfGen / 2;
+                            disToC = Math.max((float)Math.sqrt(Math.pow(firstBlockXCoord - FX, 2.0) + Math.pow(firstBlockZCoord - FZ, 2.0)), 1.0f);
+                            cof_d = Math.max(1, (int)Math.floor(Math.pow(16.0f / disToC, 1.5)));
+                            rrad = 1;
+                            if (random.nextInt(1 * cof_d) == 0) {
+                                rrad = 2 + random.nextInt(1);
+                            }
+                            if (random.nextInt(2 * cof_d) == 0) {
+                                rrad = 3 + random.nextInt(2);
+                            }
+                            if (random.nextInt(3 * cof_d) == 0) {
+                                rrad = 4 + random.nextInt(3);
+                            }
+                            qy = 1;
+                            if (random.nextInt(5) == 0) {
+                                qy = 0;
+                            }
+                            if (rrad > 1) {
+                                this.generateRockTar(firstBlockXCoord, firstBlockYCoord - qy - random.nextInt(Math.max(1, (int)Math.floor(rrad / 2))), firstBlockZCoord, rrad, world, random, aBlock, aMeta);
+                            }
+                            ++rcount;
+                            ++i;
+                        }
+                    }
+                }
+            }
+        }
+    }

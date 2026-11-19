@@ -1,0 +1,102 @@
+// Decompiled inference, NOT original source; semantic closure PARTIAL
+      if (MFQM.GenLiqMire && !blockGen) {
+         int swD = this.getSwampDifficult(biomeId);
+         int swType = this.getSwampType(biomeId);
+         if (swD != 0 && this.T_BoP || biomegenbase instanceof BiomeGenSwamp && !this.T_BoP) {
+            boolean canGenxxxx = false;
+            int genTypexx = 0;
+            int MireP1 = 0;
+            int genCountx = 0;
+            int genPosx = 0;
+            int genRad = 0;
+            int genRadP = 0;
+            int radxxx = 0;
+            if (swType != 1) {
+               byte var233;
+               switch (swD) {
+                  case 1:
+                     var233 = 32;
+                     break;
+                  case 2:
+                     var233 = 32;
+                     break;
+                  case 3:
+                     var233 = 32;
+                     break;
+                  default:
+                     var233 = 75;
+               }
+
+               genCountx = 5 + random.nextInt(10);
+               int var338 = 6;
+               int var366 = 12;
+               if (random.nextInt(var233) == 0) {
+                  for (int ix = 0; ix < genCountx; ix++) {
+                     firstBlockXCoord = chunkX - 8 + random.nextInt(24);
+                     firstBlockYCoord = 96 + dHeight;
+                     firstBlockZCoord = chunkZ - 8 + random.nextInt(24);
+                     radxxx = var338 + random.nextInt(var366);
+                     int countBlock = 0;
+
+                     for (canGenxxxx = false; firstBlockYCoord > 60 + dHeight; firstBlockYCoord--) {
+                        if (!this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)
+                           && this.validGroundMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                           if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                              canGenxxxx = true;
+                              break;
+                           }
+
+                           countBlock++;
+                        }
+
+                        if (countBlock > 10) {
+                           break;
+                        }
+                     }
+
+                     if (canGenxxxx
+                        && this.genIsFlatOrLMire(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxxx, world)
+                        && this.genIsFlatOrLMire(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, radxxx, world)) {
+                        this.generateLiquidMire(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxxx, world, random, Material.field_151568_F, 1);
+                        blockGen = true;
+                     }
+                  }
+               }
+            } else if (biomeId != MFQM.SwampBiomes[7]) {
+               genCountx = 10 + random.nextInt(10);
+               int var339 = 10;
+               int var367 = 2;
+               int var308 = 10;
+               if (random.nextInt(var308) == 0) {
+                  for (int ix = 0; ix < genCountx; ix++) {
+                     firstBlockXCoord = chunkX + random.nextInt(16);
+                     firstBlockYCoord = 96 + dHeight;
+                     firstBlockZCoord = chunkZ + random.nextInt(16);
+                     radxxx = (int)Math.floor(var339 * 1.5) + random.nextInt(var367);
+                     int countBlock = 0;
+
+                     for (canGenxxxx = false; firstBlockYCoord > 60 + dHeight; firstBlockYCoord--) {
+                        if (this.validWaterMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                           if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                              canGenxxxx = true;
+                              break;
+                           }
+
+                           countBlock++;
+                        }
+
+                        if (countBlock > 10) {
+                           break;
+                        }
+                     }
+
+                     if (canGenxxxx && this.isGroundNear(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxxx, world)) {
+                        this.generateLiquidMire(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxxx, world, random, Material.field_151586_h, 0);
+                        blockGen = true;
+                     }
+                  }
+               }
+            }
+         }
+      }
+

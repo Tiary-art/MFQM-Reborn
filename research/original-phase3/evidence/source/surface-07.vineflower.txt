@@ -1,0 +1,104 @@
+// Decompiled inference, NOT original source; semantic closure PARTIAL
+      if (MFQM.GenWeb && !blockGen) {
+         int sT = this.getLarvType(biomeId);
+         if (sT != 0 && this.T_BoP || biomeId == MFQM.LarvBiomes[2] && !this.T_BoP) {
+            boolean canGen = false;
+            boolean genPosFounded = false;
+            int genCount = 0;
+            int genRealCount = 0;
+            int genPos = 0;
+            int genRad = 0;
+            int genRadP = 0;
+            int rad = 0;
+            int FX = 0;
+            int FZ = 0;
+            switch (sT) {
+               case 0:
+                  genCount = 20 + random.nextInt(10);
+                  genRad = 7;
+                  genRadP = 10;
+                  genPos = 125;
+                  break;
+               case 1:
+                  genCount = 20 + random.nextInt(10);
+                  genRad = 7;
+                  genRadP = 10;
+                  genPos = 100;
+                  break;
+               case 2:
+                  genCount = 20 + random.nextInt(10);
+                  genRad = 7;
+                  genRadP = 10;
+                  genPos = 75;
+                  break;
+               case 3:
+                  genCount = 20 + random.nextInt(10);
+                  genRad = 7;
+                  genRadP = 10;
+                  genPos = 125;
+            }
+
+            genRealCount = 15 + random.nextInt(10);
+            if (random.nextInt(genPos) == 0) {
+               for (int ix = 0; ix < genCount && genRealCount > 0; ix++) {
+                  if (!genPosFounded) {
+                     firstBlockXCoord = chunkX + random.nextInt(32) - 16;
+                     firstBlockYCoord = 96 + dHeight;
+                     firstBlockZCoord = chunkZ + random.nextInt(32) - 16;
+                     rad = genRad + random.nextInt(genRadP);
+                  } else {
+                     firstBlockXCoord = FX + random.nextInt(24) - 12;
+                     firstBlockYCoord = 96 + dHeight;
+                     firstBlockZCoord = FZ + random.nextInt(24) - 12;
+                     rad = genRad + random.nextInt(10);
+                  }
+
+                  int countBlock = 0;
+                  int upper = 0;
+                  canGen = false;
+                  biomegenbase = world.func_72807_a(firstBlockXCoord, firstBlockZCoord);
+                  biomeId = biomegenbase.field_76756_M;
+
+                  for (int var61 = this.getLarvType(biomeId);
+                     firstBlockYCoord > 60 + dHeight && (var61 != 0 && this.T_BoP || biomeId == MFQM.LarvBiomes[2] && !this.T_BoP);
+                     firstBlockYCoord--
+                  ) {
+                     if (this.validGroundMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)
+                        && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                        if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                           canGen = true;
+                           if (world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) == MFQM.DenseWebBlock) {
+                              upper = 0;
+                           } else {
+                              upper = 1;
+                           }
+                           break;
+                        }
+
+                        countBlock++;
+                     }
+                  }
+
+                  if (canGen
+                     && this.genIsFlat(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world)
+                     && this.genIsFlat(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad, world)
+                     && (genPosFounded || this.isNearAboveCeil(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world, rad))) {
+                     if (!genPosFounded) {
+                        genPosFounded = true;
+                        FX = firstBlockXCoord;
+                        FZ = firstBlockZCoord;
+                        genCount = 750;
+                     }
+
+                     genRealCount--;
+                     this.generateDenseWeb(firstBlockXCoord, firstBlockYCoord - upper + 1, firstBlockZCoord, rad, world, random);
+                     this.generateWeb(firstBlockXCoord, firstBlockYCoord - upper + 5, firstBlockZCoord, rad * 8, world, random);
+                     this.generateCaveWeb(firstBlockXCoord, firstBlockYCoord - upper + 5, firstBlockZCoord, rad * 8, world, random);
+                     this.generateCaveWeb(firstBlockXCoord, firstBlockYCoord - upper + 3, firstBlockZCoord, rad * 5, world, random);
+                     blockGen = true;
+                  }
+               }
+            }
+         }
+      }
+

@@ -1,0 +1,34 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.common.IFuelHandler
+6:  *  net.minecraft.block.Block
+7:  *  net.minecraft.item.Item
+8:  *  net.minecraft.item.ItemStack
+9:  */
+10: package MoreFunQuicksandMod.main;
+11: 
+12: import MoreFunQuicksandMod.main.MFQM;
+13: import cpw.mods.fml.common.IFuelHandler;
+14: import net.minecraft.block.Block;
+15: import net.minecraft.item.Item;
+16: import net.minecraft.item.ItemStack;
+17: 
+18: public class CustomFuelHandler
+19: implements IFuelHandler {
+20:     public int getBurnTime(ItemStack fuel) {
+21:         Item var1 = fuel.func_77973_b();
+22:         if (var1 == MFQM.TarBucketItem) {
+23:             return 4800;
+24:         }
+25:         if (var1 == MFQM.PeatItem) {
+26:             return 1067;
+27:         }
+28:         if (var1 == Item.func_150898_a((Block)MFQM.PeatBlock)) {
+29:             return 9603;
+30:         }
+31:         return 0;
+32:     }
+33: }
+34: 

@@ -1,0 +1,29 @@
+# Actual commands and exits, 2026-11-19 Asia/Shanghai. Repository root /workspace/work/mfqm-original-phase3-pr.
+git fetch origin main
+# exit0; latest main 1f320442e0196319af24e40073cce6631cd7ec48; Phase2 merged.
+python research/original-phase3/evidence/scripts/build_inventory.py --phase1 /workspace/outputs/MFQM-Original-Mechanics-Phase1 --repo /workspace/work/mfqm-original-phase3-pr --cfr /workspace/work/mfqm-original-phase1/private-decompiled/MoreFunQuicksandMod/main
+# exit0; build-inventory.log. Fixed initial extraction path to include liquids before final inventory.
+/workspace/work/task002-tools/jdk-17.0.21+9/bin/javac -d /tmp/mfqm-phase3-java research/original-phase3/evidence/scripts/RngReference.java
+# exit0; .class outside repository, not a game JAR.
+/workspace/work/task002-tools/jdk-17.0.21+9/bin/java -cp /tmp/mfqm-phase3-java RngReference
+# exit0; stdout stored java-rng-reference.csv, 840 values.
+python research/original-phase3/evidence/scripts/trace_vm.py --methods research/original-phase3/evidence/indexes/trace-methods.json --out research/original-phase3/evidence/traces/gardencia-mud.jsonl --scenario mud
+# exit0; 1536 direct writes, 2 RNG calls.
+# Same command for jqs seed10, blossom seed384, moor seed10, liqmire seed1 and tombs seed0; all exit0.
+# Exact six parameterized commands in REPRODUCE; per-run input/header/counts in JSONL and summary.json.
+python research/original-phase3/evidence/scripts/test_trace.py research/original-phase3
+# first exit1 None-context bug; second exit1 CFR cast parser omission. Actual failure details in first-test-failure.txt.
+# after both fixes exit0; final repeated run below also exit0.
+python research/original-phase3/evidence/scripts/summarize_evidence.py /workspace/work/mfqm-original-phase3-pr --phase1 /workspace/outputs/MFQM-Original-Mechanics-Phase1
+# exit0; summarize.log; then extended same script with 12 Fluid definitions and reran exit0.
+python -B research/original-phase3/evidence/scripts/write_reports.py research/original-phase3
+# exit0; all required reports.
+python -B research/original-phase3/evidence/scripts/check_provenance.py research/original-phase3 --phase1 /workspace/outputs/MFQM-Original-Mechanics-Phase1
+# exit0; 7 methods and 2816 material sites exactly match Phase1 bytecode index.
+python -B research/original-phase3/evidence/scripts/test_trace.py research/original-phase3
+# exit0; test-trace.json; RNG differential, exact Mud writes, determinism, negative cases, blockGen false-return side effect and Tombs CFR comparison.
+python -B research/original-phase3/evidence/scripts/validate_delivery.py research/original-phase3 --original-jar ORIGINAL
+# exit0; validation.json; ORIGINAL is private read-only SHA-256-verified JAR, exact path in the workspace command history.
+git diff --name-only HEAD -- forge-1.20.1
+# exit0; empty. No gameplay edits or new game builds.
+# ORIGINAL_RUNTIME_TESTED: none. All original game runtime items NOT_RUN.

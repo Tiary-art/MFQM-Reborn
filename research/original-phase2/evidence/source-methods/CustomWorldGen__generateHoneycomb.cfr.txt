@@ -1,0 +1,69 @@
+// CFR0.152; original decompiler line 1976; NOT original source; inspect **/goto artifacts if present.
+    private void generateHoneycomb(int xx, int yy, int zz, int rad, World world, Random random, int honey) {
+        double dis;
+        int posz;
+        int posy;
+        int posx;
+        int e;
+        int i;
+        int j;
+        double rad_cof = Math.max((double)rad / 10.0, 1.0);
+        int aType = random.nextInt(3);
+        double rax = random.nextDouble() + 0.5;
+        double raz = 1.0 - rax + 0.5 + 0.5;
+        int honeyHeight = 0;
+        int min_posy = 999;
+        double minRad = (double)rad / 2.0 / (1.0 + Math.abs(rax - raz) / 3.0) / (1.5 + random.nextDouble());
+        for (j = 0; j <= rad; ++j) {
+            for (i = 0; i <= rad; ++i) {
+                for (e = 0; e <= rad; ++e) {
+                    boolean isHon;
+                    posx = xx + i - rad / 2;
+                    posy = yy + j - rad / 2;
+                    posz = zz + e - rad / 2;
+                    dis = Math.sqrt(Math.pow(xx - posx, 2.0) * rax + Math.pow(yy - posy, 2.0) + Math.pow(zz - posz, 2.0) * raz);
+                    if (!(dis < (double)rad / 2.0 / (1.0 + Math.abs(rax - raz) / 3.0))) continue;
+                    boolean bl = isHon = world.func_147439_a(posx, posy, posz) == MFQM.HoneyBlock || world.func_147439_a(posx, posy, posz) == MFQM.SolidHoneyBlock && world.func_72805_g(posx, posy, posz) > 0;
+                    if (isHon) {
+                        honeyHeight = posy;
+                    }
+                    if (dis < minRad) {
+                        if (min_posy <= posy) continue;
+                        min_posy = posy;
+                        continue;
+                    }
+                    if (world.func_147439_a(posx, posy, posz) == MFQM.HoneycombBlock && world.func_72805_g(posx, posy, posz) == 3) continue;
+                    if (world.func_147439_a(posx, posy, posz).func_149688_o().func_76224_d()) {
+                        world.func_147468_f(posx, posy, posz);
+                    }
+                    if (random.nextInt(3) == 0) {
+                        world.func_147465_d(posx, posy, posz, MFQM.HoneycombBlock, random.nextInt(3), 0);
+                        continue;
+                    }
+                    world.func_147465_d(posx, posy, posz, MFQM.HoneycombBlock, aType, 0);
+                }
+            }
+        }
+        if (honeyHeight < 1 && honey < 10 && random.nextInt(honey) == 0) {
+            honeyHeight = min_posy + 1 + random.nextInt(2);
+        }
+        for (j = 0; j <= rad; ++j) {
+            for (i = 0; i <= rad; ++i) {
+                for (e = 0; e <= rad; ++e) {
+                    posx = xx + i - rad / 2;
+                    posy = yy + j - rad / 2;
+                    posz = zz + e - rad / 2;
+                    dis = Math.sqrt(Math.pow(xx - posx, 2.0) * rax + Math.pow(yy - posy, 2.0) + Math.pow(zz - posz, 2.0) * raz);
+                    if (!(dis < minRad)) continue;
+                    if (world.func_147439_a(posx, posy, posz).func_149688_o().func_76224_d()) {
+                        world.func_147468_f(posx, posy, posz);
+                    }
+                    if (posy <= honeyHeight) {
+                        world.func_147465_d(posx, posy, posz, MFQM.SolidHoneyBlock, 15, 0);
+                        continue;
+                    }
+                    world.func_147465_d(posx, posy, posz, MFQM.HoneycombBlock, 3, 0);
+                }
+            }
+        }
+    }

@@ -1,0 +1,73 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.block.Block
+8:  *  net.minecraft.block.BlockContainer
+9:  *  net.minecraft.block.material.Material
+10:  *  net.minecraft.client.renderer.texture.IIconRegister
+11:  *  net.minecraft.tileentity.TileEntity
+12:  *  net.minecraft.util.IIcon
+13:  *  net.minecraft.world.World
+14:  */
+15: package MoreFunQuicksandMod.main.blocks;
+16: 
+17: import MoreFunQuicksandMod.main.MFQM;
+18: import MoreFunQuicksandMod.main.Tileentity.TileEntityLure;
+19: import cpw.mods.fml.relauncher.Side;
+20: import cpw.mods.fml.relauncher.SideOnly;
+21: import java.util.Random;
+22: import net.minecraft.block.Block;
+23: import net.minecraft.block.BlockContainer;
+24: import net.minecraft.block.material.Material;
+25: import net.minecraft.client.renderer.texture.IIconRegister;
+26: import net.minecraft.tileentity.TileEntity;
+27: import net.minecraft.util.IIcon;
+28: import net.minecraft.world.World;
+29: 
+30: public class BlockLure
+31: extends BlockContainer {
+32:     public IIcon theCSIIcon;
+33: 
+34:     public BlockLure() {
+35:         super(Material.field_151583_m);
+36:         this.func_149711_c(1.75f);
+37:         this.func_149672_a(Block.field_149767_g);
+38:         this.func_149663_c("LureBlock");
+39:         this.func_149647_a(MFQM.tabMFQM);
+40:     }
+41: 
+42:     public TileEntity func_149915_a(World world, int i) {
+43:         if (!world.field_72995_K) {
+44:             TileEntityLure TE = new TileEntityLure();
+45:             return TE;
+46:         }
+47:         return null;
+48:     }
+49: 
+50:     @SideOnly(value=Side.CLIENT)
+51:     public IIcon func_149691_a(int par1, int par2) {
+52:         return this.theCSIIcon;
+53:     }
+54: 
+55:     @SideOnly(value=Side.CLIENT)
+56:     public void func_149651_a(IIconRegister par1IIconRegister) {
+57:         this.theCSIIcon = par1IIconRegister.func_94245_a("morefunquicksandmod:Blossom6");
+58:     }
+59: 
+60:     @SideOnly(value=Side.CLIENT)
+61:     public void func_149734_b(World par1World, int par2, int par3, int par4, Random par5Random) {
+62:         if (par1World.field_73012_v.nextInt(2) == 0) {
+63:             double d0 = (double)par2 + (double)par5Random.nextFloat() * 2.0 - 1.0;
+64:             double d1 = (double)par3 + (double)par5Random.nextFloat() * 2.0 - 1.0;
+65:             double d2 = (double)par4 + (double)par5Random.nextFloat() * 2.0 - 1.0;
+66:             double d3 = 0.913;
+67:             double d4 = 0.737;
+68:             double d5 = 0.996;
+69:             par1World.func_72869_a("reddust", d0 + 0.5, d1 + 0.5, d2 + 0.5, d3, d4, d5);
+70:         }
+71:     }
+72: }
+73: 

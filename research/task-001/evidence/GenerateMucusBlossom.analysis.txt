@@ -1,0 +1,249 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.common.IWorldGenerator
+6:  *  net.minecraft.block.Block
+7:  *  net.minecraft.block.material.Material
+8:  *  net.minecraft.init.Blocks
+9:  *  net.minecraft.world.World
+10:  *  net.minecraft.world.chunk.IChunkProvider
+11:  *  net.minecraft.world.gen.feature.WorldGenerator
+12:  */
+13: package MoreFunQuicksandMod.main;
+14: 
+15: import MoreFunQuicksandMod.main.MFQM;
+16: import cpw.mods.fml.common.IWorldGenerator;
+17: import java.util.Random;
+18: import net.minecraft.block.Block;
+19: import net.minecraft.block.material.Material;
+20: import net.minecraft.init.Blocks;
+21: import net.minecraft.world.World;
+22: import net.minecraft.world.chunk.IChunkProvider;
+23: import net.minecraft.world.gen.feature.WorldGenerator;
+24: 
+25: public class GenerateMucusBlossom
+26: extends WorldGenerator
+27: implements IWorldGenerator {
+28:     private static boolean validMaterial(int x, int y, int z, World world, boolean dirt) {
+29:         if (!dirt) {
+30:             if (world.func_147439_a(x, y, z) == null) {
+31:                 return true;
+32:             }
+33:             if (world.func_147439_a(x, y, z) == Blocks.field_150350_a) {
+34:                 return true;
+35:             }
+36:             if (world.func_147439_a(x, y, z).func_149688_o().func_76224_d() || world.func_147439_a(x, y, z).func_149688_o().func_76222_j()) {
+37:                 return true;
+38:             }
+39:             if (world.func_147439_a(x, y, z).func_149688_o() == Material.field_151582_l || world.func_147439_a(x, y, z).func_149688_o() == Material.field_151585_k || world.func_147439_a(x, y, z).func_149688_o() == Material.field_151584_j) {
+40:                 return true;
+41:             }
+42:         }
+43:         if (world.func_147439_a(x, y, z) == MFQM.BlossomBlock) {
+44:             return true;
+45:         }
+46:         if (world.func_147439_a(x, y, z) == MFQM.BlossomSlabBlock) {
+47:             return true;
+48:         }
+49:         return world.func_147439_a(x, y, z).func_149688_o() == Material.field_151577_b || world.func_147439_a(x, y, z).func_149688_o() == Material.field_151578_c || world.func_147439_a(x, y, z).func_149688_o() == Material.field_151595_p;
+50:     }
+51: 
+52:     private static boolean genCheckVolume(int x, int y, int z, int r, World world, boolean force, boolean dirt) {
+53:         if (force) {
+54:             return true;
+55:         }
+56:         return GenerateMucusBlossom.validMaterial(x, y, z, world, dirt) && GenerateMucusBlossom.validMaterial(x + r, y, z + r, world, dirt) && GenerateMucusBlossom.validMaterial(x - r, y, z + r, world, dirt) && GenerateMucusBlossom.validMaterial(x + r, y, z - r, world, dirt) && GenerateMucusBlossom.validMaterial(x - r, y, z - r, world, dirt) && GenerateMucusBlossom.validMaterial(x - r, y, z, world, dirt) && GenerateMucusBlossom.validMaterial(x, y, z - r, world, dirt) && GenerateMucusBlossom.validMaterial(x + r, y, z, world, dirt) && GenerateMucusBlossom.validMaterial(x, y, z + r, world, dirt);
+57:     }
+58: 
+59:     public static boolean checkCanGrow(World world, int x, int y, int z, boolean force) {
+60:         boolean dirt = false;
+61:         for (int i = 0; i < 9; ++i) {
+62:             if (i > 3) {
+63:                 dirt = true;
+64:             }
+65:             if (GenerateMucusBlossom.genCheckVolume(x, y - i + 1, z, 3, world, force, dirt)) continue;
+66:             return false;
+67:         }
+68:         return true;
+69:     }
+70: 
+71:     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
+72:     }
+73: 
+74:     public void setBlock(World world, int x, int y, int z, Block block, int metadata) {
+75:         world.func_147465_d(x, y, z, block, metadata, 2);
+76:     }
+77: 
+78:     public void collumnBlocks(World world, int x, int y, int z, int col, Block block, int metadata) {
+79:         for (int i = 0; i < col; ++i) {
+80:             world.func_147465_d(x, y - i, z, block, metadata, 2);
+81:         }
+82:     }
+83: 
+84:     public boolean func_76484_a(World world, Random rand, int i, int j, int k) {
+85:         this.setBlock(world, i + 1, j + 6, k + 2, MFQM.BlossomBlock, 0);
+86:         this.setBlock(world, i + 1, j + 6, k + 4, MFQM.BlossomBlock, 0);
+87:         this.setBlock(world, i + 2, j + 6, k + 1, MFQM.BlossomBlock, 0);
+88:         this.setBlock(world, i + 2, j + 6, k + 5, MFQM.BlossomBlock, 0);
+89:         this.setBlock(world, i + 4, j + 6, k + 1, MFQM.BlossomBlock, 0);
+90:         this.setBlock(world, i + 4, j + 6, k + 5, MFQM.BlossomBlock, 0);
+91:         this.setBlock(world, i + 5, j + 6, k + 2, MFQM.BlossomBlock, 0);
+92:         this.setBlock(world, i + 5, j + 6, k + 4, MFQM.BlossomBlock, 0);
+93:         this.setBlock(world, i + 5, j + 6, k + 3, MFQM.BlossomBlock, 0);
+94:         this.setBlock(world, i + 3, j + 6, k + 5, MFQM.BlossomBlock, 0);
+95:         this.setBlock(world, i + 3, j + 6, k + 1, MFQM.BlossomBlock, 0);
+96:         this.setBlock(world, i + 1, j + 6, k + 3, MFQM.BlossomBlock, 0);
+97:         this.setBlock(world, i + 4, j + 6, k + 4, MFQM.LureBlock, 0);
+98:         this.setBlock(world, i + 2, j + 6, k + 2, MFQM.LureBlock, 0);
+99:         this.setBlock(world, i + 2, j + 6, k + 4, MFQM.LureBlock, 0);
+100:         this.setBlock(world, i + 4, j + 6, k + 2, MFQM.LureBlock, 0);
+101:         this.setBlock(world, i + 2, j + 2, k + 2, MFQM.BlossomBlock, 0);
+102:         this.setBlock(world, i + 2, j + 2, k + 3, MFQM.BlossomBlock, 0);
+103:         this.setBlock(world, i + 2, j + 2, k + 4, MFQM.BlossomBlock, 0);
+104:         this.setBlock(world, i + 3, j + 2, k + 2, MFQM.BlossomBlock, 0);
+105:         this.setBlock(world, i + 3, j + 2, k + 3, MFQM.BlossomBlock, 0);
+106:         this.setBlock(world, i + 3, j + 2, k + 4, MFQM.BlossomBlock, 0);
+107:         this.setBlock(world, i + 4, j + 2, k + 2, MFQM.BlossomBlock, 0);
+108:         this.setBlock(world, i + 4, j + 2, k + 3, MFQM.BlossomBlock, 0);
+109:         this.setBlock(world, i + 4, j + 2, k + 4, MFQM.BlossomBlock, 0);
+110:         this.setBlock(world, i + 3, j + 0, k + 3, MFQM.BlossomBlock, 1);
+111:         this.setBlock(world, i + 2, j + 1, k + 2, MFQM.BlossomBlock, 1);
+112:         this.setBlock(world, i + 2, j + 1, k + 3, MFQM.BlossomBlock, 1);
+113:         this.setBlock(world, i + 2, j + 1, k + 4, MFQM.BlossomBlock, 1);
+114:         this.setBlock(world, i + 3, j + 1, k + 2, MFQM.BlossomBlock, 1);
+115:         this.setBlock(world, i + 3, j + 1, k + 3, MFQM.BlossomBlock, 1);
+116:         this.setBlock(world, i + 3, j + 1, k + 4, MFQM.BlossomBlock, 1);
+117:         this.setBlock(world, i + 4, j + 1, k + 2, MFQM.BlossomBlock, 1);
+118:         this.setBlock(world, i + 4, j + 1, k + 3, MFQM.BlossomBlock, 1);
+119:         this.setBlock(world, i + 4, j + 1, k + 4, MFQM.BlossomBlock, 1);
+120:         this.collumnBlocks(world, i + 3, j + 5, k + 5, 4, MFQM.BlossomBlock, 2);
+121:         this.collumnBlocks(world, i + 2, j + 5, k + 5, 4, MFQM.BlossomBlock, 2);
+122:         this.collumnBlocks(world, i + 4, j + 5, k + 5, 4, MFQM.BlossomBlock, 2);
+123:         this.collumnBlocks(world, i + 5, j + 5, k + 4, 4, MFQM.BlossomBlock, 5);
+124:         this.collumnBlocks(world, i + 5, j + 5, k + 2, 4, MFQM.BlossomBlock, 5);
+125:         this.collumnBlocks(world, i + 5, j + 5, k + 3, 4, MFQM.BlossomBlock, 5);
+126:         this.collumnBlocks(world, i + 4, j + 5, k + 1, 4, MFQM.BlossomBlock, 4);
+127:         this.collumnBlocks(world, i + 3, j + 5, k + 1, 4, MFQM.BlossomBlock, 4);
+128:         this.collumnBlocks(world, i + 2, j + 5, k + 1, 4, MFQM.BlossomBlock, 4);
+129:         this.collumnBlocks(world, i + 1, j + 5, k + 2, 4, MFQM.BlossomBlock, 3);
+130:         this.collumnBlocks(world, i + 1, j + 5, k + 3, 4, MFQM.BlossomBlock, 3);
+131:         this.collumnBlocks(world, i + 1, j + 5, k + 4, 4, MFQM.BlossomBlock, 3);
+132:         this.setBlock(world, i + 2, j + 5, k + 2, Blocks.field_150350_a, 0);
+133:         this.setBlock(world, i + 2, j + 5, k + 3, Blocks.field_150350_a, 0);
+134:         this.setBlock(world, i + 2, j + 5, k + 4, Blocks.field_150350_a, 0);
+135:         this.setBlock(world, i + 3, j + 5, k + 2, Blocks.field_150350_a, 0);
+136:         this.setBlock(world, i + 3, j + 5, k + 3, Blocks.field_150350_a, 0);
+137:         this.setBlock(world, i + 3, j + 5, k + 4, Blocks.field_150350_a, 0);
+138:         this.setBlock(world, i + 3, j + 6, k + 3, Blocks.field_150350_a, 0);
+139:         this.setBlock(world, i + 3, j + 7, k + 3, Blocks.field_150350_a, 0);
+140:         this.setBlock(world, i + 3, j + 8, k + 3, Blocks.field_150350_a, 0);
+141:         this.setBlock(world, i + 4, j + 5, k + 2, Blocks.field_150350_a, 0);
+142:         this.setBlock(world, i + 4, j + 5, k + 3, Blocks.field_150350_a, 0);
+143:         this.setBlock(world, i + 4, j + 5, k + 4, Blocks.field_150350_a, 0);
+144:         this.setBlock(world, i + 2, j + 8, k + 3, MFQM.BlossomSlabBlock, 2);
+145:         this.setBlock(world, i + 3, j + 8, k + 2, MFQM.BlossomSlabBlock, 3);
+146:         this.setBlock(world, i + 3, j + 8, k + 4, MFQM.BlossomSlabBlock, 1);
+147:         this.setBlock(world, i + 4, j + 8, k + 3, MFQM.BlossomSlabBlock, 4);
+148:         this.setBlock(world, i + 2, j + 6, k + 3, MFQM.BlossomSlabBlock, 0);
+149:         this.setBlock(world, i + 3, j + 6, k + 2, MFQM.BlossomSlabBlock, 0);
+150:         this.setBlock(world, i + 4, j + 6, k + 3, MFQM.BlossomSlabBlock, 0);
+151:         this.setBlock(world, i + 3, j + 6, k + 4, MFQM.BlossomSlabBlock, 0);
+152:         this.setBlock(world, i + 2, j + 7, k + 3, MFQM.BlossomBlock, 7);
+153:         this.setBlock(world, i + 3, j + 7, k + 2, MFQM.BlossomBlock, 8);
+154:         this.setBlock(world, i + 4, j + 7, k + 3, MFQM.BlossomBlock, 9);
+155:         this.setBlock(world, i + 3, j + 7, k + 4, MFQM.BlossomBlock, 6);
+156:         this.setBlock(world, i + 0, j + 6, k + 2, MFQM.BlossomBlock, 10);
+157:         this.setBlock(world, i + 0, j + 6, k + 3, MFQM.BlossomBlock, 10);
+158:         this.setBlock(world, i + 0, j + 6, k + 4, MFQM.BlossomBlock, 10);
+159:         this.setBlock(world, i + 0, j + 7, k + 1, MFQM.BlossomBlock, 10);
+160:         this.setBlock(world, i + 0, j + 7, k + 2, MFQM.BlossomBlock, 10);
+161:         this.setBlock(world, i + 0, j + 7, k + 3, MFQM.BlossomBlock, 10);
+162:         this.setBlock(world, i + 0, j + 7, k + 4, MFQM.BlossomBlock, 10);
+163:         this.setBlock(world, i + 0, j + 7, k + 5, MFQM.BlossomBlock, 10);
+164:         this.setBlock(world, i + 1, j + 6, k + 1, MFQM.BlossomBlock, 10);
+165:         this.setBlock(world, i + 1, j + 6, k + 5, MFQM.BlossomBlock, 10);
+166:         this.setBlock(world, i + 1, j + 7, k + 0, MFQM.BlossomBlock, 10);
+167:         this.setBlock(world, i + 1, j + 7, k + 1, MFQM.BlossomBlock, 10);
+168:         this.setBlock(world, i + 1, j + 7, k + 2, MFQM.BlossomBlock, 10);
+169:         this.setBlock(world, i + 1, j + 7, k + 3, MFQM.BlossomBlock, 10);
+170:         this.setBlock(world, i + 1, j + 7, k + 4, MFQM.BlossomBlock, 10);
+171:         this.setBlock(world, i + 1, j + 7, k + 5, MFQM.BlossomBlock, 10);
+172:         this.setBlock(world, i + 1, j + 7, k + 6, MFQM.BlossomBlock, 10);
+173:         this.setBlock(world, i + 1, j + 8, k + 2, MFQM.BlossomBlock, 10);
+174:         this.setBlock(world, i + 1, j + 8, k + 3, MFQM.BlossomBlock, 10);
+175:         this.setBlock(world, i + 1, j + 8, k + 4, MFQM.BlossomBlock, 10);
+176:         this.setBlock(world, i + 2, j + 6, k + 0, MFQM.BlossomBlock, 10);
+177:         this.setBlock(world, i + 2, j + 6, k + 6, MFQM.BlossomBlock, 10);
+178:         this.setBlock(world, i + 2, j + 7, k + 0, MFQM.BlossomBlock, 10);
+179:         this.setBlock(world, i + 2, j + 7, k + 1, MFQM.BlossomBlock, 10);
+180:         this.setBlock(world, i + 2, j + 7, k + 2, MFQM.BlossomBlock, 10);
+181:         this.setBlock(world, i + 2, j + 7, k + 4, MFQM.BlossomBlock, 10);
+182:         this.setBlock(world, i + 2, j + 7, k + 5, MFQM.BlossomBlock, 10);
+183:         this.setBlock(world, i + 2, j + 7, k + 6, MFQM.BlossomBlock, 10);
+184:         this.setBlock(world, i + 2, j + 8, k + 1, MFQM.BlossomBlock, 10);
+185:         this.setBlock(world, i + 2, j + 8, k + 2, MFQM.BlossomBlock, 10);
+186:         this.setBlock(world, i + 2, j + 8, k + 4, MFQM.BlossomBlock, 10);
+187:         this.setBlock(world, i + 2, j + 8, k + 5, MFQM.BlossomBlock, 10);
+188:         this.setBlock(world, i + 3, j + 6, k + 0, MFQM.BlossomBlock, 10);
+189:         this.setBlock(world, i + 3, j + 6, k + 6, MFQM.BlossomBlock, 10);
+190:         this.setBlock(world, i + 3, j + 7, k + 0, MFQM.BlossomBlock, 10);
+191:         this.setBlock(world, i + 3, j + 7, k + 1, MFQM.BlossomBlock, 10);
+192:         this.setBlock(world, i + 3, j + 7, k + 5, MFQM.BlossomBlock, 10);
+193:         this.setBlock(world, i + 3, j + 7, k + 6, MFQM.BlossomBlock, 10);
+194:         this.setBlock(world, i + 3, j + 8, k + 1, MFQM.BlossomBlock, 10);
+195:         this.setBlock(world, i + 3, j + 8, k + 5, MFQM.BlossomBlock, 10);
+196:         this.setBlock(world, i + 4, j + 6, k + 0, MFQM.BlossomBlock, 10);
+197:         this.setBlock(world, i + 4, j + 6, k + 6, MFQM.BlossomBlock, 10);
+198:         this.setBlock(world, i + 4, j + 7, k + 0, MFQM.BlossomBlock, 10);
+199:         this.setBlock(world, i + 4, j + 7, k + 1, MFQM.BlossomBlock, 10);
+200:         this.setBlock(world, i + 4, j + 7, k + 2, MFQM.BlossomBlock, 10);
+201:         this.setBlock(world, i + 4, j + 7, k + 4, MFQM.BlossomBlock, 10);
+202:         this.setBlock(world, i + 4, j + 7, k + 5, MFQM.BlossomBlock, 10);
+203:         this.setBlock(world, i + 4, j + 7, k + 6, MFQM.BlossomBlock, 10);
+204:         this.setBlock(world, i + 4, j + 8, k + 1, MFQM.BlossomBlock, 10);
+205:         this.setBlock(world, i + 4, j + 8, k + 2, MFQM.BlossomBlock, 10);
+206:         this.setBlock(world, i + 4, j + 8, k + 4, MFQM.BlossomBlock, 10);
+207:         this.setBlock(world, i + 4, j + 8, k + 5, MFQM.BlossomBlock, 10);
+208:         this.setBlock(world, i + 5, j + 6, k + 1, MFQM.BlossomBlock, 10);
+209:         this.setBlock(world, i + 5, j + 6, k + 5, MFQM.BlossomBlock, 10);
+210:         this.setBlock(world, i + 5, j + 7, k + 0, MFQM.BlossomBlock, 10);
+211:         this.setBlock(world, i + 5, j + 7, k + 1, MFQM.BlossomBlock, 10);
+212:         this.setBlock(world, i + 5, j + 7, k + 2, MFQM.BlossomBlock, 10);
+213:         this.setBlock(world, i + 5, j + 7, k + 3, MFQM.BlossomBlock, 10);
+214:         this.setBlock(world, i + 5, j + 7, k + 4, MFQM.BlossomBlock, 10);
+215:         this.setBlock(world, i + 5, j + 7, k + 5, MFQM.BlossomBlock, 10);
+216:         this.setBlock(world, i + 5, j + 7, k + 6, MFQM.BlossomBlock, 10);
+217:         this.setBlock(world, i + 5, j + 8, k + 2, MFQM.BlossomBlock, 10);
+218:         this.setBlock(world, i + 5, j + 8, k + 3, MFQM.BlossomBlock, 10);
+219:         this.setBlock(world, i + 5, j + 8, k + 4, MFQM.BlossomBlock, 10);
+220:         this.setBlock(world, i + 6, j + 6, k + 2, MFQM.BlossomBlock, 10);
+221:         this.setBlock(world, i + 6, j + 6, k + 3, MFQM.BlossomBlock, 10);
+222:         this.setBlock(world, i + 6, j + 6, k + 4, MFQM.BlossomBlock, 10);
+223:         this.setBlock(world, i + 6, j + 7, k + 1, MFQM.BlossomBlock, 10);
+224:         this.setBlock(world, i + 6, j + 7, k + 2, MFQM.BlossomBlock, 10);
+225:         this.setBlock(world, i + 6, j + 7, k + 3, MFQM.BlossomBlock, 10);
+226:         this.setBlock(world, i + 6, j + 7, k + 4, MFQM.BlossomBlock, 10);
+227:         this.setBlock(world, i + 6, j + 7, k + 5, MFQM.BlossomBlock, 10);
+228:         this.setBlock(world, i + 2, j + 3, k + 2, MFQM.MucusBlock, 0);
+229:         this.setBlock(world, i + 2, j + 3, k + 3, MFQM.MucusBlock, 0);
+230:         this.setBlock(world, i + 2, j + 3, k + 4, MFQM.MucusBlock, 0);
+231:         this.setBlock(world, i + 2, j + 4, k + 2, MFQM.MucusBlock, 0);
+232:         this.setBlock(world, i + 2, j + 4, k + 3, MFQM.MucusBlock, 0);
+233:         this.setBlock(world, i + 2, j + 4, k + 4, MFQM.MucusBlock, 0);
+234:         this.setBlock(world, i + 3, j + 3, k + 2, MFQM.MucusBlock, 0);
+235:         this.setBlock(world, i + 3, j + 3, k + 3, MFQM.MucusBlock, 0);
+236:         this.setBlock(world, i + 3, j + 3, k + 4, MFQM.MucusBlock, 0);
+237:         this.setBlock(world, i + 3, j + 4, k + 2, MFQM.MucusBlock, 0);
+238:         this.setBlock(world, i + 3, j + 4, k + 3, MFQM.MucusBlock, 0);
+239:         this.setBlock(world, i + 3, j + 4, k + 4, MFQM.MucusBlock, 0);
+240:         this.setBlock(world, i + 4, j + 3, k + 2, MFQM.MucusBlock, 0);
+241:         this.setBlock(world, i + 4, j + 3, k + 3, MFQM.MucusBlock, 0);
+242:         this.setBlock(world, i + 4, j + 3, k + 4, MFQM.MucusBlock, 0);
+243:         this.setBlock(world, i + 4, j + 4, k + 2, MFQM.MucusBlock, 0);
+244:         this.setBlock(world, i + 4, j + 4, k + 3, MFQM.MucusBlock, 0);
+245:         this.setBlock(world, i + 4, j + 4, k + 4, MFQM.MucusBlock, 0);
+246:         return true;
+247:     }
+248: }
+249: 

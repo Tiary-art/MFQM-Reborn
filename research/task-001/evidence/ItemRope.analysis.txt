@@ -1,0 +1,130 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.client.renderer.texture.IIconRegister
+8:  *  net.minecraft.entity.Entity
+9:  *  net.minecraft.entity.item.EntityItem
+10:  *  net.minecraft.entity.player.EntityPlayer
+11:  *  net.minecraft.item.Item
+12:  *  net.minecraft.item.ItemStack
+13:  *  net.minecraft.util.EnumChatFormatting
+14:  *  net.minecraft.util.IIcon
+15:  *  net.minecraft.util.StatCollector
+16:  *  net.minecraft.world.World
+17:  */
+18: package MoreFunQuicksandMod.main.items;
+19: 
+20: import MoreFunQuicksandMod.main.MFQM;
+21: import MoreFunQuicksandMod.main.entity.EntityRope;
+22: import cpw.mods.fml.relauncher.Side;
+23: import cpw.mods.fml.relauncher.SideOnly;
+24: import java.util.List;
+25: import net.minecraft.client.renderer.texture.IIconRegister;
+26: import net.minecraft.entity.Entity;
+27: import net.minecraft.entity.item.EntityItem;
+28: import net.minecraft.entity.player.EntityPlayer;
+29: import net.minecraft.item.Item;
+30: import net.minecraft.item.ItemStack;
+31: import net.minecraft.util.EnumChatFormatting;
+32: import net.minecraft.util.IIcon;
+33: import net.minecraft.util.StatCollector;
+34: import net.minecraft.world.World;
+35: 
+36: public class ItemRope
+37: extends Item {
+38:     @SideOnly(value=Side.CLIENT)
+39:     private IIcon itemIIcon1;
+40:     @SideOnly(value=Side.CLIENT)
+41:     private IIcon itemIIcon2;
+42: 
+43:     public ItemRope() {
+44:         this.func_77625_d(1);
+45:         this.func_77656_e(64);
+46:         this.func_77655_b("Rope");
+47:         this.func_77637_a(MFQM.tabMFQM);
+48:     }
+49: 
+50:     @SideOnly(value=Side.CLIENT)
+51:     public boolean func_77662_d() {
+52:         return false;
+53:     }
+54: 
+55:     @SideOnly(value=Side.CLIENT)
+56:     public boolean func_77629_n_() {
+57:         return false;
+58:     }
+59: 
+60:     public ItemStack func_77659_a(ItemStack itemStack, World world, EntityPlayer player) {
+61:         if (player.field_71075_bZ.field_75102_a) {
+62:             itemStack.func_77964_b(0);
+63:             return itemStack;
+64:         }
+65:         if (itemStack.func_77960_j() % 2 == 0) {
+66:             world.func_72956_a((Entity)player, "random.bow", 0.5f, 0.4f / (field_77697_d.nextFloat() * 0.4f + 0.8f));
+67:             if (!world.field_72995_K) {
+68:                 EntityRope rope = new EntityRope(world, player);
+69:                 world.func_72838_d((Entity)rope);
+70:                 itemStack.func_77964_b(itemStack.func_77960_j() + 1);
+71:             }
+72:         } else if (!world.field_72995_K) {
+73:             if (itemStack.func_77960_j() < 24) {
+74:                 itemStack.func_77964_b(0);
+75:             } else {
+76:                 itemStack.func_77964_b(itemStack.func_77960_j() - 1);
+77:             }
+78:             for (int i = 0; i <= 8; ++i) {
+79:                 ItemStack itm = player.field_71071_by.field_70462_a[i];
+80:                 if (itm == null || !(itm.func_77973_b() instanceof ItemRope) || itm.func_77960_j() % 2 == 0) continue;
+81:                 if (itm.func_77960_j() < 24) {
+82:                     itm.func_77964_b(0);
+83:                     continue;
+84:                 }
+85:                 itm.func_77964_b(itm.func_77960_j() - 1);
+86:             }
+87:             if (!player.field_70122_E) {
+88:                 player.field_70143_R = 0.0f;
+89:             }
+90:         } else if (!player.field_70122_E) {
+91:             double spd = Math.pow(Math.pow(player.field_70159_w, 2.0) + Math.pow(player.field_70179_y, 2.0), 0.5);
+92:             player.field_70181_x += Math.min(0.75, spd * 1.5);
+93:             player.field_70143_R = 0.0f;
+94:         }
+95:         player.func_71038_i();
+96:         return itemStack;
+97:     }
+98: 
+99:     @SideOnly(value=Side.CLIENT)
+100:     public void func_94581_a(IIconRegister iuconRegister) {
+101:         this.itemIIcon1 = iuconRegister.func_94245_a("morefunquicksandmod:Rope1");
+102:         this.itemIIcon2 = iuconRegister.func_94245_a("morefunquicksandmod:Rope2");
+103:     }
+104: 
+105:     @SideOnly(value=Side.CLIENT)
+106:     public IIcon func_77617_a(int par1) {
+107:         if (par1 % 2 == 0) {
+108:             return this.itemIIcon1;
+109:         }
+110:         return this.itemIIcon2;
+111:     }
+112: 
+113:     public boolean onEntityItemUpdate(EntityItem entityItem) {
+114:         if (!entityItem.field_70170_p.field_72995_K && entityItem.func_92059_d().func_77960_j() % 2 != 0) {
+115:             entityItem.func_92059_d().func_77964_b(entityItem.func_92059_d().func_77960_j() - 1);
+116:         }
+117:         return false;
+118:     }
+119: 
+120:     public void func_77624_a(ItemStack item, EntityPlayer player, List list, boolean bool) {
+121:         list.add(EnumChatFormatting.DARK_RED + "" + EnumChatFormatting.BOLD + StatCollector.func_74838_a((String)"itemRope.instruction1") + ".");
+122:         list.add(StatCollector.func_74838_a((String)"itemRope.instruction2"));
+123:         list.add(StatCollector.func_74838_a((String)"itemRope.instruction3") + ".");
+124:         list.add(EnumChatFormatting.BOLD + StatCollector.func_74838_a((String)"itemRope.instruction4") + ":");
+125:         list.add(EnumChatFormatting.GOLD + StatCollector.func_74838_a((String)"itemRope.instruction5") + EnumChatFormatting.GRAY + " - " + StatCollector.func_74838_a((String)"itemRope.instruction6") + ".");
+126:         list.add(EnumChatFormatting.GOLD + StatCollector.func_74838_a((String)"itemRope.instruction7") + EnumChatFormatting.GRAY + " - " + StatCollector.func_74838_a((String)"itemRope.instruction8") + ".");
+127:         list.add(EnumChatFormatting.GOLD + StatCollector.func_74838_a((String)"itemRope.instruction9") + EnumChatFormatting.GRAY + " - " + StatCollector.func_74838_a((String)"itemRope.instruction10") + ".");
+128:     }
+129: }
+130: 

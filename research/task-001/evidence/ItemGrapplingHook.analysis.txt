@@ -1,0 +1,161 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.client.renderer.texture.IIconRegister
+8:  *  net.minecraft.entity.Entity
+9:  *  net.minecraft.entity.item.EntityItem
+10:  *  net.minecraft.entity.player.EntityPlayer
+11:  *  net.minecraft.item.EnumAction
+12:  *  net.minecraft.item.Item
+13:  *  net.minecraft.item.ItemStack
+14:  *  net.minecraft.util.EnumChatFormatting
+15:  *  net.minecraft.util.IIcon
+16:  *  net.minecraft.util.StatCollector
+17:  *  net.minecraft.world.World
+18:  */
+19: package MoreFunQuicksandMod.main.items;
+20: 
+21: import MoreFunQuicksandMod.main.MFQM;
+22: import MoreFunQuicksandMod.main.entity.EntityHook;
+23: import cpw.mods.fml.relauncher.Side;
+24: import cpw.mods.fml.relauncher.SideOnly;
+25: import java.util.List;
+26: import net.minecraft.client.renderer.texture.IIconRegister;
+27: import net.minecraft.entity.Entity;
+28: import net.minecraft.entity.item.EntityItem;
+29: import net.minecraft.entity.player.EntityPlayer;
+30: import net.minecraft.item.EnumAction;
+31: import net.minecraft.item.Item;
+32: import net.minecraft.item.ItemStack;
+33: import net.minecraft.util.EnumChatFormatting;
+34: import net.minecraft.util.IIcon;
+35: import net.minecraft.util.StatCollector;
+36: import net.minecraft.world.World;
+37: 
+38: public class ItemGrapplingHook
+39: extends Item {
+40:     @SideOnly(value=Side.CLIENT)
+41:     private IIcon itemIIcon1;
+42:     @SideOnly(value=Side.CLIENT)
+43:     private IIcon itemIIcon2;
+44: 
+45:     public ItemGrapplingHook() {
+46:         this.func_77625_d(1);
+47:         this.func_77656_e(64);
+48:         this.func_77655_b("GrapplingHook");
+49:         this.func_77637_a(MFQM.tabMFQM);
+50:     }
+51: 
+52:     public EnumAction func_77661_b(ItemStack par1ItemStack) {
+53:         return EnumAction.bow;
+54:     }
+55: 
+56:     public int func_77626_a(ItemStack par1ItemStack) {
+57:         return 72000;
+58:     }
+59: 
+60:     @SideOnly(value=Side.CLIENT)
+61:     public boolean func_77662_d() {
+62:         return true;
+63:     }
+64: 
+65:     @SideOnly(value=Side.CLIENT)
+66:     public boolean func_77629_n_() {
+67:         return false;
+68:     }
+69: 
+70:     public void func_77663_a(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
+71:         ItemStack itemStack;
+72:         if (((EntityPlayer)par3Entity).field_71075_bZ.field_75102_a) {
+73:             par1ItemStack.func_77964_b(0);
+74:             ((EntityPlayer)par3Entity).func_71034_by();
+75:             return;
+76:         }
+77:         if (((EntityPlayer)par3Entity).func_71045_bC() != null && (itemStack = ((EntityPlayer)par3Entity).func_71045_bC()) == par1ItemStack && itemStack.func_77960_j() % 2 != 0) {
+78:             if (!((EntityPlayer)par3Entity).func_71039_bw()) {
+79:                 ((EntityPlayer)par3Entity).func_71008_a(par1ItemStack, this.func_77626_a(par1ItemStack));
+80:                 return;
+81:             }
+82:             ((EntityPlayer)par3Entity).func_71034_by();
+83:             return;
+84:         }
+85:     }
+86: 
+87:     public ItemStack func_77659_a(ItemStack itemStack, World world, EntityPlayer player) {
+88:         if (player.field_71075_bZ.field_75102_a) {
+89:             itemStack.func_77964_b(0);
+90:             return itemStack;
+91:         }
+92:         if (itemStack.func_77960_j() % 2 == 0) {
+93:             world.func_72956_a((Entity)player, "random.bow", 0.5f, field_77697_d.nextFloat() * 0.25f + 0.5f);
+94:             world.func_72956_a((Entity)player, "mob.irongolem.death", 0.5f, field_77697_d.nextFloat() * 0.15f + 1.75f);
+95:             EntityHook hook = new EntityHook(world, player);
+96:             if (!world.field_72995_K) {
+97:                 world.func_72838_d((Entity)hook);
+98:                 itemStack.func_77964_b(itemStack.func_77960_j() + 1);
+99:             }
+100:         } else {
+101:             if (!world.field_72995_K) {
+102:                 if (itemStack.func_77960_j() < 24) {
+103:                     itemStack.func_77964_b(0);
+104:                 } else {
+105:                     itemStack.func_77964_b(itemStack.func_77960_j() - 1);
+106:                 }
+107:                 for (int i = 0; i <= 8; ++i) {
+108:                     ItemStack itm = player.field_71071_by.field_70462_a[i];
+109:                     if (itm == null || !(itm.func_77973_b() instanceof ItemGrapplingHook) || itm.func_77960_j() % 2 == 0) continue;
+110:                     if (itm.func_77960_j() < 24) {
+111:                         itm.func_77964_b(0);
+112:                         continue;
+113:                     }
+114:                     itm.func_77964_b(itm.func_77960_j() - 1);
+115:                 }
+116:                 if (!player.field_70122_E) {
+117:                     player.field_70143_R = 0.0f;
+118:                 }
+119:                 world.func_72956_a((Entity)player, "random.click", 0.5f, -field_77697_d.nextFloat() * 0.3f + 1.15f);
+120:             } else if (!player.field_70122_E) {
+121:                 double spd = Math.pow(Math.pow(player.field_70159_w, 2.0) + Math.pow(player.field_70179_y, 2.0), 0.5);
+122:                 player.field_70181_x += Math.min(0.75, spd * 1.5);
+123:                 player.field_70143_R = 0.0f;
+124:             }
+125:             player.func_71038_i();
+126:         }
+127:         return itemStack;
+128:     }
+129: 
+130:     @SideOnly(value=Side.CLIENT)
+131:     public void func_94581_a(IIconRegister iuconRegister) {
+132:         this.itemIIcon1 = iuconRegister.func_94245_a("morefunquicksandmod:GrapplingHook");
+133:         this.itemIIcon2 = iuconRegister.func_94245_a("morefunquicksandmod:GrapplingHookActive");
+134:     }
+135: 
+136:     @SideOnly(value=Side.CLIENT)
+137:     public IIcon func_77617_a(int par1) {
+138:         if (par1 % 2 == 0) {
+139:             return this.itemIIcon1;
+140:         }
+141:         return this.itemIIcon2;
+142:     }
+143: 
+144:     public boolean onEntityItemUpdate(EntityItem entityItem) {
+145:         if (!entityItem.field_70170_p.field_72995_K && entityItem.func_92059_d().func_77960_j() % 2 != 0) {
+146:             entityItem.func_92059_d().func_77964_b(entityItem.func_92059_d().func_77960_j() - 1);
+147:         }
+148:         return false;
+149:     }
+150: 
+151:     public void func_77624_a(ItemStack item, EntityPlayer player, List list, boolean bool) {
+152:         list.add(EnumChatFormatting.DARK_RED + "" + EnumChatFormatting.BOLD + StatCollector.func_74838_a((String)"itemGrapplingHook.instruction1") + ".");
+153:         list.add(StatCollector.func_74838_a((String)"itemGrapplingHook.instruction2"));
+154:         list.add(StatCollector.func_74838_a((String)"itemGrapplingHook.instruction3") + ".");
+155:         list.add(EnumChatFormatting.BOLD + StatCollector.func_74838_a((String)"itemGrapplingHook.instruction4") + ":");
+156:         list.add(EnumChatFormatting.GOLD + StatCollector.func_74838_a((String)"itemGrapplingHook.instruction5") + EnumChatFormatting.GRAY + " - " + StatCollector.func_74838_a((String)"itemGrapplingHook.instruction6") + ".");
+157:         list.add(EnumChatFormatting.GOLD + StatCollector.func_74838_a((String)"itemGrapplingHook.instruction7") + EnumChatFormatting.GRAY + " - " + StatCollector.func_74838_a((String)"itemGrapplingHook.instruction8") + ".");
+158:         list.add(EnumChatFormatting.GOLD + StatCollector.func_74838_a((String)"itemGrapplingHook.instruction9") + EnumChatFormatting.GRAY + " - " + StatCollector.func_74838_a((String)"itemGrapplingHook.instruction10") + ".");
+159:     }
+160: }
+161: 

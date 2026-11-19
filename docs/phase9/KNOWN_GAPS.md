@@ -1,0 +1,12 @@
+# Known gaps — overall PARTIAL
+
+- Original texture bindings cover 25 registry IDs, not the whole catalog. TEXTURE_MAPPING.csv records 113 unresolved uses, including buckets, dynamic/multiface selection and metadata. No guessed textures are copied.
+- Only quicksand/mud/soft_quicksand world and hotbar, acid/bog world fluids were visually inspected. Other confirmed bindings are byte/reference checks only. leaves_pile baked sprite binding is verified; isolated transparency/occlusion visual acceptance NOT_RUN.
+- SoftQuicksand1 is old default metadata0; SoftQuicksand0/2 remain unresolved. Modern FILLED does not model these old variants. Foreign-dimension Mud and special-world SoftSnow variants are not restored.
+- Fluid still/flow images and animations are preserved byte-for-byte. Animated atlas frame counts/reload were checked for acid/bog; original timing, interpolation, every orientation and every fluid were not exhaustively compared. Fluid cube inventory geometry remains provisional; bucket icons remain vanilla placeholders.
+- Original entity, GUI, stain/overlay and item renderer resources are inventoried, not ported. Inherited vanilla sandstone/rug/lily design is retained with geometry/metadata parity partial.
+- PUBLIC_SOURCE_BUILD intentionally has vanilla fallback textures and no private images. PRIVATE_ORIGINAL_ASSETS_BUILD stays local/ignored: PRIVATE_ARTIFACT_NOT_DISTRIBUTED. Asset redistribution license is not established.
+- Actual clients used Forge development classes/resources corresponding to the verified private JAR, not a formal launcher installation of that reobfuscated JAR. Packaged JAR contents verified; installed-JAR runtime NOT_RUN. Public build and dedicated GameTest startup verified; public client visual NOT_RUN.
+- Linux case-sensitive paths validated. Windows, third-party packs, alternative graphics engines, production multiplayer modpacks NOT_RUN. ResourceManager priority is honored, but compatibility is not guaranteed without testing.
+- Client resource reload was programmatic reloadResourcePacks, equivalent load path to F3+T; physical key press NOT_RUN. Capture runs were deliberately terminated after evidence, so their runClient exit is nonzero and not reported as clean shutdown success.
+- Phase8 remains limited nonplayer quicksand automation. Player automatic collision, all materials, full vertical physics and natural generation are outside Phase9. No Phase10 work started.

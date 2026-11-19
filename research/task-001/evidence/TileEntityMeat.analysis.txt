@@ -1,0 +1,42 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.nbt.NBTTagCompound
+8:  *  net.minecraft.tileentity.TileEntity
+9:  *  net.minecraft.util.AxisAlignedBB
+10:  */
+11: package MoreFunQuicksandMod.main.Tileentity;
+12: 
+13: import cpw.mods.fml.relauncher.Side;
+14: import cpw.mods.fml.relauncher.SideOnly;
+15: import net.minecraft.nbt.NBTTagCompound;
+16: import net.minecraft.tileentity.TileEntity;
+17: import net.minecraft.util.AxisAlignedBB;
+18: 
+19: public class TileEntityMeat
+20: extends TileEntity {
+21:     public double phase = 0.0;
+22: 
+23:     public void func_145841_b(NBTTagCompound par1) {
+24:         super.func_145841_b(par1);
+25:     }
+26: 
+27:     public void func_145839_a(NBTTagCompound par1) {
+28:         super.func_145839_a(par1);
+29:     }
+30: 
+31:     public boolean canUpdate() {
+32:         return false;
+33:     }
+34: 
+35:     @SideOnly(value=Side.CLIENT)
+36:     public AxisAlignedBB getRenderBoundingBox() {
+37:         AxisAlignedBB bb = INFINITE_EXTENT_AABB;
+38:         bb = AxisAlignedBB.func_72330_a((double)this.field_145851_c, (double)this.field_145848_d, (double)this.field_145849_e, (double)(this.field_145851_c + 1), (double)(this.field_145848_d + 1), (double)(this.field_145849_e + 1));
+39:         return bb;
+40:     }
+41: }
+42: 

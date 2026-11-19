@@ -1,0 +1,133 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  net.minecraft.block.Block
+6:  *  net.minecraft.block.material.Material
+7:  *  net.minecraft.init.Blocks
+8:  *  net.minecraft.world.EnumSkyBlock
+9:  *  net.minecraft.world.World
+10:  *  net.minecraft.world.biome.BiomeGenBase
+11:  *  net.minecraft.world.gen.feature.WorldGenerator
+12:  */
+13: package MoreFunQuicksandMod.main;
+14: 
+15: import java.util.Random;
+16: import net.minecraft.block.Block;
+17: import net.minecraft.block.material.Material;
+18: import net.minecraft.init.Blocks;
+19: import net.minecraft.world.EnumSkyBlock;
+20: import net.minecraft.world.World;
+21: import net.minecraft.world.biome.BiomeGenBase;
+22: import net.minecraft.world.gen.feature.WorldGenerator;
+23: 
+24: public class CustomWorldGenLakes
+25: extends WorldGenerator {
+26:     private Block blockIndex;
+27: 
+28:     public CustomWorldGenLakes(Block par1) {
+29:         this.blockIndex = par1;
+30:     }
+31: 
+32:     public boolean func_76484_a(World par1World, Random par2Random, int par3, int par4, int par5) {
+33:         return this.generate(par1World, par2Random, par3, par4, par5, 0);
+34:     }
+35: 
+36:     public boolean generate(World par1World, Random par2Random, int par3, int par4, int par5, int par6) {
+37:         int j2;
+38:         int i1;
+39:         par3 -= 8;
+40:         par5 -= 8;
+41:         while (par4 > 5 && par1World.func_147437_c(par3, par4, par5)) {
+42:             --par4;
+43:         }
+44:         if (par4 <= 4) {
+45:             return false;
+46:         }
+47:         if (par6 != 2) {
+48:             par4 -= 4;
+49:         }
+50:         boolean[] aboolean = new boolean[2048];
+51:         int l = par2Random.nextInt(4) + 4;
+52:         for (i1 = 0; i1 < l; ++i1) {
+53:             double d0 = par2Random.nextDouble() * 6.0 + 3.0;
+54:             double d1 = par2Random.nextDouble() * 4.0 + 2.0;
+55:             double d2 = par2Random.nextDouble() * 6.0 + 3.0;
+56:             double d3 = par2Random.nextDouble() * (16.0 - d0 - 2.0) + 1.0 + d0 / 2.0;
+57:             double d4 = par2Random.nextDouble() * (8.0 - d1 - 4.0) + 2.0 + d1 / 2.0;
+58:             double d5 = par2Random.nextDouble() * (16.0 - d2 - 2.0) + 1.0 + d2 / 2.0;
+59:             for (int j1 = 1; j1 < 15; ++j1) {
+60:                 for (int k1 = 1; k1 < 15; ++k1) {
+61:                     for (int l1 = 1; l1 < 7; ++l1) {
+62:                         double d6 = ((double)j1 - d3) / (d0 / 2.0);
+63:                         double d7 = ((double)l1 - d4) / (d1 / 2.0);
+64:                         double d8 = ((double)k1 - d5) / (d2 / 2.0);
+65:                         double d9 = d6 * d6 + d7 * d7 + d8 * d8;
+66:                         if (!(d9 < 1.0)) continue;
+67:                         aboolean[(j1 * 16 + k1) * 8 + l1] = true;
+68:                     }
+69:                 }
+70:             }
+71:         }
+72:         for (i1 = 0; i1 < 16; ++i1) {
+73:             for (j2 = 0; j2 < 16; ++j2) {
+74:                 for (int i2 = 0; i2 < 8; ++i2) {
+75:                     boolean flag;
+76:                     boolean bl = flag = !aboolean[(i1 * 16 + j2) * 8 + i2] && (i1 < 15 && aboolean[((i1 + 1) * 16 + j2) * 8 + i2] || i1 > 0 && aboolean[((i1 - 1) * 16 + j2) * 8 + i2] || j2 < 15 && aboolean[(i1 * 16 + j2 + 1) * 8 + i2] || j2 > 0 && aboolean[(i1 * 16 + (j2 - 1)) * 8 + i2] || i2 < 7 && aboolean[(i1 * 16 + j2) * 8 + i2 + 1] || i2 > 0 && aboolean[(i1 * 16 + j2) * 8 + (i2 - 1)]);
+77:                     if (!flag) continue;
+78:                     Material material = par1World.func_147439_a(par3 + i1, par4 + i2, par5 + j2).func_149688_o();
+79:                     if (i2 >= 4 && material.func_76224_d()) {
+80:                         return false;
+81:                     }
+82:                     if (i2 >= 4 || material.func_76220_a() || par1World.func_147439_a(par3 + i1, par4 + i2, par5 + j2) == this.blockIndex) continue;
+83:                     return false;
+84:                 }
+85:             }
+86:         }
+87:         for (i1 = 0; i1 < 16; ++i1) {
+88:             for (j2 = 0; j2 < 16; ++j2) {
+89:                 for (int i2 = 0; i2 < 8; ++i2) {
+90:                     if (!aboolean[(i1 * 16 + j2) * 8 + i2]) continue;
+91:                     par1World.func_147465_d(par3 + i1, par4 + i2, par5 + j2, i2 >= 4 ? Blocks.field_150350_a : this.blockIndex, 0, 2);
+92:                     par1World.func_147465_d(par3 + i1, par4 + i2 - 1, par5 + j2, i2 >= 4 ? Blocks.field_150350_a : this.blockIndex, 0, 2);
+93:                 }
+94:             }
+95:         }
+96:         for (i1 = 0; i1 < 16; ++i1) {
+97:             for (j2 = 0; j2 < 16; ++j2) {
+98:                 for (int i2 = 4; i2 < 8; ++i2) {
+99:                     if (!aboolean[(i1 * 16 + j2) * 8 + i2] || par1World.func_147439_a(par3 + i1, par4 + i2 - 1, par5 + j2) != Blocks.field_150346_d || par1World.func_72972_b(EnumSkyBlock.Sky, par3 + i1, par4 + i2, par5 + j2) <= 0) continue;
+100:                     BiomeGenBase biomegenbase = par1World.func_72807_a(par3 + i1, par5 + j2);
+101:                     if (biomegenbase.field_76752_A == Blocks.field_150391_bh) {
+102:                         par1World.func_147465_d(par3 + i1, par4 + i2 - 1, par5 + j2, (Block)Blocks.field_150391_bh, 0, 2);
+103:                         continue;
+104:                     }
+105:                     par1World.func_147465_d(par3 + i1, par4 + i2 - 1, par5 + j2, (Block)Blocks.field_150349_c, 0, 2);
+106:                 }
+107:             }
+108:         }
+109:         if (par6 == 1) {
+110:             for (i1 = 0; i1 < 16; ++i1) {
+111:                 for (j2 = 0; j2 < 16; ++j2) {
+112:                     for (int i2 = 0; i2 < 8; ++i2) {
+113:                         boolean flag;
+114:                         boolean bl = flag = !aboolean[(i1 * 16 + j2) * 8 + i2] && (i1 < 15 && aboolean[((i1 + 1) * 16 + j2) * 8 + i2] || i1 > 0 && aboolean[((i1 - 1) * 16 + j2) * 8 + i2] || j2 < 15 && aboolean[(i1 * 16 + j2 + 1) * 8 + i2] || j2 > 0 && aboolean[(i1 * 16 + (j2 - 1)) * 8 + i2] || i2 < 7 && aboolean[(i1 * 16 + j2) * 8 + i2 + 1] || i2 > 0 && aboolean[(i1 * 16 + j2) * 8 + (i2 - 1)]);
+115:                         if (!flag || i2 >= 4 && par2Random.nextInt(2) == 0 && !par1World.func_147439_a(par3 + i1, par4 + i2, par5 + j2).func_149688_o().func_76224_d() || par1World.func_147439_a(par3 + i1, par4 + i2, par5 + j2) == this.blockIndex || par1World.func_147439_a(par3 + i1, par4 + i2, par5 + j2) == Blocks.field_150350_a || par1World.func_147439_a(par3 + i1, par4 + i2, par5 + j2).func_149688_o() == Material.field_151582_l || par1World.func_147439_a(par3 + i1, par4 + i2, par5 + j2).func_149688_o() == Material.field_151585_k) continue;
+116:                         par1World.func_147465_d(par3 + i1, par4 + i2, par5 + j2, Blocks.field_150348_b, 0, 2);
+117:                     }
+118:                 }
+119:             }
+120:         }
+121:         if (par6 != 1) {
+122:             for (i1 = 0; i1 < 16; ++i1) {
+123:                 for (j2 = 0; j2 < 16; ++j2) {
+124:                     int b0 = 4;
+125:                     if (!par1World.func_72884_u(par3 + i1, par4 + b0, par5 + j2)) continue;
+126:                     par1World.func_147465_d(par3 + i1, par4 + b0, par5 + j2, Blocks.field_150432_aD, 0, 2);
+127:                 }
+128:             }
+129:         }
+130:         return true;
+131:     }
+132: }
+133: 

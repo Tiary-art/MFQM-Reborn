@@ -1,0 +1,18 @@
+// CFR0.152; original decompiler line 2094; NOT original source; inspect **/goto artifacts if present.
+    private void generateBlood2(int xx, int yy, int zz, int rad, World world, Random random) {
+        double rad_cof = Math.max((double)rad / 10.0, 1.0);
+        double rax = random.nextDouble() + 0.5;
+        double raz = 1.0 - rax + 0.5 + 0.5;
+        for (int i = 0; i <= rad; ++i) {
+            for (int j = 0; j <= rad * 2; ++j) {
+                for (int e = 0; e <= rad; ++e) {
+                    int posx = xx + i - rad / 2;
+                    int posy = yy + j - rad;
+                    int posz = zz + e - rad / 2;
+                    double dis = Math.sqrt(Math.pow(xx - posx, 2.0) * rax + Math.pow(yy - posy, 2.0) + Math.pow(zz - posz, 2.0) * raz);
+                    if (!(dis < (double)rad / 2.0 / (1.0 + Math.abs(rax - raz) / 3.0) + (random.nextDouble() * rad_cof - rad_cof / 2.0)) || !this.validBloodMaterial(posx, posy, posz, world) && (!this.validLiqMaterial(posx, posy, posz, world) || world.func_147439_a(posx, posy, posz) == MFQM.AcidBlock || world.func_147439_a(posx, posy, posz) == MFQM.SlurryBlock || world.func_72805_g(posx, posy, posz) != 0)) continue;
+                    world.func_147465_d(posx, posy, posz, MFQM.MeatBlock, 0, 2);
+                }
+            }
+        }
+    }

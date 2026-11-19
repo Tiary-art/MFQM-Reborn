@@ -1,0 +1,17 @@
+// CFR0.152; original decompiler line 4520; NOT original source; inspect **/goto artifacts if present.
+    private boolean isRiverIsNear(int xx, int yy, int zz, World world) {
+        int xxx = xx - 32;
+        int zzz = zz - 32;
+        if (this.T_BoP) {
+            for (int i = 0; i < 5; ++i) {
+                for (int j = 0; j < 5; ++j) {
+                    BiomeGenBase bb;
+                    xxx = xx - 32 + 16 * i;
+                    zzz = zz - 32 + 16 * j;
+                    if (xxx == xx && zzz == zz || !((bb = world.func_72807_a(xxx, zzz)) instanceof BiomeGenRiver)) continue;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }

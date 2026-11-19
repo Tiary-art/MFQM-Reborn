@@ -1,0 +1,44 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.client.model.ModelBase
+8:  *  net.minecraft.client.renderer.entity.RenderLiving
+9:  *  net.minecraft.entity.Entity
+10:  *  net.minecraft.entity.EntityLivingBase
+11:  *  net.minecraft.util.ResourceLocation
+12:  *  org.lwjgl.opengl.GL11
+13:  */
+14: package MoreFunQuicksandMod.main.client;
+15: 
+16: import MoreFunQuicksandMod.main.client.ModelBee;
+17: import cpw.mods.fml.relauncher.Side;
+18: import cpw.mods.fml.relauncher.SideOnly;
+19: import net.minecraft.client.model.ModelBase;
+20: import net.minecraft.client.renderer.entity.RenderLiving;
+21: import net.minecraft.entity.Entity;
+22: import net.minecraft.entity.EntityLivingBase;
+23: import net.minecraft.util.ResourceLocation;
+24: import org.lwjgl.opengl.GL11;
+25: 
+26: @SideOnly(value=Side.CLIENT)
+27: public class RenderBee
+28: extends RenderLiving {
+29:     public RenderBee() {
+30:         super((ModelBase)new ModelBee(), 0.2375f);
+31:         this.field_76989_e = 0.0f;
+32:     }
+33: 
+34:     protected void func_77041_b(EntityLivingBase entity, float partialTickTime) {
+35:         GL11.glRotatef((float)180.0f, (float)0.0f, (float)1.0f, (float)0.0f);
+36:         GL11.glTranslatef((float)0.0f, (float)0.7125f, (float)0.0f);
+37:         GL11.glScalef((float)0.95f, (float)0.95f, (float)0.95f);
+38:     }
+39: 
+40:     protected ResourceLocation func_110775_a(Entity entity) {
+41:         return new ResourceLocation("morefunquicksandmod:textures/entity/Bee.png");
+42:     }
+43: }
+44: 

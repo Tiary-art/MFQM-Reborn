@@ -1,0 +1,523 @@
+/*
+ * Decompiled with CFR 0.152.
+ * 
+ * Could not load the following classes:
+ *  cpw.mods.fml.relauncher.Side
+ *  cpw.mods.fml.relauncher.SideOnly
+ *  net.minecraft.block.Block
+ *  net.minecraft.block.material.MapColor
+ *  net.minecraft.block.material.Material
+ *  net.minecraft.client.Minecraft
+ *  net.minecraft.client.renderer.texture.IIconRegister
+ *  net.minecraft.entity.Entity
+ *  net.minecraft.entity.EntityLivingBase
+ *  net.minecraft.entity.monster.EntityMob
+ *  net.minecraft.entity.player.EntityPlayer
+ *  net.minecraft.potion.PotionEffect
+ *  net.minecraft.util.DamageSource
+ *  net.minecraft.util.IIcon
+ *  net.minecraft.util.Vec3
+ *  net.minecraft.world.IBlockAccess
+ *  net.minecraft.world.World
+ *  net.minecraftforge.fluids.BlockFluidClassic
+ */
+package MoreFunQuicksandMod.main.liquids;
+
+import MoreFunQuicksandMod.main.CustomMaterialLiquid;
+import MoreFunQuicksandMod.main.MFQM;
+import MoreFunQuicksandMod.main.entity.EntitySandBlob;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import java.util.Random;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.Vec3;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraftforge.fluids.BlockFluidClassic;
+
+public class BlockSand
+extends BlockFluidClassic {
+    public IIcon[] theSandIIcon;
+    public static final Material materialSand = new CustomMaterialLiquid(MapColor.field_151658_d).func_76231_i();
+
+    public BlockSand() {
+        super(MFQM.SandFluid, materialSand);
+        this.setQuantaPerBlock(2);
+        this.quantaPerBlockFloat = 1.75f;
+        if (MFQM.QSOpacity) {
+            this.func_149713_g(3);
+        } else {
+            this.func_149713_g(3);
+        }
+        this.func_149675_a(true);
+        this.func_149663_c("SoftSand");
+        this.setRenderPass(0);
+        this.func_149647_a(MFQM.tabMFQM);
+    }
+
+    public void func_149749_a(World world, int x, int y, int z, Block bl, int meta) {
+        if (MFQM.LiqFixer) {
+            return;
+        }
+        if (meta == 0 && world.func_147439_a(x, y, z) != this) {
+            int chckRes = this.checkFusion(world, x, y, z, world.field_73012_v);
+            if (chckRes != 0) {
+                return;
+            }
+            if (world.func_147439_a(x, y, z).func_149688_o().func_76224_d()) {
+                int denToRep = BlockSand.getDensity((IBlockAccess)world, (int)x, (int)y, (int)z);
+                if (denToRep >= this.density) {
+                    return;
+                }
+            }
+            if (!world.func_147437_c(x, y, z)) {
+                world.func_147465_d(x, y, z, (Block)this, meta, 1);
+            }
+        }
+    }
+
+    public boolean func_149678_a(int meta, boolean fullHit) {
+        return meta == 0;
+    }
+
+    public int getMaxRenderHeightMeta() {
+        return -1;
+    }
+
+    public float func_149737_a(EntityPlayer par1EntityPlayer, World par2World, int par3, int par4, int par5) {
+        return -1.0f;
+    }
+
+    public void func_149670_a(World world, int x, int y, int z, Entity entity) {
+        int mtd = world.func_72805_g(x, y, z);
+        double EposY = entity.field_70163_u;
+        double EprevPosY = entity.field_70167_r;
+        double prevVel = entity.field_70181_x;
+        double oy = (double)y - EposY + 1.0 - (double)(mtd / 3);
+        double oy2 = (double)y - EprevPosY + 1.0 - (double)(mtd / 3);
+        oy *= -1.0;
+        if ((oy2 *= -1.0) < 0.0) {
+            oy2 = 0.0;
+        }
+        double kof1 = oy;
+        double kof1m = oy;
+        if (kof1m < 0.0) {
+            kof1m = 0.0;
+        }
+        double kof2 = oy2;
+        if (!(entity instanceof EntityPlayer)) {
+            oy = (double)y - EposY - 0.5 - (double)(mtd / 3);
+            oy2 = (double)y - EprevPosY - 0.5 - (double)(mtd / 3);
+            oy *= -1.0;
+            if ((oy2 *= -1.0) < 0.0) {
+                oy2 = 0.0;
+            }
+            kof1 = oy;
+            kof1m = oy;
+            if (kof1m < 0.0) {
+                kof1m = 0.0;
+            }
+            kof2 = oy2;
+        }
+        if (entity instanceof EntityLivingBase) {
+            boolean Affect = true;
+            if (MFQM.WLD && entity.field_70170_p.field_73011_w.field_76574_g == MFQM.WLDDim && entity instanceof EntityMob) {
+                Affect = false;
+            }
+            if (Affect) {
+                this.checkEntityUnder(entity);
+            }
+            boolean entJump = false;
+            boolean entMoving = false;
+            boolean entSplash = false;
+            boolean entRotate = false;
+            float mtdkof = 1.0f;
+            double movDis = 1.0;
+            double movCof = 16.0;
+            double movKofDiv = 1.0;
+            if (MFQM.ABC && (world.field_73011_w.field_76574_g == MFQM.ABCDim3 || world.field_73011_w.field_76574_g == MFQM.ABCDim4)) {
+                mtdkof = 2.0f;
+            }
+            int mr_kof = (int)Math.min(5.0 + Math.floor(Math.max(0.0, Math.pow((double)(mtdkof * 20.0f) * (1.5 - kof1m), 1.5))), 128.0);
+            if (EposY - EprevPosY > 0.1) {
+                entJump = true;
+            }
+            if (entity.field_70181_x < -0.1) {
+                entSplash = true;
+            }
+            if (!(entity instanceof EntityPlayer) && ((EntityLivingBase)entity).field_70126_B != ((EntityLivingBase)entity).field_70177_z) {
+                entRotate = true;
+            }
+            if (entity instanceof EntityPlayer && world.field_72995_K && Math.abs(MFQM.SIRenderYawPre - MFQM.SIRenderYaw) > 10.0) {
+                entRotate = true;
+            }
+            if (entRotate || Math.abs(entity.field_70169_q - entity.field_70165_t) > 0.001 || Math.abs(entity.field_70166_s - entity.field_70161_v) > 0.001) {
+                entMoving = true;
+                movDis = Math.pow(Math.pow(entity.field_70169_q - entity.field_70165_t, 2.0) + Math.pow(entity.field_70166_s - entity.field_70161_v, 2.0), 0.5);
+                movCof = movDis * 10.0;
+                movCof = Math.max(Math.min(32.0 / (1.0 + movCof), 32.0), 16.0);
+                movKofDiv = 1.0 + movDis / 2.0;
+                if (kof1m < 0.9 && kof1m != 0.0 && entRotate) {
+                    movKofDiv += (double)mr_kof * 0.005;
+                }
+            }
+            entity.field_70159_w = 0.0;
+            entity.field_70179_y = 0.0;
+            entity.field_70181_x = entity.field_70181_x > -0.1 ? 0.0 : (entity.field_70181_x /= 2.0);
+            if (world.func_82737_E() % 4L == 0L || entMoving && world.func_82737_E() % (long)Math.max((int)Math.floor(movCof / 1.5), 1) == 0L || entJump && world.func_82737_E() % 8L == 0L || entSplash) {
+                if (entSplash && kof2 > 1.5) {
+                    world.func_72908_a(entity.field_70165_t, EposY, entity.field_70161_v, "step.sand", 0.15f, world.field_73012_v.nextFloat() * 0.5f + 0.5f);
+                }
+                if (!entSplash && entMoving && world.field_73012_v.nextInt(2) == 0) {
+                    world.func_72908_a(entity.field_70165_t, EposY, entity.field_70161_v, "step.grass", 0.25f, world.field_73012_v.nextFloat() * 0.5f + 0.5f);
+                }
+                if (entJump) {
+                    world.func_72908_a(entity.field_70165_t, EposY, entity.field_70161_v, "dig.sand", 0.15f, world.field_73012_v.nextFloat() * 0.5f + 0.5f);
+                }
+                if (!(entSplash || entMoving || entJump || world.field_73012_v.nextInt(10) != 0)) {
+                    world.func_72908_a(entity.field_70165_t, EposY, entity.field_70161_v, "step.grass", 0.15f, world.field_73012_v.nextFloat() * 0.5f + 0.5f);
+                }
+            }
+            if (entity instanceof EntitySandBlob) {
+                ((EntityLivingBase)entity).func_70690_d(new PotionEffect(10, 5, 1, false));
+                if (world.func_147439_a(x, y + 1, z) != this) {
+                    if (kof1 >= 1.35) {
+                        if (!entSplash) {
+                            entity.field_70181_x = 0.0;
+                            entity.field_70181_x += 0.08;
+                            entity.field_70122_E = true;
+                            entity.field_70143_R = 0.0f;
+                        }
+                    } else {
+                        entity.field_70181_x = 0.0;
+                        entity.field_70181_x += 0.1;
+                        entity.field_70122_E = true;
+                        entity.field_70143_R = 0.0f;
+                    }
+                } else {
+                    entity.field_70181_x = 0.0;
+                    entity.field_70181_x += 0.1;
+                    entity.field_70122_E = true;
+                    entity.field_70143_R = 0.0f;
+                }
+                return;
+            }
+            if (!(entity instanceof EntityPlayer) && !Affect) {
+                if (world.func_147439_a(x, y + 1, z) != this) {
+                    if (kof1 >= 1.35) {
+                        if (!entSplash) {
+                            entity.field_70181_x = 0.0;
+                            entity.field_70181_x += 0.08;
+                            entity.field_70122_E = true;
+                            entity.field_70143_R = 0.0f;
+                        }
+                    } else {
+                        entity.field_70181_x = 0.0;
+                        entity.field_70181_x += 0.1;
+                        entity.field_70122_E = true;
+                        entity.field_70143_R = 0.0f;
+                    }
+                } else {
+                    entity.field_70181_x = 0.0;
+                    entity.field_70181_x += 0.1;
+                    entity.field_70122_E = true;
+                    entity.field_70143_R = 0.0f;
+                }
+                return;
+            }
+            if (world.func_147439_a(x, y + 1, z) != this || world.func_147439_a(x, y + 1, z) == this && world.func_147439_a(x, y + 2, z) == this) {
+                double a1;
+                if (world.func_147439_a(x, y + 1, z) == this && world.func_147439_a(x, y + 2, z) == this) {
+                    kof1 = 0.001;
+                }
+                double mys = 0.0;
+                if (!(entity instanceof EntityPlayer)) {
+                    mys = -0.0025;
+                }
+                if (kof1 >= 1.2) {
+                    a1 = 0.07485;
+                    entity.field_70181_x += a1 / Math.max((movKofDiv - 1.0) * (Math.max(kof1m - 0.5, 0.75) * 1.6) * 17.5, 1.0) / Math.pow(Math.max(kof1m / 1.25, 1.0), 2.0);
+                    entity.field_70122_E = true;
+                    entity.field_70143_R = 0.0f;
+                } else if (kof1 >= 0.9) {
+                    a1 = 0.07485;
+                    entity.field_70181_x += a1 / Math.max((movKofDiv - 1.0) * (Math.max(kof1m - 0.5, 0.75) * 1.6) * 17.5, 1.0) / Math.pow(Math.max(kof1m / 1.25, 1.0), 2.0);
+                    MFQM.setStuckEffect((EntityLivingBase)entity, mr_kof);
+                    if (!entSplash) {
+                        entity.field_70122_E = true;
+                        entity.field_70143_R = 0.0f;
+                    }
+                    if (entity instanceof EntityPlayer) {
+                        if ((double)world.func_82737_E() % Math.max(1.0 + Math.floor(Math.max(kof1 * 5.0 - (double)(mtd / 10), 0.0)), 1.0) == 0.0) {
+                            entity.func_70110_aj();
+                            entity.field_70122_E = false;
+                        }
+                    } else {
+                        double mw_kof = 1 + mr_kof / 10;
+                        entity.func_70107_b(entity.field_70169_q + (entity.field_70165_t - entity.field_70169_q) / mw_kof, EposY, entity.field_70166_s + (entity.field_70161_v - entity.field_70166_s) / mw_kof);
+                    }
+                } else {
+                    double a2 = 0.9;
+                    if (world.field_73012_v.nextInt(Math.max((int)Math.floor(25.0 - Math.pow(Math.max(kof1m, 0.0), 1.5)), 1)) == 0) {
+                        entity.field_70122_E = true;
+                    }
+                    if (MFQM.isTrulySink(entity, kof1m)) {
+                        MFQM.setStuckEffect((EntityLivingBase)entity, mr_kof);
+                    }
+                    entity.field_70143_R = 0.0f;
+                    if (kof1 >= 0.5) {
+                        if (world.field_73012_v.nextInt((int)Math.floor(Math.max(kof1m * 5.0 / 2.0, 1.0))) == 0) {
+                            entity.func_70110_aj();
+                            entity.field_70181_x = !entMoving ? (entity.field_70181_x += (0.0725 + mys) * a2) : (entity.field_70181_x += (0.0725 + mys) * a2 / (movKofDiv + 0.25));
+                        } else {
+                            entity.field_70181_x = !entMoving ? (entity.field_70181_x += (0.075 + mys) * a2) : (entity.field_70181_x += (0.075 + mys) * a2 / (movKofDiv + 0.25));
+                        }
+                    } else {
+                        entity.func_70110_aj();
+                        entity.field_70181_x = !entMoving ? (entity.field_70181_x += (0.0725 + mys) * a2) : (entity.field_70181_x += (0.0725 + mys) * a2 / (movKofDiv + 0.25));
+                        if (kof1 < 0.45 && MFQM.isTrulySink(entity, kof1m)) {
+                            MFQM.setStuckEffect((EntityLivingBase)entity, 128);
+                        }
+                    }
+                }
+                if ((double)world.func_82737_E() % Math.max(1.0 + Math.floor(Math.max(kof1 * 10.0, 0.0)), 1.0) == 0.0) {
+                    entity.field_70122_E = false;
+                }
+                if (entity.func_70090_H() && entity.field_70181_x > 0.0) {
+                    entity.field_70181_x /= 4.0;
+                }
+                if (this.densityDir <= 0) {
+                    Vec3 vec_flow = this.getFlowVector((IBlockAccess)world, x, y, z);
+                    double xx = (double)x + 0.5;
+                    double zz = (double)z + 0.5;
+                    double disq = Math.pow(Math.pow(entity.field_70165_t - xx, 2.0) + Math.pow(entity.field_70161_v - zz, 2.0), 0.5);
+                    entity.field_70159_w += vec_flow.field_72450_a * 0.25 / Math.max(10.0 * disq, 1.0);
+                    entity.field_70179_y += vec_flow.field_72449_c * 0.25 / Math.max(10.0 * disq, 1.0);
+                }
+            } else {
+                entity.func_70110_aj();
+                if (kof1 < 0.5 && MFQM.isTrulySink(entity, kof1m)) {
+                    MFQM.setStuckEffect((EntityLivingBase)entity, 128);
+                }
+            }
+            MFQM.antiHoldJumpScript(entity, kof1, true);
+        } else if (kof1 < 1.45) {
+            entity.func_70110_aj();
+            if (this.densityDir <= 0) {
+                Vec3 vec_flow = this.getFlowVector((IBlockAccess)world, x, y, z);
+                double xx = (double)x + 0.5;
+                double zz = (double)z + 0.5;
+                double disq = Math.pow(Math.pow(entity.field_70165_t - xx, 2.0) + Math.pow(entity.field_70161_v - zz, 2.0), 0.5);
+                entity.field_70159_w += vec_flow.field_72450_a * 0.25 / Math.max(10.0 * disq, 1.0);
+                entity.field_70179_y += vec_flow.field_72449_c * 0.25 / Math.max(10.0 * disq, 1.0);
+            }
+        }
+    }
+
+    @SideOnly(value=Side.CLIENT)
+    public IIcon func_149691_a(int par1, int par2) {
+        return par1 != 0 && par1 != 1 ? this.theSandIIcon[1] : this.theSandIIcon[0];
+    }
+
+    public void func_149640_a(World par1World, int par2, int par3, int par4, Entity par5Entity, Vec3 par6Vec3) {
+    }
+
+    public int checkFusion(World world, int x, int y, int z, Random rand) {
+        if (MFQM.ABC && (world.field_73011_w.field_76574_g == MFQM.ABCDim3 || world.field_73011_w.field_76574_g == MFQM.ABCDim4)) {
+            return 0;
+        }
+        int xx = x;
+        int yy = y;
+        int zz = z;
+        int met = 0;
+        boolean isWaterNear = false;
+        boolean isLavaNear = false;
+        for (int re = 0; re <= 6; ++re) {
+            switch (re) {
+                case 0: {
+                    xx = x - 1;
+                    yy = y;
+                    zz = z;
+                    break;
+                }
+                case 1: {
+                    xx = x + 1;
+                    yy = y;
+                    zz = z;
+                    break;
+                }
+                case 2: {
+                    xx = x;
+                    yy = y;
+                    zz = z - 1;
+                    break;
+                }
+                case 3: {
+                    xx = x;
+                    yy = y;
+                    zz = z + 1;
+                    break;
+                }
+                case 4: {
+                    xx = x;
+                    yy = y - 1;
+                    zz = z;
+                    break;
+                }
+                case 5: {
+                    xx = x;
+                    yy = y + 1;
+                    zz = z;
+                }
+            }
+            if (world.func_147439_a(xx, yy, zz).func_149688_o() == Material.field_151587_i) {
+                met = world.func_72805_g(xx, yy, zz);
+                isLavaNear = true;
+                break;
+            }
+            if (world.func_147439_a(xx, yy, zz).func_149688_o() != Material.field_151586_h) continue;
+            isWaterNear = true;
+            break;
+        }
+        if (isWaterNear && world.func_72805_g(x, y, z) == 0) {
+            world.func_147465_d(x, y, z, MFQM.QuicksandBlock, 0, 3);
+            world.func_72908_a((double)((float)x + 0.5f), (double)((float)y + 0.5f), (double)((float)z + 0.5f), "mob.silverfish.step", 0.25f, world.field_73012_v.nextFloat() * 0.2f + 0.2f);
+            return 2;
+        }
+        return 0;
+    }
+
+    public void func_149674_a(World world, int x, int y, int z, Random rand) {
+        if (MFQM.LiqFixer) {
+            return;
+        }
+        int chckRes = this.checkFusion(world, x, y, z, rand);
+        if (chckRes == 2) {
+            return;
+        }
+        if (world.func_72805_g(x, y, z) == 0) {
+            Block block = world.func_147439_a(x, y + this.densityDir, z);
+            int bMeta = world.func_72805_g(x, y + this.densityDir, z);
+            if (block == this && bMeta != 0) {
+                world.func_147449_b(x, y + this.densityDir, z, (Block)this);
+                world.func_72921_c(x, y + this.densityDir, z, 0, 2);
+                world.func_147468_f(x, y, z);
+                return;
+            }
+        } else {
+            int inThisBlocks = 0;
+            int inMetaBlocks = 0;
+            if (world.field_73012_v.nextInt(5) == 0) {
+                if (world.func_147439_a(x + 1, y, z) == this) {
+                    ++inThisBlocks;
+                    if (world.func_72805_g(x + 1, y, z) == 0) {
+                        ++inMetaBlocks;
+                    }
+                }
+                if (world.func_147439_a(x - 1, y, z) == this) {
+                    ++inThisBlocks;
+                    if (world.func_72805_g(x - 1, y, z) == 0) {
+                        ++inMetaBlocks;
+                    }
+                }
+                if (world.func_147439_a(x, y, z - 1) == this) {
+                    ++inThisBlocks;
+                    if (world.func_72805_g(x, y, z - 1) == 0) {
+                        ++inMetaBlocks;
+                    }
+                }
+                if (world.func_147439_a(x, y, z + 1) == this) {
+                    ++inThisBlocks;
+                    if (world.func_72805_g(x, y, z + 1) == 0) {
+                        ++inMetaBlocks;
+                    }
+                }
+                if (inThisBlocks > 2 && inMetaBlocks > 2) {
+                    world.func_72921_c(x, y, z, world.func_72805_g(x, y, z) - 1, 2);
+                }
+            }
+        }
+        this.quantaPerBlockFloat = 1.75f;
+        super.func_149674_a(world, x, y, z, rand);
+    }
+
+    public boolean canDisplace(World world, int x, int y, int z) {
+        if (world.func_147439_a(x, y, z).func_149688_o().func_76224_d()) {
+            return false;
+        }
+        return super.canDisplace((IBlockAccess)world, x, y, z);
+    }
+
+    public boolean displaceIfPossible(World world, int x, int y, int z) {
+        if (world.func_147439_a(x, y, z).func_149688_o().func_76224_d()) {
+            return false;
+        }
+        return super.displaceIfPossible(world, x, y, z);
+    }
+
+    @SideOnly(value=Side.CLIENT)
+    public void func_149651_a(IIconRegister par1IIconRegister) {
+        if (this.func_149688_o() == materialSand) {
+            this.theSandIIcon = new IIcon[]{par1IIconRegister.func_94245_a("morefunquicksandmod:Sand_Still"), par1IIconRegister.func_94245_a("morefunquicksandmod:Sand_Flowing")};
+        }
+    }
+
+    public boolean func_149721_r() {
+        return false;
+    }
+
+    public void checkEntityUnder(Entity ent) {
+        if (MFQM.isEntityInsideOfBlock(ent, (Block)this) && MFQM.isDrowning(ent) && !ent.field_70170_p.field_72995_K && ent.func_70089_S()) {
+            float prevHP = ((EntityLivingBase)ent).func_110143_aJ();
+            ent.func_70097_a(DamageSource.field_76368_d, Math.max(((EntityLivingBase)ent).func_110138_aP() * 0.1f, 2.0f) * MFQM.DmgMul);
+            if (prevHP >= ((EntityLivingBase)ent).func_110143_aJ()) {
+                ent.func_70097_a(DamageSource.field_76377_j, Math.max(((EntityLivingBase)ent).func_110138_aP() * 0.1f, 2.0f) * MFQM.DmgMul);
+            }
+        }
+    }
+
+    @SideOnly(value=Side.CLIENT)
+    public int func_149635_D() {
+        if (MFQM.ABC && (Minecraft.func_71410_x().field_71439_g.field_70170_p.field_73011_w.field_76574_g == MFQM.ABCDim3 || Minecraft.func_71410_x().field_71439_g.field_70170_p.field_73011_w.field_76574_g == MFQM.ABCDim4)) {
+            return 0x100015;
+        }
+        if (MFQM.AOA && Minecraft.func_71410_x().field_71439_g.field_70170_p.field_73011_w.field_76574_g == MFQM.AOADimPrecasia) {
+            return 10651803;
+        }
+        return 0xFFFFFF;
+    }
+
+    @SideOnly(value=Side.CLIENT)
+    public int func_149741_i(int par1) {
+        if (MFQM.ABC && (Minecraft.func_71410_x().field_71439_g.field_70170_p.field_73011_w.field_76574_g == MFQM.ABCDim3 || Minecraft.func_71410_x().field_71439_g.field_70170_p.field_73011_w.field_76574_g == MFQM.ABCDim4)) {
+            return 0x100015;
+        }
+        if (MFQM.AOA && Minecraft.func_71410_x().field_71439_g.field_70170_p.field_73011_w.field_76574_g == MFQM.AOADimPrecasia) {
+            return 10651803;
+        }
+        return 0xFFFFFF;
+    }
+
+    @SideOnly(value=Side.CLIENT)
+    public int func_149720_d(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
+        if (MFQM.ABC && (Minecraft.func_71410_x().field_71439_g.field_70170_p.field_73011_w.field_76574_g == MFQM.ABCDim3 || Minecraft.func_71410_x().field_71439_g.field_70170_p.field_73011_w.field_76574_g == MFQM.ABCDim4)) {
+            return 0x100015;
+        }
+        if (MFQM.AOA && Minecraft.func_71410_x().field_71439_g.field_70170_p.field_73011_w.field_76574_g == MFQM.AOADimPrecasia) {
+            return 10651803;
+        }
+        return 0xFFFFFF;
+    }
+}
+

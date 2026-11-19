@@ -1,0 +1,57 @@
+// CFR0.152; original decompiler line 6314; NOT original source; inspect **/goto artifacts if present.
+    private void generateAOADimHeaven(World world, Random random, int chunkX, int chunkZ) {
+        int dHeight = 0;
+        int firstBlockXCoord = chunkX + random.nextInt(16);
+        int firstBlockYCoord = 96 + dHeight;
+        int firstBlockZCoord = chunkZ + random.nextInt(16);
+        BiomeGenBase biomegenbase = world.func_72807_a(firstBlockXCoord, firstBlockZCoord);
+        int biomeId = biomegenbase.field_76756_M;
+        boolean blockGen = false;
+        if (MFQM.GenHoney && !blockGen) {
+            boolean canGen = false;
+            boolean genType = false;
+            int genCount = 0;
+            int genPos = 0;
+            int genRad = 0;
+            int genRadP = 0;
+            int rad = 0;
+            genCount = 40 + random.nextInt(20);
+            genRad = 7;
+            genRadP = 13;
+            genPos = 7;
+            boolean Flat = false;
+            if (random.nextInt(5) == 0) {
+                Flat = true;
+            }
+            if (random.nextInt(genPos) == 0 && genPos != 999) {
+                for (int i = 0; i < genCount; ++i) {
+                    firstBlockXCoord = chunkX + random.nextInt(16);
+                    firstBlockZCoord = chunkZ + random.nextInt(16);
+                    rad = genRad + random.nextInt(genRadP);
+                    int countBlock = 0;
+                    canGen = false;
+                    for (firstBlockYCoord = 96 + dHeight; firstBlockYCoord > 16 + dHeight; --firstBlockYCoord) {
+                        if (this.validGroundMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                            if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                canGen = true;
+                                break;
+                            }
+                            ++countBlock;
+                        }
+                        if (countBlock > 10) break;
+                    }
+                    if (canGen) {
+                        if (!this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world) || !this.genIsFlat(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad, world)) continue;
+                        if (Flat) {
+                            this.generateMireO(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random, Material.field_151568_F, MFQM.HoneyBlock);
+                        } else {
+                            this.generateMireOD(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random, Material.field_151568_F, MFQM.HoneyBlock, 0);
+                        }
+                        blockGen = true;
+                        continue;
+                    }
+                    if (firstBlockYCoord < 17 + dHeight) break;
+                }
+            }
+        }
+    }

@@ -1,0 +1,85 @@
+Archive: MoreFunQuicksandMod/main/blocks/BlockPeat.class
+SHA256: fed5debdb392652b533156163a33a5bc268e73d821bd8d37553a241e9ecae2e2
+Superclass: net/minecraft/block/Block
+Offsets are decimal byte offsets; branch operands are relative offsets.
+
+
+METHOD <init> ()V
+000000: aload_0 
+000001: getstatic #18 net/minecraft/block/material/Material.field_151576_e:Lnet/minecraft/block/material/Material;
+000004: invokespecial #21 net/minecraft/block/Block.<init>:(Lnet/minecraft/block/material/Material;)V
+000007: aload_0 
+000008: ldc #22 0.8500000238418579
+000010: invokevirtual #26 MoreFunQuicksandMod/main/blocks/BlockPeat.func_149711_c:(F)Lnet/minecraft/block/Block;
+000013: pop 
+000014: aload_0 
+000015: getstatic #30 net/minecraft/block/Block.field_149769_e:Lnet/minecraft/block/Block$SoundType;
+000018: invokevirtual #34 MoreFunQuicksandMod/main/blocks/BlockPeat.func_149672_a:(Lnet/minecraft/block/Block$SoundType;)Lnet/minecraft/block/Block;
+000021: pop 
+000022: aload_0 
+000023: fconst_1 
+000024: invokevirtual #37 MoreFunQuicksandMod/main/blocks/BlockPeat.func_149752_b:(F)Lnet/minecraft/block/Block;
+000027: pop 
+000028: aload_0 
+000029: ldc #39 'HPeat'
+000031: invokevirtual #43 MoreFunQuicksandMod/main/blocks/BlockPeat.func_149663_c:(Ljava/lang/String;)Lnet/minecraft/block/Block;
+000034: pop 
+000035: aload_0 
+000036: getstatic #49 MoreFunQuicksandMod/main/MFQM.tabMFQM:Lnet/minecraft/creativetab/CreativeTabs;
+000039: invokevirtual #53 MoreFunQuicksandMod/main/blocks/BlockPeat.func_149647_a:(Lnet/minecraft/creativetab/CreativeTabs;)Lnet/minecraft/block/Block;
+000042: pop 
+000043: return 
+
+METHOD func_149691_a (II)Lnet/minecraft/util/IIcon;
+000000: aload_0 
+000001: getfield #63 MoreFunQuicksandMod/main/blocks/BlockPeat.theQIIcon:Lnet/minecraft/util/IIcon;
+000004: areturn 
+
+METHOD func_149650_a (ILjava/util/Random;I)Lnet/minecraft/item/Item;
+000000: getstatic #72 MoreFunQuicksandMod/main/MFQM.PeatItem:Lnet/minecraft/item/Item;
+000003: areturn 
+
+METHOD func_149745_a (Ljava/util/Random;)I
+000000: bipush 8
+000002: aload_1 
+000003: iconst_2 
+000004: invokevirtual #83 java/util/Random.nextInt:(I)I
+000007: iadd 
+000008: ireturn 
+
+METHOD func_149636_a (Lnet/minecraft/world/World;Lnet/minecraft/entity/player/EntityPlayer;IIII)V
+000000: aload_2 
+000001: invokestatic #92 net/minecraft/enchantment/EnchantmentHelper.func_77502_d:(Lnet/minecraft/entity/EntityLivingBase;)Z
+000004: ifeq 30
+000007: aload_1 
+000008: iload_3 
+000009: iload 4
+000011: iload 5
+000013: new #94 net/minecraft/item/ItemStack
+000016: dup 
+000017: aload_0 
+000018: invokespecial #97 net/minecraft/item/ItemStack.<init>:(Lnet/minecraft/block/Block;)V
+000021: invokestatic #101 MoreFunQuicksandMod/main/MFQM.dropItem:(Lnet/minecraft/world/World;IIILnet/minecraft/item/ItemStack;)V
+000024: aload_1 
+000025: iload_3 
+000026: iload 4
+000028: iload 5
+000030: invokevirtual #107 net/minecraft/world/World.func_147471_g:(III)V
+000033: return 
+000034: aload_0 
+000035: aload_1 
+000036: aload_2 
+000037: iload_3 
+000038: iload 4
+000040: iload 5
+000042: iload 6
+000044: invokespecial #109 net/minecraft/block/Block.func_149636_a:(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/EntityPlayer;IIII)V
+000047: return 
+
+METHOD func_149651_a (Lnet/minecraft/client/renderer/texture/IIconRegister;)V
+000000: aload_0 
+000001: aload_1 
+000002: ldc #121 'morefunquicksandmod:Peat'
+000004: invokeinterface #127 net/minecraft/client/renderer/texture/IIconRegister.func_94245_a:(Ljava/lang/String;)Lnet/minecraft/util/IIcon;, 2, 0
+000009: putfield #63 MoreFunQuicksandMod/main/blocks/BlockPeat.theQIIcon:Lnet/minecraft/util/IIcon;
+000012: return 

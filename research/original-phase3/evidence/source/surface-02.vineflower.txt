@@ -1,0 +1,30 @@
+// Decompiled inference, NOT original source; semantic closure PARTIAL
+      if (MFQM.GenDesertTombs && !blockGen) {
+         int dT = this.getDesertType(biomeId);
+         if ((dT == 1 || dT == 6) && this.T_BoP || biomegenbase instanceof BiomeGenDesert && !this.T_BoP) {
+            boolean canGen = false;
+            int genCount = 0;
+            int genPos = 0;
+            int rad = 0;
+            int var126 = true;
+            int var165 = 750;
+            if (var165 > 0 && random.nextFloat() * var165 > var165 - 1) {
+               firstBlockXCoord = chunkX + random.nextInt(16);
+               firstBlockYCoord = 70 + dHeight;
+               firstBlockZCoord = chunkZ + random.nextInt(16);
+
+               for (canGen = false; firstBlockYCoord > 60 + dHeight; firstBlockYCoord--) {
+                  if (this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                     canGen = true;
+                     break;
+                  }
+               }
+
+               if (canGen) {
+                  new GenerateDesertTombs().func_76484_a(world, random, firstBlockXCoord, firstBlockYCoord - 8 - random.nextInt(9), firstBlockZCoord);
+                  blockGen = true;
+               }
+            }
+         }
+      }
+

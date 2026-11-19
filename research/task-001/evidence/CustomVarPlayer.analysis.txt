@@ -1,0 +1,99 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  net.minecraft.crash.CrashReport
+6:  *  net.minecraft.entity.Entity
+7:  *  net.minecraft.entity.player.EntityPlayer
+8:  *  net.minecraft.nbt.NBTBase
+9:  *  net.minecraft.nbt.NBTTagCompound
+10:  *  net.minecraft.util.ReportedException
+11:  *  net.minecraft.world.World
+12:  *  net.minecraftforge.common.IExtendedEntityProperties
+13:  */
+14: package MoreFunQuicksandMod.main;
+15: 
+16: import MoreFunQuicksandMod.main.MFQM;
+17: import net.minecraft.crash.CrashReport;
+18: import net.minecraft.entity.Entity;
+19: import net.minecraft.entity.player.EntityPlayer;
+20: import net.minecraft.nbt.NBTBase;
+21: import net.minecraft.nbt.NBTTagCompound;
+22: import net.minecraft.util.ReportedException;
+23: import net.minecraft.world.World;
+24: import net.minecraftforge.common.IExtendedEntityProperties;
+25: 
+26: public class CustomVarPlayer
+27: implements IExtendedEntityProperties {
+28:     public static final String EXT_PROP_NAME = "PlayerMuddyControl";
+29:     public static final int MUDDYLEVEL_WATCHER = MFQM.MuddyLevel;
+30:     private final EntityPlayer player;
+31: 
+32:     public CustomVarPlayer(EntityPlayer player) {
+33:         this.player = player;
+34:         try {
+35:             this.player.func_70096_w().func_75682_a(MUDDYLEVEL_WATCHER, (Object)0);
+36:         }
+37:         catch (Exception e) {
+38:             CrashReport var6 = CrashReport.func_85055_a((Throwable)e, (String)("Error initializing Covering System. Muddy Level DataWatcher ID conflict: " + MFQM.MuddyLevel + " with entity player "));
+39:             throw new ReportedException(var6);
+40:         }
+41:     }
+42: 
+43:     public static final void register(EntityPlayer player) {
+44:         player.registerExtendedProperties(EXT_PROP_NAME, (IExtendedEntityProperties)new CustomVarPlayer(player));
+45:     }
+46: 
+47:     public static final CustomVarPlayer get(EntityPlayer player) {
+48:         return (CustomVarPlayer)player.getExtendedProperties(EXT_PROP_NAME);
+49:     }
+50: 
+51:     public void saveNBTData(NBTTagCompound compound) {
+52:         NBTTagCompound properties = new NBTTagCompound();
+53:         properties.func_74768_a("MuddyLevel", this.player.func_70096_w().func_75679_c(MUDDYLEVEL_WATCHER));
+54:         compound.func_74782_a(EXT_PROP_NAME, (NBTBase)properties);
+55:     }
+56: 
+57:     public void loadNBTData(NBTTagCompound compound) {
+58:         NBTTagCompound properties = (NBTTagCompound)compound.func_74781_a(EXT_PROP_NAME);
+59:         this.player.func_70096_w().func_75692_b(MUDDYLEVEL_WATCHER, (Object)properties.func_74762_e("MuddyLevel"));
+60:     }
+61: 
+62:     public void init(Entity entity, World world) {
+63:     }
+64: 
+65:     public int getData() {
+66:         return this.player.func_70096_w().func_75679_c(MUDDYLEVEL_WATCHER);
+67:     }
+68: 
+69:     public int getMuddyLevel() {
+70:         return this.getData() / 256 & 0xFF;
+71:     }
+72: 
+73:     public int getMuddyTime() {
+74:         return this.getData() / 65536;
+75:     }
+76: 
+77:     public int getMuddyType() {
+78:         return this.getData() & 0xFF;
+79:     }
+80: 
+81:     public void setMuddyLevel(int lvl) {
+82:         int dt = this.getData();
+83:         this.player.func_70096_w().func_75692_b(MUDDYLEVEL_WATCHER, (Object)(dt / 65536 * 65536 | lvl * 256 | dt & 0xFF));
+84:     }
+85: 
+86:     public void setMuddyTime(int tm) {
+87:         this.player.func_70096_w().func_75692_b(MUDDYLEVEL_WATCHER, (Object)(this.getData() & 0xFFFF | tm * 65536));
+88:     }
+89: 
+90:     public void setMuddyType(int tp) {
+91:         this.player.func_70096_w().func_75692_b(MUDDYLEVEL_WATCHER, (Object)(this.getData() / 256 * 256 | tp));
+92:     }
+93: 
+94:     public void addMuddyTime(int tm) {
+95:         int dt = this.getData();
+96:         this.player.func_70096_w().func_75692_b(MUDDYLEVEL_WATCHER, (Object)(dt & 0xFFFF | (tm + dt / 65536) * 65536));
+97:     }
+98: }
+99: 

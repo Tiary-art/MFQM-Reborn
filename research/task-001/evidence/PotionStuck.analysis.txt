@@ -1,0 +1,72 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  net.minecraft.entity.Entity
+6:  *  net.minecraft.entity.EntityLivingBase
+7:  *  net.minecraft.nbt.NBTTagCompound
+8:  *  net.minecraft.world.World
+9:  *  net.minecraftforge.common.IExtendedEntityProperties
+10:  */
+11: package MoreFunQuicksandMod.main;
+12: 
+13: import MoreFunQuicksandMod.main.MFQM;
+14: import net.minecraft.entity.Entity;
+15: import net.minecraft.entity.EntityLivingBase;
+16: import net.minecraft.nbt.NBTTagCompound;
+17: import net.minecraft.world.World;
+18: import net.minecraftforge.common.IExtendedEntityProperties;
+19: 
+20: public class PotionStuck
+21: implements IExtendedEntityProperties {
+22:     public static final String EXT_PROP_NAME = "MiredStuckEffect";
+23:     public static final int MUDDYLEVEL_WATCHER = MFQM.MuddyLevel;
+24:     private final EntityLivingBase entLiv;
+25:     private int Level;
+26:     private int TarTreads;
+27: 
+28:     public PotionStuck(EntityLivingBase entLiv) {
+29:         this.entLiv = entLiv;
+30:         this.Level = -1;
+31:         this.TarTreads = 0;
+32:     }
+33: 
+34:     public static final void register(EntityLivingBase entLiv) {
+35:         entLiv.registerExtendedProperties(EXT_PROP_NAME, (IExtendedEntityProperties)new PotionStuck(entLiv));
+36:     }
+37: 
+38:     public static final PotionStuck get(EntityLivingBase entLiv) {
+39:         return (PotionStuck)entLiv.getExtendedProperties(EXT_PROP_NAME);
+40:     }
+41: 
+42:     public void saveNBTData(NBTTagCompound compound) {
+43:     }
+44: 
+45:     public void loadNBTData(NBTTagCompound compound) {
+46:     }
+47: 
+48:     public void init(Entity entity, World world) {
+49:     }
+50: 
+51:     public void DoInit() {
+52:         this.Level = -1;
+53:         this.TarTreads = 0;
+54:     }
+55: 
+56:     public int getLevel() {
+57:         return this.Level;
+58:     }
+59: 
+60:     public int getTarTreads() {
+61:         return this.TarTreads;
+62:     }
+63: 
+64:     public void setTarTreads(int tt) {
+65:         this.TarTreads = tt;
+66:     }
+67: 
+68:     public void setStuckLevel(int lvl) {
+69:         this.Level = lvl;
+70:     }
+71: }
+72: 

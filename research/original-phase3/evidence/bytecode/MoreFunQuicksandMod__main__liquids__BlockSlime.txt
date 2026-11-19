@@ -1,0 +1,2162 @@
+public class MoreFunQuicksandMod.main.liquids.BlockSlime extends net.minecraftforge.fluids.BlockFluidClassic {
+  public net.minecraft.util.IIcon[] theSlimeIIcon;
+    descriptor: [Lnet/minecraft/util/IIcon;
+
+  public static final net.minecraft.block.material.Material materialSlime;
+    descriptor: Lnet/minecraft/block/material/Material;
+
+  private int maxOpacity;
+    descriptor: I
+
+  private int lastOpacity;
+    descriptor: I
+
+  private int incOpacity;
+    descriptor: I
+
+  public MoreFunQuicksandMod.main.liquids.BlockSlime(int, int, int);
+    descriptor: (III)V
+    Code:
+       0: aload_0
+       1: getstatic     #21                 // Field MoreFunQuicksandMod/main/MFQM.SlimeFluid:Lnet/minecraftforge/fluids/Fluid;
+       4: getstatic     #23                 // Field materialSlime:Lnet/minecraft/block/material/Material;
+       7: invokespecial #26                 // Method net/minecraftforge/fluids/BlockFluidClassic."<init>":(Lnet/minecraftforge/fluids/Fluid;Lnet/minecraft/block/material/Material;)V
+      10: aload_0
+      11: ldc           #27                 // float 100.0f
+      13: invokevirtual #31                 // Method func_149752_b:(F)Lnet/minecraft/block/Block;
+      16: pop
+      17: aload_0
+      18: iconst_2
+      19: invokevirtual #35                 // Method setQuantaPerBlock:(I)Lnet/minecraftforge/fluids/BlockFluidBase;
+      22: pop
+      23: aload_0
+      24: ldc           #36                 // float 0.05f
+      26: invokevirtual #39                 // Method func_149715_a:(F)Lnet/minecraft/block/Block;
+      29: pop
+      30: aload_0
+      31: iconst_0
+      32: invokevirtual #42                 // Method setRenderPass:(I)Lnet/minecraftforge/fluids/BlockFluidBase;
+      35: pop
+      36: getstatic     #46                 // Field MoreFunQuicksandMod/main/MFQM.QSOpacity:Z
+      39: ifeq          52
+      42: aload_0
+      43: bipush        32
+      45: invokevirtual #50                 // Method func_149713_g:(I)Lnet/minecraft/block/Block;
+      48: pop
+      49: goto          58
+      52: aload_0
+      53: iconst_3
+      54: invokevirtual #50                 // Method func_149713_g:(I)Lnet/minecraft/block/Block;
+      57: pop
+      58: aload_0
+      59: iconst_1
+      60: invokevirtual #54                 // Method func_149675_a:(Z)Lnet/minecraft/block/Block;
+      63: pop
+      64: aload_0
+      65: ldc           #55                 // float 1.75f
+      67: putfield      #59                 // Field quantaPerBlockFloat:F
+      70: aload_0
+      71: ldc           #61                 // String SinkingSlime
+      73: invokevirtual #65                 // Method func_149663_c:(Ljava/lang/String;)Lnet/minecraft/block/Block;
+      76: pop
+      77: aload_0
+      78: getstatic     #69                 // Field MoreFunQuicksandMod/main/MFQM.tabMFQM:Lnet/minecraft/creativetab/CreativeTabs;
+      81: invokevirtual #73                 // Method func_149647_a:(Lnet/minecraft/creativetab/CreativeTabs;)Lnet/minecraft/block/Block;
+      84: pop
+      85: aload_0
+      86: iload_1
+      87: putfield      #75                 // Field maxOpacity:I
+      90: aload_0
+      91: iload_2
+      92: putfield      #77                 // Field lastOpacity:I
+      95: aload_0
+      96: iload_3
+      97: putfield      #79                 // Field incOpacity:I
+     100: return
+
+  public void func_149749_a(net.minecraft.world.World, int, int, int, net.minecraft.block.Block, int);
+    descriptor: (Lnet/minecraft/world/World;IIILnet/minecraft/block/Block;I)V
+    Code:
+       0: getstatic     #89                 // Field MoreFunQuicksandMod/main/MFQM.LiqFixer:Z
+       3: ifeq          7
+       6: return
+       7: iload         6
+       9: ifne          87
+      12: aload_1
+      13: iload_2
+      14: iload_3
+      15: iload         4
+      17: invokevirtual #95                 // Method net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+      20: aload_0
+      21: if_acmpeq     87
+      24: aload_1
+      25: iload_2
+      26: iload_3
+      27: iload         4
+      29: invokevirtual #95                 // Method net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+      32: invokevirtual #101                // Method net/minecraft/block/Block.func_149688_o:()Lnet/minecraft/block/material/Material;
+      35: invokevirtual #107                // Method net/minecraft/block/material/Material.func_76224_d:()Z
+      38: ifeq          63
+      41: aload_0
+      42: pop
+      43: aload_1
+      44: iload_2
+      45: iload_3
+      46: iload         4
+      48: invokestatic  #111                // Method getDensity:(Lnet/minecraft/world/IBlockAccess;III)I
+      51: istore        7
+      53: iload         7
+      55: aload_0
+      56: getfield      #114                // Field density:I
+      59: if_icmplt     63
+      62: return
+      63: aload_1
+      64: iload_2
+      65: iload_3
+      66: iload         4
+      68: invokevirtual #118                // Method net/minecraft/world/World.func_147437_c:(III)Z
+      71: ifne          87
+      74: aload_1
+      75: iload_2
+      76: iload_3
+      77: iload         4
+      79: aload_0
+      80: iload         6
+      82: iconst_1
+      83: invokevirtual #122                // Method net/minecraft/world/World.func_147465_d:(IIILnet/minecraft/block/Block;II)Z
+      86: pop
+      87: return
+
+  public boolean func_149678_a(int, boolean);
+    descriptor: (IZ)Z
+    Code:
+       0: iload_1
+       1: ifne          8
+       4: iconst_1
+       5: goto          9
+       8: iconst_0
+       9: ireturn
+
+  public float func_149737_a(net.minecraft.entity.player.EntityPlayer, net.minecraft.world.World, int, int, int);
+    descriptor: (Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/world/World;III)F
+    Code:
+       0: ldc           #137                // float -1.0f
+       2: freturn
+
+  public int getMaxRenderHeightMeta();
+    descriptor: ()I
+    Code:
+       0: iconst_m1
+       1: ireturn
+
+  public void func_149670_a(net.minecraft.world.World, int, int, int, net.minecraft.entity.Entity);
+    descriptor: (Lnet/minecraft/world/World;IIILnet/minecraft/entity/Entity;)V
+    Code:
+       0: aload_1
+       1: iload_2
+       2: iload_3
+       3: iload         4
+       5: invokevirtual #151                // Method net/minecraft/world/World.func_72805_g:(III)I
+       8: istore        6
+      10: aload         5
+      12: getfield      #157                // Field net/minecraft/entity/Entity.field_70163_u:D
+      15: dstore        7
+      17: aload         5
+      19: getfield      #160                // Field net/minecraft/entity/Entity.field_70167_r:D
+      22: dstore        9
+      24: aload         5
+      26: getfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+      29: dstore        11
+      31: iload_3
+      32: i2d
+      33: dload         7
+      35: dsub
+      36: dconst_1
+      37: dadd
+      38: iload         6
+      40: i2d
+      41: dsub
+      42: dstore        13
+      44: iload_3
+      45: i2d
+      46: dload         9
+      48: dsub
+      49: dconst_1
+      50: dadd
+      51: iload         6
+      53: i2d
+      54: dsub
+      55: dstore        15
+      57: dload         13
+      59: ldc2_w        #164                // double -1.0d
+      62: dmul
+      63: dstore        13
+      65: dload         15
+      67: ldc2_w        #164                // double -1.0d
+      70: dmul
+      71: dstore        15
+      73: dload         15
+      75: dconst_0
+      76: dcmpg
+      77: ifge          83
+      80: dconst_0
+      81: dstore        15
+      83: dload         13
+      85: dstore        17
+      87: dload         13
+      89: dstore        19
+      91: dload         19
+      93: dconst_0
+      94: dcmpg
+      95: ifge          101
+      98: dconst_0
+      99: dstore        19
+     101: dload         15
+     103: dstore        21
+     105: aload         5
+     107: instanceof    #167                // class net/minecraft/entity/player/EntityPlayer
+     110: ifne          191
+     113: iload_3
+     114: i2d
+     115: dload         7
+     117: dsub
+     118: ldc2_w        #168                // double 0.5d
+     121: dsub
+     122: iload         6
+     124: i2d
+     125: dsub
+     126: dstore        13
+     128: iload_3
+     129: i2d
+     130: dload         9
+     132: dsub
+     133: ldc2_w        #168                // double 0.5d
+     136: dsub
+     137: iload         6
+     139: i2d
+     140: dsub
+     141: dstore        15
+     143: dload         13
+     145: ldc2_w        #164                // double -1.0d
+     148: dmul
+     149: dstore        13
+     151: dload         15
+     153: ldc2_w        #164                // double -1.0d
+     156: dmul
+     157: dstore        15
+     159: dload         15
+     161: dconst_0
+     162: dcmpg
+     163: ifge          169
+     166: dconst_0
+     167: dstore        15
+     169: dload         13
+     171: dstore        17
+     173: dload         13
+     175: dstore        19
+     177: dload         19
+     179: dconst_0
+     180: dcmpg
+     181: ifge          187
+     184: dconst_0
+     185: dstore        19
+     187: dload         15
+     189: dstore        21
+     191: aload         5
+     193: instanceof    #171                // class net/minecraft/entity/EntityLivingBase
+     196: ifeq          2837
+     199: aload_0
+     200: aload         5
+     202: invokevirtual #175                // Method checkEntityUnder:(Lnet/minecraft/entity/Entity;)V
+     205: aload         5
+     207: instanceof    #167                // class net/minecraft/entity/player/EntityPlayer
+     210: ifeq          227
+     213: aload_0
+     214: aload         5
+     216: checkcast     #167                // class net/minecraft/entity/player/EntityPlayer
+     219: iload_2
+     220: iload_3
+     221: iload         4
+     223: aload_1
+     224: invokevirtual #179                // Method checkPlayerMuddy:(Lnet/minecraft/entity/player/EntityPlayer;IIILnet/minecraft/world/World;)V
+     227: iconst_0
+     228: istore        23
+     230: iconst_0
+     231: istore        24
+     233: iconst_0
+     234: istore        25
+     236: iconst_0
+     237: istore        26
+     239: iconst_0
+     240: istore        27
+     242: iconst_0
+     243: istore        28
+     245: ldc           #180                // float 5.0f
+     247: fstore        29
+     249: dconst_1
+     250: dstore        30
+     252: dconst_1
+     253: dstore        32
+     255: ldc2_w        #181                // double 16.0d
+     258: dstore        34
+     260: dconst_1
+     261: dstore        36
+     263: ldc2_w        #183                // double 5.0d
+     266: dconst_0
+     267: fload         29
+     269: fconst_2
+     270: fmul
+     271: f2d
+     272: ldc2_w        #185                // double 1.5d
+     275: dload         19
+     277: dsub
+     278: dmul
+     279: ldc2_w        #187                // double 2.0d
+     282: invokestatic  #194                // Method java/lang/Math.pow:(DD)D
+     285: invokestatic  #197                // Method java/lang/Math.max:(DD)D
+     288: invokestatic  #201                // Method java/lang/Math.floor:(D)D
+     291: dadd
+     292: ldc2_w        #202                // double 175.0d
+     295: invokestatic  #206                // Method java/lang/Math.min:(DD)D
+     298: d2i
+     299: istore        38
+     301: dload         7
+     303: dload         9
+     305: dsub
+     306: ldc2_w        #207                // double 0.2d
+     309: dcmpl
+     310: ifle          316
+     313: iconst_1
+     314: istore        25
+     316: aload         5
+     318: getfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+     321: ldc2_w        #209                // double -0.1d
+     324: dcmpg
+     325: ifge          331
+     328: iconst_1
+     329: istore        27
+     331: aload         5
+     333: instanceof    #167                // class net/minecraft/entity/player/EntityPlayer
+     336: ifne          362
+     339: aload         5
+     341: checkcast     #171                // class net/minecraft/entity/EntityLivingBase
+     344: getfield      #213                // Field net/minecraft/entity/EntityLivingBase.field_70126_B:F
+     347: aload         5
+     349: checkcast     #171                // class net/minecraft/entity/EntityLivingBase
+     352: getfield      #216                // Field net/minecraft/entity/EntityLivingBase.field_70177_z:F
+     355: fcmpl
+     356: ifeq          362
+     359: iconst_1
+     360: istore        28
+     362: aload         5
+     364: instanceof    #167                // class net/minecraft/entity/player/EntityPlayer
+     367: ifeq          397
+     370: aload_1
+     371: getfield      #219                // Field net/minecraft/world/World.field_72995_K:Z
+     374: ifeq          397
+     377: getstatic     #222                // Field MoreFunQuicksandMod/main/MFQM.SIRenderYawPre:D
+     380: getstatic     #225                // Field MoreFunQuicksandMod/main/MFQM.SIRenderYaw:D
+     383: dsub
+     384: invokestatic  #228                // Method java/lang/Math.abs:(D)D
+     387: ldc2_w        #229                // double 10.0d
+     390: dcmpl
+     391: ifle          397
+     394: iconst_1
+     395: istore        28
+     397: iload         28
+     399: ifne          444
+     402: aload         5
+     404: getfield      #233                // Field net/minecraft/entity/Entity.field_70169_q:D
+     407: aload         5
+     409: getfield      #236                // Field net/minecraft/entity/Entity.field_70165_t:D
+     412: dsub
+     413: invokestatic  #228                // Method java/lang/Math.abs:(D)D
+     416: ldc2_w        #237                // double 0.0015d
+     419: dcmpl
+     420: ifgt          444
+     423: aload         5
+     425: getfield      #241                // Field net/minecraft/entity/Entity.field_70166_s:D
+     428: aload         5
+     430: getfield      #244                // Field net/minecraft/entity/Entity.field_70161_v:D
+     433: dsub
+     434: invokestatic  #228                // Method java/lang/Math.abs:(D)D
+     437: ldc2_w        #237                // double 0.0015d
+     440: dcmpl
+     441: ifle          563
+     444: iconst_1
+     445: istore        26
+     447: aload         5
+     449: getfield      #233                // Field net/minecraft/entity/Entity.field_70169_q:D
+     452: aload         5
+     454: getfield      #236                // Field net/minecraft/entity/Entity.field_70165_t:D
+     457: dsub
+     458: ldc2_w        #187                // double 2.0d
+     461: invokestatic  #194                // Method java/lang/Math.pow:(DD)D
+     464: aload         5
+     466: getfield      #241                // Field net/minecraft/entity/Entity.field_70166_s:D
+     469: aload         5
+     471: getfield      #244                // Field net/minecraft/entity/Entity.field_70161_v:D
+     474: dsub
+     475: ldc2_w        #187                // double 2.0d
+     478: invokestatic  #194                // Method java/lang/Math.pow:(DD)D
+     481: dadd
+     482: ldc2_w        #168                // double 0.5d
+     485: invokestatic  #194                // Method java/lang/Math.pow:(DD)D
+     488: dstore        30
+     490: dload         30
+     492: ldc2_w        #229                // double 10.0d
+     495: dmul
+     496: dstore        34
+     498: ldc2_w        #245                // double 32.0d
+     501: dconst_1
+     502: dload         34
+     504: dadd
+     505: ddiv
+     506: ldc2_w        #245                // double 32.0d
+     509: invokestatic  #206                // Method java/lang/Math.min:(DD)D
+     512: ldc2_w        #181                // double 16.0d
+     515: invokestatic  #197                // Method java/lang/Math.max:(DD)D
+     518: dstore        34
+     520: dconst_1
+     521: dload         30
+     523: ldc2_w        #187                // double 2.0d
+     526: ddiv
+     527: dadd
+     528: dstore        36
+     530: dload         19
+     532: ldc2_w        #247                // double 0.9d
+     535: dcmpg
+     536: ifge          563
+     539: dload         19
+     541: dconst_0
+     542: dcmpl
+     543: ifeq          563
+     546: iload         28
+     548: ifeq          563
+     551: dload         36
+     553: iload         38
+     555: i2d
+     556: ldc2_w        #249                // double 0.003d
+     559: dmul
+     560: dadd
+     561: dstore        36
+     563: dload         30
+     565: dstore        32
+     567: aload         5
+     569: dup
+     570: getfield      #253                // Field net/minecraft/entity/Entity.field_70159_w:D
+     573: ldc2_w        #254                // double 0.91d
+     576: dmul
+     577: putfield      #253                // Field net/minecraft/entity/Entity.field_70159_w:D
+     580: aload         5
+     582: dup
+     583: getfield      #258                // Field net/minecraft/entity/Entity.field_70179_y:D
+     586: ldc2_w        #254                // double 0.91d
+     589: dmul
+     590: putfield      #258                // Field net/minecraft/entity/Entity.field_70179_y:D
+     593: aload         5
+     595: getfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+     598: ldc2_w        #209                // double -0.1d
+     601: dcmpl
+     602: ifle          614
+     605: aload         5
+     607: dconst_0
+     608: putfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+     611: goto          628
+     614: aload         5
+     616: aload         5
+     618: getfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+     621: ldc2_w        #187                // double 2.0d
+     624: ddiv
+     625: putfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+     628: dload         17
+     630: ldc2_w        #259                // double 1.2d
+     633: dcmpg
+     634: ifge          640
+     637: iconst_0
+     638: istore        24
+     640: aload         5
+     642: instanceof    #262                // class net/minecraft/entity/monster/EntitySlime
+     645: ifeq          796
+     648: aload         5
+     650: checkcast     #171                // class net/minecraft/entity/EntityLivingBase
+     653: new           #264                // class net/minecraft/potion/PotionEffect
+     656: dup
+     657: bipush        10
+     659: iconst_5
+     660: iconst_1
+     661: iconst_0
+     662: invokespecial #267                // Method net/minecraft/potion/PotionEffect."<init>":(IIIZ)V
+     665: invokevirtual #271                // Method net/minecraft/entity/EntityLivingBase.func_70690_d:(Lnet/minecraft/potion/PotionEffect;)V
+     668: aload_1
+     669: iload_2
+     670: iload_3
+     671: iconst_1
+     672: iadd
+     673: iload         4
+     675: invokevirtual #95                 // Method net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+     678: aload_0
+     679: if_acmpeq     764
+     682: dload         17
+     684: ldc2_w        #272                // double 1.35d
+     687: dcmpl
+     688: iflt          730
+     691: iload         27
+     693: ifne          795
+     696: aload         5
+     698: dconst_0
+     699: putfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+     702: aload         5
+     704: dup
+     705: getfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+     708: ldc2_w        #274                // double 0.08d
+     711: dadd
+     712: putfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+     715: aload         5
+     717: iconst_1
+     718: putfield      #278                // Field net/minecraft/entity/Entity.field_70122_E:Z
+     721: aload         5
+     723: fconst_0
+     724: putfield      #281                // Field net/minecraft/entity/Entity.field_70143_R:F
+     727: goto          795
+     730: aload         5
+     732: dconst_0
+     733: putfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+     736: aload         5
+     738: dup
+     739: getfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+     742: ldc2_w        #282                // double 0.1d
+     745: dadd
+     746: putfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+     749: aload         5
+     751: iconst_1
+     752: putfield      #278                // Field net/minecraft/entity/Entity.field_70122_E:Z
+     755: aload         5
+     757: fconst_0
+     758: putfield      #281                // Field net/minecraft/entity/Entity.field_70143_R:F
+     761: goto          795
+     764: aload         5
+     766: dconst_0
+     767: putfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+     770: aload         5
+     772: dup
+     773: getfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+     776: ldc2_w        #282                // double 0.1d
+     779: dadd
+     780: putfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+     783: aload         5
+     785: iconst_1
+     786: putfield      #278                // Field net/minecraft/entity/Entity.field_70122_E:Z
+     789: aload         5
+     791: fconst_0
+     792: putfield      #281                // Field net/minecraft/entity/Entity.field_70143_R:F
+     795: return
+     796: iload         24
+     798: ifne          814
+     801: aload_1
+     802: invokevirtual #287                // Method net/minecraft/world/World.func_82737_E:()J
+     805: ldc2_w        #288                // long 128l
+     808: lrem
+     809: lconst_0
+     810: lcmp
+     811: ifeq          863
+     814: iload         26
+     816: ifeq          840
+     819: aload_1
+     820: invokevirtual #287                // Method net/minecraft/world/World.func_82737_E:()J
+     823: dload         34
+     825: invokestatic  #201                // Method java/lang/Math.floor:(D)D
+     828: d2i
+     829: iconst_1
+     830: invokestatic  #292                // Method java/lang/Math.max:(II)I
+     833: i2l
+     834: lrem
+     835: lconst_0
+     836: lcmp
+     837: ifeq          863
+     840: iload         25
+     842: ifeq          858
+     845: aload_1
+     846: invokevirtual #287                // Method net/minecraft/world/World.func_82737_E:()J
+     849: ldc2_w        #293                // long 8l
+     852: lrem
+     853: lconst_0
+     854: lcmp
+     855: ifeq          863
+     858: iload         27
+     860: ifeq          1128
+     863: iload         27
+     865: ifeq          914
+     868: dload         21
+     870: ldc2_w        #185                // double 1.5d
+     873: dcmpl
+     874: ifle          914
+     877: aload_1
+     878: aload         5
+     880: getfield      #236                // Field net/minecraft/entity/Entity.field_70165_t:D
+     883: dload         7
+     885: aload         5
+     887: getfield      #244                // Field net/minecraft/entity/Entity.field_70161_v:D
+     890: ldc_w         #296                // String mob.silverfish.step
+     893: ldc_w         #297                // float 0.5f
+     896: aload_1
+     897: getfield      #301                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+     900: invokevirtual #307                // Method java/util/Random.nextFloat:()F
+     903: ldc_w         #308                // float 0.25f
+     906: fmul
+     907: ldc_w         #308                // float 0.25f
+     910: fadd
+     911: invokevirtual #312                // Method net/minecraft/world/World.func_72908_a:(DDDLjava/lang/String;FF)V
+     914: iload         27
+     916: ifne          972
+     919: iload         26
+     921: ifeq          972
+     924: aload_1
+     925: getfield      #301                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+     928: iconst_2
+     929: invokevirtual #316                // Method java/util/Random.nextInt:(I)I
+     932: ifne          972
+     935: aload_1
+     936: aload         5
+     938: getfield      #236                // Field net/minecraft/entity/Entity.field_70165_t:D
+     941: dload         7
+     943: aload         5
+     945: getfield      #244                // Field net/minecraft/entity/Entity.field_70161_v:D
+     948: ldc_w         #296                // String mob.silverfish.step
+     951: ldc_w         #308                // float 0.25f
+     954: aload_1
+     955: getfield      #301                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+     958: invokevirtual #307                // Method java/util/Random.nextFloat:()F
+     961: ldc_w         #317                // float 0.15f
+     964: fmul
+     965: ldc_w         #318                // float 0.1f
+     968: fadd
+     969: invokevirtual #312                // Method net/minecraft/world/World.func_72908_a:(DDDLjava/lang/String;FF)V
+     972: iload         25
+     974: ifeq          1014
+     977: aload_1
+     978: aload         5
+     980: getfield      #236                // Field net/minecraft/entity/Entity.field_70165_t:D
+     983: dload         7
+     985: aload         5
+     987: getfield      #244                // Field net/minecraft/entity/Entity.field_70161_v:D
+     990: ldc_w         #320                // String mob.slime.attack
+     993: ldc_w         #308                // float 0.25f
+     996: aload_1
+     997: getfield      #301                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+    1000: invokevirtual #307                // Method java/util/Random.nextFloat:()F
+    1003: ldc_w         #308                // float 0.25f
+    1006: fmul
+    1007: ldc_w         #308                // float 0.25f
+    1010: fadd
+    1011: invokevirtual #312                // Method net/minecraft/world/World.func_72908_a:(DDDLjava/lang/String;FF)V
+    1014: iload         25
+    1016: ifne          1128
+    1019: iload         26
+    1021: ifne          1128
+    1024: iload         27
+    1026: ifne          1128
+    1029: aload_1
+    1030: getfield      #301                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+    1033: iconst_5
+    1034: invokevirtual #316                // Method java/util/Random.nextInt:(I)I
+    1037: ifne          1128
+    1040: aload_1
+    1041: getfield      #301                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+    1044: iconst_5
+    1045: invokevirtual #316                // Method java/util/Random.nextInt:(I)I
+    1048: ifne          1091
+    1051: aload_1
+    1052: aload         5
+    1054: getfield      #236                // Field net/minecraft/entity/Entity.field_70165_t:D
+    1057: dload         7
+    1059: aload         5
+    1061: getfield      #244                // Field net/minecraft/entity/Entity.field_70161_v:D
+    1064: ldc_w         #322                // String liquid.water
+    1067: ldc_w         #297                // float 0.5f
+    1070: aload_1
+    1071: getfield      #301                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+    1074: invokevirtual #307                // Method java/util/Random.nextFloat:()F
+    1077: ldc_w         #317                // float 0.15f
+    1080: fmul
+    1081: ldc_w         #318                // float 0.1f
+    1084: fadd
+    1085: invokevirtual #312                // Method net/minecraft/world/World.func_72908_a:(DDDLjava/lang/String;FF)V
+    1088: goto          1128
+    1091: aload_1
+    1092: aload         5
+    1094: getfield      #236                // Field net/minecraft/entity/Entity.field_70165_t:D
+    1097: dload         7
+    1099: aload         5
+    1101: getfield      #244                // Field net/minecraft/entity/Entity.field_70161_v:D
+    1104: ldc_w         #296                // String mob.silverfish.step
+    1107: ldc_w         #308                // float 0.25f
+    1110: aload_1
+    1111: getfield      #301                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+    1114: invokevirtual #307                // Method java/util/Random.nextFloat:()F
+    1117: ldc_w         #317                // float 0.15f
+    1120: fmul
+    1121: ldc_w         #318                // float 0.1f
+    1124: fadd
+    1125: invokevirtual #312                // Method net/minecraft/world/World.func_72908_a:(DDDLjava/lang/String;FF)V
+    1128: aload_1
+    1129: iload_2
+    1130: iload_3
+    1131: iconst_1
+    1132: iadd
+    1133: iload         4
+    1135: invokevirtual #95                 // Method net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+    1138: aload_0
+    1139: if_acmpne     1170
+    1142: aload_1
+    1143: iload_2
+    1144: iload_3
+    1145: iconst_1
+    1146: iadd
+    1147: iload         4
+    1149: invokevirtual #95                 // Method net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+    1152: aload_0
+    1153: if_acmpne     2791
+    1156: aload_1
+    1157: iload_2
+    1158: iload_3
+    1159: iconst_2
+    1160: iadd
+    1161: iload         4
+    1163: invokevirtual #95                 // Method net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+    1166: aload_0
+    1167: if_acmpne     2791
+    1170: aload_1
+    1171: iload_2
+    1172: iload_3
+    1173: iconst_1
+    1174: iadd
+    1175: iload         4
+    1177: invokevirtual #95                 // Method net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+    1180: aload_0
+    1181: if_acmpne     1203
+    1184: aload_1
+    1185: iload_2
+    1186: iload_3
+    1187: iconst_2
+    1188: iadd
+    1189: iload         4
+    1191: invokevirtual #95                 // Method net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+    1194: aload_0
+    1195: if_acmpne     1203
+    1198: ldc2_w        #323                // double 0.001d
+    1201: dstore        17
+    1203: dconst_0
+    1204: dstore        39
+    1206: aload         5
+    1208: instanceof    #167                // class net/minecraft/entity/player/EntityPlayer
+    1211: ifne          1219
+    1214: ldc2_w        #325                // double -0.0025d
+    1217: dstore        39
+    1219: iload         25
+    1221: ifeq          1307
+    1224: aload         5
+    1226: aload_1
+    1227: dload         11
+    1229: invokestatic  #330                // Method MoreFunQuicksandMod/main/MFQM.suctionWorldCheck:(Lnet/minecraft/entity/Entity;Lnet/minecraft/world/World;D)Z
+    1232: ifeq          1307
+    1235: aload         5
+    1237: dup
+    1238: getfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    1241: ldc2_w        #331                // double 0.025d
+    1244: fload         29
+    1246: f2d
+    1247: dmul
+    1248: dconst_1
+    1249: dload         19
+    1251: invokestatic  #206                // Method java/lang/Math.min:(DD)D
+    1254: dconst_1
+    1255: dadd
+    1256: dmul
+    1257: dsub
+    1258: putfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    1261: aload_1
+    1262: aload         5
+    1264: getfield      #236                // Field net/minecraft/entity/Entity.field_70165_t:D
+    1267: dload         7
+    1269: aload         5
+    1271: getfield      #244                // Field net/minecraft/entity/Entity.field_70161_v:D
+    1274: ldc_w         #334                // String mob.magmacube.jump
+    1277: ldc_w         #308                // float 0.25f
+    1280: ldc_w         #308                // float 0.25f
+    1283: aload_1
+    1284: getfield      #301                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+    1287: invokevirtual #307                // Method java/util/Random.nextFloat:()F
+    1290: aload_1
+    1291: getfield      #301                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+    1294: invokevirtual #307                // Method java/util/Random.nextFloat:()F
+    1297: fsub
+    1298: ldc_w         #335                // float 0.4f
+    1301: fmul
+    1302: fadd
+    1303: iconst_0
+    1304: invokevirtual #339                // Method net/minecraft/world/World.func_72980_b:(DDDLjava/lang/String;FFZ)V
+    1307: dload         7
+    1309: dload         9
+    1311: dsub
+    1312: ldc2_w        #323                // double 0.001d
+    1315: dcmpl
+    1316: ifle          1428
+    1319: aload_1
+    1320: getfield      #301                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+    1323: dload         19
+    1325: ldc2_w        #187                // double 2.0d
+    1328: dmul
+    1329: invokestatic  #201                // Method java/lang/Math.floor:(D)D
+    1332: d2i
+    1333: iconst_1
+    1334: invokestatic  #292                // Method java/lang/Math.max:(II)I
+    1337: invokevirtual #316                // Method java/util/Random.nextInt:(I)I
+    1340: ifne          1428
+    1343: aload         5
+    1345: aload_1
+    1346: dload         11
+    1348: invokestatic  #330                // Method MoreFunQuicksandMod/main/MFQM.suctionWorldCheck:(Lnet/minecraft/entity/Entity;Lnet/minecraft/world/World;D)Z
+    1351: ifeq          1428
+    1354: aload         5
+    1356: dup
+    1357: getfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    1360: ldc2_w        #331                // double 0.025d
+    1363: fload         29
+    1365: f2d
+    1366: dmul
+    1367: ldc2_w        #340                // double 0.75d
+    1370: dload         19
+    1372: invokestatic  #206                // Method java/lang/Math.min:(DD)D
+    1375: dconst_1
+    1376: dadd
+    1377: dmul
+    1378: dsub
+    1379: putfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    1382: aload_1
+    1383: aload         5
+    1385: getfield      #236                // Field net/minecraft/entity/Entity.field_70165_t:D
+    1388: dload         7
+    1390: aload         5
+    1392: getfield      #244                // Field net/minecraft/entity/Entity.field_70161_v:D
+    1395: ldc_w         #334                // String mob.magmacube.jump
+    1398: ldc_w         #308                // float 0.25f
+    1401: ldc_w         #308                // float 0.25f
+    1404: aload_1
+    1405: getfield      #301                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+    1408: invokevirtual #307                // Method java/util/Random.nextFloat:()F
+    1411: aload_1
+    1412: getfield      #301                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+    1415: invokevirtual #307                // Method java/util/Random.nextFloat:()F
+    1418: fsub
+    1419: ldc_w         #335                // float 0.4f
+    1422: fmul
+    1423: fadd
+    1424: iconst_0
+    1425: invokevirtual #339                // Method net/minecraft/world/World.func_72980_b:(DDDLjava/lang/String;FFZ)V
+    1428: iconst_1
+    1429: istore        41
+    1431: dload         17
+    1433: ldc2_w        #342                // double 0.45d
+    1436: dcmpg
+    1437: ifge          1458
+    1440: dload         17
+    1442: ldc2_w        #344                // double 0.35d
+    1445: dcmpl
+    1446: ifle          1455
+    1449: iconst_2
+    1450: istore        41
+    1452: goto          1458
+    1455: iconst_3
+    1456: istore        41
+    1458: dload         17
+    1460: ldc2_w        #346                // double 1.25d
+    1463: dcmpl
+    1464: iflt          1677
+    1467: iload         27
+    1469: ifne          1610
+    1472: ldc2_w        #348                // double 0.075d
+    1475: dstore        42
+    1477: aload_1
+    1478: invokevirtual #287                // Method net/minecraft/world/World.func_82737_E:()J
+    1481: ldc2_w        #350                // long 4l
+    1484: lrem
+    1485: lconst_0
+    1486: lcmp
+    1487: ifne          1495
+    1490: ldc2_w        #352                // double 0.07485d
+    1493: dstore        42
+    1495: aload         5
+    1497: dup
+    1498: getfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    1501: dload         42
+    1503: dload         36
+    1505: dconst_1
+    1506: dsub
+    1507: dload         19
+    1509: ldc2_w        #168                // double 0.5d
+    1512: dsub
+    1513: ldc2_w        #340                // double 0.75d
+    1516: invokestatic  #197                // Method java/lang/Math.max:(DD)D
+    1519: ldc2_w        #354                // double 1.01d
+    1522: dmul
+    1523: dmul
+    1524: ldc2_w        #356                // double 17.5d
+    1527: dmul
+    1528: dconst_1
+    1529: invokestatic  #197                // Method java/lang/Math.max:(DD)D
+    1532: ddiv
+    1533: dload         19
+    1535: ldc2_w        #358                // double 1.475d
+    1538: ddiv
+    1539: dconst_1
+    1540: invokestatic  #197                // Method java/lang/Math.max:(DD)D
+    1543: ldc2_w        #187                // double 2.0d
+    1546: invokestatic  #194                // Method java/lang/Math.pow:(DD)D
+    1549: ddiv
+    1550: dadd
+    1551: putfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    1554: aload         5
+    1556: iconst_1
+    1557: putfield      #278                // Field net/minecraft/entity/Entity.field_70122_E:Z
+    1560: aload         5
+    1562: fconst_0
+    1563: putfield      #281                // Field net/minecraft/entity/Entity.field_70143_R:F
+    1566: dload         17
+    1568: ldc2_w        #346                // double 1.25d
+    1571: dsub
+    1572: ldc2_w        #360                // double 4.0d
+    1575: dmul
+    1576: dconst_1
+    1577: invokestatic  #206                // Method java/lang/Math.min:(DD)D
+    1580: dconst_0
+    1581: invokestatic  #197                // Method java/lang/Math.max:(DD)D
+    1584: dstore        44
+    1586: aload         5
+    1588: dup
+    1589: getfield      #253                // Field net/minecraft/entity/Entity.field_70159_w:D
+    1592: dload         44
+    1594: dmul
+    1595: putfield      #253                // Field net/minecraft/entity/Entity.field_70159_w:D
+    1598: aload         5
+    1600: dup
+    1601: getfield      #258                // Field net/minecraft/entity/Entity.field_70179_y:D
+    1604: dload         44
+    1606: dmul
+    1607: putfield      #258                // Field net/minecraft/entity/Entity.field_70179_y:D
+    1610: aload_1
+    1611: getfield      #219                // Field net/minecraft/world/World.field_72995_K:Z
+    1614: ifeq          2756
+    1617: aload_1
+    1618: invokevirtual #287                // Method net/minecraft/world/World.func_82737_E:()J
+    1621: ldc2_w        #362                // long 25l
+    1624: lrem
+    1625: lconst_0
+    1626: lcmp
+    1627: ifne          2756
+    1630: aload_1
+    1631: iload_2
+    1632: iload_3
+    1633: iload         4
+    1635: invokevirtual #151                // Method net/minecraft/world/World.func_72805_g:(III)I
+    1638: ifne          2756
+    1641: aload_1
+    1642: new           #365                // class MoreFunQuicksandMod/main/entity/EntitySlimeHole
+    1645: dup
+    1646: aload_1
+    1647: aload         5
+    1649: getfield      #236                // Field net/minecraft/entity/Entity.field_70165_t:D
+    1652: iload_3
+    1653: i2d
+    1654: ldc2_w        #366                // double 0.9996d
+    1657: dadd
+    1658: aload         5
+    1660: getfield      #244                // Field net/minecraft/entity/Entity.field_70161_v:D
+    1663: iconst_0
+    1664: iconst_0
+    1665: aload         5
+    1667: invokespecial #370                // Method MoreFunQuicksandMod/main/entity/EntitySlimeHole."<init>":(Lnet/minecraft/world/World;DDDIILnet/minecraft/entity/Entity;)V
+    1670: invokevirtual #374                // Method net/minecraft/world/World.func_72838_d:(Lnet/minecraft/entity/Entity;)Z
+    1673: pop
+    1674: goto          2756
+    1677: aload_1
+    1678: getfield      #219                // Field net/minecraft/world/World.field_72995_K:Z
+    1681: ifeq          1742
+    1684: aload_1
+    1685: invokevirtual #287                // Method net/minecraft/world/World.func_82737_E:()J
+    1688: ldc2_w        #375                // long 100l
+    1691: lrem
+    1692: lconst_0
+    1693: lcmp
+    1694: ifne          1742
+    1697: aload_1
+    1698: iload_2
+    1699: iload_3
+    1700: iload         4
+    1702: invokevirtual #151                // Method net/minecraft/world/World.func_72805_g:(III)I
+    1705: ifne          1742
+    1708: aload_1
+    1709: new           #365                // class MoreFunQuicksandMod/main/entity/EntitySlimeHole
+    1712: dup
+    1713: aload_1
+    1714: aload         5
+    1716: getfield      #236                // Field net/minecraft/entity/Entity.field_70165_t:D
+    1719: iload_3
+    1720: i2d
+    1721: ldc2_w        #377                // double 0.999725d
+    1724: dadd
+    1725: aload         5
+    1727: getfield      #244                // Field net/minecraft/entity/Entity.field_70161_v:D
+    1730: iload         41
+    1732: iconst_1
+    1733: aload         5
+    1735: invokespecial #370                // Method MoreFunQuicksandMod/main/entity/EntitySlimeHole."<init>":(Lnet/minecraft/world/World;DDDIILnet/minecraft/entity/Entity;)V
+    1738: invokevirtual #374                // Method net/minecraft/world/World.func_72838_d:(Lnet/minecraft/entity/Entity;)Z
+    1741: pop
+    1742: iload_2
+    1743: i2d
+    1744: ldc2_w        #168                // double 0.5d
+    1747: dadd
+    1748: dstore        42
+    1750: iload         4
+    1752: i2d
+    1753: ldc2_w        #168                // double 0.5d
+    1756: dadd
+    1757: dstore        44
+    1759: aload         5
+    1761: getfield      #236                // Field net/minecraft/entity/Entity.field_70165_t:D
+    1764: dload         42
+    1766: dsub
+    1767: ldc2_w        #187                // double 2.0d
+    1770: invokestatic  #194                // Method java/lang/Math.pow:(DD)D
+    1773: aload         5
+    1775: getfield      #244                // Field net/minecraft/entity/Entity.field_70161_v:D
+    1778: dload         44
+    1780: dsub
+    1781: ldc2_w        #187                // double 2.0d
+    1784: invokestatic  #194                // Method java/lang/Math.pow:(DD)D
+    1787: dadd
+    1788: ldc2_w        #168                // double 0.5d
+    1791: invokestatic  #194                // Method java/lang/Math.pow:(DD)D
+    1794: dstore        46
+    1796: dload         46
+    1798: ldc2_w        #168                // double 0.5d
+    1801: iload         6
+    1803: iconst_5
+    1804: idiv
+    1805: i2d
+    1806: dsub
+    1807: dcmpg
+    1808: ifge          1953
+    1811: dload         46
+    1813: ldc2_w        #348                // double 0.075d
+    1816: dcmpl
+    1817: iflt          1953
+    1820: aload         5
+    1822: dup
+    1823: getfield      #253                // Field net/minecraft/entity/Entity.field_70159_w:D
+    1826: dload         42
+    1828: aload         5
+    1830: getfield      #236                // Field net/minecraft/entity/Entity.field_70165_t:D
+    1833: dsub
+    1834: ldc2_w        #229                // double 10.0d
+    1837: dload         19
+    1839: ldc2_w        #379                // double 50.0d
+    1842: dmul
+    1843: invokestatic  #197                // Method java/lang/Math.max:(DD)D
+    1846: ddiv
+    1847: dadd
+    1848: putfield      #253                // Field net/minecraft/entity/Entity.field_70159_w:D
+    1851: aload         5
+    1853: dup
+    1854: getfield      #258                // Field net/minecraft/entity/Entity.field_70179_y:D
+    1857: dload         44
+    1859: aload         5
+    1861: getfield      #244                // Field net/minecraft/entity/Entity.field_70161_v:D
+    1864: dsub
+    1865: ldc2_w        #229                // double 10.0d
+    1868: dload         19
+    1870: ldc2_w        #379                // double 50.0d
+    1873: dmul
+    1874: invokestatic  #197                // Method java/lang/Math.max:(DD)D
+    1877: ddiv
+    1878: dadd
+    1879: putfield      #258                // Field net/minecraft/entity/Entity.field_70179_y:D
+    1882: aload         5
+    1884: getfield      #253                // Field net/minecraft/entity/Entity.field_70159_w:D
+    1887: ldc2_w        #187                // double 2.0d
+    1890: invokestatic  #194                // Method java/lang/Math.pow:(DD)D
+    1893: aload         5
+    1895: getfield      #258                // Field net/minecraft/entity/Entity.field_70179_y:D
+    1898: ldc2_w        #187                // double 2.0d
+    1901: invokestatic  #194                // Method java/lang/Math.pow:(DD)D
+    1904: dadd
+    1905: ldc2_w        #168                // double 0.5d
+    1908: invokestatic  #194                // Method java/lang/Math.pow:(DD)D
+    1911: ldc2_w        #381                // double 0.005d
+    1914: dcmpl
+    1915: ifle          1953
+    1918: dload         36
+    1920: ldc2_w        #229                // double 10.0d
+    1923: ddiv
+    1924: dconst_1
+    1925: invokestatic  #197                // Method java/lang/Math.max:(DD)D
+    1928: dstore        36
+    1930: iload         28
+    1932: ifne          1941
+    1935: iconst_0
+    1936: istore        26
+    1938: goto          1953
+    1941: dload         36
+    1943: iload         38
+    1945: i2d
+    1946: ldc2_w        #249                // double 0.003d
+    1949: dmul
+    1950: dadd
+    1951: dstore        36
+    1953: dload         7
+    1955: dload         9
+    1957: dsub
+    1958: ldc2_w        #323                // double 0.001d
+    1961: dcmpl
+    1962: ifle          2074
+    1965: aload_1
+    1966: getfield      #301                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+    1969: dload         19
+    1971: ldc2_w        #383                // double 7.5d
+    1974: dmul
+    1975: invokestatic  #201                // Method java/lang/Math.floor:(D)D
+    1978: d2i
+    1979: iconst_5
+    1980: invokestatic  #292                // Method java/lang/Math.max:(II)I
+    1983: invokevirtual #316                // Method java/util/Random.nextInt:(I)I
+    1986: ifne          2074
+    1989: aload         5
+    1991: aload_1
+    1992: dload         11
+    1994: invokestatic  #330                // Method MoreFunQuicksandMod/main/MFQM.suctionWorldCheck:(Lnet/minecraft/entity/Entity;Lnet/minecraft/world/World;D)Z
+    1997: ifeq          2074
+    2000: aload         5
+    2002: dup
+    2003: getfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    2006: ldc2_w        #331                // double 0.025d
+    2009: fload         29
+    2011: f2d
+    2012: dmul
+    2013: ldc2_w        #340                // double 0.75d
+    2016: dload         19
+    2018: invokestatic  #206                // Method java/lang/Math.min:(DD)D
+    2021: dconst_1
+    2022: dadd
+    2023: dmul
+    2024: dsub
+    2025: putfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    2028: aload_1
+    2029: aload         5
+    2031: getfield      #236                // Field net/minecraft/entity/Entity.field_70165_t:D
+    2034: dload         7
+    2036: aload         5
+    2038: getfield      #244                // Field net/minecraft/entity/Entity.field_70161_v:D
+    2041: ldc_w         #334                // String mob.magmacube.jump
+    2044: ldc_w         #308                // float 0.25f
+    2047: ldc_w         #308                // float 0.25f
+    2050: aload_1
+    2051: getfield      #301                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+    2054: invokevirtual #307                // Method java/util/Random.nextFloat:()F
+    2057: aload_1
+    2058: getfield      #301                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+    2061: invokevirtual #307                // Method java/util/Random.nextFloat:()F
+    2064: fsub
+    2065: ldc_w         #335                // float 0.4f
+    2068: fmul
+    2069: fadd
+    2070: iconst_0
+    2071: invokevirtual #339                // Method net/minecraft/world/World.func_72980_b:(DDDLjava/lang/String;FFZ)V
+    2074: dload         17
+    2076: ldc2_w        #247                // double 0.9d
+    2079: dcmpl
+    2080: iflt          2296
+    2083: ldc2_w        #385                // double 0.0725d
+    2086: dstore        48
+    2088: aload         5
+    2090: dup
+    2091: getfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    2094: dload         48
+    2096: dload         36
+    2098: dconst_1
+    2099: dsub
+    2100: dload         19
+    2102: ldc2_w        #168                // double 0.5d
+    2105: dsub
+    2106: ldc2_w        #340                // double 0.75d
+    2109: invokestatic  #197                // Method java/lang/Math.max:(DD)D
+    2112: ldc2_w        #185                // double 1.5d
+    2115: dmul
+    2116: dmul
+    2117: ldc2_w        #356                // double 17.5d
+    2120: dmul
+    2121: dconst_1
+    2122: invokestatic  #197                // Method java/lang/Math.max:(DD)D
+    2125: ddiv
+    2126: dload         19
+    2128: ldc2_w        #247                // double 0.9d
+    2131: ddiv
+    2132: dconst_1
+    2133: invokestatic  #197                // Method java/lang/Math.max:(DD)D
+    2136: ldc2_w        #187                // double 2.0d
+    2139: invokestatic  #194                // Method java/lang/Math.pow:(DD)D
+    2142: ddiv
+    2143: dadd
+    2144: putfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    2147: aload         5
+    2149: checkcast     #171                // class net/minecraft/entity/EntityLivingBase
+    2152: iload         38
+    2154: invokestatic  #390                // Method MoreFunQuicksandMod/main/MFQM.setStuckEffect:(Lnet/minecraft/entity/EntityLivingBase;I)V
+    2157: aload         5
+    2159: invokevirtual #394                // Method net/minecraft/entity/Entity.func_70110_aj:()V
+    2162: iload         27
+    2164: ifne          2179
+    2167: aload         5
+    2169: iconst_1
+    2170: putfield      #278                // Field net/minecraft/entity/Entity.field_70122_E:Z
+    2173: aload         5
+    2175: fconst_0
+    2176: putfield      #281                // Field net/minecraft/entity/Entity.field_70143_R:F
+    2179: aload         5
+    2181: instanceof    #167                // class net/minecraft/entity/player/EntityPlayer
+    2184: ifeq          2236
+    2187: aload         5
+    2189: iconst_0
+    2190: putfield      #278                // Field net/minecraft/entity/Entity.field_70122_E:Z
+    2193: aload_1
+    2194: getfield      #301                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+    2197: ldc2_w        #395                // double 125.0d
+    2200: dload         19
+    2202: dconst_0
+    2203: invokestatic  #197                // Method java/lang/Math.max:(DD)D
+    2206: ldc2_w        #185                // double 1.5d
+    2209: invokestatic  #194                // Method java/lang/Math.pow:(DD)D
+    2212: dsub
+    2213: invokestatic  #201                // Method java/lang/Math.floor:(D)D
+    2216: d2i
+    2217: iconst_1
+    2218: invokestatic  #292                // Method java/lang/Math.max:(II)I
+    2221: invokevirtual #316                // Method java/util/Random.nextInt:(I)I
+    2224: ifne          2293
+    2227: aload         5
+    2229: iconst_1
+    2230: putfield      #278                // Field net/minecraft/entity/Entity.field_70122_E:Z
+    2233: goto          2293
+    2236: iconst_1
+    2237: iload         38
+    2239: bipush        10
+    2241: idiv
+    2242: iadd
+    2243: i2d
+    2244: dstore        50
+    2246: aload         5
+    2248: aload         5
+    2250: getfield      #233                // Field net/minecraft/entity/Entity.field_70169_q:D
+    2253: aload         5
+    2255: getfield      #236                // Field net/minecraft/entity/Entity.field_70165_t:D
+    2258: aload         5
+    2260: getfield      #233                // Field net/minecraft/entity/Entity.field_70169_q:D
+    2263: dsub
+    2264: dload         50
+    2266: ddiv
+    2267: dadd
+    2268: dload         7
+    2270: aload         5
+    2272: getfield      #241                // Field net/minecraft/entity/Entity.field_70166_s:D
+    2275: aload         5
+    2277: getfield      #244                // Field net/minecraft/entity/Entity.field_70161_v:D
+    2280: aload         5
+    2282: getfield      #241                // Field net/minecraft/entity/Entity.field_70166_s:D
+    2285: dsub
+    2286: dload         50
+    2288: ddiv
+    2289: dadd
+    2290: invokevirtual #400                // Method net/minecraft/entity/Entity.func_70107_b:(DDD)V
+    2293: goto          2756
+    2296: dload         7
+    2298: dload         9
+    2300: dsub
+    2301: ldc2_w        #323                // double 0.001d
+    2304: dcmpl
+    2305: ifle          2391
+    2308: aload_1
+    2309: getfield      #301                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+    2312: dload         19
+    2314: ldc2_w        #229                // double 10.0d
+    2317: dmul
+    2318: invokestatic  #201                // Method java/lang/Math.floor:(D)D
+    2321: d2i
+    2322: iconst_1
+    2323: invokestatic  #292                // Method java/lang/Math.max:(II)I
+    2326: invokevirtual #316                // Method java/util/Random.nextInt:(I)I
+    2329: ifne          2391
+    2332: aload         5
+    2334: dup
+    2335: getfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    2338: ldc2_w        #185                // double 1.5d
+    2341: dsub
+    2342: putfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    2345: aload_1
+    2346: aload         5
+    2348: getfield      #236                // Field net/minecraft/entity/Entity.field_70165_t:D
+    2351: dload         7
+    2353: aload         5
+    2355: getfield      #244                // Field net/minecraft/entity/Entity.field_70161_v:D
+    2358: ldc_w         #334                // String mob.magmacube.jump
+    2361: ldc_w         #308                // float 0.25f
+    2364: ldc_w         #308                // float 0.25f
+    2367: aload_1
+    2368: getfield      #301                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+    2371: invokevirtual #307                // Method java/util/Random.nextFloat:()F
+    2374: aload_1
+    2375: getfield      #301                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+    2378: invokevirtual #307                // Method java/util/Random.nextFloat:()F
+    2381: fsub
+    2382: ldc_w         #335                // float 0.4f
+    2385: fmul
+    2386: fadd
+    2387: iconst_0
+    2388: invokevirtual #339                // Method net/minecraft/world/World.func_72980_b:(DDDLjava/lang/String;FFZ)V
+    2391: ldc2_w        #354                // double 1.01d
+    2394: dstore        48
+    2396: aload_1
+    2397: invokevirtual #287                // Method net/minecraft/world/World.func_82737_E:()J
+    2400: ldc2_w        #187                // double 2.0d
+    2403: ldc2_w        #245                // double 32.0d
+    2406: dload         17
+    2408: ldc2_w        #245                // double 32.0d
+    2411: dmul
+    2412: dsub
+    2413: dconst_1
+    2414: invokestatic  #197                // Method java/lang/Math.max:(DD)D
+    2417: invokestatic  #206                // Method java/lang/Math.min:(DD)D
+    2420: invokestatic  #201                // Method java/lang/Math.floor:(D)D
+    2423: d2i
+    2424: i2l
+    2425: lrem
+    2426: lconst_0
+    2427: lcmp
+    2428: ifne          2439
+    2431: ldc2_w        #354                // double 1.01d
+    2434: dstore        48
+    2436: goto          2444
+    2439: ldc2_w        #401                // double 1.05d
+    2442: dstore        48
+    2444: aload_1
+    2445: getfield      #301                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+    2448: ldc_w         #403                // float 25.0f
+    2451: fload         29
+    2453: fmul
+    2454: f2d
+    2455: dload         19
+    2457: dconst_0
+    2458: invokestatic  #197                // Method java/lang/Math.max:(DD)D
+    2461: ldc2_w        #185                // double 1.5d
+    2464: invokestatic  #194                // Method java/lang/Math.pow:(DD)D
+    2467: dsub
+    2468: invokestatic  #201                // Method java/lang/Math.floor:(D)D
+    2471: d2i
+    2472: iconst_1
+    2473: invokestatic  #292                // Method java/lang/Math.max:(II)I
+    2476: invokevirtual #316                // Method java/util/Random.nextInt:(I)I
+    2479: ifne          2488
+    2482: aload         5
+    2484: iconst_1
+    2485: putfield      #278                // Field net/minecraft/entity/Entity.field_70122_E:Z
+    2488: aload         5
+    2490: dload         19
+    2492: invokestatic  #407                // Method MoreFunQuicksandMod/main/MFQM.isTrulySink:(Lnet/minecraft/entity/Entity;D)Z
+    2495: ifeq          2508
+    2498: aload         5
+    2500: checkcast     #171                // class net/minecraft/entity/EntityLivingBase
+    2503: iload         38
+    2505: invokestatic  #390                // Method MoreFunQuicksandMod/main/MFQM.setStuckEffect:(Lnet/minecraft/entity/EntityLivingBase;I)V
+    2508: aload         5
+    2510: fconst_0
+    2511: putfield      #281                // Field net/minecraft/entity/Entity.field_70143_R:F
+    2514: dload         17
+    2516: ldc2_w        #168                // double 0.5d
+    2519: dcmpl
+    2520: iflt          2668
+    2523: aload_1
+    2524: getfield      #301                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+    2527: dload         19
+    2529: ldc2_w        #183                // double 5.0d
+    2532: dmul
+    2533: fload         29
+    2535: f2d
+    2536: ddiv
+    2537: dconst_1
+    2538: invokestatic  #197                // Method java/lang/Math.max:(DD)D
+    2541: invokestatic  #201                // Method java/lang/Math.floor:(D)D
+    2544: d2i
+    2545: invokevirtual #316                // Method java/util/Random.nextInt:(I)I
+    2548: ifne          2612
+    2551: aload         5
+    2553: invokevirtual #394                // Method net/minecraft/entity/Entity.func_70110_aj:()V
+    2556: iload         26
+    2558: ifne          2583
+    2561: aload         5
+    2563: dup
+    2564: getfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    2567: ldc2_w        #385                // double 0.0725d
+    2570: dload         39
+    2572: dadd
+    2573: dload         48
+    2575: dmul
+    2576: dadd
+    2577: putfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    2580: goto          2756
+    2583: aload         5
+    2585: dup
+    2586: getfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    2589: ldc2_w        #385                // double 0.0725d
+    2592: dload         39
+    2594: dadd
+    2595: dload         48
+    2597: dmul
+    2598: dload         36
+    2600: ldc2_w        #408                // double 0.05d
+    2603: dadd
+    2604: ddiv
+    2605: dadd
+    2606: putfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    2609: goto          2756
+    2612: iload         26
+    2614: ifne          2639
+    2617: aload         5
+    2619: dup
+    2620: getfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    2623: ldc2_w        #348                // double 0.075d
+    2626: dload         39
+    2628: dadd
+    2629: dload         48
+    2631: dmul
+    2632: dadd
+    2633: putfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    2636: goto          2756
+    2639: aload         5
+    2641: dup
+    2642: getfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    2645: ldc2_w        #348                // double 0.075d
+    2648: dload         39
+    2650: dadd
+    2651: dload         48
+    2653: dmul
+    2654: dload         36
+    2656: ldc2_w        #408                // double 0.05d
+    2659: dadd
+    2660: ddiv
+    2661: dadd
+    2662: putfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    2665: goto          2756
+    2668: aload         5
+    2670: invokevirtual #394                // Method net/minecraft/entity/Entity.func_70110_aj:()V
+    2673: iload         26
+    2675: ifne          2700
+    2678: aload         5
+    2680: dup
+    2681: getfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    2684: ldc2_w        #385                // double 0.0725d
+    2687: dload         39
+    2689: dadd
+    2690: dload         48
+    2692: dmul
+    2693: dadd
+    2694: putfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    2697: goto          2726
+    2700: aload         5
+    2702: dup
+    2703: getfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    2706: ldc2_w        #385                // double 0.0725d
+    2709: dload         39
+    2711: dadd
+    2712: dload         48
+    2714: dmul
+    2715: dload         36
+    2717: ldc2_w        #410                // double 0.01d
+    2720: dadd
+    2721: ddiv
+    2722: dadd
+    2723: putfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    2726: dload         17
+    2728: ldc2_w        #342                // double 0.45d
+    2731: dcmpg
+    2732: ifge          2756
+    2735: aload         5
+    2737: dload         19
+    2739: invokestatic  #407                // Method MoreFunQuicksandMod/main/MFQM.isTrulySink:(Lnet/minecraft/entity/Entity;D)Z
+    2742: ifeq          2756
+    2745: aload         5
+    2747: checkcast     #171                // class net/minecraft/entity/EntityLivingBase
+    2750: sipush        175
+    2753: invokestatic  #390                // Method MoreFunQuicksandMod/main/MFQM.setStuckEffect:(Lnet/minecraft/entity/EntityLivingBase;I)V
+    2756: aload         5
+    2758: invokevirtual #414                // Method net/minecraft/entity/Entity.func_70090_H:()Z
+    2761: ifeq          2788
+    2764: aload         5
+    2766: getfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    2769: dconst_0
+    2770: dcmpl
+    2771: ifle          2788
+    2774: aload         5
+    2776: aload         5
+    2778: getfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    2781: ldc2_w        #360                // double 4.0d
+    2784: ddiv
+    2785: putfield      #163                // Field net/minecraft/entity/Entity.field_70181_x:D
+    2788: goto          2826
+    2791: aload         5
+    2793: invokevirtual #394                // Method net/minecraft/entity/Entity.func_70110_aj:()V
+    2796: dload         17
+    2798: ldc2_w        #168                // double 0.5d
+    2801: dcmpg
+    2802: ifge          2826
+    2805: aload         5
+    2807: dload         19
+    2809: invokestatic  #407                // Method MoreFunQuicksandMod/main/MFQM.isTrulySink:(Lnet/minecraft/entity/Entity;D)Z
+    2812: ifeq          2826
+    2815: aload         5
+    2817: checkcast     #171                // class net/minecraft/entity/EntityLivingBase
+    2820: sipush        175
+    2823: invokestatic  #390                // Method MoreFunQuicksandMod/main/MFQM.setStuckEffect:(Lnet/minecraft/entity/EntityLivingBase;I)V
+    2826: aload         5
+    2828: dload         17
+    2830: iconst_1
+    2831: invokestatic  #418                // Method MoreFunQuicksandMod/main/MFQM.antiHoldJumpScript:(Lnet/minecraft/entity/Entity;DZ)V
+    2834: goto          2930
+    2837: dload         17
+    2839: ldc2_w        #419                // double 1.45d
+    2842: dcmpg
+    2843: ifge          2930
+    2846: dload         17
+    2848: dconst_1
+    2849: dcmpl
+    2850: ifle          2925
+    2853: aload_1
+    2854: getfield      #219                // Field net/minecraft/world/World.field_72995_K:Z
+    2857: ifeq          2925
+    2860: aload         5
+    2862: instanceof    #422                // class net/minecraft/client/particle/EntityFX
+    2865: ifne          2925
+    2868: aload_1
+    2869: invokevirtual #287                // Method net/minecraft/world/World.func_82737_E:()J
+    2872: ldc2_w        #362                // long 25l
+    2875: lrem
+    2876: lconst_0
+    2877: lcmp
+    2878: ifne          2925
+    2881: aload_1
+    2882: iload_2
+    2883: iload_3
+    2884: iload         4
+    2886: invokevirtual #151                // Method net/minecraft/world/World.func_72805_g:(III)I
+    2889: ifne          2925
+    2892: aload_1
+    2893: new           #365                // class MoreFunQuicksandMod/main/entity/EntitySlimeHole
+    2896: dup
+    2897: aload_1
+    2898: aload         5
+    2900: getfield      #236                // Field net/minecraft/entity/Entity.field_70165_t:D
+    2903: iload_3
+    2904: i2d
+    2905: ldc2_w        #366                // double 0.9996d
+    2908: dadd
+    2909: aload         5
+    2911: getfield      #244                // Field net/minecraft/entity/Entity.field_70161_v:D
+    2914: iconst_0
+    2915: iconst_0
+    2916: aload         5
+    2918: invokespecial #370                // Method MoreFunQuicksandMod/main/entity/EntitySlimeHole."<init>":(Lnet/minecraft/world/World;DDDIILnet/minecraft/entity/Entity;)V
+    2921: invokevirtual #374                // Method net/minecraft/world/World.func_72838_d:(Lnet/minecraft/entity/Entity;)Z
+    2924: pop
+    2925: aload         5
+    2927: invokevirtual #394                // Method net/minecraft/entity/Entity.func_70110_aj:()V
+    2930: return
+
+  public net.minecraft.util.IIcon func_149691_a(int, int);
+    descriptor: (II)Lnet/minecraft/util/IIcon;
+    Code:
+       0: iload_1
+       1: ifeq          18
+       4: iload_1
+       5: iconst_1
+       6: if_icmpeq     18
+       9: aload_0
+      10: getfield      #462                // Field theSlimeIIcon:[Lnet/minecraft/util/IIcon;
+      13: iconst_1
+      14: aaload
+      15: goto          24
+      18: aload_0
+      19: getfield      #462                // Field theSlimeIIcon:[Lnet/minecraft/util/IIcon;
+      22: iconst_0
+      23: aaload
+      24: areturn
+
+  public void func_149674_a(net.minecraft.world.World, int, int, int, java.util.Random);
+    descriptor: (Lnet/minecraft/world/World;IIILjava/util/Random;)V
+    Code:
+       0: getstatic     #89                 // Field MoreFunQuicksandMod/main/MFQM.LiqFixer:Z
+       3: ifeq          7
+       6: return
+       7: iload_2
+       8: istore        6
+      10: iload_3
+      11: istore        7
+      13: iload         4
+      15: istore        8
+      17: iconst_0
+      18: istore        9
+      20: iconst_0
+      21: istore        10
+      23: iconst_0
+      24: istore        11
+      26: iconst_0
+      27: istore        12
+      29: iload         12
+      31: bipush        6
+      33: if_icmpgt     231
+      36: iload         12
+      38: tableswitch   { // 0 to 5
+                     0: 76
+                     1: 91
+                     2: 106
+                     3: 121
+                     4: 136
+                     5: 151
+               default: 163
+          }
+      76: iload_2
+      77: iconst_1
+      78: isub
+      79: istore        6
+      81: iload_3
+      82: istore        7
+      84: iload         4
+      86: istore        8
+      88: goto          163
+      91: iload_2
+      92: iconst_1
+      93: iadd
+      94: istore        6
+      96: iload_3
+      97: istore        7
+      99: iload         4
+     101: istore        8
+     103: goto          163
+     106: iload_2
+     107: istore        6
+     109: iload_3
+     110: istore        7
+     112: iload         4
+     114: iconst_1
+     115: isub
+     116: istore        8
+     118: goto          163
+     121: iload_2
+     122: istore        6
+     124: iload_3
+     125: istore        7
+     127: iload         4
+     129: iconst_1
+     130: iadd
+     131: istore        8
+     133: goto          163
+     136: iload_2
+     137: istore        6
+     139: iload_3
+     140: iconst_1
+     141: isub
+     142: istore        7
+     144: iload         4
+     146: istore        8
+     148: goto          163
+     151: iload_2
+     152: istore        6
+     154: iload_3
+     155: iconst_1
+     156: iadd
+     157: istore        7
+     159: iload         4
+     161: istore        8
+     163: aload_1
+     164: iload         6
+     166: iload         7
+     168: iload         8
+     170: invokevirtual #95                 // Method net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+     173: invokevirtual #101                // Method net/minecraft/block/Block.func_149688_o:()Lnet/minecraft/block/material/Material;
+     176: getstatic     #471                // Field net/minecraft/block/material/Material.field_151587_i:Lnet/minecraft/block/material/Material;
+     179: if_acmpne     200
+     182: aload_1
+     183: iload         6
+     185: iload         7
+     187: iload         8
+     189: invokevirtual #151                // Method net/minecraft/world/World.func_72805_g:(III)I
+     192: istore        9
+     194: iconst_1
+     195: istore        11
+     197: goto          231
+     200: aload_1
+     201: iload         6
+     203: iload         7
+     205: iload         8
+     207: invokevirtual #95                 // Method net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+     210: invokevirtual #101                // Method net/minecraft/block/Block.func_149688_o:()Lnet/minecraft/block/material/Material;
+     213: getstatic     #474                // Field net/minecraft/block/material/Material.field_151586_h:Lnet/minecraft/block/material/Material;
+     216: if_acmpne     225
+     219: iconst_1
+     220: istore        10
+     222: goto          231
+     225: iinc          12, 1
+     228: goto          29
+     231: iload         11
+     233: ifeq          381
+     236: iload         9
+     238: ifeq          260
+     241: aload_1
+     242: iload         6
+     244: iload         7
+     246: iload         8
+     248: getstatic     #479                // Field net/minecraft/init/Blocks.field_150348_b:Lnet/minecraft/block/Block;
+     251: iconst_0
+     252: iconst_3
+     253: invokevirtual #122                // Method net/minecraft/world/World.func_147465_d:(IIILnet/minecraft/block/Block;II)Z
+     256: pop
+     257: goto          276
+     260: aload_1
+     261: iload         6
+     263: iload         7
+     265: iload         8
+     267: getstatic     #482                // Field net/minecraft/init/Blocks.field_150343_Z:Lnet/minecraft/block/Block;
+     270: iconst_0
+     271: iconst_3
+     272: invokevirtual #122                // Method net/minecraft/world/World.func_147465_d:(IIILnet/minecraft/block/Block;II)Z
+     275: pop
+     276: aload_1
+     277: iload         6
+     279: i2f
+     280: ldc_w         #297                // float 0.5f
+     283: fadd
+     284: f2d
+     285: iload         7
+     287: i2f
+     288: ldc_w         #297                // float 0.5f
+     291: fadd
+     292: f2d
+     293: iload         8
+     295: i2f
+     296: ldc_w         #297                // float 0.5f
+     299: fadd
+     300: f2d
+     301: ldc_w         #484                // String random.fizz
+     304: ldc_w         #297                // float 0.5f
+     307: ldc_w         #485                // float 2.6f
+     310: aload_1
+     311: getfield      #301                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+     314: invokevirtual #307                // Method java/util/Random.nextFloat:()F
+     317: aload_1
+     318: getfield      #301                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+     321: invokevirtual #307                // Method java/util/Random.nextFloat:()F
+     324: fsub
+     325: ldc_w         #486                // float 0.8f
+     328: fmul
+     329: fadd
+     330: invokevirtual #312                // Method net/minecraft/world/World.func_72908_a:(DDDLjava/lang/String;FF)V
+     333: iconst_0
+     334: istore        12
+     336: iload         12
+     338: bipush        8
+     340: if_icmpge     380
+     343: aload_1
+     344: ldc_w         #488                // String largesmoke
+     347: iload         6
+     349: i2d
+     350: invokestatic  #492                // Method java/lang/Math.random:()D
+     353: dadd
+     354: iload         7
+     356: i2d
+     357: ldc2_w        #259                // double 1.2d
+     360: dadd
+     361: iload         8
+     363: i2d
+     364: invokestatic  #492                // Method java/lang/Math.random:()D
+     367: dadd
+     368: dconst_0
+     369: dconst_0
+     370: dconst_0
+     371: invokevirtual #496                // Method net/minecraft/world/World.func_72869_a:(Ljava/lang/String;DDDDDD)V
+     374: iinc          12, 1
+     377: goto          336
+     380: return
+     381: aload_1
+     382: iload_2
+     383: iload_3
+     384: iload         4
+     386: invokevirtual #151                // Method net/minecraft/world/World.func_72805_g:(III)I
+     389: ifne          477
+     392: aload_1
+     393: iload_2
+     394: iload_3
+     395: aload_0
+     396: getfield      #499                // Field densityDir:I
+     399: iadd
+     400: iload         4
+     402: invokevirtual #95                 // Method net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+     405: astore        12
+     407: aload_1
+     408: iload_2
+     409: iload_3
+     410: aload_0
+     411: getfield      #499                // Field densityDir:I
+     414: iadd
+     415: iload         4
+     417: invokevirtual #151                // Method net/minecraft/world/World.func_72805_g:(III)I
+     420: istore        13
+     422: aload         12
+     424: aload_0
+     425: if_acmpne     474
+     428: iload         13
+     430: ifeq          474
+     433: aload_1
+     434: iload_2
+     435: iload_3
+     436: aload_0
+     437: getfield      #499                // Field densityDir:I
+     440: iadd
+     441: iload         4
+     443: aload_0
+     444: invokevirtual #503                // Method net/minecraft/world/World.func_147449_b:(IIILnet/minecraft/block/Block;)Z
+     447: pop
+     448: aload_1
+     449: iload_2
+     450: iload_3
+     451: aload_0
+     452: getfield      #499                // Field densityDir:I
+     455: iadd
+     456: iload         4
+     458: iconst_0
+     459: iconst_3
+     460: invokevirtual #507                // Method net/minecraft/world/World.func_72921_c:(IIIII)Z
+     463: pop
+     464: aload_1
+     465: iload_2
+     466: iload_3
+     467: iload         4
+     469: invokevirtual #510                // Method net/minecraft/world/World.func_147468_f:(III)Z
+     472: pop
+     473: return
+     474: goto          658
+     477: iconst_0
+     478: istore        12
+     480: iconst_0
+     481: istore        13
+     483: aload_1
+     484: getfield      #301                // Field net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+     487: iconst_5
+     488: invokevirtual #316                // Method java/util/Random.nextInt:(I)I
+     491: ifne          658
+     494: aload_1
+     495: iload_2
+     496: iconst_1
+     497: iadd
+     498: iload_3
+     499: iload         4
+     501: invokevirtual #95                 // Method net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+     504: aload_0
+     505: if_acmpne     527
+     508: iinc          12, 1
+     511: aload_1
+     512: iload_2
+     513: iconst_1
+     514: iadd
+     515: iload_3
+     516: iload         4
+     518: invokevirtual #151                // Method net/minecraft/world/World.func_72805_g:(III)I
+     521: ifne          527
+     524: iinc          13, 1
+     527: aload_1
+     528: iload_2
+     529: iconst_1
+     530: isub
+     531: iload_3
+     532: iload         4
+     534: invokevirtual #95                 // Method net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+     537: aload_0
+     538: if_acmpne     560
+     541: iinc          12, 1
+     544: aload_1
+     545: iload_2
+     546: iconst_1
+     547: isub
+     548: iload_3
+     549: iload         4
+     551: invokevirtual #151                // Method net/minecraft/world/World.func_72805_g:(III)I
+     554: ifne          560
+     557: iinc          13, 1
+     560: aload_1
+     561: iload_2
+     562: iload_3
+     563: iload         4
+     565: iconst_1
+     566: isub
+     567: invokevirtual #95                 // Method net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+     570: aload_0
+     571: if_acmpne     593
+     574: iinc          12, 1
+     577: aload_1
+     578: iload_2
+     579: iload_3
+     580: iload         4
+     582: iconst_1
+     583: isub
+     584: invokevirtual #151                // Method net/minecraft/world/World.func_72805_g:(III)I
+     587: ifne          593
+     590: iinc          13, 1
+     593: aload_1
+     594: iload_2
+     595: iload_3
+     596: iload         4
+     598: iconst_1
+     599: iadd
+     600: invokevirtual #95                 // Method net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+     603: aload_0
+     604: if_acmpne     626
+     607: iinc          12, 1
+     610: aload_1
+     611: iload_2
+     612: iload_3
+     613: iload         4
+     615: iconst_1
+     616: iadd
+     617: invokevirtual #151                // Method net/minecraft/world/World.func_72805_g:(III)I
+     620: ifne          626
+     623: iinc          13, 1
+     626: iload         12
+     628: iconst_2
+     629: if_icmple     658
+     632: iload         13
+     634: iconst_1
+     635: if_icmple     658
+     638: aload_1
+     639: iload_2
+     640: iload_3
+     641: iload         4
+     643: aload_1
+     644: iload_2
+     645: iload_3
+     646: iload         4
+     648: invokevirtual #151                // Method net/minecraft/world/World.func_72805_g:(III)I
+     651: iconst_1
+     652: isub
+     653: iconst_2
+     654: invokevirtual #507                // Method net/minecraft/world/World.func_72921_c:(IIIII)Z
+     657: pop
+     658: aload_0
+     659: ldc           #55                 // float 1.75f
+     661: putfield      #59                 // Field quantaPerBlockFloat:F
+     664: aload_0
+     665: aload_1
+     666: iload_2
+     667: iload_3
+     668: iload         4
+     670: aload         5
+     672: invokespecial #512                // Method net/minecraftforge/fluids/BlockFluidClassic.func_149674_a:(Lnet/minecraft/world/World;IIILjava/util/Random;)V
+     675: return
+
+  public void func_149640_a(net.minecraft.world.World, int, int, int, net.minecraft.entity.Entity, net.minecraft.util.Vec3);
+    descriptor: (Lnet/minecraft/world/World;IIILnet/minecraft/entity/Entity;Lnet/minecraft/util/Vec3;)V
+    Code:
+       0: return
+
+  public boolean canDisplace(net.minecraft.world.World, int, int, int);
+    descriptor: (Lnet/minecraft/world/World;III)Z
+    Code:
+       0: aload_1
+       1: iload_2
+       2: iload_3
+       3: iload         4
+       5: invokevirtual #95                 // Method net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+       8: invokevirtual #101                // Method net/minecraft/block/Block.func_149688_o:()Lnet/minecraft/block/material/Material;
+      11: invokevirtual #107                // Method net/minecraft/block/material/Material.func_76224_d:()Z
+      14: ifeq          19
+      17: iconst_0
+      18: ireturn
+      19: aload_0
+      20: aload_1
+      21: iload_2
+      22: iload_3
+      23: iload         4
+      25: invokespecial #534                // Method net/minecraftforge/fluids/BlockFluidClassic.canDisplace:(Lnet/minecraft/world/IBlockAccess;III)Z
+      28: ireturn
+
+  public boolean displaceIfPossible(net.minecraft.world.World, int, int, int);
+    descriptor: (Lnet/minecraft/world/World;III)Z
+    Code:
+       0: aload_1
+       1: iload_2
+       2: iload_3
+       3: iload         4
+       5: invokevirtual #95                 // Method net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+       8: invokevirtual #101                // Method net/minecraft/block/Block.func_149688_o:()Lnet/minecraft/block/material/Material;
+      11: invokevirtual #107                // Method net/minecraft/block/material/Material.func_76224_d:()Z
+      14: ifeq          19
+      17: iconst_0
+      18: ireturn
+      19: aload_0
+      20: aload_1
+      21: iload_2
+      22: iload_3
+      23: iload         4
+      25: invokespecial #537                // Method net/minecraftforge/fluids/BlockFluidClassic.displaceIfPossible:(Lnet/minecraft/world/World;III)Z
+      28: ireturn
+
+  public boolean isSideSolid(net.minecraft.world.World, int, int, int, net.minecraftforge.common.util.ForgeDirection);
+    descriptor: (Lnet/minecraft/world/World;IIILnet/minecraftforge/common/util/ForgeDirection;)Z
+    Code:
+       0: iconst_0
+       1: ireturn
+
+  public void func_149651_a(net.minecraft.client.renderer.texture.IIconRegister);
+    descriptor: (Lnet/minecraft/client/renderer/texture/IIconRegister;)V
+    Code:
+       0: aload_0
+       1: invokevirtual #544                // Method func_149688_o:()Lnet/minecraft/block/material/Material;
+       4: getstatic     #23                 // Field materialSlime:Lnet/minecraft/block/material/Material;
+       7: if_acmpne     42
+      10: aload_0
+      11: iconst_2
+      12: anewarray     #464                // class net/minecraft/util/IIcon
+      15: dup
+      16: iconst_0
+      17: aload_1
+      18: ldc_w         #546                // String morefunquicksandmod:Slime_Still
+      21: invokeinterface #552,  2          // InterfaceMethod net/minecraft/client/renderer/texture/IIconRegister.func_94245_a:(Ljava/lang/String;)Lnet/minecraft/util/IIcon;
+      26: aastore
+      27: dup
+      28: iconst_1
+      29: aload_1
+      30: ldc_w         #554                // String morefunquicksandmod:Slime_Flowing
+      33: invokeinterface #552,  2          // InterfaceMethod net/minecraft/client/renderer/texture/IIconRegister.func_94245_a:(Ljava/lang/String;)Lnet/minecraft/util/IIcon;
+      38: aastore
+      39: putfield      #462                // Field theSlimeIIcon:[Lnet/minecraft/util/IIcon;
+      42: return
+
+  public boolean func_149721_r();
+    descriptor: ()Z
+    Code:
+       0: iconst_0
+       1: ireturn
+
+  public void checkEntityUnder(net.minecraft.entity.Entity);
+    descriptor: (Lnet/minecraft/entity/Entity;)V
+    Code:
+       0: aload_1
+       1: aload_0
+       2: invokestatic  #561                // Method MoreFunQuicksandMod/main/MFQM.isEntityInsideOfBlock:(Lnet/minecraft/entity/Entity;Lnet/minecraft/block/Block;)Z
+       5: ifeq          59
+       8: aload_1
+       9: invokestatic  #564                // Method MoreFunQuicksandMod/main/MFQM.isDrowning:(Lnet/minecraft/entity/Entity;)Z
+      12: ifeq          59
+      15: aload_1
+      16: getfield      #567                // Field net/minecraft/entity/Entity.field_70170_p:Lnet/minecraft/world/World;
+      19: getfield      #219                // Field net/minecraft/world/World.field_72995_K:Z
+      22: ifne          59
+      25: aload_1
+      26: invokevirtual #570                // Method net/minecraft/entity/Entity.func_70089_S:()Z
+      29: ifeq          59
+      32: aload_1
+      33: getstatic     #576                // Field net/minecraft/util/DamageSource.field_76369_e:Lnet/minecraft/util/DamageSource;
+      36: aload_1
+      37: checkcast     #171                // class net/minecraft/entity/EntityLivingBase
+      40: invokevirtual #579                // Method net/minecraft/entity/EntityLivingBase.func_110138_aP:()F
+      43: ldc_w         #318                // float 0.1f
+      46: fmul
+      47: fconst_2
+      48: invokestatic  #582                // Method java/lang/Math.max:(FF)F
+      51: getstatic     #585                // Field MoreFunQuicksandMod/main/MFQM.DmgMul:F
+      54: fmul
+      55: invokevirtual #589                // Method net/minecraft/entity/Entity.func_70097_a:(Lnet/minecraft/util/DamageSource;F)Z
+      58: pop
+      59: return
+
+  public void checkPlayerMuddy(net.minecraft.entity.player.EntityPlayer, int, int, int, net.minecraft.world.World);
+    descriptor: (Lnet/minecraft/entity/player/EntityPlayer;IIILnet/minecraft/world/World;)V
+    Code:
+       0: getstatic     #593                // Field MoreFunQuicksandMod/main/MFQM.QSCover:Z
+       3: ifne          7
+       6: return
+       7: aload         5
+       9: getfield      #219                // Field net/minecraft/world/World.field_72995_K:Z
+      12: ifne          123
+      15: aload_1
+      16: invokestatic  #599                // Method MoreFunQuicksandMod/main/CustomVarPlayer.get:(Lnet/minecraft/entity/player/EntityPlayer;)LMoreFunQuicksandMod/main/CustomVarPlayer;
+      19: astore        6
+      21: aload_1
+      22: iload_3
+      23: i2d
+      24: aload         5
+      26: invokestatic  #603                // Method MoreFunQuicksandMod/main/MFQM.getMuddyLevel:(Lnet/minecraft/entity/player/EntityPlayer;DLnet/minecraft/world/World;)I
+      29: istore        7
+      31: iload         7
+      33: i2f
+      34: aload_0
+      35: getfield      #75                 // Field maxOpacity:I
+      38: i2f
+      39: ldc_w         #604                // float 1000.0f
+      42: fdiv
+      43: fmul
+      44: aload         6
+      46: invokevirtual #606                // Method MoreFunQuicksandMod/main/CustomVarPlayer.getMuddyLevel:()I
+      49: i2f
+      50: aload         6
+      52: invokevirtual #609                // Method MoreFunQuicksandMod/main/CustomVarPlayer.getMuddyTime:()I
+      55: i2f
+      56: ldc_w         #604                // float 1000.0f
+      59: fdiv
+      60: fmul
+      61: fcmpl
+      62: ifle          123
+      65: aload         6
+      67: iload         7
+      69: invokevirtual #613                // Method MoreFunQuicksandMod/main/CustomVarPlayer.setMuddyLevel:(I)V
+      72: aload_0
+      73: invokestatic  #617                // Method MoreFunQuicksandMod/main/MFQM.getMuddyType:(Lnet/minecraft/block/Block;)I
+      76: istore        8
+      78: aload         6
+      80: iload         8
+      82: invokevirtual #620                // Method MoreFunQuicksandMod/main/CustomVarPlayer.setMuddyType:(I)V
+      85: aload         6
+      87: invokevirtual #609                // Method MoreFunQuicksandMod/main/CustomVarPlayer.getMuddyTime:()I
+      90: aload_0
+      91: getfield      #75                 // Field maxOpacity:I
+      94: if_icmpge     106
+      97: aload         6
+      99: aload_0
+     100: getfield      #79                 // Field incOpacity:I
+     103: invokevirtual #623                // Method MoreFunQuicksandMod/main/CustomVarPlayer.addMuddyTime:(I)V
+     106: aload         6
+     108: aload         6
+     110: invokevirtual #609                // Method MoreFunQuicksandMod/main/CustomVarPlayer.getMuddyTime:()I
+     113: aload_0
+     114: getfield      #75                 // Field maxOpacity:I
+     117: invokestatic  #625                // Method java/lang/Math.min:(II)I
+     120: invokevirtual #628                // Method MoreFunQuicksandMod/main/CustomVarPlayer.setMuddyTime:(I)V
+     123: return
+
+  static {};
+    descriptor: ()V
+    Code:
+       0: new           #635                // class MoreFunQuicksandMod/main/CustomMaterialLiquid
+       3: dup
+       4: getstatic     #641                // Field net/minecraft/block/material/MapColor.field_151661_c:Lnet/minecraft/block/material/MapColor;
+       7: invokespecial #644                // Method MoreFunQuicksandMod/main/CustomMaterialLiquid."<init>":(Lnet/minecraft/block/material/MapColor;)V
+      10: invokevirtual #647                // Method MoreFunQuicksandMod/main/CustomMaterialLiquid.func_76231_i:()Lnet/minecraft/block/material/Material;
+      13: putstatic     #23                 // Field materialSlime:Lnet/minecraft/block/material/Material;
+      16: return
+}
+Compiled from "BlockStableLiquidMire.java"

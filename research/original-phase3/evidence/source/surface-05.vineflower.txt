@@ -1,0 +1,42 @@
+// Decompiled inference, NOT original source; semantic closure PARTIAL
+      if (MFQM.GenHoney && !blockGen) {
+         int jngT = this.getJungleType(biomeId);
+         if (jngT != 0 && this.T_BoP || biomegenbase instanceof BiomeGenJungle && !this.T_BoP) {
+            boolean canGen = false;
+            int genCount = 50;
+            int realGen = 0;
+            int genPos = 175;
+            int genRad = 16;
+            int genRadP = 16;
+            int rad = genRad + random.nextInt(genRadP);
+            int arad = 16 + random.nextInt(10);
+            if (jngT != 2 && random.nextInt(genPos) == 0) {
+               for (int ix = 0; ix < genCount; ix++) {
+                  firstBlockXCoord = chunkX + random.nextInt(32) - 16;
+                  firstBlockYCoord = 80 - random.nextInt(8) + dHeight;
+                  firstBlockZCoord = chunkZ + random.nextInt(32) - 16;
+                  int countBlock = 0;
+
+                  for (canGen = false; firstBlockYCoord > 60 + dHeight; firstBlockYCoord--) {
+                     if (this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                        canGen = true;
+                        break;
+                     }
+
+                     countBlock++;
+                  }
+
+                  if (canGen) {
+                     if (!this.genIsHoneycombNear(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, arad * 2, world)) {
+                        int ahoney = 20;
+                        this.generateHoneycomb(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, arad, world, random, ahoney);
+                        this.generateHoneyNest(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random);
+                        blockGen = true;
+                     }
+                     break;
+                  }
+               }
+            }
+         }
+      }
+

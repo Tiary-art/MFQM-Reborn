@@ -1,0 +1,280 @@
+Archive: MoreFunQuicksandMod/main/items/ItemClayBucket.class
+SHA256: 974665bdc1d07443bb4b2756a5f5a40d4c0e9486b3f5995cfbf53d0b2d6fe68f
+Superclass: net/minecraft/item/ItemBucket
+Offsets are decimal byte offsets; branch operands are relative offsets.
+
+
+METHOD <init> (Lnet/minecraft/block/Block;)V
+000000: aload_0 
+000001: aload_1 
+000002: invokespecial #25 net/minecraft/item/ItemBucket.<init>:(Lnet/minecraft/block/Block;)V
+000005: aload_0 
+000006: aload_1 
+000007: putfield #27 MoreFunQuicksandMod/main/items/ItemClayBucket.block:Lnet/minecraft/block/Block;
+000010: aload_0 
+000011: ldc #29 'BucketOfClay'
+000013: invokevirtual #33 MoreFunQuicksandMod/main/items/ItemClayBucket.func_77655_b:(Ljava/lang/String;)Lnet/minecraft/item/Item;
+000016: pop 
+000017: aload_0 
+000018: iconst_1 
+000019: invokevirtual #37 MoreFunQuicksandMod/main/items/ItemClayBucket.func_77627_a:(Z)Lnet/minecraft/item/Item;
+000022: pop 
+000023: aload_0 
+000024: getstatic #43 MoreFunQuicksandMod/main/MFQM.tabMFQM:Lnet/minecraft/creativetab/CreativeTabs;
+000027: invokevirtual #47 MoreFunQuicksandMod/main/items/ItemClayBucket.func_77637_a:(Lnet/minecraft/creativetab/CreativeTabs;)Lnet/minecraft/item/Item;
+000030: pop 
+000031: return 
+
+METHOD func_94581_a (Lnet/minecraft/client/renderer/texture/IIconRegister;)V
+000000: aload_0 
+000001: aload_1 
+000002: ldc #54 'morefunquicksandmod:BucketOfBrownClay'
+000004: invokeinterface #60 net/minecraft/client/renderer/texture/IIconRegister.func_94245_a:(Ljava/lang/String;)Lnet/minecraft/util/IIcon;, 2, 0
+000009: putfield #62 MoreFunQuicksandMod/main/items/ItemClayBucket.itemIIcon1:Lnet/minecraft/util/IIcon;
+000012: aload_0 
+000013: aload_1 
+000014: ldc #64 'morefunquicksandmod:BucketOfMineralClay'
+000016: invokeinterface #60 net/minecraft/client/renderer/texture/IIconRegister.func_94245_a:(Ljava/lang/String;)Lnet/minecraft/util/IIcon;, 2, 0
+000021: putfield #66 MoreFunQuicksandMod/main/items/ItemClayBucket.itemIIcon2:Lnet/minecraft/util/IIcon;
+000024: return 
+
+METHOD func_77617_a (I)Lnet/minecraft/util/IIcon;
+000000: iload_1 
+000001: ifne 8
+000004: aload_0 
+000005: getfield #62 MoreFunQuicksandMod/main/items/ItemClayBucket.itemIIcon1:Lnet/minecraft/util/IIcon;
+000008: areturn 
+000009: aload_0 
+000010: getfield #66 MoreFunQuicksandMod/main/items/ItemClayBucket.itemIIcon2:Lnet/minecraft/util/IIcon;
+000013: areturn 
+
+METHOD func_150895_a (Lnet/minecraft/item/Item;Lnet/minecraft/creativetab/CreativeTabs;Ljava/util/List;)V
+000000: aload_3 
+000001: new #76 net/minecraft/item/ItemStack
+000004: dup 
+000005: aload_1 
+000006: iconst_1 
+000007: iconst_0 
+000008: invokespecial #79 net/minecraft/item/ItemStack.<init>:(Lnet/minecraft/item/Item;II)V
+000011: invokeinterface #85 java/util/List.add:(Ljava/lang/Object;)Z, 2, 0
+000016: pop 
+000017: aload_3 
+000018: new #76 net/minecraft/item/ItemStack
+000021: dup 
+000022: aload_1 
+000023: iconst_1 
+000024: iconst_1 
+000025: invokespecial #79 net/minecraft/item/ItemStack.<init>:(Lnet/minecraft/item/Item;II)V
+000028: invokeinterface #85 java/util/List.add:(Ljava/lang/Object;)Z, 2, 0
+000033: pop 
+000034: return 
+
+METHOD func_77667_c (Lnet/minecraft/item/ItemStack;)Ljava/lang/String;
+000000: aload_1 
+000001: invokevirtual #96 net/minecraft/item/ItemStack.func_77960_j:()I
+000004: istore_2 
+000005: iload_2 
+000006: iflt 11
+000009: iload_2 
+000010: getstatic #98 MoreFunQuicksandMod/main/items/ItemClayBucket.items:[Ljava/lang/String;
+000013: arraylength 
+000014: if_icmplt 5
+000017: iconst_2 
+000018: istore_2 
+000019: new #100 java/lang/StringBuilder
+000022: dup 
+000023: invokespecial #103 java/lang/StringBuilder.<init>:()V
+000026: aload_0 
+000027: invokespecial #107 net/minecraft/item/ItemBucket.func_77658_a:()Ljava/lang/String;
+000030: invokevirtual #111 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000033: ldc #113 '.'
+000035: invokevirtual #111 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000038: getstatic #98 MoreFunQuicksandMod/main/items/ItemClayBucket.items:[Ljava/lang/String;
+000041: iload_2 
+000042: aaload 
+000043: invokevirtual #111 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000046: invokevirtual #116 java/lang/StringBuilder.toString:()Ljava/lang/String;
+000049: areturn 
+
+METHOD func_77659_a (Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/player/EntityPlayer;)Lnet/minecraft/item/ItemStack;
+000000: iconst_0 
+000001: istore 4
+000003: aload_0 
+000004: aload_2 
+000005: aload_3 
+000006: iload 4
+000008: invokevirtual #125 MoreFunQuicksandMod/main/items/ItemClayBucket.func_77621_a:(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/EntityPlayer;Z)Lnet/minecraft/util/MovingObjectPosition;
+000011: astore 5
+000013: aload 5
+000015: ifnonnull 5
+000018: aload_1 
+000019: areturn 
+000020: aload 5
+000022: getfield #129 net/minecraft/util/MovingObjectPosition.field_72313_a:Lnet/minecraft/util/MovingObjectPosition$MovingObjectType;
+000025: getstatic #132 net/minecraft/util/MovingObjectPosition$MovingObjectType.BLOCK:Lnet/minecraft/util/MovingObjectPosition$MovingObjectType;
+000028: if_acmpne 168
+000031: aload 5
+000033: getfield #135 net/minecraft/util/MovingObjectPosition.field_72311_b:I
+000036: istore 6
+000038: aload 5
+000040: getfield #138 net/minecraft/util/MovingObjectPosition.field_72312_c:I
+000043: istore 7
+000045: aload 5
+000047: getfield #141 net/minecraft/util/MovingObjectPosition.field_72309_d:I
+000050: istore 8
+000052: aload_2 
+000053: aload_3 
+000054: iload 6
+000056: iload 7
+000058: iload 8
+000060: invokevirtual #147 net/minecraft/world/World.func_72962_a:(Lnet/minecraft/entity/player/EntityPlayer;III)Z
+000063: ifne 5
+000066: aload_1 
+000067: areturn 
+000068: aload 5
+000070: getfield #150 net/minecraft/util/MovingObjectPosition.field_72310_e:I
+000073: ifne 6
+000076: iinc 7, 255
+000079: aload 5
+000081: getfield #150 net/minecraft/util/MovingObjectPosition.field_72310_e:I
+000084: iconst_1 
+000085: if_icmpne 6
+000088: iinc 7, 1
+000091: aload 5
+000093: getfield #150 net/minecraft/util/MovingObjectPosition.field_72310_e:I
+000096: iconst_2 
+000097: if_icmpne 6
+000100: iinc 8, 255
+000103: aload 5
+000105: getfield #150 net/minecraft/util/MovingObjectPosition.field_72310_e:I
+000108: iconst_3 
+000109: if_icmpne 6
+000112: iinc 8, 1
+000115: aload 5
+000117: getfield #150 net/minecraft/util/MovingObjectPosition.field_72310_e:I
+000120: iconst_4 
+000121: if_icmpne 6
+000124: iinc 6, 255
+000127: aload 5
+000129: getfield #150 net/minecraft/util/MovingObjectPosition.field_72310_e:I
+000132: iconst_5 
+000133: if_icmpne 6
+000136: iinc 6, 1
+000139: aload_3 
+000140: iload 6
+000142: iload 7
+000144: iload 8
+000146: aload 5
+000148: getfield #150 net/minecraft/util/MovingObjectPosition.field_72310_e:I
+000151: aload_1 
+000152: invokevirtual #156 net/minecraft/entity/player/EntityPlayer.func_82247_a:(IIIILnet/minecraft/item/ItemStack;)Z
+000155: ifne 5
+000158: aload_1 
+000159: areturn 
+000160: aload_0 
+000161: aload_2 
+000162: iload 6
+000164: iload 7
+000166: iload 8
+000168: aload_1 
+000169: invokevirtual #160 MoreFunQuicksandMod/main/items/ItemClayBucket.tryPlaceContainedLiquid2:(Lnet/minecraft/world/World;IIILnet/minecraft/item/ItemStack;)Z
+000172: ifeq 24
+000175: aload_3 
+000176: getfield #164 net/minecraft/entity/player/EntityPlayer.field_71075_bZ:Lnet/minecraft/entity/player/PlayerCapabilities;
+000179: getfield #170 net/minecraft/entity/player/PlayerCapabilities.field_75098_d:Z
+000182: ifne 14
+000185: new #76 net/minecraft/item/ItemStack
+000188: dup 
+000189: getstatic #175 net/minecraft/init/Items.field_151133_ar:Lnet/minecraft/item/Item;
+000192: invokespecial #178 net/minecraft/item/ItemStack.<init>:(Lnet/minecraft/item/Item;)V
+000195: areturn 
+000196: aload_1 
+000197: areturn 
+
+METHOD tryPlaceContainedLiquid2 (Lnet/minecraft/world/World;IIILnet/minecraft/item/ItemStack;)Z
+000000: aload_1 
+000001: iload_2 
+000002: iload_3 
+000003: iload 4
+000005: invokevirtual #192 net/minecraft/world/World.func_147439_a:(III)Lnet/minecraft/block/Block;
+000008: invokevirtual #198 net/minecraft/block/Block.func_149688_o:()Lnet/minecraft/block/material/Material;
+000011: astore 6
+000013: aload 6
+000015: invokevirtual #204 net/minecraft/block/material/Material.func_76220_a:()Z
+000018: ifne 7
+000021: iconst_1 
+000022: goto 4
+000025: iconst_0 
+000026: istore 7
+000028: aload_1 
+000029: iload_2 
+000030: iload_3 
+000031: iload 4
+000033: invokevirtual #208 net/minecraft/world/World.func_147437_c:(III)Z
+000036: ifne 10
+000039: iload 7
+000041: ifne 5
+000044: iconst_0 
+000045: ireturn 
+000046: aload_1 
+000047: getfield #211 net/minecraft/world/World.field_72995_K:Z
+000050: ifne 26
+000053: iload 7
+000055: ifeq 21
+000058: aload 6
+000060: invokevirtual #214 net/minecraft/block/material/Material.func_76224_d:()Z
+000063: ifne 13
+000066: aload_1 
+000067: iload_2 
+000068: iload_3 
+000069: iload 4
+000071: iconst_1 
+000072: invokevirtual #218 net/minecraft/world/World.func_147480_a:(IIIZ)Z
+000075: pop 
+000076: aload_1 
+000077: getfield #211 net/minecraft/world/World.field_72995_K:Z
+000080: ifne 44
+000083: aload 5
+000085: invokevirtual #96 net/minecraft/item/ItemStack.func_77960_j:()I
+000088: ifne 21
+000091: aload_1 
+000092: iload_2 
+000093: iload_3 
+000094: iload 4
+000096: aload_0 
+000097: getfield #27 MoreFunQuicksandMod/main/items/ItemClayBucket.block:Lnet/minecraft/block/Block;
+000100: iconst_0 
+000101: iconst_3 
+000102: invokevirtual #222 net/minecraft/world/World.func_147465_d:(IIILnet/minecraft/block/Block;II)Z
+000105: pop 
+000106: goto 18
+000109: aload_1 
+000110: iload_2 
+000111: iload_3 
+000112: iload 4
+000114: aload_0 
+000115: getfield #27 MoreFunQuicksandMod/main/items/ItemClayBucket.block:Lnet/minecraft/block/Block;
+000118: iconst_4 
+000119: iconst_3 
+000120: invokevirtual #222 net/minecraft/world/World.func_147465_d:(IIILnet/minecraft/block/Block;II)Z
+000123: pop 
+000124: iconst_1 
+000125: ireturn 
+
+METHOD <clinit> ()V
+000000: iconst_3 
+000001: anewarray 229
+000004: dup 
+000005: iconst_0 
+000006: ldc #231 'BucketofBrownClay'
+000008: aastore 
+000009: dup 
+000010: iconst_1 
+000011: ldc #233 'BucketofMineralClay'
+000013: aastore 
+000014: dup 
+000015: iconst_2 
+000016: ldc #235 'Errorbucket'
+000018: aastore 
+000019: putstatic #98 MoreFunQuicksandMod/main/items/ItemClayBucket.items:[Ljava/lang/String;
+000022: return 

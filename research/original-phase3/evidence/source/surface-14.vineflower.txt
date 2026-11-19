@@ -1,0 +1,73 @@
+// Decompiled inference, NOT original source; semantic closure PARTIAL
+      if (MFQM.GenGP && !blockGen) {
+         int hT = this.getHillsType(biomeId);
+         boolean exhill = false;
+         if (hT != 0 && this.T_BoP || biomegenbase instanceof BiomeGenHills && !this.T_BoP) {
+            exhill = true;
+         }
+
+         if (exhill) {
+            boolean canGenx = false;
+            boolean test = false;
+            int genCountx = 50 + random.nextInt(50);
+            int genPosx = 52;
+            int genRad = 10;
+            int genRadP = 15;
+            int realGen = 5 + random.nextInt(10);
+            int radx = 0;
+            int depth = 0;
+            int flat = 1;
+            if (random.nextInt(genPosx) == 0) {
+               for (int ix = 0; ix < genCountx && realGen > 0; ix++) {
+                  firstBlockXCoord = chunkX + random.nextInt(24) - 12;
+                  firstBlockZCoord = chunkZ + random.nextInt(24) - 12;
+                  radx = genRad + random.nextInt(genRadP);
+                  if (depth < 1) {
+                     depth = (int)Math.floor(radx);
+                  }
+
+                  if (!test) {
+                     firstBlockYCoord = 100 + dHeight;
+                     int countBlock = 0;
+
+                     for (canGenx = false; firstBlockYCoord > 68 + dHeight; firstBlockYCoord--) {
+                        if (this.validCaveMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                           if (world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) == MFQM.SoftGravelBlock) {
+                              canGenx = false;
+                              realGen = 0;
+                              break;
+                           }
+
+                           if (this.validWaterMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                              canGenx = false;
+                              realGen = 0;
+                              break;
+                           }
+
+                           if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                              canGenx = true;
+                              break;
+                           }
+
+                           countBlock++;
+                        }
+
+                        if (countBlock > 2) {
+                           break;
+                        }
+                     }
+                  } else {
+                     canGenx = true;
+                  }
+
+                  if (canGenx && (test || this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radx * 2, world))) {
+                     test = true;
+                     this.generateGravelPit(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radx, world, random, depth);
+                     realGen--;
+                     blockGen = true;
+                  }
+               }
+            }
+         }
+      }
+

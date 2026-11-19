@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/work/mfqm-original-phase5-pr/research/original-phase5/evidence/tools/run_all.py", line 22, in <module>
+    cases.append(compare.case('mire-protected','generateMire',0,4,'protected'))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/work/mfqm-original-phase5-pr/research/original-phase5/evidence/tools/compare.py", line 23, in case
+    o.run(key,args);actual=[json.loads(l)for l in path.read_text().splitlines()];actual=[e for e in actual if e['event']not in ['HEADER','RESULT','TILE_FINAL']];path.with_suffix('.oracle.jsonl').write_text(''.join(json.dumps(e)+'\n'for e in o.events));assert len(actual)==len(o.events),(tag,len(actual),len(o.events))
+                                                                                                                                                                                                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('mire-protected', 2470, 1243)

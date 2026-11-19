@@ -1,0 +1,17 @@
+// CFR0.152; original decompiler line 860; NOT original source; inspect **/goto artifacts if present.
+    private boolean isGroundQS(int x, int y, int z, int rad, World world, Block qsBlock) {
+        int re = 18;
+        int groundCount = 0;
+        for (int i = 0; i < re; ++i) {
+            int zz;
+            float rg = world.field_73012_v.nextFloat() * 360.0f;
+            float imp = (float)(rad / 4) + world.field_73012_v.nextFloat() * 2.0f;
+            int xx = x + (int)Math.floor(Math.sin(rg = (float)Math.toRadians(rg)) * (double)imp);
+            if (this.validGroundMaterial(xx, y, zz = z + (int)Math.floor(Math.cos(rg) * (double)imp), world) || world.func_147439_a(xx, y, zz) == qsBlock) {
+                ++groundCount;
+            }
+            if (groundCount <= 5) continue;
+            return true;
+        }
+        return false;
+    }

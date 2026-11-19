@@ -1,0 +1,73 @@
+{
+  "status": "SEMANTICALLY_CLOSED_UNREACHABLE_BLOCK",
+  "method": "MoreFunQuicksandMod.main.CustomWorldGen#generateAOADimGardencia(Lnet/minecraft/world/World;Ljava/util/Random;II)V",
+  "block": "B694",
+  "premises": [
+    "Y initialized70, loop runs only while Y>60",
+    "Y decreases exactly1 on each continued iteration",
+    "countBlock initialized0 each attempt; at most one increment by1 per iteration",
+    "subcalls cannot modify caller JVM locals; early break/exception cannot add iterations"
+  ],
+  "invariant": "after n completed/current increments: 0 <= countBlock <= n <= 10",
+  "guard_to_B694": "countBlock > 10",
+  "counterexample_domain": [
+    {
+      "max_iterations": 0,
+      "max_count": 0,
+      "guard_gt10": false
+    },
+    {
+      "max_iterations": 1,
+      "max_count": 1,
+      "guard_gt10": false
+    },
+    {
+      "max_iterations": 2,
+      "max_count": 2,
+      "guard_gt10": false
+    },
+    {
+      "max_iterations": 3,
+      "max_count": 3,
+      "guard_gt10": false
+    },
+    {
+      "max_iterations": 4,
+      "max_count": 4,
+      "guard_gt10": false
+    },
+    {
+      "max_iterations": 5,
+      "max_count": 5,
+      "guard_gt10": false
+    },
+    {
+      "max_iterations": 6,
+      "max_count": 6,
+      "guard_gt10": false
+    },
+    {
+      "max_iterations": 7,
+      "max_count": 7,
+      "guard_gt10": false
+    },
+    {
+      "max_iterations": 8,
+      "max_count": 8,
+      "guard_gt10": false
+    },
+    {
+      "max_iterations": 9,
+      "max_count": 9,
+      "guard_gt10": false
+    },
+    {
+      "max_iterations": 10,
+      "max_count": 10,
+      "guard_gt10": false
+    }
+  ],
+  "conclusion": "B694 cannot be reached under original normal control flow; exceptions do not make it reachable",
+  "evidence": "evidence/results/b694-control-instructions.json; ../original-phase2/evidence/cfg/CustomWorldGen__generateAOADimGardencia.json",
+  "original_runtime": "NOT_RUN"
+}

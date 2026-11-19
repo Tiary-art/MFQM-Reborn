@@ -1,0 +1,101 @@
+// CFR0.152; original decompiler line 2943; NOT original source; inspect **/goto artifacts if present.
+    private void generateDenseWeb(int xx, int yy, int zz, int rad, World world, Random random) {
+        double rad_cof = Math.max((double)rad / 10.0, 1.0);
+        double rax = random.nextDouble() + 0.5;
+        double raz = 1.0 - rax + 0.5 + 0.5;
+        for (int i = 0; i <= rad; ++i) {
+            for (int j = 0; j <= rad / 2; ++j) {
+                for (int e = 0; e <= rad; ++e) {
+                    int posx = xx + i - rad / 2;
+                    int posy = yy - j;
+                    int posz = zz + e - rad / 2;
+                    double dis = Math.sqrt(Math.pow(xx - posx, 2.0) * rax + Math.pow(yy - posy, 2.0) + Math.pow(zz - posz, 2.0) * raz);
+                    if (!(dis < (double)rad / 2.0 / (1.0 + Math.abs(rax - raz) / 3.0) + (random.nextDouble() * rad_cof - rad_cof / 2.0))) continue;
+                    boolean canGenW = true;
+                    if (world.func_147439_a(posx, posy + 1, posz).func_149688_o() == Material.field_151586_h) {
+                        canGenW = false;
+                    } else if (world.func_147439_a(posx + 1, posy, posz).func_149688_o() == Material.field_151586_h) {
+                        canGenW = false;
+                    } else if (world.func_147439_a(posx - 1, posy, posz).func_149688_o() == Material.field_151586_h) {
+                        canGenW = false;
+                    } else if (world.func_147439_a(posx, posy - 1, posz).func_149688_o() == Material.field_151586_h) {
+                        canGenW = false;
+                    } else if (world.func_147439_a(posx, posy, posz - 1).func_149688_o() == Material.field_151586_h) {
+                        canGenW = false;
+                    } else if (world.func_147439_a(posx, posy, posz + 1).func_149688_o() == Material.field_151586_h) {
+                        canGenW = false;
+                    }
+                    if (!canGenW || !this.validGroundMaterial(posx, posy, posz, world)) continue;
+                    if (world.func_147439_a(posx, posy, posz) != Blocks.field_150474_ac) {
+                        world.func_147449_b(posx, posy, posz, MFQM.DenseWebBlock);
+                    }
+                    if (j == 0 && MFQM.GenWebU && random.nextInt(65) == 0) {
+                        world.func_147449_b(posx, posy + 2, posz, MFQM.DenseWebBlock);
+                        world.func_147465_d(posx + 1, posy + 1, posz, MFQM.DenseWebBlock, 1, 2);
+                        world.func_147465_d(posx - 1, posy + 1, posz, MFQM.DenseWebBlock, 1, 2);
+                        world.func_147465_d(posx, posy + 1, posz, Blocks.field_150474_ac, 0, 2);
+                        world.func_147465_d(posx, posy + 1, posz + 1, MFQM.DenseWebBlock, 1, 2);
+                        world.func_147465_d(posx, posy + 1, posz - 1, MFQM.DenseWebBlock, 1, 2);
+                        TileEntityMobSpawner var18 = (TileEntityMobSpawner)world.func_147438_o(posx, posy + 1, posz);
+                        if (var18 != null) {
+                            NBTTagCompound nbt = new NBTTagCompound();
+                            var18.func_145841_b(nbt);
+                            if (random.nextInt(5) == 0) {
+                                nbt.func_74778_a("EntityId", "CaveSpider");
+                                nbt.func_74777_a("MaxNearbyEntities", (short)16);
+                            } else {
+                                nbt.func_74778_a("EntityId", "Spider");
+                                nbt.func_74777_a("MaxNearbyEntities", (short)10);
+                            }
+                            nbt.func_74777_a("RequiredPlayerRange", (short)96);
+                            nbt.func_74777_a("SpawnRange", (short)32);
+                            nbt.func_74777_a("MinSpawnDelay", (short)400);
+                            nbt.func_74777_a("MaxSpawnDelay", (short)1600);
+                            var18.func_145839_a(nbt);
+                        } else {
+                            System.err.println("(MFQM)Failed to fetch mob spawner entity");
+                        }
+                    }
+                    world.func_147449_b(posx, posy - 1, posz, MFQM.DenseWebBlock);
+                    world.func_147449_b(posx, posy - 2, posz, MFQM.DenseWebBlock);
+                    if (this.validGroundMaterial(posx, posy + 1, posz, world) && !this.isWoodNear(posx, posy + 1, posz, world)) {
+                        world.func_147468_f(posx, posy + 1, posz);
+                    }
+                    if (!this.validGroundMaterial(posx, posy + 2, posz, world) || this.isWoodNear(posx, posy + 2, posz, world)) continue;
+                    boolean canGenW2 = true;
+                    if (world.func_147439_a(posx, posy + 1 + 2, posz).func_149688_o() == Material.field_151586_h) {
+                        canGenW2 = false;
+                    } else if (world.func_147439_a(posx + 1, posy + 2, posz).func_149688_o() == Material.field_151586_h) {
+                        canGenW2 = false;
+                    } else if (world.func_147439_a(posx - 1, posy + 2, posz).func_149688_o() == Material.field_151586_h) {
+                        canGenW2 = false;
+                    } else if (world.func_147439_a(posx, posy - 1 + 2, posz).func_149688_o() == Material.field_151586_h) {
+                        canGenW2 = false;
+                    } else if (world.func_147439_a(posx, posy + 2, posz - 1).func_149688_o() == Material.field_151586_h) {
+                        canGenW2 = false;
+                    } else if (world.func_147439_a(posx, posy + 2, posz + 1).func_149688_o() == Material.field_151586_h) {
+                        canGenW2 = false;
+                    }
+                    if (!canGenW2) continue;
+                    world.func_147468_f(posx, posy + 2, posz);
+                }
+            }
+        }
+        Block sblock = this.soilBlock(xx, zz, world);
+        Block fblock = this.fillerBlock(xx, zz, world);
+        for (int i = 0; i <= rad; ++i) {
+            for (int j = 0; j <= rad / 2 + 3; ++j) {
+                for (int e = 0; e <= rad; ++e) {
+                    int posx = xx + i - rad / 2;
+                    int posy = yy - j;
+                    int posz = zz + e - rad / 2;
+                    if (world.func_147439_a(posx, posy, posz) == Blocks.field_150474_ac || world.func_147439_a(posx, posy, posz) == MFQM.DenseWebBlock || world.func_147439_a(posx - 1, posy, posz) != MFQM.DenseWebBlock && world.func_147439_a(posx + 1, posy, posz) != MFQM.DenseWebBlock && world.func_147439_a(posx, posy + 1, posz) != MFQM.DenseWebBlock && world.func_147439_a(posx, posy, posz - 1) != MFQM.DenseWebBlock && world.func_147439_a(posx, posy, posz + 1) != MFQM.DenseWebBlock) continue;
+                    if (world.func_147439_a(posx, posy + 1, posz).func_149688_o().func_76220_a()) {
+                        world.func_147449_b(posx, posy, posz, fblock);
+                        continue;
+                    }
+                    world.func_147449_b(posx, posy, posz, sblock);
+                }
+            }
+        }
+    }

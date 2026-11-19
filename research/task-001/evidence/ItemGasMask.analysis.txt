@@ -1,0 +1,45 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  net.minecraft.client.renderer.texture.IIconRegister
+6:  *  net.minecraft.entity.Entity
+7:  *  net.minecraft.entity.player.EntityPlayer
+8:  *  net.minecraft.item.ItemArmor
+9:  *  net.minecraft.item.ItemArmor$ArmorMaterial
+10:  *  net.minecraft.item.ItemStack
+11:  *  net.minecraft.util.StatCollector
+12:  */
+13: package MoreFunQuicksandMod.main.items;
+14: 
+15: import MoreFunQuicksandMod.main.MFQM;
+16: import java.util.List;
+17: import net.minecraft.client.renderer.texture.IIconRegister;
+18: import net.minecraft.entity.Entity;
+19: import net.minecraft.entity.player.EntityPlayer;
+20: import net.minecraft.item.ItemArmor;
+21: import net.minecraft.item.ItemStack;
+22: import net.minecraft.util.StatCollector;
+23: 
+24: public class ItemGasMask
+25: extends ItemArmor {
+26:     public ItemGasMask(ItemArmor.ArmorMaterial armorMaterial, int renderIndex, int armorType) {
+27:         super(armorMaterial, renderIndex, armorType);
+28:         this.func_77655_b("GasMask");
+29:         this.func_77656_e(0);
+30:         this.func_77637_a(MFQM.tabMFQM);
+31:     }
+32: 
+33:     public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
+34:         return "morefunquicksandmod:textures/armor/gasmask.png";
+35:     }
+36: 
+37:     public void func_94581_a(IIconRegister iconRegister) {
+38:         this.field_77791_bV = iconRegister.func_94245_a("morefunquicksandmod:GasMask");
+39:     }
+40: 
+41:     public void func_77624_a(ItemStack item, EntityPlayer player, List list, boolean bool) {
+42:         list.add(StatCollector.func_74838_a((String)"itemGasMask.instruction"));
+43:     }
+44: }
+45: 

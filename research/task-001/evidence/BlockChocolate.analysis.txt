@@ -1,0 +1,130 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.block.Block
+8:  *  net.minecraft.block.material.Material
+9:  *  net.minecraft.client.renderer.texture.IIconRegister
+10:  *  net.minecraft.util.IIcon
+11:  *  net.minecraft.world.World
+12:  */
+13: package MoreFunQuicksandMod.main.blocks;
+14: 
+15: import MoreFunQuicksandMod.main.MFQM;
+16: import cpw.mods.fml.relauncher.Side;
+17: import cpw.mods.fml.relauncher.SideOnly;
+18: import java.util.Random;
+19: import net.minecraft.block.Block;
+20: import net.minecraft.block.material.Material;
+21: import net.minecraft.client.renderer.texture.IIconRegister;
+22: import net.minecraft.util.IIcon;
+23: import net.minecraft.world.World;
+24: 
+25: public class BlockChocolate
+26: extends Block {
+27:     IIcon theQIIcon;
+28: 
+29:     public BlockChocolate() {
+30:         super(Material.field_151576_e);
+31:         this.func_149711_c(0.85f);
+32:         this.func_149672_a(Block.field_149769_e);
+33:         this.func_149752_b(1.0f);
+34:         this.func_149663_c("ChocolateBlock");
+35:         this.func_149647_a(MFQM.tabMFQM);
+36:     }
+37: 
+38:     public void func_149674_a(World world, int x, int y, int z, Random rand) {
+39:         if (MFQM.LiqFixer) {
+40:             return;
+41:         }
+42:         int xx = x;
+43:         int yy = y;
+44:         int zz = z;
+45:         boolean isLavaNear = false;
+46:         boolean isFireNear = false;
+47:         int hot = 0;
+48:         for (int re = 0; re <= 6; ++re) {
+49:             switch (re) {
+50:                 case 0: {
+51:                     xx = x - 1;
+52:                     yy = y;
+53:                     zz = z;
+54:                     break;
+55:                 }
+56:                 case 1: {
+57:                     xx = x + 1;
+58:                     yy = y;
+59:                     zz = z;
+60:                     break;
+61:                 }
+62:                 case 2: {
+63:                     xx = x;
+64:                     yy = y;
+65:                     zz = z - 1;
+66:                     break;
+67:                 }
+68:                 case 3: {
+69:                     xx = x;
+70:                     yy = y;
+71:                     zz = z + 1;
+72:                     break;
+73:                 }
+74:                 case 4: {
+75:                     xx = x;
+76:                     yy = y - 1;
+77:                     zz = z;
+78:                     break;
+79:                 }
+80:                 case 5: {
+81:                     xx = x;
+82:                     yy = y + 1;
+83:                     zz = z;
+84:                 }
+85:             }
+86:             if (world.func_147439_a(xx, yy, zz).func_149688_o() == Material.field_151587_i) {
+87:                 isLavaNear = true;
+88:                 break;
+89:             }
+90:             if (world.func_147439_a(xx, yy, zz).func_149688_o() != Material.field_151581_o) continue;
+91:             isFireNear = true;
+92:             ++hot;
+93:         }
+94:         if (isLavaNear) {
+95:             world.func_72908_a((double)((float)x + 0.5f), (double)((float)y + 0.5f), (double)((float)z + 0.5f), "mob.silverfish.step", 0.25f, world.field_73012_v.nextFloat() * 0.15f + 0.1f);
+96:             world.func_147465_d(x, y, z, MFQM.LiquidChocolateBlock, 0, 3);
+97:             return;
+98:         }
+99:         if (hot > 0 && world.func_72805_g(x, y, z) == 0 && world.field_73012_v.nextInt(Math.max(15 - hot, 1)) == 0) {
+100:             world.func_147465_d(x, y, z, MFQM.LiquidChocolateBlock, 0, 3);
+101:             return;
+102:         }
+103:         super.func_149674_a(world, x, y, z, rand);
+104:     }
+105: 
+106:     public void func_149726_b(World par1World, int par2, int par3, int par4) {
+107:         if (MFQM.LiqFixer) {
+108:             return;
+109:         }
+110:         par1World.func_147464_a(par2, par3, par4, (Block)this, this.func_149738_a(par1World));
+111:     }
+112: 
+113:     public void func_149695_a(World par1World, int par2, int par3, int par4, Block par5) {
+114:         if (MFQM.LiqFixer) {
+115:             return;
+116:         }
+117:         par1World.func_147464_a(par2, par3, par4, (Block)this, this.func_149738_a(par1World));
+118:     }
+119: 
+120:     @SideOnly(value=Side.CLIENT)
+121:     public IIcon func_149691_a(int par1, int par2) {
+122:         return this.theQIIcon;
+123:     }
+124: 
+125:     @SideOnly(value=Side.CLIENT)
+126:     public void func_149651_a(IIconRegister par1IIconRegister) {
+127:         this.theQIIcon = par1IIconRegister.func_94245_a("morefunquicksandmod:Chocolate");
+128:     }
+129: }
+130: 

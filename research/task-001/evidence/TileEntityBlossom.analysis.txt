@@ -1,0 +1,70 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.entity.EntityLivingBase
+8:  *  net.minecraft.nbt.NBTTagCompound
+9:  *  net.minecraft.tileentity.TileEntity
+10:  *  net.minecraft.util.AxisAlignedBB
+11:  */
+12: package MoreFunQuicksandMod.main.Tileentity;
+13: 
+14: import cpw.mods.fml.relauncher.Side;
+15: import cpw.mods.fml.relauncher.SideOnly;
+16: import java.util.Iterator;
+17: import java.util.List;
+18: import net.minecraft.entity.EntityLivingBase;
+19: import net.minecraft.nbt.NBTTagCompound;
+20: import net.minecraft.tileentity.TileEntity;
+21: import net.minecraft.util.AxisAlignedBB;
+22: 
+23: public class TileEntityBlossom
+24: extends TileEntity {
+25:     public double phase = 0.0;
+26:     public double ampl = 0.25;
+27: 
+28:     public void func_145841_b(NBTTagCompound par1) {
+29:         super.func_145841_b(par1);
+30:     }
+31: 
+32:     public void func_145839_a(NBTTagCompound par1) {
+33:         super.func_145839_a(par1);
+34:     }
+35: 
+36:     public void func_145845_h() {
+37:         AxisAlignedBB var4 = null;
+38:         int meta = this.func_145831_w().func_72805_g(this.field_145851_c, this.field_145848_d, this.field_145849_e);
+39:         int side = meta - 6;
+40:         if (side == 0) {
+41:             var4 = AxisAlignedBB.func_72330_a((double)this.field_145851_c, (double)this.field_145848_d, (double)(this.field_145849_e - 1), (double)(this.field_145851_c + 1), (double)(this.field_145848_d + 1), (double)(this.field_145849_e + 1 - 1));
+42:         }
+43:         if (side == 1) {
+44:             var4 = AxisAlignedBB.func_72330_a((double)(this.field_145851_c + 1), (double)this.field_145848_d, (double)this.field_145849_e, (double)(this.field_145851_c + 1 + 1), (double)(this.field_145848_d + 1), (double)(this.field_145849_e + 1));
+45:         }
+46:         if (side == 2) {
+47:             var4 = AxisAlignedBB.func_72330_a((double)this.field_145851_c, (double)this.field_145848_d, (double)(this.field_145849_e + 1), (double)(this.field_145851_c + 1), (double)(this.field_145848_d + 1), (double)(this.field_145849_e + 1 + 1));
+48:         }
+49:         if (side == 3) {
+50:             var4 = AxisAlignedBB.func_72330_a((double)(this.field_145851_c - 1), (double)this.field_145848_d, (double)this.field_145849_e, (double)(this.field_145851_c + 1 - 1), (double)(this.field_145848_d + 1), (double)(this.field_145849_e + 1));
+51:         }
+52:         if (var4 != null && this.func_145831_w() != null) {
+53:             List var5 = this.func_145831_w().func_72872_a(EntityLivingBase.class, var4);
+54:             Iterator var6 = var5.iterator();
+55:             if (var6.hasNext()) {
+56:                 this.ampl += 0.002;
+57:             }
+58:             this.ampl -= 0.001;
+59:         }
+60:         this.ampl = Math.min(Math.max(this.ampl, 0.25), 0.3);
+61:     }
+62: 
+63:     @SideOnly(value=Side.CLIENT)
+64:     public AxisAlignedBB getRenderBoundingBox() {
+65:         AxisAlignedBB bb = INFINITE_EXTENT_AABB;
+66:         bb = AxisAlignedBB.func_72330_a((double)this.field_145851_c, (double)this.field_145848_d, (double)this.field_145849_e, (double)(this.field_145851_c + 1), (double)(this.field_145848_d + 1), (double)(this.field_145849_e + 1));
+67:         return bb;
+68:     }
+69: }
+70: 

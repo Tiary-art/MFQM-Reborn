@@ -1,0 +1,278 @@
+Archive: MoreFunQuicksandMod/main/client/RenderLongStick.class
+SHA256: 8ae22e64be68275dadc85115eedede0c913145140e8978195b630225c25ef421
+Superclass: java/lang/Object
+Offsets are decimal byte offsets; branch operands are relative offsets.
+
+
+METHOD <init> ()V
+000000: aload_0 
+000001: invokespecial #17 java/lang/Object.<init>:()V
+000004: return 
+
+METHOD handleRenderType (Lnet/minecraft/item/ItemStack;Lnet/minecraftforge/client/IItemRenderer$ItemRenderType;)Z
+000000: aload_2 
+000001: getstatic #25 net/minecraftforge/client/IItemRenderer$ItemRenderType.EQUIPPED:Lnet/minecraftforge/client/IItemRenderer$ItemRenderType;
+000004: if_acmpeq 10
+000007: aload_2 
+000008: getstatic #28 net/minecraftforge/client/IItemRenderer$ItemRenderType.EQUIPPED_FIRST_PERSON:Lnet/minecraftforge/client/IItemRenderer$ItemRenderType;
+000011: if_acmpne 7
+000014: iconst_1 
+000015: goto 4
+000018: iconst_0 
+000019: ireturn 
+
+METHOD shouldUseRenderHelper (Lnet/minecraftforge/client/IItemRenderer$ItemRenderType;Lnet/minecraft/item/ItemStack;Lnet/minecraftforge/client/IItemRenderer$ItemRendererHelper;)Z
+000000: iconst_0 
+000001: ireturn 
+
+METHOD renderItem (Lnet/minecraftforge/client/IItemRenderer$ItemRenderType;Lnet/minecraft/item/ItemStack;[Ljava/lang/Object;)V
+000000: dconst_0 
+000001: dstore 5
+000003: iconst_0 
+000004: istore 7
+000006: aload_3 
+000007: arraylength 
+000008: ifle 132
+000011: aload_3 
+000012: iconst_1 
+000013: aaload 
+000014: checkcast #40 net/minecraft/entity/Entity
+000017: astore 4
+000019: aload 4
+000021: instanceof #42 net/minecraft/entity/player/EntityPlayer
+000024: ifeq 119
+000027: aload 4
+000029: checkcast #42 net/minecraft/entity/player/EntityPlayer
+000032: astore 8
+000034: aload 8
+000036: invokevirtual #46 net/minecraft/entity/player/EntityPlayer.func_71052_bv:()I
+000039: istore 9
+000041: aload_2 
+000042: invokevirtual #51 net/minecraft/item/ItemStack.func_77988_m:()I
+000045: istore 10
+000047: bipush 100
+000049: istore 11
+000051: aload_2 
+000052: invokevirtual #51 net/minecraft/item/ItemStack.func_77988_m:()I
+000055: iconst_2 
+000056: idiv 
+000057: i2d 
+000058: invokestatic #57 java/lang/Math.floor:(D)D
+000061: d2i 
+000062: istore 12
+000064: iload 9
+000066: ifle 71
+000069: aload 4
+000071: getfield #61 net/minecraft/entity/Entity.field_70170_p:Lnet/minecraft/world/World;
+000074: aload 8
+000076: invokestatic #67 MoreFunQuicksandMod/main/items/ItemLongStick.CheckQS:(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/EntityPlayer;)I
+000079: iconst_1 
+000080: if_icmple 6
+000083: iconst_1 
+000084: istore 7
+000086: iload 9
+000088: iload 10
+000090: iconst_5 
+000091: isub 
+000092: if_icmpge 21
+000095: iload 7
+000097: ifeq 16
+000100: aload_2 
+000101: invokevirtual #51 net/minecraft/item/ItemStack.func_77988_m:()I
+000104: iload 9
+000106: isub 
+000107: i2d 
+000108: dstore 5
+000110: goto 17
+000113: ldc2_w #70 0.0001
+000116: iload 12
+000118: iload 9
+000120: isub 
+000121: i2d 
+000122: invokestatic #75 java/lang/Math.max:(DD)D
+000125: dstore 5
+000127: ldc2_w #70 0.0001
+000130: dload 5
+000132: invokestatic #75 java/lang/Math.max:(DD)D
+000135: dstore 5
+000137: goto 6
+000140: aconst_null 
+000141: astore 4
+000143: invokestatic #80 org/lwjgl/opengl/GL11.glPushMatrix:()V
+000146: ldc #81 -45.0
+000148: fconst_0 
+000149: fconst_0 
+000150: fconst_1 
+000151: invokestatic #85 org/lwjgl/opengl/GL11.glRotatef:(FFFF)V
+000154: ldc #86 0.30000001192092896
+000156: fconst_0 
+000157: fconst_0 
+000158: invokestatic #90 org/lwjgl/opengl/GL11.glTranslatef:(FFF)V
+000161: dload 5
+000163: dconst_0 
+000164: dcmpl 
+000165: ifle 118
+000168: ldc2_w #91 -1.0
+000171: dload 5
+000173: ddiv 
+000174: invokestatic #95 java/lang/Math.exp:(D)D
+000177: dstore 8
+000179: iload 7
+000181: ifeq 50
+000184: ldc2_w #96 -90.0
+000187: dload 8
+000189: dmul 
+000190: d2f 
+000191: fconst_0 
+000192: fconst_1 
+000193: fconst_0 
+000194: invokestatic #85 org/lwjgl/opengl/GL11.glRotatef:(FFFF)V
+000197: aload_1 
+000198: getstatic #28 net/minecraftforge/client/IItemRenderer$ItemRenderType.EQUIPPED_FIRST_PERSON:Lnet/minecraftforge/client/IItemRenderer$ItemRenderType;
+000201: if_acmpne 82
+000204: ldc2_w #98 -0.5
+000207: dload 8
+000209: dmul 
+000210: d2f 
+000211: ldc2_w #100 0.25
+000214: dload 8
+000216: dmul 
+000217: d2f 
+000218: ldc2_w #102 -0.10000000149011612
+000221: dload 8
+000223: dmul 
+000224: d2f 
+000225: invokestatic #90 org/lwjgl/opengl/GL11.glTranslatef:(FFF)V
+000228: goto 55
+000231: ldc2_w #96 -90.0
+000234: dconst_1 
+000235: dload 8
+000237: dsub 
+000238: dmul 
+000239: d2f 
+000240: fconst_0 
+000241: fconst_1 
+000242: fconst_0 
+000243: invokestatic #85 org/lwjgl/opengl/GL11.glRotatef:(FFFF)V
+000246: aload_1 
+000247: getstatic #28 net/minecraftforge/client/IItemRenderer$ItemRenderType.EQUIPPED_FIRST_PERSON:Lnet/minecraftforge/client/IItemRenderer$ItemRenderType;
+000250: if_acmpne 33
+000253: ldc2_w #98 -0.5
+000256: dconst_1 
+000257: dload 8
+000259: dsub 
+000260: dmul 
+000261: d2f 
+000262: ldc2_w #100 0.25
+000265: dconst_1 
+000266: dload 8
+000268: dsub 
+000269: dmul 
+000270: d2f 
+000271: ldc2_w #102 -0.10000000149011612
+000274: dconst_1 
+000275: dload 8
+000277: dsub 
+000278: dmul 
+000279: d2f 
+000280: invokestatic #90 org/lwjgl/opengl/GL11.glTranslatef:(FFF)V
+000283: ldc #104 -0.30000001192092896
+000285: fconst_0 
+000286: fconst_0 
+000287: invokestatic #90 org/lwjgl/opengl/GL11.glTranslatef:(FFF)V
+000290: ldc #105 45.0
+000292: fconst_0 
+000293: fconst_0 
+000294: fconst_1 
+000295: invokestatic #85 org/lwjgl/opengl/GL11.glRotatef:(FFFF)V
+000298: aload_1 
+000299: getstatic #28 net/minecraftforge/client/IItemRenderer$ItemRenderType.EQUIPPED_FIRST_PERSON:Lnet/minecraftforge/client/IItemRenderer$ItemRenderType;
+000302: if_acmpne 11
+000305: ldc #106 -0.20000000298023224
+000307: ldc #107 0.20000000298023224
+000309: fconst_0 
+000310: invokestatic #90 org/lwjgl/opengl/GL11.glTranslatef:(FFF)V
+000313: aload_0 
+000314: aload_1 
+000315: aload_2 
+000316: fconst_0 
+000317: fconst_0 
+000318: fconst_0 
+000319: invokevirtual #111 MoreFunQuicksandMod/main/client/RenderLongStick.renderStick:(Lnet/minecraftforge/client/IItemRenderer$ItemRenderType;Lnet/minecraft/item/ItemStack;FFF)V
+000322: invokestatic #114 org/lwjgl/opengl/GL11.glPopMatrix:()V
+000325: return 
+
+METHOD renderStick (Lnet/minecraftforge/client/IItemRenderer$ItemRenderType;Lnet/minecraft/item/ItemStack;FFF)V
+000000: invokestatic #80 org/lwjgl/opengl/GL11.glPushMatrix:()V
+000003: fload_3 
+000004: fload 4
+000006: fload 5
+000008: invokestatic #90 org/lwjgl/opengl/GL11.glTranslatef:(FFF)V
+000011: getstatic #135 net/minecraft/client/renderer/Tessellator.field_78398_a:Lnet/minecraft/client/renderer/Tessellator;
+000014: astore 6
+000016: aload_2 
+000017: invokevirtual #139 net/minecraft/item/ItemStack.func_77973_b:()Lnet/minecraft/item/Item;
+000020: checkcast #63 MoreFunQuicksandMod/main/items/ItemLongStick
+000023: getfield #143 MoreFunQuicksandMod/main/items/ItemLongStick.itemL1Icon:Lnet/minecraft/util/IIcon;
+000026: astore 7
+000028: aload 7
+000030: invokeinterface #149 net/minecraft/util/IIcon.func_94209_e:()F, 1, 0
+000035: fstore 8
+000037: aload 7
+000039: invokeinterface #152 net/minecraft/util/IIcon.func_94212_f:()F, 1, 0
+000044: fstore 9
+000046: aload 7
+000048: invokeinterface #155 net/minecraft/util/IIcon.func_94206_g:()F, 1, 0
+000053: fstore 10
+000055: aload 7
+000057: invokeinterface #158 net/minecraft/util/IIcon.func_94210_h:()F, 1, 0
+000062: fstore 11
+000064: ldc #159 0.25
+000066: fstore 12
+000068: ldc #160 0.75
+000070: fstore 13
+000072: invokestatic #80 org/lwjgl/opengl/GL11.glPushMatrix:()V
+000075: fload 12
+000077: fload 12
+000079: fneg 
+000080: fconst_0 
+000081: invokestatic #90 org/lwjgl/opengl/GL11.glTranslatef:(FFF)V
+000084: aload 6
+000086: fload 9
+000088: fload 10
+000090: fload 8
+000092: fload 11
+000094: aload 7
+000096: invokeinterface #163 net/minecraft/util/IIcon.func_94211_a:()I, 1, 0
+000101: aload 7
+000103: invokeinterface #166 net/minecraft/util/IIcon.func_94216_b:()I, 1, 0
+000108: ldc #167 0.0625
+000110: invokestatic #173 net/minecraft/client/renderer/ItemRenderer.func_78439_a:(Lnet/minecraft/client/renderer/Tessellator;FFFFIIF)V
+000113: invokestatic #114 org/lwjgl/opengl/GL11.glPopMatrix:()V
+000116: getstatic #135 net/minecraft/client/renderer/Tessellator.field_78398_a:Lnet/minecraft/client/renderer/Tessellator;
+000119: astore 6
+000121: aload_1 
+000122: getstatic #28 net/minecraftforge/client/IItemRenderer$ItemRenderType.EQUIPPED_FIRST_PERSON:Lnet/minecraftforge/client/IItemRenderer$ItemRenderType;
+000125: if_acmpne 7
+000128: ldc #174 1.184999942779541
+000130: fstore 13
+000132: invokestatic #80 org/lwjgl/opengl/GL11.glPushMatrix:()V
+000135: fload 13
+000137: fload 13
+000139: fneg 
+000140: fconst_0 
+000141: invokestatic #90 org/lwjgl/opengl/GL11.glTranslatef:(FFF)V
+000144: aload 6
+000146: fload 9
+000148: fload 10
+000150: fload 8
+000152: fload 11
+000154: aload 7
+000156: invokeinterface #163 net/minecraft/util/IIcon.func_94211_a:()I, 1, 0
+000161: aload 7
+000163: invokeinterface #166 net/minecraft/util/IIcon.func_94216_b:()I, 1, 0
+000168: ldc #167 0.0625
+000170: invokestatic #173 net/minecraft/client/renderer/ItemRenderer.func_78439_a:(Lnet/minecraft/client/renderer/Tessellator;FFFFIIF)V
+000173: invokestatic #114 org/lwjgl/opengl/GL11.glPopMatrix:()V
+000176: invokestatic #114 org/lwjgl/opengl/GL11.glPopMatrix:()V
+000179: return 

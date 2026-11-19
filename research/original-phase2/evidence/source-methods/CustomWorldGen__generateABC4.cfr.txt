@@ -1,0 +1,28 @@
+// CFR0.152; original decompiler line 7497; NOT original source; inspect **/goto artifacts if present.
+    private void generateABC4(World world, Random random, int chunkX, int chunkZ) {
+        int dHeight = 0;
+        boolean blockGen = false;
+        if (MFQM.GenSSand) {
+            for (int h = 0; h < 16; ++h) {
+                for (int v = 0; v < 16; ++v) {
+                    int firstBlockXCoord = chunkX + h;
+                    int firstBlockYCoord = 76 + dHeight;
+                    int firstBlockZCoord = chunkZ + v;
+                    boolean canGen = false;
+                    if (!this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                        canGen = true;
+                    }
+                    if (!canGen) continue;
+                    int depth = 20;
+                    if (!this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord - depth, firstBlockZCoord, world)) {
+                        world.func_147449_b(firstBlockXCoord, firstBlockYCoord - depth, firstBlockZCoord, Blocks.field_150348_b);
+                    }
+                    --depth;
+                    while (depth >= 0) {
+                        world.func_147449_b(firstBlockXCoord, firstBlockYCoord - depth, firstBlockZCoord, MFQM.SandBlock);
+                        --depth;
+                    }
+                }
+            }
+        }
+    }

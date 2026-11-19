@@ -1,0 +1,467 @@
+Archive: MoreFunQuicksandMod/main/CustomPotionEvent.class
+SHA256: 4098f0c86337e4b1a4ab543cb29a6382322afcf307d11cd3e9c3b83e679b3a35
+Superclass: java/lang/Object
+Offsets are decimal byte offsets; branch operands are relative offsets.
+
+
+METHOD <init> ()V
+000000: aload_0 
+000001: invokespecial #36 java/lang/Object.<init>:()V
+000004: return 
+
+METHOD onEntityConstructing (Lnet/minecraftforge/event/entity/EntityEvent$EntityConstructing;)V
+000000: aload_1 
+000001: getfield #45 net/minecraftforge/event/entity/EntityEvent$EntityConstructing.entity:Lnet/minecraft/entity/Entity;
+000004: instanceof #47 net/minecraft/entity/EntityLivingBase
+000007: ifeq 42
+000010: aload_1 
+000011: getfield #45 net/minecraftforge/event/entity/EntityEvent$EntityConstructing.entity:Lnet/minecraft/entity/Entity;
+000014: checkcast #47 net/minecraft/entity/EntityLivingBase
+000017: invokestatic #53 MoreFunQuicksandMod/main/PotionStuck.get:(Lnet/minecraft/entity/EntityLivingBase;)LMoreFunQuicksandMod/main/PotionStuck;
+000020: ifnonnull 16
+000023: aload_1 
+000024: getfield #45 net/minecraftforge/event/entity/EntityEvent$EntityConstructing.entity:Lnet/minecraft/entity/Entity;
+000027: checkcast #47 net/minecraft/entity/EntityLivingBase
+000030: invokestatic #57 MoreFunQuicksandMod/main/PotionStuck.register:(Lnet/minecraft/entity/EntityLivingBase;)V
+000033: goto 16
+000036: aload_1 
+000037: getfield #45 net/minecraftforge/event/entity/EntityEvent$EntityConstructing.entity:Lnet/minecraft/entity/Entity;
+000040: checkcast #47 net/minecraft/entity/EntityLivingBase
+000043: invokestatic #53 MoreFunQuicksandMod/main/PotionStuck.get:(Lnet/minecraft/entity/EntityLivingBase;)LMoreFunQuicksandMod/main/PotionStuck;
+000046: invokevirtual #60 MoreFunQuicksandMod/main/PotionStuck.DoInit:()V
+000049: return 
+
+METHOD onCheckSpawn (Lnet/minecraftforge/event/entity/living/LivingSpawnEvent$CheckSpawn;)V
+000000: aload_1 
+000001: getfield #65 net/minecraftforge/event/entity/living/LivingSpawnEvent$CheckSpawn.entity:Lnet/minecraft/entity/Entity;
+000004: ifnonnull 4
+000007: return 
+000008: aload_1 
+000009: getfield #65 net/minecraftforge/event/entity/living/LivingSpawnEvent$CheckSpawn.entity:Lnet/minecraft/entity/Entity;
+000012: invokestatic #71 net/minecraft/entity/EntityList.func_75621_b:(Lnet/minecraft/entity/Entity;)Ljava/lang/String;
+000015: astore_2 
+000016: aload_2 
+000017: ifnonnull 4
+000020: return 
+000021: aload_2 
+000022: invokevirtual #77 java/lang/String.toLowerCase:()Ljava/lang/String;
+000025: ldc #79 '(.*)nevermine.bushbaby(.*)'
+000027: invokevirtual #83 java/lang/String.matches:(Ljava/lang/String;)Z
+000030: ifeq 31
+000033: aload_1 
+000034: getfield #65 net/minecraftforge/event/entity/living/LivingSpawnEvent$CheckSpawn.entity:Lnet/minecraft/entity/Entity;
+000037: getfield #89 net/minecraft/entity/Entity.field_70170_p:Lnet/minecraft/world/World;
+000040: getfield #95 net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+000043: bipush 10
+000045: invokevirtual #101 java/util/Random.nextInt:(I)I
+000048: ifeq 464
+000051: aload_1 
+000052: getstatic #105 cpw/mods/fml/common/eventhandler/Event$Result.DENY:Lcpw/mods/fml/common/eventhandler/Event$Result;
+000055: invokevirtual #109 net/minecraftforge/event/entity/living/LivingSpawnEvent$CheckSpawn.setResult:(Lcpw/mods/fml/common/eventhandler/Event$Result;)V
+000058: goto 454
+000061: aload_2 
+000062: invokevirtual #77 java/lang/String.toLowerCase:()Ljava/lang/String;
+000065: ldc #111 '(.*)nevermine.chomper(.*)'
+000067: invokevirtual #83 java/lang/String.matches:(Ljava/lang/String;)Z
+000070: ifeq 31
+000073: aload_1 
+000074: getfield #65 net/minecraftforge/event/entity/living/LivingSpawnEvent$CheckSpawn.entity:Lnet/minecraft/entity/Entity;
+000077: getfield #89 net/minecraft/entity/Entity.field_70170_p:Lnet/minecraft/world/World;
+000080: getfield #95 net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+000083: bipush 20
+000085: invokevirtual #101 java/util/Random.nextInt:(I)I
+000088: ifeq 424
+000091: aload_1 
+000092: getstatic #105 cpw/mods/fml/common/eventhandler/Event$Result.DENY:Lcpw/mods/fml/common/eventhandler/Event$Result;
+000095: invokevirtual #109 net/minecraftforge/event/entity/living/LivingSpawnEvent$CheckSpawn.setResult:(Lcpw/mods/fml/common/eventhandler/Event$Result;)V
+000098: goto 414
+000101: aload_2 
+000102: invokevirtual #77 java/lang/String.toLowerCase:()Ljava/lang/String;
+000105: ldc #113 '(.*)nevermine.stinger(.*)'
+000107: invokevirtual #83 java/lang/String.matches:(Ljava/lang/String;)Z
+000110: ifeq 31
+000113: aload_1 
+000114: getfield #65 net/minecraftforge/event/entity/living/LivingSpawnEvent$CheckSpawn.entity:Lnet/minecraft/entity/Entity;
+000117: getfield #89 net/minecraft/entity/Entity.field_70170_p:Lnet/minecraft/world/World;
+000120: getfield #95 net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+000123: bipush 10
+000125: invokevirtual #101 java/util/Random.nextInt:(I)I
+000128: ifeq 384
+000131: aload_1 
+000132: getstatic #105 cpw/mods/fml/common/eventhandler/Event$Result.DENY:Lcpw/mods/fml/common/eventhandler/Event$Result;
+000135: invokevirtual #109 net/minecraftforge/event/entity/living/LivingSpawnEvent$CheckSpawn.setResult:(Lcpw/mods/fml/common/eventhandler/Event$Result;)V
+000138: goto 374
+000141: aload_2 
+000142: invokevirtual #77 java/lang/String.toLowerCase:()Ljava/lang/String;
+000145: ldc #115 '(.*)nevermine.trickster(.*)'
+000147: invokevirtual #83 java/lang/String.matches:(Ljava/lang/String;)Z
+000150: ifeq 31
+000153: aload_1 
+000154: getfield #65 net/minecraftforge/event/entity/living/LivingSpawnEvent$CheckSpawn.entity:Lnet/minecraft/entity/Entity;
+000157: getfield #89 net/minecraft/entity/Entity.field_70170_p:Lnet/minecraft/world/World;
+000160: getfield #95 net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+000163: bipush 50
+000165: invokevirtual #101 java/util/Random.nextInt:(I)I
+000168: ifeq 344
+000171: aload_1 
+000172: getstatic #105 cpw/mods/fml/common/eventhandler/Event$Result.DENY:Lcpw/mods/fml/common/eventhandler/Event$Result;
+000175: invokevirtual #109 net/minecraftforge/event/entity/living/LivingSpawnEvent$CheckSpawn.setResult:(Lcpw/mods/fml/common/eventhandler/Event$Result;)V
+000178: goto 334
+000181: aload_1 
+000182: getfield #65 net/minecraftforge/event/entity/living/LivingSpawnEvent$CheckSpawn.entity:Lnet/minecraft/entity/Entity;
+000185: getfield #89 net/minecraft/entity/Entity.field_70170_p:Lnet/minecraft/world/World;
+000188: getfield #119 net/minecraft/world/World.field_73011_w:Lnet/minecraft/world/WorldProvider;
+000191: getfield #125 net/minecraft/world/WorldProvider.field_76574_g:I
+000194: ifne 42
+000197: aload_2 
+000198: invokevirtual #77 java/lang/String.toLowerCase:()Ljava/lang/String;
+000201: ldc #127 '(.*)nevermine(.*)'
+000203: invokevirtual #83 java/lang/String.matches:(Ljava/lang/String;)Z
+000206: ifeq 306
+000209: aload_1 
+000210: getfield #65 net/minecraftforge/event/entity/living/LivingSpawnEvent$CheckSpawn.entity:Lnet/minecraft/entity/Entity;
+000213: getfield #89 net/minecraft/entity/Entity.field_70170_p:Lnet/minecraft/world/World;
+000216: getfield #95 net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+000219: iconst_3 
+000220: invokevirtual #101 java/util/Random.nextInt:(I)I
+000223: ifeq 289
+000226: aload_1 
+000227: getstatic #105 cpw/mods/fml/common/eventhandler/Event$Result.DENY:Lcpw/mods/fml/common/eventhandler/Event$Result;
+000230: invokevirtual #109 net/minecraftforge/event/entity/living/LivingSpawnEvent$CheckSpawn.setResult:(Lcpw/mods/fml/common/eventhandler/Event$Result;)V
+000233: goto 279
+000236: aload_1 
+000237: getfield #65 net/minecraftforge/event/entity/living/LivingSpawnEvent$CheckSpawn.entity:Lnet/minecraft/entity/Entity;
+000240: getfield #89 net/minecraft/entity/Entity.field_70170_p:Lnet/minecraft/world/World;
+000243: getfield #119 net/minecraft/world/World.field_73011_w:Lnet/minecraft/world/WorldProvider;
+000246: getfield #125 net/minecraft/world/WorldProvider.field_76574_g:I
+000249: iconst_m1 
+000250: if_icmpne 42
+000253: aload_2 
+000254: invokevirtual #77 java/lang/String.toLowerCase:()Ljava/lang/String;
+000257: ldc #127 '(.*)nevermine(.*)'
+000259: invokevirtual #83 java/lang/String.matches:(Ljava/lang/String;)Z
+000262: ifeq 250
+000265: aload_1 
+000266: getfield #65 net/minecraftforge/event/entity/living/LivingSpawnEvent$CheckSpawn.entity:Lnet/minecraft/entity/Entity;
+000269: getfield #89 net/minecraft/entity/Entity.field_70170_p:Lnet/minecraft/world/World;
+000272: getfield #95 net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+000275: iconst_2 
+000276: invokevirtual #101 java/util/Random.nextInt:(I)I
+000279: ifne 233
+000282: aload_1 
+000283: getstatic #105 cpw/mods/fml/common/eventhandler/Event$Result.DENY:Lcpw/mods/fml/common/eventhandler/Event$Result;
+000286: invokevirtual #109 net/minecraftforge/event/entity/living/LivingSpawnEvent$CheckSpawn.setResult:(Lcpw/mods/fml/common/eventhandler/Event$Result;)V
+000289: goto 223
+000292: aload_2 
+000293: invokevirtual #77 java/lang/String.toLowerCase:()Ljava/lang/String;
+000296: ldc #127 '(.*)nevermine(.*)'
+000298: invokevirtual #83 java/lang/String.matches:(Ljava/lang/String;)Z
+000301: ifeq 211
+000304: aload_1 
+000305: getfield #65 net/minecraftforge/event/entity/living/LivingSpawnEvent$CheckSpawn.entity:Lnet/minecraft/entity/Entity;
+000308: getfield #89 net/minecraft/entity/Entity.field_70170_p:Lnet/minecraft/world/World;
+000311: getfield #95 net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+000314: iconst_2 
+000315: invokevirtual #101 java/util/Random.nextInt:(I)I
+000318: ifne 13
+000321: aload_1 
+000322: getstatic #105 cpw/mods/fml/common/eventhandler/Event$Result.DENY:Lcpw/mods/fml/common/eventhandler/Event$Result;
+000325: invokevirtual #109 net/minecraftforge/event/entity/living/LivingSpawnEvent$CheckSpawn.setResult:(Lcpw/mods/fml/common/eventhandler/Event$Result;)V
+000328: goto 184
+000331: aload_1 
+000332: getfield #65 net/minecraftforge/event/entity/living/LivingSpawnEvent$CheckSpawn.entity:Lnet/minecraft/entity/Entity;
+000335: getfield #89 net/minecraft/entity/Entity.field_70170_p:Lnet/minecraft/world/World;
+000338: aload_1 
+000339: getfield #65 net/minecraftforge/event/entity/living/LivingSpawnEvent$CheckSpawn.entity:Lnet/minecraft/entity/Entity;
+000342: getfield #131 net/minecraft/entity/Entity.field_70165_t:D
+000345: invokestatic #137 java/lang/Math.floor:(D)D
+000348: d2i 
+000349: aload_1 
+000350: getfield #65 net/minecraftforge/event/entity/living/LivingSpawnEvent$CheckSpawn.entity:Lnet/minecraft/entity/Entity;
+000353: getfield #140 net/minecraft/entity/Entity.field_70161_v:D
+000356: invokestatic #137 java/lang/Math.floor:(D)D
+000359: d2i 
+000360: invokevirtual #144 net/minecraft/world/World.func_72807_a:(II)Lnet/minecraft/world/biome/BiomeGenBase;
+000363: astore_3 
+000364: aload_3 
+000365: getstatic #150 net/minecraft/entity/EnumCreatureType.monster:Lnet/minecraft/entity/EnumCreatureType;
+000368: invokevirtual #154 net/minecraft/world/biome/BiomeGenBase.func_76747_a:(Lnet/minecraft/entity/EnumCreatureType;)Ljava/util/List;
+000371: astore 4
+000373: fconst_0 
+000374: fstore 5
+000376: fconst_0 
+000377: fstore 6
+000379: fconst_0 
+000380: fstore 7
+000382: aload 4
+000384: invokeinterface #160 java/util/List.iterator:()Ljava/util/Iterator;, 1, 0
+000389: astore 8
+000391: aload 8
+000393: invokeinterface #166 java/util/Iterator.hasNext:()Z, 1, 0
+000398: ifeq 52
+000401: aload 8
+000403: invokeinterface #170 java/util/Iterator.next:()Ljava/lang/Object;, 1, 0
+000408: checkcast #17 net/minecraft/world/biome/BiomeGenBase$SpawnListEntry
+000411: astore 9
+000413: fload 5
+000415: aload 9
+000417: getfield #173 net/minecraft/world/biome/BiomeGenBase$SpawnListEntry.field_76292_a:I
+000420: i2f 
+000421: fadd 
+000422: fstore 5
+000424: aload 9
+000426: getfield #177 net/minecraft/world/biome/BiomeGenBase$SpawnListEntry.field_76300_b:Ljava/lang/Class;
+000429: aload_1 
+000430: getfield #65 net/minecraftforge/event/entity/living/LivingSpawnEvent$CheckSpawn.entity:Lnet/minecraft/entity/Entity;
+000433: invokevirtual #181 java/lang/Object.getClass:()Ljava/lang/Class;
+000436: if_acmpne 11
+000439: aload 9
+000441: getfield #173 net/minecraft/world/biome/BiomeGenBase$SpawnListEntry.field_76292_a:I
+000444: i2f 
+000445: fstore 6
+000447: goto -56
+000450: fload 6
+000452: fconst_0 
+000453: fcmpl 
+000454: ifle 58
+000457: fload 6
+000459: fload 5
+000461: fdiv 
+000462: fstore 7
+000464: fload 7
+000466: f2d 
+000467: ldc2_w #182 0.01
+000470: dcmpl 
+000471: ifle 41
+000474: aload_1 
+000475: getfield #65 net/minecraftforge/event/entity/living/LivingSpawnEvent$CheckSpawn.entity:Lnet/minecraft/entity/Entity;
+000478: getfield #89 net/minecraft/entity/Entity.field_70170_p:Lnet/minecraft/world/World;
+000481: getfield #95 net/minecraft/world/World.field_73012_v:Ljava/util/Random;
+000484: iconst_1 
+000485: fload 7
+000487: ldc #184 400.0
+000489: fmul 
+000490: invokestatic #188 java/lang/Math.round:(F)I
+000493: iadd 
+000494: bipush 32
+000496: invokestatic #192 java/lang/Math.min:(II)I
+000499: invokevirtual #101 java/util/Random.nextInt:(I)I
+000502: ifeq 10
+000505: aload_1 
+000506: getstatic #105 cpw/mods/fml/common/eventhandler/Event$Result.DENY:Lcpw/mods/fml/common/eventhandler/Event$Result;
+000509: invokevirtual #109 net/minecraftforge/event/entity/living/LivingSpawnEvent$CheckSpawn.setResult:(Lcpw/mods/fml/common/eventhandler/Event$Result;)V
+000512: return 
+
+METHOD onLivingUpdateEvent (Lnet/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent;)V
+000000: aload_1 
+000001: getfield #212 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000004: getstatic #218 net/minecraft/entity/SharedMonsterAttributes.field_111263_d:Lnet/minecraft/entity/ai/attributes/IAttribute;
+000007: invokevirtual #222 net/minecraft/entity/EntityLivingBase.func_110148_a:(Lnet/minecraft/entity/ai/attributes/IAttribute;)Lnet/minecraft/entity/ai/attributes/IAttributeInstance;
+000010: astore_2 
+000011: aload_2 
+000012: getstatic #224 MoreFunQuicksandMod/main/CustomPotionEvent.stuckModifierUUID:Ljava/util/UUID;
+000015: invokeinterface #230 net/minecraft/entity/ai/attributes/IAttributeInstance.func_111127_a:(Ljava/util/UUID;)Lnet/minecraft/entity/ai/attributes/AttributeModifier;, 2, 0
+000020: astore_3 
+000021: aload_3 
+000022: ifnull 10
+000025: aload_2 
+000026: aload_3 
+000027: invokeinterface #234 net/minecraft/entity/ai/attributes/IAttributeInstance.func_111124_b:(Lnet/minecraft/entity/ai/attributes/AttributeModifier;)V, 2, 0
+000032: aload_1 
+000033: getfield #212 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000036: invokestatic #53 MoreFunQuicksandMod/main/PotionStuck.get:(Lnet/minecraft/entity/EntityLivingBase;)LMoreFunQuicksandMod/main/PotionStuck;
+000039: astore 4
+000041: aload 4
+000043: ifnonnull 4
+000046: return 
+000047: aload 4
+000049: invokevirtual #240 MoreFunQuicksandMod/main/PotionStuck.getLevel:()I
+000052: ifle 206
+000055: aload 4
+000057: invokevirtual #240 MoreFunQuicksandMod/main/PotionStuck.getLevel:()I
+000060: iconst_5 
+000061: isub 
+000062: i2d 
+000063: dstore 5
+000065: dconst_0 
+000066: dstore 7
+000068: aload_1 
+000069: getfield #212 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000072: getfield #244 net/minecraft/entity/EntityLivingBase.field_70124_G:Z
+000075: ifne 6
+000078: dconst_1 
+000079: dstore 7
+000081: dload 5
+000083: ldc2_w #245 250.0
+000086: dcmpg 
+000087: ifge 80
+000090: aload_1 
+000091: getfield #212 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000094: dup 
+000095: getfield #249 net/minecraft/entity/EntityLivingBase.field_70747_aH:F
+000098: f2d 
+000099: dconst_1 
+000100: dload 5
+000102: dconst_1 
+000103: dload 7
+000105: ldc2_w #250 2.5
+000108: dmul 
+000109: dadd 
+000110: dmul 
+000111: ldc2_w #252 1000.0
+000114: ddiv 
+000115: dadd 
+000116: ldc2_w #254 8.0
+000119: invokestatic #259 java/lang/Math.pow:(DD)D
+000122: dconst_1 
+000123: invokestatic #262 java/lang/Math.max:(DD)D
+000126: ddiv 
+000127: d2f 
+000128: putfield #249 net/minecraft/entity/EntityLivingBase.field_70747_aH:F
+000131: dconst_1 
+000132: dconst_1 
+000133: dload 5
+000135: dconst_1 
+000136: dload 7
+000138: ldc2_w #263 2.0
+000141: ddiv 
+000142: dadd 
+000143: dmul 
+000144: ldc2_w #265 50.0
+000147: ddiv 
+000148: dadd 
+000149: ldc2_w #263 2.0
+000152: invokestatic #259 java/lang/Math.pow:(DD)D
+000155: ddiv 
+000156: ldc2_w #267 0.02
+000159: invokestatic #262 java/lang/Math.max:(DD)D
+000162: dstore 9
+000164: goto 16
+000167: aload_1 
+000168: getfield #212 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000171: fconst_0 
+000172: putfield #249 net/minecraft/entity/EntityLivingBase.field_70747_aH:F
+000175: ldc2_w #267 0.02
+000178: dstore 9
+000180: aload_1 
+000181: getfield #212 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000184: getfield #249 net/minecraft/entity/EntityLivingBase.field_70747_aH:F
+000187: f2d 
+000188: ldc2_w #269 0.005
+000191: dcmpg 
+000192: ifge 11
+000195: aload_1 
+000196: getfield #212 net/minecraftforge/event/entity/living/LivingEvent$LivingUpdateEvent.entityLiving:Lnet/minecraft/entity/EntityLivingBase;
+000199: fconst_0 
+000200: putfield #249 net/minecraft/entity/EntityLivingBase.field_70747_aH:F
+000203: aload_2 
+000204: getstatic #224 MoreFunQuicksandMod/main/CustomPotionEvent.stuckModifierUUID:Ljava/util/UUID;
+000207: invokeinterface #230 net/minecraft/entity/ai/attributes/IAttributeInstance.func_111127_a:(Ljava/util/UUID;)Lnet/minecraft/entity/ai/attributes/AttributeModifier;, 2, 0
+000212: astore_3 
+000213: aload_3 
+000214: ifnonnull 35
+000217: new #236 net/minecraft/entity/ai/attributes/AttributeModifier
+000220: dup 
+000221: getstatic #224 MoreFunQuicksandMod/main/CustomPotionEvent.stuckModifierUUID:Ljava/util/UUID;
+000224: ldc_w #272 'Slowdown entity'
+000227: dload 9
+000229: dconst_1 
+000230: dsub 
+000231: iconst_2 
+000232: invokespecial #275 net/minecraft/entity/ai/attributes/AttributeModifier.<init>:(Ljava/util/UUID;Ljava/lang/String;DI)V
+000235: iconst_0 
+000236: invokevirtual #279 net/minecraft/entity/ai/attributes/AttributeModifier.func_111168_a:(Z)Lnet/minecraft/entity/ai/attributes/AttributeModifier;
+000239: astore 11
+000241: aload_2 
+000242: aload 11
+000244: invokeinterface #282 net/minecraft/entity/ai/attributes/IAttributeInstance.func_111121_a:(Lnet/minecraft/entity/ai/attributes/AttributeModifier;)V, 2, 0
+000249: aload 4
+000251: iconst_0 
+000252: invokevirtual #286 MoreFunQuicksandMod/main/PotionStuck.setStuckLevel:(I)V
+000255: goto 17
+000258: aload 4
+000260: invokevirtual #240 MoreFunQuicksandMod/main/PotionStuck.getLevel:()I
+000263: ifne 9
+000266: aload 4
+000268: iconst_m1 
+000269: invokevirtual #286 MoreFunQuicksandMod/main/PotionStuck.setStuckLevel:(I)V
+000272: return 
+
+METHOD onFOVUpdateEvent (Lnet/minecraftforge/client/event/FOVUpdateEvent;)V
+000000: aload_1 
+000001: getfield #308 net/minecraftforge/client/event/FOVUpdateEvent.entity:Lnet/minecraft/client/entity/EntityPlayerSP;
+000004: astore_2 
+000005: aload_2 
+000006: invokestatic #53 MoreFunQuicksandMod/main/PotionStuck.get:(Lnet/minecraft/entity/EntityLivingBase;)LMoreFunQuicksandMod/main/PotionStuck;
+000009: astore_3 
+000010: aload_3 
+000011: ifnonnull 20
+000014: aload_1 
+000015: getfield #311 net/minecraftforge/client/event/FOVUpdateEvent.fov:F
+000018: f2d 
+000019: putstatic #316 MoreFunQuicksandMod/main/MFQM.SIFOV:D
+000022: aload_1 
+000023: aload_1 
+000024: getfield #311 net/minecraftforge/client/event/FOVUpdateEvent.fov:F
+000027: putfield #319 net/minecraftforge/client/event/FOVUpdateEvent.newfov:F
+000030: return 
+000031: aload_3 
+000032: invokevirtual #240 MoreFunQuicksandMod/main/PotionStuck.getLevel:()I
+000035: iflt 86
+000038: aload_1 
+000039: getstatic #316 MoreFunQuicksandMod/main/MFQM.SIFOV:D
+000042: d2f 
+000043: putfield #319 net/minecraftforge/client/event/FOVUpdateEvent.newfov:F
+000046: aload_2 
+000047: invokevirtual #324 net/minecraft/entity/player/EntityPlayer.func_71039_bw:()Z
+000050: ifeq 87
+000053: aload_2 
+000054: invokevirtual #328 net/minecraft/entity/player/EntityPlayer.func_71011_bu:()Lnet/minecraft/item/ItemStack;
+000057: invokevirtual #334 net/minecraft/item/ItemStack.func_77973_b:()Lnet/minecraft/item/Item;
+000060: getstatic #340 net/minecraft/init/Items.field_151031_f:Lnet/minecraft/item/ItemBow;
+000063: if_acmpne 74
+000066: aload_2 
+000067: invokevirtual #343 net/minecraft/entity/player/EntityPlayer.func_71057_bx:()I
+000070: istore 4
+000072: iload 4
+000074: i2f 
+000075: ldc_w #344 20.0
+000078: fdiv 
+000079: fstore 5
+000081: fload 5
+000083: fconst_1 
+000084: fcmpl 
+000085: ifle 9
+000088: fconst_1 
+000089: fstore 5
+000091: goto 10
+000094: fload 5
+000096: fload 5
+000098: fmul 
+000099: fstore 5
+000101: aload_1 
+000102: dup 
+000103: getfield #319 net/minecraftforge/client/event/FOVUpdateEvent.newfov:F
+000106: fconst_1 
+000107: fload 5
+000109: ldc_w #345 0.15000000596046448
+000112: fmul 
+000113: fsub 
+000114: fmul 
+000115: putfield #319 net/minecraftforge/client/event/FOVUpdateEvent.newfov:F
+000118: goto 19
+000121: aload_1 
+000122: getfield #311 net/minecraftforge/client/event/FOVUpdateEvent.fov:F
+000125: f2d 
+000126: putstatic #316 MoreFunQuicksandMod/main/MFQM.SIFOV:D
+000129: aload_1 
+000130: aload_1 
+000131: getfield #311 net/minecraftforge/client/event/FOVUpdateEvent.fov:F
+000134: putfield #319 net/minecraftforge/client/event/FOVUpdateEvent.newfov:F
+000137: return 
+
+METHOD <clinit> ()V
+000000: ldc_w #353 '73A49882-85A3-4896-AD2D-8C591E24AA62'
+000003: invokestatic #359 java/util/UUID.fromString:(Ljava/lang/String;)Ljava/util/UUID;
+000006: putstatic #224 MoreFunQuicksandMod/main/CustomPotionEvent.stuckModifierUUID:Ljava/util/UUID;
+000009: return 

@@ -1,0 +1,112 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  net.minecraft.client.renderer.ItemRenderer
+6:  *  net.minecraft.client.renderer.Tessellator
+7:  *  net.minecraft.entity.Entity
+8:  *  net.minecraft.entity.player.EntityPlayer
+9:  *  net.minecraft.item.ItemStack
+10:  *  net.minecraft.util.IIcon
+11:  *  net.minecraftforge.client.IItemRenderer
+12:  *  net.minecraftforge.client.IItemRenderer$ItemRenderType
+13:  *  net.minecraftforge.client.IItemRenderer$ItemRendererHelper
+14:  *  org.lwjgl.opengl.GL11
+15:  */
+16: package MoreFunQuicksandMod.main.client;
+17: 
+18: import MoreFunQuicksandMod.main.items.ItemLongStick;
+19: import net.minecraft.client.renderer.ItemRenderer;
+20: import net.minecraft.client.renderer.Tessellator;
+21: import net.minecraft.entity.Entity;
+22: import net.minecraft.entity.player.EntityPlayer;
+23: import net.minecraft.item.ItemStack;
+24: import net.minecraft.util.IIcon;
+25: import net.minecraftforge.client.IItemRenderer;
+26: import org.lwjgl.opengl.GL11;
+27: 
+28: public class RenderLongStick
+29: implements IItemRenderer {
+30:     public boolean handleRenderType(ItemStack itemStack, IItemRenderer.ItemRenderType type) {
+31:         return type == IItemRenderer.ItemRenderType.EQUIPPED || type == IItemRenderer.ItemRenderType.EQUIPPED_FIRST_PERSON;
+32:     }
+33: 
+34:     public boolean shouldUseRenderHelper(IItemRenderer.ItemRenderType type, ItemStack item, IItemRenderer.ItemRendererHelper helper) {
+35:         return false;
+36:     }
+37: 
+38:     public void renderItem(IItemRenderer.ItemRenderType type, ItemStack itemStack, Object ... data) {
+39:         double inUse = 0.0;
+40:         boolean IsSucStr = false;
+41:         if (data.length > 0) {
+42:             Entity entity = (Entity)data[1];
+43:             if (entity instanceof EntityPlayer) {
+44:                 EntityPlayer ply = (EntityPlayer)entity;
+45:                 int UC = ply.func_71052_bv();
+46:                 int U_MAX = itemStack.func_77988_m();
+47:                 int U_AL = 100;
+48:                 int U_CRT = (int)Math.floor(itemStack.func_77988_m() / 2);
+49:                 if (UC > 0) {
+50:                     if (ItemLongStick.CheckQS(entity.field_70170_p, ply) > 1) {
+51:                         IsSucStr = true;
+52:                     }
+53:                     inUse = UC < U_MAX - 5 && IsSucStr ? (double)(itemStack.func_77988_m() - UC) : Math.max(1.0E-4, (double)(U_CRT - UC));
+54:                     inUse = Math.max(1.0E-4, inUse);
+55:                 }
+56:             }
+57:         } else {
+58:             Object entity = null;
+59:         }
+60:         GL11.glPushMatrix();
+61:         GL11.glRotatef((float)-45.0f, (float)0.0f, (float)0.0f, (float)1.0f);
+62:         GL11.glTranslatef((float)0.3f, (float)0.0f, (float)0.0f);
+63:         if (inUse > 0.0) {
+64:             double Aexp = Math.exp(-1.0 / inUse);
+65:             if (IsSucStr) {
+66:                 GL11.glRotatef((float)((float)(-90.0 * Aexp)), (float)0.0f, (float)1.0f, (float)0.0f);
+67:                 if (type == IItemRenderer.ItemRenderType.EQUIPPED_FIRST_PERSON) {
+68:                     GL11.glTranslatef((float)((float)(-0.5 * Aexp)), (float)((float)(0.25 * Aexp)), (float)((float)((double)-0.1f * Aexp)));
+69:                 }
+70:             } else {
+71:                 GL11.glRotatef((float)((float)(-90.0 * (1.0 - Aexp))), (float)0.0f, (float)1.0f, (float)0.0f);
+72:                 if (type == IItemRenderer.ItemRenderType.EQUIPPED_FIRST_PERSON) {
+73:                     GL11.glTranslatef((float)((float)(-0.5 * (1.0 - Aexp))), (float)((float)(0.25 * (1.0 - Aexp))), (float)((float)((double)-0.1f * (1.0 - Aexp))));
+74:                 }
+75:             }
+76:         }
+77:         GL11.glTranslatef((float)-0.3f, (float)0.0f, (float)0.0f);
+78:         GL11.glRotatef((float)45.0f, (float)0.0f, (float)0.0f, (float)1.0f);
+79:         if (type == IItemRenderer.ItemRenderType.EQUIPPED_FIRST_PERSON) {
+80:             GL11.glTranslatef((float)-0.2f, (float)0.2f, (float)0.0f);
+81:         }
+82:         this.renderStick(type, itemStack, 0.0f, 0.0f, 0.0f);
+83:         GL11.glPopMatrix();
+84:     }
+85: 
+86:     public void renderStick(IItemRenderer.ItemRenderType type, ItemStack itemStack, float x, float y, float z) {
+87:         GL11.glPushMatrix();
+88:         GL11.glTranslatef((float)x, (float)y, (float)z);
+89:         Tessellator tessellator = Tessellator.field_78398_a;
+90:         IIcon var7 = ((ItemLongStick)itemStack.func_77973_b()).itemL1Icon;
+91:         float var9 = var7.func_94209_e();
+92:         float var10 = var7.func_94212_f();
+93:         float var11 = var7.func_94206_g();
+94:         float var12 = var7.func_94210_h();
+95:         float sh1 = 0.25f;
+96:         float sh2 = 0.75f;
+97:         GL11.glPushMatrix();
+98:         GL11.glTranslatef((float)sh1, (float)(-sh1), (float)0.0f);
+99:         ItemRenderer.func_78439_a((Tessellator)tessellator, (float)var10, (float)var11, (float)var9, (float)var12, (int)var7.func_94211_a(), (int)var7.func_94216_b(), (float)0.0625f);
+100:         GL11.glPopMatrix();
+101:         tessellator = Tessellator.field_78398_a;
+102:         if (type == IItemRenderer.ItemRenderType.EQUIPPED_FIRST_PERSON) {
+103:             sh2 = 1.185f;
+104:         }
+105:         GL11.glPushMatrix();
+106:         GL11.glTranslatef((float)sh2, (float)(-sh2), (float)0.0f);
+107:         ItemRenderer.func_78439_a((Tessellator)tessellator, (float)var10, (float)var11, (float)var9, (float)var12, (int)var7.func_94211_a(), (int)var7.func_94216_b(), (float)0.0625f);
+108:         GL11.glPopMatrix();
+109:         GL11.glPopMatrix();
+110:     }
+111: }
+112: 

@@ -1,0 +1,215 @@
+Archive: MoreFunQuicksandMod/main/CustomVarPlayer.class
+SHA256: cf7f48b5a7b46c61627cf920f7ad4a91dc8331757845a207b633aca225120332
+Superclass: java/lang/Object
+Offsets are decimal byte offsets; branch operands are relative offsets.
+
+
+METHOD <init> (Lnet/minecraft/entity/player/EntityPlayer;)V
+000000: aload_0 
+000001: invokespecial #22 java/lang/Object.<init>:()V
+000004: aload_0 
+000005: aload_1 
+000006: putfield #24 MoreFunQuicksandMod/main/CustomVarPlayer.player:Lnet/minecraft/entity/player/EntityPlayer;
+000009: aload_0 
+000010: getfield #24 MoreFunQuicksandMod/main/CustomVarPlayer.player:Lnet/minecraft/entity/player/EntityPlayer;
+000013: invokevirtual #30 net/minecraft/entity/player/EntityPlayer.func_70096_w:()Lnet/minecraft/entity/DataWatcher;
+000016: getstatic #32 MoreFunQuicksandMod/main/CustomVarPlayer.MUDDYLEVEL_WATCHER:I
+000019: iconst_0 
+000020: invokestatic #38 java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+000023: invokevirtual #44 net/minecraft/entity/DataWatcher.func_75682_a:(ILjava/lang/Object;)V
+000026: goto 44
+000029: astore_2 
+000030: aload_2 
+000031: new #46 java/lang/StringBuilder
+000034: dup 
+000035: invokespecial #47 java/lang/StringBuilder.<init>:()V
+000038: ldc #49 'Error initializing Covering System. Muddy Level DataWatcher ID conflict: '
+000040: invokevirtual #53 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000043: getstatic #58 MoreFunQuicksandMod/main/MFQM.MuddyLevel:I
+000046: invokevirtual #61 java/lang/StringBuilder.append:(I)Ljava/lang/StringBuilder;
+000049: ldc #63 ' with entity player '
+000051: invokevirtual #53 java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+000054: invokevirtual #67 java/lang/StringBuilder.toString:()Ljava/lang/String;
+000057: invokestatic #73 net/minecraft/crash/CrashReport.func_85055_a:(Ljava/lang/Throwable;Ljava/lang/String;)Lnet/minecraft/crash/CrashReport;
+000060: astore_3 
+000061: new #75 net/minecraft/util/ReportedException
+000064: dup 
+000065: aload_3 
+000066: invokespecial #78 net/minecraft/util/ReportedException.<init>:(Lnet/minecraft/crash/CrashReport;)V
+000069: athrow 
+000070: return 
+
+METHOD register (Lnet/minecraft/entity/player/EntityPlayer;)V
+000000: aload_0 
+000001: ldc #11 'PlayerMuddyControl'
+000003: new #2 MoreFunQuicksandMod/main/CustomVarPlayer
+000006: dup 
+000007: aload_0 
+000008: invokespecial #87 MoreFunQuicksandMod/main/CustomVarPlayer.<init>:(Lnet/minecraft/entity/player/EntityPlayer;)V
+000011: invokevirtual #91 net/minecraft/entity/player/EntityPlayer.registerExtendedProperties:(Ljava/lang/String;Lnet/minecraftforge/common/IExtendedEntityProperties;)Ljava/lang/String;
+000014: pop 
+000015: return 
+
+METHOD get (Lnet/minecraft/entity/player/EntityPlayer;)LMoreFunQuicksandMod/main/CustomVarPlayer;
+000000: aload_0 
+000001: ldc #11 'PlayerMuddyControl'
+000003: invokevirtual #97 net/minecraft/entity/player/EntityPlayer.getExtendedProperties:(Ljava/lang/String;)Lnet/minecraftforge/common/IExtendedEntityProperties;
+000006: checkcast #2 MoreFunQuicksandMod/main/CustomVarPlayer
+000009: areturn 
+
+METHOD saveNBTData (Lnet/minecraft/nbt/NBTTagCompound;)V
+000000: new #101 net/minecraft/nbt/NBTTagCompound
+000003: dup 
+000004: invokespecial #102 net/minecraft/nbt/NBTTagCompound.<init>:()V
+000007: astore_2 
+000008: aload_2 
+000009: ldc #103 'MuddyLevel'
+000011: aload_0 
+000012: getfield #24 MoreFunQuicksandMod/main/CustomVarPlayer.player:Lnet/minecraft/entity/player/EntityPlayer;
+000015: invokevirtual #30 net/minecraft/entity/player/EntityPlayer.func_70096_w:()Lnet/minecraft/entity/DataWatcher;
+000018: getstatic #32 MoreFunQuicksandMod/main/CustomVarPlayer.MUDDYLEVEL_WATCHER:I
+000021: invokevirtual #107 net/minecraft/entity/DataWatcher.func_75679_c:(I)I
+000024: invokevirtual #111 net/minecraft/nbt/NBTTagCompound.func_74768_a:(Ljava/lang/String;I)V
+000027: aload_1 
+000028: ldc #11 'PlayerMuddyControl'
+000030: aload_2 
+000031: invokevirtual #115 net/minecraft/nbt/NBTTagCompound.func_74782_a:(Ljava/lang/String;Lnet/minecraft/nbt/NBTBase;)V
+000034: return 
+
+METHOD loadNBTData (Lnet/minecraft/nbt/NBTTagCompound;)V
+000000: aload_1 
+000001: ldc #11 'PlayerMuddyControl'
+000003: invokevirtual #123 net/minecraft/nbt/NBTTagCompound.func_74781_a:(Ljava/lang/String;)Lnet/minecraft/nbt/NBTBase;
+000006: checkcast #101 net/minecraft/nbt/NBTTagCompound
+000009: astore_2 
+000010: aload_0 
+000011: getfield #24 MoreFunQuicksandMod/main/CustomVarPlayer.player:Lnet/minecraft/entity/player/EntityPlayer;
+000014: invokevirtual #30 net/minecraft/entity/player/EntityPlayer.func_70096_w:()Lnet/minecraft/entity/DataWatcher;
+000017: getstatic #32 MoreFunQuicksandMod/main/CustomVarPlayer.MUDDYLEVEL_WATCHER:I
+000020: aload_2 
+000021: ldc #103 'MuddyLevel'
+000023: invokevirtual #127 net/minecraft/nbt/NBTTagCompound.func_74762_e:(Ljava/lang/String;)I
+000026: invokestatic #38 java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+000029: invokevirtual #130 net/minecraft/entity/DataWatcher.func_75692_b:(ILjava/lang/Object;)V
+000032: return 
+
+METHOD init (Lnet/minecraft/entity/Entity;Lnet/minecraft/world/World;)V
+000000: return 
+
+METHOD getData ()I
+000000: aload_0 
+000001: getfield #24 MoreFunQuicksandMod/main/CustomVarPlayer.player:Lnet/minecraft/entity/player/EntityPlayer;
+000004: invokevirtual #30 net/minecraft/entity/player/EntityPlayer.func_70096_w:()Lnet/minecraft/entity/DataWatcher;
+000007: getstatic #32 MoreFunQuicksandMod/main/CustomVarPlayer.MUDDYLEVEL_WATCHER:I
+000010: invokevirtual #107 net/minecraft/entity/DataWatcher.func_75679_c:(I)I
+000013: ireturn 
+
+METHOD getMuddyLevel ()I
+000000: aload_0 
+000001: invokevirtual #141 MoreFunQuicksandMod/main/CustomVarPlayer.getData:()I
+000004: sipush 256
+000007: idiv 
+000008: sipush 255
+000011: iand 
+000012: ireturn 
+
+METHOD getMuddyTime ()I
+000000: aload_0 
+000001: invokevirtual #141 MoreFunQuicksandMod/main/CustomVarPlayer.getData:()I
+000004: ldc #143 65536
+000006: idiv 
+000007: ireturn 
+
+METHOD getMuddyType ()I
+000000: aload_0 
+000001: invokevirtual #141 MoreFunQuicksandMod/main/CustomVarPlayer.getData:()I
+000004: sipush 255
+000007: iand 
+000008: ireturn 
+
+METHOD setMuddyLevel (I)V
+000000: aload_0 
+000001: invokevirtual #141 MoreFunQuicksandMod/main/CustomVarPlayer.getData:()I
+000004: istore_2 
+000005: aload_0 
+000006: getfield #24 MoreFunQuicksandMod/main/CustomVarPlayer.player:Lnet/minecraft/entity/player/EntityPlayer;
+000009: invokevirtual #30 net/minecraft/entity/player/EntityPlayer.func_70096_w:()Lnet/minecraft/entity/DataWatcher;
+000012: getstatic #32 MoreFunQuicksandMod/main/CustomVarPlayer.MUDDYLEVEL_WATCHER:I
+000015: iload_2 
+000016: ldc #143 65536
+000018: idiv 
+000019: ldc #143 65536
+000021: imul 
+000022: iload_1 
+000023: sipush 256
+000026: imul 
+000027: ior 
+000028: iload_2 
+000029: sipush 255
+000032: iand 
+000033: ior 
+000034: invokestatic #38 java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+000037: invokevirtual #130 net/minecraft/entity/DataWatcher.func_75692_b:(ILjava/lang/Object;)V
+000040: return 
+
+METHOD setMuddyTime (I)V
+000000: aload_0 
+000001: getfield #24 MoreFunQuicksandMod/main/CustomVarPlayer.player:Lnet/minecraft/entity/player/EntityPlayer;
+000004: invokevirtual #30 net/minecraft/entity/player/EntityPlayer.func_70096_w:()Lnet/minecraft/entity/DataWatcher;
+000007: getstatic #32 MoreFunQuicksandMod/main/CustomVarPlayer.MUDDYLEVEL_WATCHER:I
+000010: aload_0 
+000011: invokevirtual #141 MoreFunQuicksandMod/main/CustomVarPlayer.getData:()I
+000014: ldc #150 65535
+000016: iand 
+000017: iload_1 
+000018: ldc #143 65536
+000020: imul 
+000021: ior 
+000022: invokestatic #38 java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+000025: invokevirtual #130 net/minecraft/entity/DataWatcher.func_75692_b:(ILjava/lang/Object;)V
+000028: return 
+
+METHOD setMuddyType (I)V
+000000: aload_0 
+000001: getfield #24 MoreFunQuicksandMod/main/CustomVarPlayer.player:Lnet/minecraft/entity/player/EntityPlayer;
+000004: invokevirtual #30 net/minecraft/entity/player/EntityPlayer.func_70096_w:()Lnet/minecraft/entity/DataWatcher;
+000007: getstatic #32 MoreFunQuicksandMod/main/CustomVarPlayer.MUDDYLEVEL_WATCHER:I
+000010: aload_0 
+000011: invokevirtual #141 MoreFunQuicksandMod/main/CustomVarPlayer.getData:()I
+000014: sipush 256
+000017: idiv 
+000018: sipush 256
+000021: imul 
+000022: iload_1 
+000023: ior 
+000024: invokestatic #38 java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+000027: invokevirtual #130 net/minecraft/entity/DataWatcher.func_75692_b:(ILjava/lang/Object;)V
+000030: return 
+
+METHOD addMuddyTime (I)V
+000000: aload_0 
+000001: invokevirtual #141 MoreFunQuicksandMod/main/CustomVarPlayer.getData:()I
+000004: istore_2 
+000005: aload_0 
+000006: getfield #24 MoreFunQuicksandMod/main/CustomVarPlayer.player:Lnet/minecraft/entity/player/EntityPlayer;
+000009: invokevirtual #30 net/minecraft/entity/player/EntityPlayer.func_70096_w:()Lnet/minecraft/entity/DataWatcher;
+000012: getstatic #32 MoreFunQuicksandMod/main/CustomVarPlayer.MUDDYLEVEL_WATCHER:I
+000015: iload_2 
+000016: ldc #150 65535
+000018: iand 
+000019: iload_1 
+000020: iload_2 
+000021: ldc #143 65536
+000023: idiv 
+000024: iadd 
+000025: ldc #143 65536
+000027: imul 
+000028: ior 
+000029: invokestatic #38 java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+000032: invokevirtual #130 net/minecraft/entity/DataWatcher.func_75692_b:(ILjava/lang/Object;)V
+000035: return 
+
+METHOD <clinit> ()V
+000000: getstatic #58 MoreFunQuicksandMod/main/MFQM.MuddyLevel:I
+000003: putstatic #32 MoreFunQuicksandMod/main/CustomVarPlayer.MUDDYLEVEL_WATCHER:I
+000006: return 

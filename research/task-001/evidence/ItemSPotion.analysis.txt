@@ -1,0 +1,75 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.client.renderer.texture.IIconRegister
+8:  *  net.minecraft.entity.Entity
+9:  *  net.minecraft.entity.EntityLivingBase
+10:  *  net.minecraft.entity.player.EntityPlayer
+11:  *  net.minecraft.item.Item
+12:  *  net.minecraft.item.ItemStack
+13:  *  net.minecraft.util.IIcon
+14:  *  net.minecraft.util.StatCollector
+15:  *  net.minecraft.world.World
+16:  */
+17: package MoreFunQuicksandMod.main.items;
+18: 
+19: import MoreFunQuicksandMod.main.MFQM;
+20: import MoreFunQuicksandMod.main.entity.EntitySPotion;
+21: import cpw.mods.fml.relauncher.Side;
+22: import cpw.mods.fml.relauncher.SideOnly;
+23: import java.util.List;
+24: import net.minecraft.client.renderer.texture.IIconRegister;
+25: import net.minecraft.entity.Entity;
+26: import net.minecraft.entity.EntityLivingBase;
+27: import net.minecraft.entity.player.EntityPlayer;
+28: import net.minecraft.item.Item;
+29: import net.minecraft.item.ItemStack;
+30: import net.minecraft.util.IIcon;
+31: import net.minecraft.util.StatCollector;
+32: import net.minecraft.world.World;
+33: 
+34: public class ItemSPotion
+35: extends Item {
+36:     public ItemSPotion() {
+37:         this.func_77625_d(1);
+38:         this.func_77655_b("SPotion");
+39:         this.func_77637_a(MFQM.tabMFQM);
+40:     }
+41: 
+42:     public int func_77626_a(ItemStack stk) {
+43:         return 32;
+44:     }
+45: 
+46:     public ItemStack func_77659_a(ItemStack stk, World world, EntityPlayer player) {
+47:         if (!player.field_71075_bZ.field_75098_d) {
+48:             --stk.field_77994_a;
+49:         }
+50:         world.func_72956_a((Entity)player, "random.bow", 0.5f, 0.4f / (field_77697_d.nextFloat() * 0.4f + 0.8f));
+51:         if (!world.field_72995_K) {
+52:             world.func_72838_d((Entity)new EntitySPotion(world, (EntityLivingBase)player, stk));
+53:         }
+54:         return stk;
+55:     }
+56: 
+57:     public boolean func_77648_a(ItemStack p_77648_1_, EntityPlayer p_77648_2_, World p_77648_3_, int p_77648_4_, int p_77648_5_, int p_77648_6_, int p_77648_7_, float p_77648_8_, float p_77648_9_, float p_77648_10_) {
+58:         return false;
+59:     }
+60: 
+61:     @SideOnly(value=Side.CLIENT)
+62:     public void func_94581_a(IIconRegister iuconRegister) {
+63:         this.field_77791_bV = iuconRegister.func_94245_a("morefunquicksandmod:SPotion");
+64:     }
+65: 
+66:     @SideOnly(value=Side.CLIENT)
+67:     public IIcon func_77617_a(int par1) {
+68:         return this.field_77791_bV;
+69:     }
+70: 
+71:     public void func_77624_a(ItemStack item, EntityPlayer player, List list, boolean bool) {
+72:         list.add(StatCollector.func_74838_a((String)"itemSPotion.Text"));
+73:     }
+74: }
+75: 

@@ -1,0 +1,93 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.entity.Entity
+8:  *  net.minecraft.entity.EntityLivingBase
+9:  *  net.minecraft.nbt.NBTTagCompound
+10:  *  net.minecraft.world.World
+11:  */
+12: package MoreFunQuicksandMod.main.entity;
+13: 
+14: import cpw.mods.fml.relauncher.Side;
+15: import cpw.mods.fml.relauncher.SideOnly;
+16: import net.minecraft.entity.Entity;
+17: import net.minecraft.entity.EntityLivingBase;
+18: import net.minecraft.nbt.NBTTagCompound;
+19: import net.minecraft.world.World;
+20: 
+21: public class EntitySlimeHole
+22: extends Entity {
+23:     public int ticksInWorld;
+24:     public int tickWorld;
+25:     public int size;
+26:     public float rotate;
+27: 
+28:     public EntitySlimeHole(World world) {
+29:         super(world);
+30:         this.func_70105_a(0.25f, 0.25f);
+31:         this.tickWorld = 0;
+32:         this.field_70158_ak = true;
+33:         if (!world.field_72995_K) {
+34:             this.func_70106_y();
+35:         }
+36:     }
+37: 
+38:     public EntitySlimeHole(World world, double x, double y, double z, Entity entity) {
+39:         this(world);
+40:         this.func_70107_b(x, y, z);
+41:         this.field_70158_ak = true;
+42:     }
+43: 
+44:     public EntitySlimeHole(World world, double x, double y, double z, int sizer, int tick, Entity entity) {
+45:         this(world, x, y, z, entity);
+46:         this.size = sizer;
+47:         this.tickWorld = tick;
+48:     }
+49: 
+50:     public EntitySlimeHole(World par1World, EntityLivingBase liv) {
+51:         super(par1World);
+52:         this.field_70158_ak = true;
+53:         this.func_70105_a(0.25f, 0.25f);
+54:         this.func_70107_b(this.field_70165_t, this.field_70163_u, this.field_70161_v);
+55:     }
+56: 
+57:     protected void func_70088_a() {
+58:     }
+59: 
+60:     @SideOnly(value=Side.CLIENT)
+61:     public boolean func_70112_a(double par1) {
+62:         double d1 = this.field_70121_D.func_72320_b() * 4.0;
+63:         return par1 < (d1 *= 64.0) * d1;
+64:     }
+65: 
+66:     public void func_70071_h_() {
+67:         if (!this.field_70170_p.field_72995_K) {
+68:             this.func_70106_y();
+69:             return;
+70:         }
+71:         super.func_70071_h_();
+72:         ++this.ticksInWorld;
+73:         if (this.tickWorld == 1) {
+74:             if (this.ticksInWorld > 10 && this.field_70170_p.func_82737_E() % 100L == 0L) {
+75:                 this.func_70106_y();
+76:             }
+77:         } else if (this.ticksInWorld > 100) {
+78:             this.func_70106_y();
+79:         }
+80:     }
+81: 
+82:     public void func_70014_b(NBTTagCompound par1NBTTagCompound) {
+83:     }
+84: 
+85:     public void func_70037_a(NBTTagCompound par1NBTTagCompound) {
+86:     }
+87: 
+88:     @SideOnly(value=Side.CLIENT)
+89:     public float func_70053_R() {
+90:         return 0.0f;
+91:     }
+92: }
+93: 

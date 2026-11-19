@@ -1,0 +1,84 @@
+import sys,zipfile,glob,hashlib,io,json,struct,csv,re,collections,pathlib
+sys.path.insert(0,'work/pydeps')
+from jawa.cf import ClassFile
+root=pathlib.Path('output/MFQM_Task_001'); reports=root/'reports'; ev=root/'evidence'; reports.mkdir(parents=True,exist_ok=True); ev.mkdir(exist_ok=True)
+p=pathlib.Path(glob.glob('attachments/*/*.jar')[0]); z=zipfile.ZipFile(p); sha=hashlib.sha256(p.read_bytes()).hexdigest()
+source=pathlib.Path('work/decompiled'); sources={str(f.relative_to(source)):f.read_text() for f in source.rglob('*.java')}
+def const(c):
+ if hasattr(c,'class_') and hasattr(c,'name_and_type'):return c.class_.name.value+'.'+c.name_and_type.name.value+':'+c.name_and_type.descriptor.value
+ if hasattr(c,'string'):return repr(c.string.value)
+ if hasattr(c,'value'):return repr(c.value)
+ if hasattr(c,'name'):return c.name.value
+ return repr(c)
+methods=[];classrows=[]
+for n in z.namelist():
+ if not n.endswith('.class'):continue
+ raw=z.read(n); c=ClassFile(io.BytesIO(raw)); out=[]
+ out.append('Archive: '+n+'\nSHA256: '+hashlib.sha256(raw).hexdigest()+'\nSuperclass: '+c.super_.name.value+'\nOffsets are decimal byte offsets; branch operands are relative offsets.\n')
+ for m in c.methods:
+  out.append('\nMETHOD '+m.name.value+' '+m.descriptor.value)
+  methods.append([n,m.name.value,m.descriptor.value,len(m.code._code) if m.code else 0])
+  if m.code:
+   for i in m.code.disassemble():
+    ops=[]
+    for o in i.operands:
+     if hasattr(o,'op_type'):ops.append('#'+str(o.value)+' '+const(c.constants.get(o.value)) if o.op_type.name=='CONSTANT_INDEX' else str(o.value))
+     else:ops.append(str(o))
+    out.append(f'{i.pos:06d}: {i.mnemonic} '+', '.join(ops))
+ (ev/(n[:-6].replace('/','__')+'.bytecode.txt')).write_text('\n'.join(out))
+ classrows.append([n,c.super_.name.value,hashlib.sha256(raw).hexdigest(),len(raw)])
+def csvwrite(path,heads,rows):
+ with open(path,'w',newline='',encoding='utf-8-sig') as f:w=csv.writer(f);w.writerow(heads);w.writerows(rows)
+csvwrite(ev/'classes.csv',['class_path','superclass','sha256','size'],classrows)
+csvwrite(ev/'methods.csv',['class_path','method','descriptor','code_bytes'],methods)
+csvwrite(ev/'archive_entries.csv',['path','size','compressed_size','crc32','sha256'],[[i.filename,i.file_size,i.compress_size,f'{i.CRC:08x}',hashlib.sha256(z.read(i)).hexdigest() if not i.is_dir() else ''] for i in z.infolist()])
+for n in z.namelist():
+ if n.endswith(('.lang','.json','.info','.MF')):
+  (ev/n.replace('/','__')).write_bytes(z.read(n))
+# numbered analysis text for reproducible interpretation; not a new Java implementation
+for name in ['MFQM','CustomRegister','CustomVarPlayer','MuddyEvent','AirEvent','PotionStuck','CustomPotionEvent','RopeMessage','HookMessage','RescueMessage']:
+ f=source/'MoreFunQuicksandMod/main'/f'{name}.java';(ev/(name+'.analysis.txt')).write_text('\n'.join(f'{i}: {l}' for i,l in enumerate(f.read_text().splitlines(),1)))
+for f in (source/'MoreFunQuicksandMod/main/blocks').glob('*.java'):
+ (ev/(f.stem+'.analysis.txt')).write_text('\n'.join(f'{i}: {l}' for i,l in enumerate(f.read_text().splitlines(),1)))
+# exact literal and dynamic texture call evidence
+texturecalls=[]
+for f,txt in sources.items():
+ for i,line in enumerate(txt.splitlines(),1):
+  if 'func_94245_a(' in line or 'func_111206_d(' in line:
+   texturecalls.append([f,i,line.strip()])
+csvwrite(ev/'texture_calls.csv',['analysis_class','line','expression'],texturecalls)
+rows=[]
+for n in z.namelist():
+ if '/textures/blocks/' not in n or not n.endswith('.png'):continue
+ w,h=struct.unpack('>II',z.read(n)[16:24]); stem=pathlib.PurePosixPath(n).stem; mc=n+'.mcmeta'; meta=json.loads(z.read(mc)) if mc in z.namelist() else {}; anim=meta.get('animation'); refs=[]; dynamic=[]
+ for f,i,line in texturecalls:
+  if 'func_94245_a' not in line and '/blocks/' not in f and '/liquids/' not in f and not f.endswith('/MFQM.java'):continue
+  for lit in re.findall(r'"morefunquicksandmod:([^"\n]*)"',line):
+   if lit==stem and not re.search(re.escape('"morefunquicksandmod:'+lit+'"')+r'\s*\+',line):refs.append(f+':'+str(i)+' '+line)
+   elif stem.startswith(lit) and re.search(re.escape('"morefunquicksandmod:'+lit+'"')+r'\s*\+',line):dynamic.append(f+':'+str(i)+' '+line)
+ if anim is not None:kind='纵向动画图（元数据确认）' if h>w and h%w==0 else '有 animation 元数据（帧布局需按元数据解析）'
+ else:kind='纵向条带候选，未确认动画' if h>w and h%w==0 else '普通图像；无 animation 元数据'
+ # 1.7 defaults square width unless overridden; preserve raw metadata so explicit frames retained
+ fw=anim.get('width',w) if isinstance(anim,dict) else w;fh=anim.get('height',fw) if isinstance(anim,dict) else w
+ count=(w//fw)*(h//fh) if fw and fh and w%fw==0 and h%fh==0 else ''
+ rows.append([n,stem+'.png',w,h,kind,mc if meta else '',json.dumps(meta,ensure_ascii=False) if meta else '',count,'; '.join(refs),'; '.join(dynamic),'有精确图标注册引用；具体状态选择见对应类 func_149691_a/func_149673_e' if refs else '待确认：动态拼接引用候选需核对循环/状态' if dynamic else '仅确认资源存在；未找到精确图标引用，不等于未使用'])
+csvwrite(reports/'04_texture_inventory.csv',['original_path','filename','width','height','animation_classification','mcmeta_path','mcmeta_json','square_frame_capacity','exact_icon_references','dynamic_reference_candidates','mapping_and_unknowns'],rows)
+# All registration/recipe/config statements with surrounding context, including multiline and gates
+mf=sources['MoreFunQuicksandMod/main/MFQM.java'].splitlines()
+for name,pattern in [('registration_calls',r'register(Block|Item|ModEntity|GlobalEntityID|Fluid|TileEntity|WorldGenerator|Message)|newSimpleChannel|addSpawn|customRegister'),('recipe_calls',r'addRecipe|addShapelessRecipe|addSmelting|registerFuelHandler'),('config_and_compatibility',r'config\.get\(|Loader.isModLoaded|GameRegistry.find|BoP =|TBL =|ABC =|WLD =|AOA =')]:
+ inds=set()
+ for i,l in enumerate(mf):
+  if re.search(pattern,l):inds.update(range(max(0,i-4),min(len(mf),i+3)))
+ (ev/(name+'.txt')).write_text('\n'.join(f'{i+1}: {mf[i]}' for i in sorted(inds)))
+# key literal reference actual string pool external packages
+extern=set()
+for n in z.namelist():
+ if n.endswith('.class'):
+  c=ClassFile(io.BytesIO(z.read(n)))
+  for k in c.constants:
+   if type(k).__name__=='ConstantClass':
+    val=k.name.value
+    if not val.startswith(('MoreFunQuicksandMod/','java/','[','net/minecraft/','net/minecraftforge/','cpw/mods/','org/lwjgl/','io/netty/','com/google/')):extern.add(val)
+(ev/'external_class_references.txt').write_text('\n'.join(sorted(extern)))
+summary={'jar':str(p),'sha256_before':sha,'size_bytes':p.stat().st_size,'entries':len(z.infolist()),'files':sum(not i.is_dir() for i in z.infolist()),'classes':len(classrows),'methods':len(methods),'block_png':len(rows),'png':sum(n.endswith('.png') for n in z.namelist()),'block_mcmeta':sum('/textures/blocks/' in n and n.endswith('.mcmeta') for n in z.namelist()),'block_animation_meta':sum(bool(r[5]) for r in rows),'dimensions':dict(collections.Counter(f'{r[2]}x{r[3]}' for r in rows)),'no_exact_texture_ref':sum(not r[8] for r in rows),'cfr_sha256':hashlib.sha256(pathlib.Path('work/cfr.jar').read_bytes()).hexdigest()}
+(ev/'audit.json').write_text(json.dumps(summary,indent=2,ensure_ascii=False));print(json.dumps(summary,indent=2,ensure_ascii=False))

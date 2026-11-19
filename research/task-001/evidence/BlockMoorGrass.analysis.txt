@@ -1,0 +1,254 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.block.Block
+8:  *  net.minecraft.block.BlockBush
+9:  *  net.minecraft.block.material.Material
+10:  *  net.minecraft.client.renderer.texture.IIconRegister
+11:  *  net.minecraft.creativetab.CreativeTabs
+12:  *  net.minecraft.entity.player.EntityPlayer
+13:  *  net.minecraft.init.Blocks
+14:  *  net.minecraft.init.Items
+15:  *  net.minecraft.item.Item
+16:  *  net.minecraft.item.ItemStack
+17:  *  net.minecraft.util.IIcon
+18:  *  net.minecraft.world.ColorizerFoliage
+19:  *  net.minecraft.world.ColorizerGrass
+20:  *  net.minecraft.world.Explosion
+21:  *  net.minecraft.world.IBlockAccess
+22:  *  net.minecraft.world.World
+23:  *  net.minecraftforge.common.IShearable
+24:  */
+25: package MoreFunQuicksandMod.main.blocks;
+26: 
+27: import MoreFunQuicksandMod.main.MFQM;
+28: import cpw.mods.fml.relauncher.Side;
+29: import cpw.mods.fml.relauncher.SideOnly;
+30: import java.util.ArrayList;
+31: import java.util.List;
+32: import java.util.Random;
+33: import net.minecraft.block.Block;
+34: import net.minecraft.block.BlockBush;
+35: import net.minecraft.block.material.Material;
+36: import net.minecraft.client.renderer.texture.IIconRegister;
+37: import net.minecraft.creativetab.CreativeTabs;
+38: import net.minecraft.entity.player.EntityPlayer;
+39: import net.minecraft.init.Blocks;
+40: import net.minecraft.init.Items;
+41: import net.minecraft.item.Item;
+42: import net.minecraft.item.ItemStack;
+43: import net.minecraft.util.IIcon;
+44: import net.minecraft.world.ColorizerFoliage;
+45: import net.minecraft.world.ColorizerGrass;
+46: import net.minecraft.world.Explosion;
+47: import net.minecraft.world.IBlockAccess;
+48: import net.minecraft.world.World;
+49: import net.minecraftforge.common.IShearable;
+50: 
+51: public class BlockMoorGrass
+52: extends BlockBush
+53: implements IShearable {
+54:     @SideOnly(value=Side.CLIENT)
+55:     private IIcon[] IIconArray;
+56: 
+57:     public BlockMoorGrass() {
+58:         super(Material.field_151582_l);
+59:         float f = 0.4f;
+60:         float height = 0.8f;
+61:         this.func_149676_a(0.5f - f, 0.0f, 0.5f - f, 0.5f + f, height, 0.5f + f);
+62:         this.func_149663_c("MoorGrass");
+63:         this.func_149711_c(0.0f);
+64:         this.func_149672_a(field_149779_h);
+65:         this.func_149675_a(true);
+66:     }
+67: 
+68:     public void func_149719_a(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
+69:         int j = par1IBlockAccess.func_72805_g(par2, par3, par4);
+70:         float f = 0.4f;
+71:         float height = 0.8f;
+72:         switch (j) {
+73:             case 3: 
+74:             case 4: 
+75:             case 5: {
+76:                 height = 0.25f;
+77:             }
+78:         }
+79:         this.func_149676_a(0.5f - f, 0.0f, 0.5f - f, 0.5f + f, height, 0.5f + f);
+80:     }
+81: 
+82:     public void func_149674_a(World world, int x, int y, int z, Random rand) {
+83:         if (MFQM.LiqFixer) {
+84:             return;
+85:         }
+86:         if (world.func_72805_g(x, y, z) == 4 && world.field_73012_v.nextInt(10) == 0 && (world.func_147439_a(x, y - 1, z) == MFQM.MorassBlock || world.func_147439_a(x, y - 1, z) == MFQM.BogBlock)) {
+87:             world.func_147465_d(x, y, z, (Block)this, 5, 3);
+88:         }
+89:         super.func_149674_a(world, x, y, z, rand);
+90:     }
+91: 
+92:     @SideOnly(value=Side.CLIENT)
+93:     public IIcon func_149691_a(int par1, int par2) {
+94:         switch (par2) {
+95:             case 3: {
+96:                 return this.IIconArray[1];
+97:             }
+98:             case 4: {
+99:                 return this.IIconArray[1];
+100:             }
+101:             case 5: {
+102:                 return this.IIconArray[2];
+103:             }
+104:         }
+105:         return this.IIconArray[0];
+106:     }
+107: 
+108:     public Item func_149650_a(int par1, Random par2Random, int par3) {
+109:         if (par1 < 3) {
+110:             return par2Random.nextInt(8) == 0 ? Items.field_151014_N : null;
+111:         }
+112:         if (par1 == 5) {
+113:             return MFQM.CberryItem;
+114:         }
+115:         return null;
+116:     }
+117: 
+118:     public boolean func_149727_a(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
+119:         if (par1World.field_72995_K) {
+120:             return true;
+121:         }
+122:         if (par1World.func_72805_g(par2, par3, par4) == 5) {
+123:             par1World.func_147465_d(par2, par3, par4, (Block)this, 4, 3);
+124:             MFQM.dropItem(par1World, par2, par3, par4, new ItemStack(MFQM.CberryItem, this.func_149745_a(par1World.field_73012_v)));
+125:         }
+126:         return true;
+127:     }
+128: 
+129:     public int func_149745_a(Random par1Random) {
+130:         return 2 + par1Random.nextInt(4);
+131:     }
+132: 
+133:     public int quantityDropped(int meta, int fortune, Random par1Random) {
+134:         if (meta == 5) {
+135:             return this.func_149745_a(par1Random);
+136:         }
+137:         return 1 + par1Random.nextInt(fortune * 2 + 1);
+138:     }
+139: 
+140:     public int func_149679_a(int par1, Random par2Random) {
+141:         return 1 + par2Random.nextInt(par1 * 2 + 1);
+142:     }
+143: 
+144:     public void func_149636_a(World par1World, EntityPlayer par2EntityPlayer, int par3, int par4, int par5, int par6) {
+145:         super.func_149636_a(par1World, par2EntityPlayer, par3, par4, par5, par6);
+146:     }
+147: 
+148:     @SideOnly(value=Side.CLIENT)
+149:     public int func_149635_D() {
+150:         double d0 = 0.5;
+151:         double d1 = 1.0;
+152:         return ColorizerGrass.func_77480_a((double)d0, (double)d1);
+153:     }
+154: 
+155:     @SideOnly(value=Side.CLIENT)
+156:     public int func_149741_i(int par1) {
+157:         switch (par1) {
+158:             case 0: {
+159:                 return 10536285;
+160:             }
+161:             case 2: {
+162:                 return 10536285;
+163:             }
+164:             case 3: {
+165:                 return 0xFFFFFF;
+166:             }
+167:             case 4: {
+168:                 return 0xFFFFFF;
+169:             }
+170:             case 5: {
+171:                 return 0xFFFFFF;
+172:             }
+173:         }
+174:         return ColorizerFoliage.func_77468_c();
+175:     }
+176: 
+177:     @SideOnly(value=Side.CLIENT)
+178:     public int func_149720_d(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
+179:         int l = par1IBlockAccess.func_72805_g(par2, par3, par4);
+180:         switch (l) {
+181:             case 0: {
+182:                 return 10536285;
+183:             }
+184:             case 2: {
+185:                 return 10536285;
+186:             }
+187:             case 3: {
+188:                 return 0xFFFFFF;
+189:             }
+190:             case 4: {
+191:                 return 0xFFFFFF;
+192:             }
+193:             case 5: {
+194:                 return 0xFFFFFF;
+195:             }
+196:         }
+197:         return par1IBlockAccess.func_72807_a(par2, par4).func_150558_b(par2, par3, par4);
+198:     }
+199: 
+200:     public int func_149643_k(World par1World, int par2, int par3, int par4) {
+201:         return par1World.func_72805_g(par2, par3, par4);
+202:     }
+203: 
+204:     @SideOnly(value=Side.CLIENT)
+205:     public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List) {
+206:         par3List.add(new ItemStack((Block)this, 1, 0));
+207:         par3List.add(new ItemStack((Block)this, 1, 1));
+208:         par3List.add(new ItemStack((Block)this, 1, 2));
+209:         par3List.add(new ItemStack((Block)this, 1, 3));
+210:         par3List.add(new ItemStack((Block)this, 1, 4));
+211:         par3List.add(new ItemStack((Block)this, 1, 5));
+212:     }
+213: 
+214:     @SideOnly(value=Side.CLIENT)
+215:     public void func_149651_a(IIconRegister par1IIconRegister) {
+216:         this.IIconArray = new IIcon[3];
+217:         this.IIconArray[0] = par1IIconRegister.func_94245_a("tallgrass");
+218:         this.IIconArray[1] = par1IIconRegister.func_94245_a("morefunquicksandmod:bog_grass");
+219:         this.IIconArray[2] = par1IIconRegister.func_94245_a("morefunquicksandmod:bog_grass_cberry");
+220:     }
+221: 
+222:     public boolean func_149718_j(World world, int x, int y, int z) {
+223:         if (world.func_147439_a(x, y - 1, z) == MFQM.WetPeatBlock || world.func_147439_a(x, y - 1, z) == MFQM.MireBlock) {
+224:             return false;
+225:         }
+226:         return world.func_147439_a(x, y - 1, z).func_149688_o().func_76220_a() || world.func_147439_a(x, y - 1, z).func_149688_o().func_76224_d();
+227:     }
+228: 
+229:     protected boolean canThisPlantGrowOnThisBlock(Block par1) {
+230:         if (par1 == MFQM.WetPeatBlock || par1 == MFQM.MireBlock) {
+231:             return false;
+232:         }
+233:         return par1 != Blocks.field_150350_a;
+234:     }
+235: 
+236:     public boolean func_149659_a(Explosion par1Explosion) {
+237:         return false;
+238:     }
+239: 
+240:     public boolean isShearable(ItemStack item, IBlockAccess world, int x, int y, int z) {
+241:         return true;
+242:     }
+243: 
+244:     public ArrayList<ItemStack> onSheared(ItemStack item, IBlockAccess world, int x, int y, int z, int fortune) {
+245:         ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
+246:         int meta = world.func_72805_g(x, y, z);
+247:         if (meta == 5) {
+248:             meta = 4;
+249:         }
+250:         ret.add(new ItemStack((Block)this, 1, meta));
+251:         return ret;
+252:     }
+253: }
+254: 

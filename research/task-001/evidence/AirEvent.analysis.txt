@@ -1,0 +1,170 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.common.eventhandler.SubscribeEvent
+6:  *  net.minecraft.client.Minecraft
+7:  *  net.minecraft.crash.CrashReport
+8:  *  net.minecraft.entity.Entity
+9:  *  net.minecraft.entity.EntityLivingBase
+10:  *  net.minecraft.entity.player.EntityPlayer
+11:  *  net.minecraft.item.Item
+12:  *  net.minecraft.item.ItemStack
+13:  *  net.minecraft.util.ReportedException
+14:  *  net.minecraftforge.event.entity.EntityEvent$EntityConstructing
+15:  *  net.minecraftforge.event.entity.living.LivingAttackEvent
+16:  *  net.minecraftforge.event.entity.living.LivingEvent$LivingUpdateEvent
+17:  */
+18: package MoreFunQuicksandMod.main;
+19: 
+20: import MoreFunQuicksandMod.main.MFQM;
+21: import MoreFunQuicksandMod.main.entity.EntityRope;
+22: import MoreFunQuicksandMod.main.items.ItemLongStick;
+23: import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+24: import net.minecraft.client.Minecraft;
+25: import net.minecraft.crash.CrashReport;
+26: import net.minecraft.entity.Entity;
+27: import net.minecraft.entity.EntityLivingBase;
+28: import net.minecraft.entity.player.EntityPlayer;
+29: import net.minecraft.item.Item;
+30: import net.minecraft.item.ItemStack;
+31: import net.minecraft.util.ReportedException;
+32: import net.minecraftforge.event.entity.EntityEvent;
+33: import net.minecraftforge.event.entity.living.LivingAttackEvent;
+34: import net.minecraftforge.event.entity.living.LivingEvent;
+35: 
+36: public class AirEvent {
+37:     /*
+38:      * Enabled force condition propagation
+39:      * Lifted jumps to return sites
+40:      */
+41:     @SubscribeEvent
+42:     public void onEntityConstructing(EntityEvent.EntityConstructing event) {
+43:         if (event.entity instanceof EntityPlayer ? !MFQM.QSAir : !MFQM.QSMAir) {
+44:             return;
+45:         }
+46:         if (!(event.entity instanceof EntityLivingBase)) return;
+47:         if (event.entity instanceof EntityPlayer) {
+48:             try {
+49:                 event.entity.func_70096_w().func_75682_a(MFQM.MuddyAir, (Object)300);
+50:                 return;
+51:             }
+52:             catch (Exception e) {
+53:                 if (MFQM.MuddyAirEcp >= 5) return;
+54:                 ++MFQM.MuddyAirEcp;
+55:                 CrashReport var6 = CrashReport.func_85055_a((Throwable)e, (String)("Error initializing Oxygen System. Muddy Air DataWatcher ID conflict: " + MFQM.MuddyAir + " with entity player "));
+56:                 throw new ReportedException(var6);
+57:             }
+58:         }
+59:         try {
+60:             event.entity.func_70096_w().func_75682_a(MFQM.MuddyMobsAir, (Object)300);
+61:             return;
+62:         }
+63:         catch (Exception e) {
+64:             if (MFQM.MuddyMobsAirEcp >= 5) return;
+65:             ++MFQM.MuddyMobsAirEcp;
+66:             CrashReport var6 = CrashReport.func_85055_a((Throwable)e, (String)("Error initializing Oxygen System. Muddy Mobs Air DataWatcher ID conflict: " + MFQM.MuddyMobsAir + " with entity living "));
+67:             throw new ReportedException(var6);
+68:         }
+69:     }
+70: 
+71:     @SubscribeEvent
+72:     public void onLivingUpdateEvent(LivingEvent.LivingUpdateEvent event) {
+73:         if (event.entityLiving instanceof EntityPlayer) {
+74:             EntityPlayer player = (EntityPlayer)event.entityLiving;
+75:             if (player.field_70170_p.field_72995_K) {
+76:                 if (player != Minecraft.func_71410_x().field_71439_g) {
+77:                     if (player.func_71045_bC() != null && player.func_71045_bC().func_77973_b() == MFQM.LongStickItem) {
+78:                         ItemStack item = player.func_71045_bC();
+79:                         if (player.func_71039_bw()) {
+80:                             boolean IsSucStr = false;
+81:                             int UC = player.func_71052_bv();
+82:                             int U_MAX = item.func_77988_m();
+83:                             int U_AL = 100;
+84:                             int U_HE = U_MAX - U_AL;
+85:                             int U_CRT = (int)Math.floor(item.func_77988_m() / 2);
+86:                             int U_HV = U_CRT - (int)Math.floor(U_AL / 4);
+87:                             int U_VH = U_MAX - (int)Math.floor(U_AL / 4);
+88:                             int U_VE = U_CRT - U_AL;
+89:                             if (ItemLongStick.CheckQS(player.field_70170_p, player) > 1) {
+90:                                 IsSucStr = true;
+91:                             }
+92:                             if (IsSucStr) {
+93:                                 if (UC < U_CRT) {
+94:                                     if (UC > U_HV) {
+95:                                         player.func_71041_bz();
+96:                                         player.func_71008_a(item, U_HE - 1);
+97:                                     } else {
+98:                                         player.func_71041_bz();
+99:                                         player.func_71008_a(item, U_MAX);
+100:                                     }
+101:                                 }
+102:                             } else {
+103:                                 if (UC < 2) {
+104:                                     player.func_71041_bz();
+105:                                     player.func_71008_a(item, U_VE - 1);
+106:                                 }
+107:                                 if (UC > U_VH) {
+108:                                     player.func_71041_bz();
+109:                                     player.func_71008_a(item, U_VE - 1);
+110:                                 } else if (UC > U_CRT) {
+111:                                     player.func_71041_bz();
+112:                                     player.func_71008_a(item, U_CRT);
+113:                                 }
+114:                             }
+115:                         }
+116:                     }
+117:                 } else {
+118:                     MFQM.SIRenderYawPre = MFQM.SIRenderYaw;
+119:                     MFQM.SIRenderYaw = event.entityLiving.field_70761_aq;
+120:                 }
+121:             }
+122:             if (!MFQM.QSAir) {
+123:                 return;
+124:             }
+125:         } else if (!MFQM.QSMAir) {
+126:             return;
+127:         }
+128:         if (event.entityLiving.field_70170_p.field_72995_K) {
+129:             int gma = MFQM.getMuddyAir((Entity)event.entityLiving);
+130:             if (gma < event.entityLiving.func_70086_ai()) {
+131:                 event.entityLiving.func_70050_g(gma);
+132:             }
+133:         } else if (event.entityLiving instanceof EntityLivingBase) {
+134:             int gma = MFQM.getMuddyAir((Entity)event.entityLiving);
+135:             for (int i = 0; i < EntityRope.quicksandIDS.length; ++i) {
+136:                 if (i == 6 || i == 7 || i == 13 || i == 15 || i == 21) continue;
+137:                 if (i == 22) {
+138:                     if (!MFQM.isEntityInsideOfBlockM((Entity)event.entityLiving, EntityRope.quicksandIDS[i])) continue;
+139:                     if (gma > -1) {
+140:                         MFQM.addMuddyAir((Entity)event.entityLiving, -1);
+141:                     }
+142:                     return;
+143:                 }
+144:                 if (!MFQM.isEntityInsideOfBlock((Entity)event.entityLiving, EntityRope.quicksandIDS[i])) continue;
+145:                 if (gma > -1) {
+146:                     MFQM.addMuddyAir((Entity)event.entityLiving, -1);
+147:                 }
+148:                 return;
+149:             }
+150:             if (gma < 300) {
+151:                 MFQM.addMuddyAir((Entity)event.entityLiving, Math.min(5, 300 - gma));
+152:             }
+153:         }
+154:     }
+155: 
+156:     @SubscribeEvent
+157:     public void onLivingHurt(LivingAttackEvent event) {
+158:         if (MFQM.WLD && event.entityLiving instanceof EntityPlayer && event.source.func_76355_l().equals("Taint")) {
+159:             for (int i = 0; i <= 8; ++i) {
+160:                 if (((EntityPlayer)event.entityLiving).field_71071_by.field_70462_a[i] == null || MFQM.WLDDruidPouchItem == null || Item.func_150891_b((Item)((EntityPlayer)event.entityLiving).field_71071_by.field_70462_a[i].func_77973_b()) != Item.func_150891_b((Item)MFQM.WLDDruidPouchItem) || ((EntityPlayer)event.entityLiving).field_71071_by.field_70462_a[i].func_77960_j() >= ((EntityPlayer)event.entityLiving).field_71071_by.field_70462_a[i].func_77958_k()) continue;
+161:                 if (((EntityPlayer)event.entityLiving).field_70170_p.func_82737_E() % 2L == 0L) {
+162:                     ((EntityPlayer)event.entityLiving).field_71071_by.field_70462_a[i].func_77972_a(1, (EntityLivingBase)((EntityPlayer)event.entityLiving));
+163:                 }
+164:                 event.setCanceled(true);
+165:                 return;
+166:             }
+167:         }
+168:     }
+169: }
+170: 

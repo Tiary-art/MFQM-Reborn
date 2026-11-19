@@ -1,0 +1,87 @@
+// CFR0.152; original decompiler line 3156; NOT original source; inspect **/goto artifacts if present.
+    private void generateGravelPit(int xx, int yy, int zz, int rad, World world, Random random, int depth) {
+        int e;
+        int i;
+        int j;
+        double rad_cof = Math.max((double)rad / 10.0, 1.0);
+        double rax = random.nextDouble() + 0.5;
+        double raz = 1.0 - rax + 0.5 + 0.5;
+        double minRad = (double)rad / 2.0 / (1.0 + Math.abs(rax - raz) / 3.0);
+        int rad2 = rad * 2;
+        double minRad2 = (double)rad2 / 2.0 / (1.0 + Math.abs(rax - raz) / 3.0);
+        double midRad2 = minRad2 / 1.5;
+        for (j = 0; j <= rad2 / 4; ++j) {
+            for (i = 0; i <= rad2; ++i) {
+                for (e = 0; e <= rad2; ++e) {
+                    int posx = xx + i - rad2 / 2;
+                    int posy = yy - j + rad2 / 8;
+                    int posz = zz + e - rad2 / 2;
+                    double dis = Math.sqrt(Math.pow(xx - posx, 2.0) * rax + Math.pow(yy - posy, 2.0) + Math.pow(zz - posz, 2.0) * raz);
+                    if (!(dis < minRad2)) continue;
+                    if (dis < midRad2) {
+                        if (world.func_147439_a(posx, posy, posz) == MFQM.SoftGravelBlock || !this.validCaveMaterial(posx, posy, posz, world) && !world.func_147439_a(posx, posy, posz).func_149688_o().func_76224_d()) continue;
+                        world.func_147465_d(posx, posy, posz, MFQM.SoftGravelBlock, 0, 2);
+                        world.func_147449_b(posx, posy - 1, posz, Blocks.field_150351_n);
+                        world.func_147449_b(posx, posy - 2, posz, Blocks.field_150351_n);
+                        world.func_147449_b(posx, posy - 3, posz, Blocks.field_150348_b);
+                        world.func_147449_b(posx, posy - 4, posz, Blocks.field_150348_b);
+                        world.func_147449_b(posx, posy - 5, posz, Blocks.field_150348_b);
+                        continue;
+                    }
+                    if (world.func_147439_a(posx, posy, posz) == MFQM.SoftGravelBlock || !this.validCaveMaterial(posx, posy, posz, world) && !world.func_147439_a(posx, posy, posz).func_149688_o().func_76224_d()) continue;
+                    world.func_147449_b(posx, posy, posz, Blocks.field_150351_n);
+                    world.func_147449_b(posx, posy - 1, posz, Blocks.field_150348_b);
+                    world.func_147449_b(posx, posy - 2, posz, Blocks.field_150348_b);
+                    world.func_147449_b(posx, posy - 3, posz, Blocks.field_150348_b);
+                }
+            }
+        }
+        for (int i2 = 0; i2 <= rad; ++i2) {
+            for (int e2 = 0; e2 <= rad; ++e2) {
+                int posx = xx + i2 - rad / 2;
+                int posy = yy;
+                int posz = zz + e2 - rad / 2;
+                double dis = Math.sqrt(Math.pow(xx - posx, 2.0) * rax + Math.pow(zz - posz, 2.0) * raz);
+                if (!(dis < minRad)) continue;
+                int len = (int)Math.floor((1.0 - dis / minRad) * (double)depth);
+                int plen = (int)Math.floor((1.0 - Math.max(dis - 1.0, 0.0) / minRad) * (double)depth) + (int)Math.floor(Math.max((double)depth / 8.0, 2.0));
+                int len2 = Math.max(plen - len, 0) + 5;
+                this.generateGravelColumn(posx, posy, posz, len += random.nextInt((int)Math.floor(Math.max((double)depth / 8.0, 2.0))), world, random);
+                if (world.func_147439_a(posx, posy - len - 1, posz).func_149688_o().func_76220_a()) {
+                    for (int j2 = 0; j2 <= len2; ++j2) {
+                        world.func_147465_d(posx, posy - len - j2, posz, MFQM.SoftGravelBlock, 0, 2);
+                    }
+                    world.func_147449_b(posx, posy - len - len2 - 1, posz, Blocks.field_150351_n);
+                    world.func_147449_b(posx, posy - len - len2 - 2, posz, Blocks.field_150351_n);
+                    world.func_147449_b(posx, posy - len - len2 - 3, posz, Blocks.field_150348_b);
+                    world.func_147449_b(posx, posy - len - len2 - 4, posz, Blocks.field_150348_b);
+                    world.func_147449_b(posx, posy - len - len2 - 5, posz, Blocks.field_150348_b);
+                }
+                this.generateEmptyColumn(posx, posy + 1, posz, len * 2, world, random);
+            }
+        }
+        for (j = 0; j <= rad / 2; ++j) {
+            for (i = 0; i <= rad + 8; ++i) {
+                for (e = 0; e <= rad + 8; ++e) {
+                    int siltDepth = yy - (int)Math.floor((double)depth * 0.667);
+                    int posx = xx + i - rad / 2 - 4;
+                    int posy = siltDepth - j;
+                    int posz = zz + e - rad / 2 - 4;
+                    double dis = Math.sqrt(Math.pow(xx - posx, 2.0) * rax + Math.pow(siltDepth - posy, 2.0) + Math.pow(zz - posz, 2.0) * raz);
+                    if (!(dis < minRad) || posy > siltDepth) continue;
+                    if (posy == siltDepth && !world.func_147439_a(posx, posy + 2, posz).func_149688_o().func_76220_a()) {
+                        world.func_147468_f(posx, posy + 1, posz);
+                    }
+                    world.func_147465_d(posx, posy, posz, MFQM.SoftGravelBlock, 1, 2);
+                    world.func_147465_d(posx, posy - 1, posz, MFQM.SoftGravelBlock, 1, 2);
+                    world.func_147465_d(posx, posy - 2, posz, MFQM.SoftGravelBlock, 0, 2);
+                    world.func_147465_d(posx, posy - 3, posz, MFQM.SoftGravelBlock, 0, 2);
+                    world.func_147449_b(posx, posy - 4, posz, Blocks.field_150351_n);
+                    world.func_147449_b(posx, posy - 5, posz, Blocks.field_150351_n);
+                    world.func_147449_b(posx, posy - 6, posz, Blocks.field_150348_b);
+                    world.func_147449_b(posx, posy - 7, posz, Blocks.field_150348_b);
+                    world.func_147449_b(posx, posy - 8, posz, Blocks.field_150348_b);
+                }
+            }
+        }
+    }

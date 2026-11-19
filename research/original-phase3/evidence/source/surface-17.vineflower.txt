@@ -1,0 +1,108 @@
+// Decompiled inference, NOT original source; semantic closure PARTIAL
+      if (MFQM.GenTar && !blockGen) {
+         int trType = 0;
+         int tarP1 = 0;
+         int tarP2 = 0;
+         int tarPU = 0;
+         trType = this.getTarCount(biomeId);
+         int trrType = trType;
+         if (this.T_BoP && trType == 0) {
+            trType = this.isTarBiomeIsNear(chunkX + 8, 64, chunkZ + 8, world);
+         }
+
+         byte var114;
+         byte var146;
+         byte var183;
+         switch (trType) {
+            case 1:
+               var114 = 5;
+               var146 = 5;
+               var183 = 5;
+               break;
+            case 2:
+               var114 = 5;
+               var146 = 5;
+               var183 = 5;
+               break;
+            case 3:
+               var114 = 10;
+               var146 = 8;
+               var183 = 10;
+               break;
+            default:
+               var114 = 35;
+               var146 = 15;
+               var183 = 10;
+         }
+
+         if (random.nextInt(var114) == 0 && random.nextInt(var146) == 0) {
+            if (random.nextInt(3) == 0 && trrType == 1) {
+               int genCountx = random.nextInt(30) + 50;
+               int genRad = 5;
+               int genRadP = 15;
+               int radxx = 5;
+               boolean canGenxxx = false;
+
+               for (int ix = 0; ix < genCountx; ix++) {
+                  firstBlockXCoord = chunkX + random.nextInt(32) - 16;
+                  firstBlockYCoord = 96 + dHeight;
+                  firstBlockZCoord = chunkZ + random.nextInt(32) - 16;
+                  radxx = genRad + random.nextInt(genRadP);
+                  int countBlock = 0;
+                  int upper = 0;
+
+                  for (canGenxxx = false;
+                     firstBlockYCoord > 60 + dHeight
+                        && (
+                           this.validTarMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)
+                              || world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord).func_149688_o() != Material.field_151586_h
+                                 && world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord).func_149688_o() != Material.field_151587_i
+                        );
+                     firstBlockYCoord--
+                  ) {
+                     if (this.validTarMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                        if (isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                           canGenxxx = true;
+                           if (world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) == MFQM.TarBlock) {
+                              upper = 0;
+                           } else {
+                              upper = 1;
+                           }
+                           break;
+                        }
+
+                        countBlock++;
+                     }
+
+                     if (countBlock > 5) {
+                        break;
+                     }
+                  }
+
+                  if (canGenxxx
+                     && this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord - 1, firstBlockZCoord, radxx, world)
+                     && this.genIsFlatTar(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radxx, world)
+                     && this.genIsFlatTar(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, radxx, world)) {
+                     this.ClearArea(firstBlockXCoord, firstBlockYCoord + 1 - upper, firstBlockZCoord, (int)Math.floor(radxx * 1.05), world, random);
+                     this.generateTar(firstBlockXCoord, firstBlockYCoord - upper, firstBlockZCoord, radxx, world, random);
+                     blockGen = true;
+                  }
+               }
+            } else {
+               int var5x = chunkX + random.nextInt(16) + 8;
+               int var6 = 60 + random.nextInt(21);
+               int var7 = chunkZ + random.nextInt(16) + 8;
+               new CustomWorldGenLakes(MFQM.TarBlock).generate(world, random, var5x, var6, var7, 1);
+               blockGen = true;
+            }
+         }
+
+         if (random.nextInt(var114) == 0 && random.nextInt(var183) == 0) {
+            int var5x = chunkX + random.nextInt(16) + 8;
+            int var6 = random.nextInt(64);
+            int var7 = chunkZ + random.nextInt(16) + 8;
+            new CustomWorldGenLakes(MFQM.TarBlock).generate(world, random, var5x, var6, var7, 1);
+            blockGen = true;
+         }
+      }
+

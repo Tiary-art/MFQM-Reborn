@@ -1,0 +1,148 @@
+// CFR0.152; original decompiler line 4187; NOT original source; inspect **/goto artifacts if present.
+    private boolean generateWaxTree(int xx, int yy, int zz, int rad, World world, Random random) {
+        int i;
+        int waxx = 0;
+        int waxy = 0;
+        int waxz = 0;
+        int[] sides = new int[4];
+        int count = 0;
+        for (i = 0; i <= rad && waxy == 0; ++i) {
+            for (int e = 0; e <= rad && waxy == 0; ++e) {
+                int posx = xx + i - rad / 2;
+                int posy = yy;
+                int posz = zz + e - rad / 2;
+                if (world.func_147439_a(posx, posy, posz) != Blocks.field_150364_r || world.func_72805_g(posx, posy, posz) != 3) continue;
+                int tmpCheck = 0;
+                if (world.func_147439_a(posx - 1, posy, posz) == Blocks.field_150350_a || world.func_147439_a(posx - 1, posy, posz).func_149688_o().func_76222_j() || world.func_147439_a(posx - 1, posy, posz).func_149688_o() == Material.field_151582_l) {
+                    ++tmpCheck;
+                    sides[0] = 1;
+                }
+                if (world.func_147439_a(posx, posy, posz + 1) == Blocks.field_150350_a || world.func_147439_a(posx, posy, posz + 1).func_149688_o().func_76222_j() || world.func_147439_a(posx, posy, posz + 1).func_149688_o() == Material.field_151582_l) {
+                    ++tmpCheck;
+                    sides[1] = 2;
+                }
+                if (world.func_147439_a(posx + 1, posy, posz) == Blocks.field_150350_a || world.func_147439_a(posx + 1, posy, posz).func_149688_o().func_76222_j() || world.func_147439_a(posx + 1, posy, posz).func_149688_o() == Material.field_151582_l) {
+                    ++tmpCheck;
+                    sides[2] = 3;
+                }
+                if (world.func_147439_a(posx, posy, posz - 1) == Blocks.field_150350_a || world.func_147439_a(posx, posy, posz - 1).func_149688_o().func_76222_j() || world.func_147439_a(posx, posy, posz - 1).func_149688_o() == Material.field_151582_l) {
+                    ++tmpCheck;
+                    sides[3] = 4;
+                }
+                if (tmpCheck <= 0) continue;
+                waxx = posx;
+                waxy = posy;
+                waxz = posz;
+                count = tmpCheck;
+            }
+        }
+        if (waxy != 0) {
+            for (i = 0; i < 25; ++i) {
+                if (world.func_147439_a(waxx, waxy + i, waxz) == MFQM.WaxWoodBlock) {
+                    return false;
+                }
+                if (world.func_147439_a(waxx, waxy - i, waxz) == MFQM.WaxWoodBlock) {
+                    return false;
+                }
+                if (world.func_147439_a(waxx + 1, waxy, waxz) == MFQM.WaxWoodBlock) {
+                    return false;
+                }
+                if (world.func_147439_a(waxx - 1, waxy, waxz) == MFQM.WaxWoodBlock) {
+                    return false;
+                }
+                if (world.func_147439_a(waxx, waxy, waxz + 1) == MFQM.WaxWoodBlock) {
+                    return false;
+                }
+                if (world.func_147439_a(waxx, waxy, waxz - 1) != MFQM.WaxWoodBlock) continue;
+                return false;
+            }
+            int[] sidesTrue = new int[count];
+            int j = 0;
+            for (int i2 = 0; i2 < sides.length; ++i2) {
+                if (sides[i2] == 0) continue;
+                sidesTrue[j] = sides[i2];
+                ++j;
+            }
+            int side = random.nextInt(count);
+            int meta = -1;
+            int waxxx = waxx;
+            int waxyy = waxy;
+            int waxzz = waxz;
+            switch (sidesTrue[side]) {
+                case 1: {
+                    if (world.func_147439_a(waxx + 1, waxy, waxz) == Blocks.field_150364_r) {
+                        meta = 1;
+                        waxxx = waxx - 1;
+                        break;
+                    }
+                    return false;
+                }
+                case 2: {
+                    if (world.func_147439_a(waxx, waxy, waxz - 1) == Blocks.field_150364_r) {
+                        meta = 0;
+                        waxzz = waxz + 1;
+                        break;
+                    }
+                    return false;
+                }
+                case 3: {
+                    if (world.func_147439_a(waxx - 1, waxy, waxz) == Blocks.field_150364_r) {
+                        meta = 3;
+                        waxxx = waxx + 1;
+                        break;
+                    }
+                    return false;
+                }
+                case 4: {
+                    if (world.func_147439_a(waxx, waxy, waxz + 1) == Blocks.field_150364_r) {
+                        meta = 2;
+                        waxzz = waxz - 1;
+                        break;
+                    }
+                    return false;
+                }
+                default: {
+                    return false;
+                }
+            }
+            world.func_147465_d(waxx, waxy, waxz, MFQM.WaxWoodBlock, meta, 0);
+            world.func_147468_f(waxxx, waxyy, waxzz);
+            boolean genHill = false;
+            while (waxyy > 60) {
+                if (world.func_147439_a(waxx, --waxyy, waxz) == Blocks.field_150364_r) {
+                    world.func_147465_d(waxx, waxyy, waxz, MFQM.WaxWoodBlock, meta + 4, 0);
+                    if (world.func_147439_a(waxxx, waxyy, waxzz).func_149688_o().func_76222_j() || world.func_147439_a(waxxx, waxyy, waxzz).func_149688_o() == Material.field_151582_l || world.func_147439_a(waxxx, waxyy, waxzz).func_149688_o() == Material.field_151584_j || world.func_147439_a(waxxx, waxyy, waxzz).func_149688_o() == Material.field_151585_k) {
+                        world.func_147468_f(waxxx, waxyy, waxzz);
+                        continue;
+                    }
+                    genHill = true;
+                    break;
+                }
+                genHill = true;
+                break;
+            }
+            if (genHill && waxyy < 70) {
+                int rada2;
+                int i3;
+                int rada = random.nextInt(4) + 15;
+                int xpos = waxx + (waxxx - waxx) * (rada / 5);
+                int zpos = waxz + (waxzz - waxz) * (rada / 5);
+                this.generateHill(xpos, waxyy + 1, zpos, rada, world, random);
+                int hc = random.nextInt(2) + 5;
+                for (i3 = 0; i3 < hc; ++i3) {
+                    rada2 = random.nextInt(4) + 4;
+                    this.generateHill(xpos + random.nextInt(rada / 2 + 1) - rada / 4, waxyy + random.nextInt(3) - 1, zpos + random.nextInt(rada / 2 + 1) - rada / 4, rada2, world, random);
+                }
+                xpos = waxx + (waxxx - waxx) * 2;
+                zpos = waxz + (waxzz - waxz) * 2;
+                world.func_147465_d(waxxx, waxyy, waxzz, MFQM.WaxBlock, 4, 0);
+                hc = random.nextInt(2) + 1;
+                for (i3 = 0; i3 < hc; ++i3) {
+                    rada2 = random.nextInt(2) + 4;
+                    this.generateWax(xpos, waxyy, zpos, rada2, world, random);
+                }
+            }
+            return true;
+        }
+        return false;
+    }

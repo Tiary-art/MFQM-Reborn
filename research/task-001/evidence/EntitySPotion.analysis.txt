@@ -1,0 +1,153 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  net.minecraft.block.Block
+6:  *  net.minecraft.entity.EntityLivingBase
+7:  *  net.minecraft.entity.projectile.EntityThrowable
+8:  *  net.minecraft.init.Items
+9:  *  net.minecraft.item.Item
+10:  *  net.minecraft.item.ItemStack
+11:  *  net.minecraft.util.MovingObjectPosition
+12:  *  net.minecraft.util.MovingObjectPosition$MovingObjectType
+13:  *  net.minecraft.world.World
+14:  */
+15: package MoreFunQuicksandMod.main.entity;
+16: 
+17: import MoreFunQuicksandMod.main.MFQM;
+18: import net.minecraft.block.Block;
+19: import net.minecraft.entity.EntityLivingBase;
+20: import net.minecraft.entity.projectile.EntityThrowable;
+21: import net.minecraft.init.Items;
+22: import net.minecraft.item.Item;
+23: import net.minecraft.item.ItemStack;
+24: import net.minecraft.util.MovingObjectPosition;
+25: import net.minecraft.world.World;
+26: 
+27: public class EntitySPotion
+28: extends EntityThrowable {
+29:     public EntitySPotion(World world) {
+30:         super(world);
+31:     }
+32: 
+33:     public EntitySPotion(World world, EntityLivingBase ent, int a) {
+34:         this(world, ent, new ItemStack((Item)Items.field_151068_bn, 1, a));
+35:     }
+36: 
+37:     public EntitySPotion(World world, EntityLivingBase ent, ItemStack stk) {
+38:         super(world, ent);
+39:     }
+40: 
+41:     public EntitySPotion(World world, double x, double y, double z, int a) {
+42:         this(world, x, y, z, new ItemStack((Item)Items.field_151068_bn, 1, a));
+43:     }
+44: 
+45:     public EntitySPotion(World world, double x, double y, double z, ItemStack stk) {
+46:         super(world, x, y, z);
+47:     }
+48: 
+49:     protected float func_70185_h() {
+50:         return 0.05f;
+51:     }
+52: 
+53:     protected float func_70182_d() {
+54:         return 0.5f;
+55:     }
+56: 
+57:     protected float func_70183_g() {
+58:         return -20.0f;
+59:     }
+60: 
+61:     protected boolean validForSpread(World world, int x, int y, int z) {
+62:         return !world.func_147439_a(x, y, z).func_149688_o().func_76220_a() && !world.func_147439_a(x, y, z).func_149688_o().func_76224_d() && (!world.func_147439_a(x, y, z).func_149688_o().func_76230_c() || world.func_147439_a(x, y, z).func_149688_o().func_76222_j());
+63:     }
+64: 
+65:     protected void func_70184_a(MovingObjectPosition movObj) {
+66:         Block block = MFQM.SinkyLiquidBlock;
+67:         int blX = movObj.field_72311_b;
+68:         int blY = movObj.field_72312_c;
+69:         int blZ = movObj.field_72309_d;
+70:         int bsX = (int)Math.floor(this.field_70165_t);
+71:         int bsY = (int)Math.floor(this.field_70163_u);
+72:         int bsZ = (int)Math.floor(this.field_70161_v);
+73:         if (movObj.field_72313_a == MovingObjectPosition.MovingObjectType.ENTITY) {
+74:             bsX = (int)Math.floor(movObj.field_72307_f.field_72450_a);
+75:             bsY = (int)Math.floor(movObj.field_72307_f.field_72448_b);
+76:             bsZ = (int)Math.floor(movObj.field_72307_f.field_72449_c);
+77:         } else if (movObj.field_72313_a == MovingObjectPosition.MovingObjectType.BLOCK) {
+78:             switch (movObj.field_72310_e) {
+79:                 case 0: {
+80:                     bsX = blX;
+81:                     bsY = blY - 1;
+82:                     bsZ = blZ;
+83:                     break;
+84:                 }
+85:                 case 1: {
+86:                     bsX = blX;
+87:                     bsY = blY + 1;
+88:                     bsZ = blZ;
+89:                     break;
+90:                 }
+91:                 case 2: {
+92:                     bsX = blX;
+93:                     bsY = blY;
+94:                     bsZ = blZ - 1;
+95:                     break;
+96:                 }
+97:                 case 3: {
+98:                     bsX = blX;
+99:                     bsY = blY;
+100:                     bsZ = blZ + 1;
+101:                     break;
+102:                 }
+103:                 case 4: {
+104:                     bsX = blX - 1;
+105:                     bsY = blY;
+106:                     bsZ = blZ;
+107:                     break;
+108:                 }
+109:                 case 5: {
+110:                     bsX = blX + 1;
+111:                     bsY = blY;
+112:                     bsZ = blZ;
+113:                     break;
+114:                 }
+115:                 default: {
+116:                     bsX = (int)Math.floor(movObj.field_72307_f.field_72450_a);
+117:                     bsY = (int)Math.floor(movObj.field_72307_f.field_72448_b);
+118:                     bsZ = (int)Math.floor(movObj.field_72307_f.field_72449_c);
+119:                 }
+120:             }
+121:         }
+122:         for (int var3 = 0; var3 < 41; ++var3) {
+123:             double xx = (double)bsX + 0.5 + (double)(this.field_70170_p.field_73012_v.nextFloat() * 2.0f) - 1.0;
+124:             double zz = (double)bsZ + 0.5 + (double)(this.field_70170_p.field_73012_v.nextFloat() * 2.0f) - 1.0;
+125:             double yy = (double)bsY + 0.5 + (double)(this.field_70170_p.field_73012_v.nextFloat() * 2.0f) - 1.0;
+126:             double vx = this.field_70170_p.field_73012_v.nextFloat() * 8.0f - 4.0f;
+127:             double vz = this.field_70170_p.field_73012_v.nextFloat() * 8.0f - 4.0f;
+128:             double vy = this.field_70170_p.field_73012_v.nextFloat() * 4.0f;
+129:             this.field_70170_p.func_72869_a("blockcrack_" + Block.func_149682_b((Block)block) + "_" + 0, xx, yy, zz, vx, vy, vz);
+130:         }
+131:         if (!this.field_70170_p.field_72995_K) {
+132:             int quanta = 8;
+133:             if (this.validForSpread(this.field_70170_p, bsX + 1, bsY, bsZ)) {
+134:                 this.field_70170_p.func_147465_d(bsX + 1, bsY, bsZ, block, quanta - 1, 3);
+135:             }
+136:             if (this.validForSpread(this.field_70170_p, bsX - 1, bsY, bsZ)) {
+137:                 this.field_70170_p.func_147465_d(bsX - 1, bsY, bsZ, block, quanta - 1, 3);
+138:             }
+139:             if (this.validForSpread(this.field_70170_p, bsX, bsY, bsZ + 1)) {
+140:                 this.field_70170_p.func_147465_d(bsX, bsY, bsZ + 1, block, quanta - 1, 3);
+141:             }
+142:             if (this.validForSpread(this.field_70170_p, bsX, bsY, bsZ - 1)) {
+143:                 this.field_70170_p.func_147465_d(bsX, bsY, bsZ - 1, block, quanta - 1, 3);
+144:             }
+145:             if (this.validForSpread(this.field_70170_p, bsX, bsY, bsZ)) {
+146:                 this.field_70170_p.func_147465_d(bsX, bsY, bsZ, block, quanta - 4, 3);
+147:             }
+148:             this.field_70170_p.func_72926_e(2002, (int)Math.round(this.field_70165_t), (int)Math.round(this.field_70163_u), (int)Math.round(this.field_70161_v), 0);
+149:             this.func_70106_y();
+150:         }
+151:     }
+152: }
+153: 

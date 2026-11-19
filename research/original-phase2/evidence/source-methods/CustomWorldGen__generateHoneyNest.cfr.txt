@@ -1,0 +1,83 @@
+// CFR0.152; original decompiler line 1841; NOT original source; inspect **/goto artifacts if present.
+    private void generateHoneyNest(int xx, int yy, int zz, int rad, World world, Random random) {
+        int posz;
+        int posy;
+        int posx;
+        int posz2;
+        int posy2;
+        int posx2;
+        int arad;
+        int acount;
+        int aNeedToGen = rad / 2;
+        for (acount = rad * 2; aNeedToGen > 0 && acount > 0; --acount) {
+            arad = 16 + random.nextInt(10);
+            posx2 = xx + random.nextInt(rad) - rad / 2;
+            posy2 = yy + random.nextInt(rad / 8) - rad / 16;
+            posz2 = zz + random.nextInt(rad) - rad / 2;
+            int ahoney = Math.max((posy2 - yy) * 4, 0) + 1;
+            if (this.genIsFlatSolid(posx2, posy2 + 1, posz2, arad / 2, world) || !this.genIsHoneycombNear(posx2, posy2 + 1, posz2, arad, world)) continue;
+            this.generateHoneycomb(posx2, posy2, posz2, arad, world, random, ahoney);
+            --aNeedToGen;
+        }
+        for (acount = rad / 2; acount > 0; --acount) {
+            arad = 6 + random.nextInt(6);
+            posx2 = xx + random.nextInt(rad) - rad / 2;
+            posy2 = yy + random.nextInt(rad / 8) - rad / 16;
+            posz2 = zz + random.nextInt(rad) - rad / 2;
+            this.generateSolidHoney(posx2, posy2, posz2, arad, world, random);
+        }
+        for (int j = 0; j <= rad * 2; ++j) {
+            for (int i = 0; i <= rad * 4; ++i) {
+                for (int e = 0; e <= rad * 4; ++e) {
+                    boolean isHon;
+                    int posx3 = xx + i - rad * 2;
+                    int posy3 = yy + j - rad;
+                    int posz3 = zz + e - rad * 2;
+                    boolean bl = isHon = world.func_147439_a(posx3, posy3, posz3) == MFQM.HoneyBlock || world.func_147439_a(posx3, posy3, posz3) == MFQM.SolidHoneyBlock && world.func_72805_g(posx3, posy3, posz3) > 0;
+                    if (!isHon) continue;
+                    if (world.func_147439_a(posx3 + 1, posy3, posz3) == MFQM.HoneycombBlock && world.func_72805_g(posx3 + 1, posy3, posz3) != 3) {
+                        world.func_147465_d(posx3 + 1, posy3, posz3, MFQM.SolidHoneyBlock, 0, 0);
+                    }
+                    if (world.func_147439_a(posx3 - 1, posy3, posz3) == MFQM.HoneycombBlock && world.func_72805_g(posx3 - 1, posy3, posz3) != 3) {
+                        world.func_147465_d(posx3 - 1, posy3, posz3, MFQM.SolidHoneyBlock, 0, 0);
+                    }
+                    if (world.func_147439_a(posx3, posy3 - 1, posz3) == MFQM.HoneycombBlock && world.func_72805_g(posx3, posy3 - 1, posz3) != 3) {
+                        world.func_147465_d(posx3, posy3 - 1, posz3, MFQM.SolidHoneyBlock, 0, 0);
+                    }
+                    if (world.func_147439_a(posx3, posy3, posz3 + 1) == MFQM.HoneycombBlock && world.func_72805_g(posx3, posy3, posz3 + 1) != 3) {
+                        world.func_147465_d(posx3, posy3, posz3 + 1, MFQM.SolidHoneyBlock, 0, 0);
+                    }
+                    if (world.func_147439_a(posx3, posy3, posz3 - 1) != MFQM.HoneycombBlock || world.func_72805_g(posx3, posy3, posz3 - 1) == 3) continue;
+                    world.func_147465_d(posx3, posy3, posz3 - 1, MFQM.SolidHoneyBlock, 0, 0);
+                }
+            }
+        }
+        aNeedToGen = rad / 8 + 2;
+        for (acount = rad * 64; aNeedToGen > 0 && acount > 0; --acount) {
+            posx = xx + random.nextInt(rad) - rad / 2;
+            if (world.func_147439_a(posx, posy = yy + random.nextInt(rad) - rad / 2, posz = zz + random.nextInt(rad) - rad / 2) != MFQM.HoneycombBlock || world.func_72805_g(posx, posy, posz) == 3 || world.func_147439_a(posx - 1, posy, posz) != MFQM.HoneycombBlock || world.func_72805_g(posx - 1, posy, posz) == 3 || world.func_147439_a(posx + 1, posy, posz) != MFQM.HoneycombBlock || world.func_72805_g(posx + 1, posy, posz) == 3 || world.func_147439_a(posx, posy - 1, posz) != MFQM.HoneycombBlock || world.func_72805_g(posx, posy - 1, posz) == 3 || world.func_147439_a(posx, posy + 1, posz) != MFQM.HoneycombBlock || world.func_72805_g(posx, posy + 1, posz) == 3 || world.func_147439_a(posx, posy, posz - 1) != MFQM.HoneycombBlock || world.func_72805_g(posx, posy, posz - 1) == 3 || world.func_147439_a(posx, posy, posz + 1) != MFQM.HoneycombBlock || world.func_72805_g(posx, posy, posz + 1) == 3) continue;
+            world.func_147465_d(posx, posy, posz, Blocks.field_150474_ac, 0, 2);
+            TileEntityMobSpawner var18 = (TileEntityMobSpawner)world.func_147438_o(posx, posy, posz);
+            if (var18 != null) {
+                NBTTagCompound nbt = new NBTTagCompound();
+                var18.func_145841_b(nbt);
+                nbt.func_74778_a("EntityId", "MFQM.Bee");
+                nbt.func_74777_a("MaxNearbyEntities", (short)16);
+                nbt.func_74777_a("RequiredPlayerRange", (short)48);
+                nbt.func_74777_a("SpawnRange", (short)24);
+                nbt.func_74777_a("MinSpawnDelay", (short)400);
+                nbt.func_74777_a("MaxSpawnDelay", (short)1600);
+                var18.func_145839_a(nbt);
+                --aNeedToGen;
+                continue;
+            }
+            System.err.println("(MFQM)Failed to fetch mob spawner entity");
+        }
+        aNeedToGen = rad / 24 + 1;
+        for (acount = rad * 16; aNeedToGen > 0 && acount > 0; --acount) {
+            posx = xx + random.nextInt(rad / 2) - rad / 4;
+            if ((world.func_147439_a(posx, posy = yy + random.nextInt(rad / 8) - rad / 16, posz = zz + random.nextInt(rad / 2) - rad / 4) != MFQM.HoneycombBlock || world.func_72805_g(posx, posy, posz) != 3) && world.func_147439_a(posx, posy, posz) != Blocks.field_150350_a || (world.func_147439_a(posx, posy + 1, posz) != MFQM.HoneycombBlock || world.func_72805_g(posx, posy + 1, posz) != 3) && world.func_147439_a(posx, posy + 1, posz) != Blocks.field_150350_a || world.func_147439_a(posx, posy - 1, posz) == MFQM.HoneycombBlock && world.func_72805_g(posx, posy - 1, posz) == 3 || world.func_147439_a(posx, posy - 1, posz).func_149688_o().func_76224_d()) continue;
+            this.generateHoneyChest(world, posx, posy, posz, 0, random);
+            --aNeedToGen;
+        }
+    }

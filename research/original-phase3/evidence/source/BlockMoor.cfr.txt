@@ -1,0 +1,265 @@
+/*
+ * Decompiled with CFR 0.152.
+ * 
+ * Could not load the following classes:
+ *  cpw.mods.fml.relauncher.Side
+ *  cpw.mods.fml.relauncher.SideOnly
+ *  net.minecraft.block.Block
+ *  net.minecraft.block.material.Material
+ *  net.minecraft.client.renderer.texture.IIconRegister
+ *  net.minecraft.entity.Entity
+ *  net.minecraft.init.Blocks
+ *  net.minecraft.item.Item
+ *  net.minecraft.util.AxisAlignedBB
+ *  net.minecraft.util.IIcon
+ *  net.minecraft.world.Explosion
+ *  net.minecraft.world.World
+ */
+package MoreFunQuicksandMod.main.blocks;
+
+import MoreFunQuicksandMod.main.MFQM;
+import MoreFunQuicksandMod.main.blocks.BlockMorass;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import java.util.Random;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.Entity;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.Explosion;
+import net.minecraft.world.World;
+
+public class BlockMoor
+extends Block {
+    @SideOnly(value=Side.CLIENT)
+    private IIcon IIconSide0;
+    private int maxOpacity;
+    private int lastOpacity;
+    private int incOpacity;
+
+    public BlockMoor(int mopc, int lopc, int iopc) {
+        super(Material.field_151583_m);
+        this.func_149711_c(2.75f);
+        this.func_149752_b(1000.0f);
+        this.func_149672_a(Block.field_149779_h);
+        this.func_149675_a(true);
+        if (MFQM.QSOpacity) {
+            this.func_149713_g(255);
+        } else {
+            this.func_149713_g(3);
+        }
+        this.func_149663_c("Moor");
+        this.func_149647_a(MFQM.tabMFQM);
+        this.maxOpacity = mopc;
+        this.lastOpacity = lopc;
+        this.incOpacity = iopc;
+    }
+
+    public void SetBlockThere(World world, int x, int y, int z, Block bl, int mtd, int upd) {
+        if (world.func_147438_o(x, y, z) != null) {
+            return;
+        }
+        if (world.func_147439_a(x, y, z) == Blocks.field_150357_h) {
+            return;
+        }
+        world.func_147465_d(x, y, z, bl, mtd, upd);
+    }
+
+    public void SetBlockThere(World world, int x, int y, int z, Block bl) {
+        if (world.func_147438_o(x, y, z) != null) {
+            return;
+        }
+        if (world.func_147439_a(x, y, z) == Blocks.field_150357_h) {
+            return;
+        }
+        world.func_147449_b(x, y, z, bl);
+    }
+
+    public void func_149674_a(World world, int x, int y, int z, Random random) {
+        block27: {
+            int meta;
+            block26: {
+                int dif2;
+                block28: {
+                    meta = world.func_72805_g(x, y, z);
+                    if (meta >= 10) break block26;
+                    if (world.func_147439_a(x, y + 1, z) == MFQM.MireBlock || world.func_147439_a(x, y + 1, z) == MFQM.MorassBlock || world.func_147439_a(x, y + 1, z) == this) {
+                        this.SetBlockThere(world, x, y, z, MFQM.MireBlock, 10, 3);
+                        return;
+                    }
+                    int xx = x;
+                    int yy = y;
+                    int zz = z;
+                    int dificult = 10;
+                    dif2 = 0;
+                    for (int re = 0; re <= 6; ++re) {
+                        switch (re) {
+                            case 0: {
+                                xx = x - 1;
+                                yy = y;
+                                zz = z;
+                                break;
+                            }
+                            case 1: {
+                                xx = x + 1;
+                                yy = y;
+                                zz = z;
+                                break;
+                            }
+                            case 2: {
+                                xx = x;
+                                yy = y;
+                                zz = z - 1;
+                                break;
+                            }
+                            case 3: {
+                                xx = x;
+                                yy = y;
+                                zz = z + 1;
+                            }
+                        }
+                        if (world.func_147439_a(xx, yy, zz) != MFQM.MorassBlock) continue;
+                        dificult = Math.max(1, dificult - world.func_72805_g(xx, yy, zz));
+                    }
+                    if (dif2 == 0 && world.field_73012_v.nextInt(dificult * 5) == 0) {
+                        this.SetBlockThere(world, x, y, z, MFQM.MorassBlock, world.field_73012_v.nextInt(2) + 7, 3);
+                        dif2 = 1;
+                    }
+                    if (dif2 == 0 && world.field_73012_v.nextInt(dificult * 3) == 0) {
+                        this.SetBlockThere(world, x, y, z, MFQM.MorassBlock, world.field_73012_v.nextInt(4) + 3, 3);
+                        dif2 = 2;
+                    }
+                    if (dif2 == 0 && world.field_73012_v.nextInt(dificult * 2) == 0) {
+                        this.SetBlockThere(world, x, y, z, MFQM.MorassBlock, 2, 3);
+                        dif2 = 2;
+                    }
+                    if (dif2 == 0 && world.field_73012_v.nextInt(dificult * 3) == 0) {
+                        this.SetBlockThere(world, x, y, z, MFQM.MorassBlock, 0, 3);
+                        dif2 = 3;
+                    }
+                    if (dif2 == 0) {
+                        this.SetBlockThere(world, x, y, z, MFQM.MorassBlock, 1, 3);
+                        dif2 = 1;
+                    }
+                    this.SetBlockThere(world, x, y - 1, z, MFQM.MireBlock, 10, 2);
+                    if (world.func_147439_a(x, y - 2, z) != MFQM.MireBlock) {
+                        this.SetBlockThere(world, x, y - 2, z, Blocks.field_150346_d);
+                    }
+                    if (random.nextInt(5) != 0) break block27;
+                    if (random.nextInt(100 * dif2) != 0) break block28;
+                    ((BlockMorass)MFQM.MorassBlock).PlantingThis(world, random, x, y, z);
+                    break block27;
+                }
+                if (random.nextInt(4 / dif2) == 0 && !world.func_147439_a(x, y + 1, z).func_149688_o().func_76220_a()) {
+                    this.SetBlockThere(world, x, y + 1, z, MFQM.MoorGrassBlock, 3, 2);
+                }
+                if (random.nextInt(30 * dif2) == 0 && !world.func_147439_a(x, y + 1, z).func_149688_o().func_76220_a()) {
+                    this.SetBlockThere(world, x, y + 1, z, MFQM.MoorGrassBlock, 2, 2);
+                }
+                if (random.nextInt(40 / (int)Math.floor(Math.pow(dif2, 2.0))) != 0 || world.func_147439_a(x, y + 1, z).func_149688_o().func_76220_a()) break block27;
+                if (random.nextInt(10) == 0) {
+                    this.SetBlockThere(world, x, y + 1, z, MFQM.MoorGrassBlock, 4, 2);
+                } else {
+                    this.SetBlockThere(world, x, y + 1, z, MFQM.MoorGrassBlock, 5, 2);
+                }
+                break block27;
+            }
+            if (meta == 10) {
+                int posz;
+                int posy;
+                int posx;
+                int e;
+                world.func_147468_f(x, y, z);
+                int rad = 128;
+                for (int j = 0; j <= rad / 2; ++j) {
+                    for (int i = 0; i <= rad; ++i) {
+                        for (e = 0; e <= rad; ++e) {
+                            posx = x + i - rad / 2;
+                            posy = y - j;
+                            posz = z + e - rad / 2;
+                            double dis = Math.sqrt(Math.pow(x - posx, 2.0) + Math.pow(y - posy, 2.0) + Math.pow(z - posz, 2.0));
+                            if (!(dis < (double)rad / 2.0) || world.func_147439_a(posx, posy, posz).func_149688_o() != Material.field_151586_h) continue;
+                            if (world.func_72805_g(posx, posy, posz) == 0) {
+                                if (world.func_147439_a(posx, posy - 1, posz).func_149688_o() == Material.field_151586_h && world.func_72805_g(posx, posy - 1, posz) != 0) continue;
+                                world.func_147449_b(posx, posy, posz, MFQM.TarBlock);
+                                world.func_147449_b(posx, posy - 1, posz, MFQM.TarBlock);
+                                continue;
+                            }
+                            world.func_147468_f(posx, posy, posz);
+                        }
+                    }
+                }
+                for (int i = 0; i <= rad; ++i) {
+                    for (int j = 0; j <= rad / 2 + 2; ++j) {
+                        for (e = 0; e <= rad; ++e) {
+                            posx = x + i - rad / 2;
+                            posy = y - j;
+                            posz = z + e - rad / 2;
+                            if (world.func_147439_a(posx, posy, posz) == MFQM.TarBlock || world.func_147439_a(posx, posy + 1, posz) != MFQM.TarBlock) continue;
+                            world.func_147449_b(posx, posy, posz, Blocks.field_150348_b);
+                        }
+                    }
+                }
+            }
+        }
+        world.func_147464_a(x, y, z, (Block)this, this.func_149738_a(world));
+        super.func_149674_a(world, x, y, z, random);
+    }
+
+    public void func_149670_a(World world, int x, int y, int z, Entity entity) {
+        entity.func_70110_aj();
+    }
+
+    public void func_149726_b(World par1World, int par2, int par3, int par4) {
+        par1World.func_147464_a(par2, par3, par4, (Block)this, this.func_149738_a(par1World));
+    }
+
+    public void func_149695_a(World par1World, int par2, int par3, int par4, Block par5) {
+        if (!par1World.func_147439_a(par2, par3 - 1, par4).func_149688_o().func_76220_a() && par1World.func_147439_a(par2, par3 - 1, par4).func_149688_o().func_76222_j()) {
+            par1World.func_147464_a(par2, par3, par4, (Block)this, this.func_149738_a(par1World));
+        }
+    }
+
+    public AxisAlignedBB func_149668_a(World world, int x, int y, int z) {
+        return null;
+    }
+
+    public Item func_149650_a(int par1, Random random, int par3) {
+        return null;
+    }
+
+    public boolean func_149659_a(Explosion par1Explosion) {
+        return false;
+    }
+
+    @SideOnly(value=Side.CLIENT)
+    public IIcon func_149691_a(int par1, int par2) {
+        return this.IIconSide0;
+    }
+
+    @SideOnly(value=Side.CLIENT)
+    public void func_149651_a(IIconRegister par1IIconRegister) {
+        this.IIconSide0 = par1IIconRegister.func_94245_a("morefunquicksandmod:Moor0");
+    }
+
+    protected boolean func_149700_E() {
+        return true;
+    }
+
+    public boolean func_149721_r() {
+        return false;
+    }
+
+    public boolean func_149662_c() {
+        return false;
+    }
+
+    public boolean isSolid() {
+        return true;
+    }
+}
+

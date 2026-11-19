@@ -1,0 +1,11 @@
+// CFR0.152; original decompiler line 3136; NOT original source; inspect **/goto artifacts if present.
+    private void generateEmptyColumn(int xx, int yy, int zz, int len, World world, Random random) {
+        for (int i = 0; i <= len; ++i) {
+            int posx = xx;
+            int posy = yy + i;
+            int posz = zz;
+            world.func_147468_f(posx, posy, posz);
+            if (i != len || !this.validFallingMaterial(posx, posy + 1, posz, world)) continue;
+            world.func_147449_b(posx, posy + 1, posz, Blocks.field_150348_b);
+        }
+    }

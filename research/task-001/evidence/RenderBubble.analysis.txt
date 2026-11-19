@@ -1,0 +1,136 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.client.renderer.Tessellator
+8:  *  net.minecraft.client.renderer.entity.Render
+9:  *  net.minecraft.client.renderer.texture.TextureMap
+10:  *  net.minecraft.entity.Entity
+11:  *  net.minecraft.util.IIcon
+12:  *  net.minecraft.util.ResourceLocation
+13:  *  net.minecraft.world.IBlockAccess
+14:  *  org.lwjgl.Sys
+15:  *  org.lwjgl.opengl.GL11
+16:  */
+17: package MoreFunQuicksandMod.main.client;
+18: 
+19: import MoreFunQuicksandMod.main.entity.EntityBubble;
+20: import cpw.mods.fml.relauncher.Side;
+21: import cpw.mods.fml.relauncher.SideOnly;
+22: import net.minecraft.client.renderer.Tessellator;
+23: import net.minecraft.client.renderer.entity.Render;
+24: import net.minecraft.client.renderer.texture.TextureMap;
+25: import net.minecraft.entity.Entity;
+26: import net.minecraft.util.IIcon;
+27: import net.minecraft.util.ResourceLocation;
+28: import net.minecraft.world.IBlockAccess;
+29: import org.lwjgl.Sys;
+30: import org.lwjgl.opengl.GL11;
+31: 
+32: @SideOnly(value=Side.CLIENT)
+33: public class RenderBubble
+34: extends Render {
+35:     private final ResourceLocation field_110637_a = new ResourceLocation("morefunquicksandmod", "textures/blocks/Larvae.png");
+36: 
+37:     public void doRenderBubble(EntityBubble par1, double par2, double par4, double par6, float par8, float par9) {
+38:         if (Sys.getTime() - par1.ticksWorld < 0L) {
+39:             return;
+40:         }
+41:         Tessellator tessellator = Tessellator.field_78398_a;
+42:         IIcon Icon = par1.block.func_149691_a(1, par1.meta);
+43:         this.func_110776_a(TextureMap.field_110575_b);
+44:         GL11.glPushMatrix();
+45:         GL11.glEnable((int)3008);
+46:         GL11.glEnable((int)3553);
+47:         GL11.glEnable((int)3042);
+48:         GL11.glBlendFunc((int)770, (int)771);
+49:         int xx = (int)Math.floor(par1.field_70165_t);
+50:         int zz = (int)Math.floor(par1.field_70161_v);
+51:         int yy = (int)Math.floor(par1.field_70163_u);
+52:         int intColor = par1.block.func_149720_d((IBlockAccess)par1.field_70170_p, xx, yy, zz);
+53:         int red = (0xFF0000 & intColor) / 65536;
+54:         int green = (0xFF00 & intColor) / 256;
+55:         int blue = 0xFF & intColor;
+56:         GL11.glColor4f((float)(0.75f * ((float)red / 255.0f)), (float)(0.75f * ((float)green / 255.0f)), (float)(0.75f * ((float)blue / 255.0f)), (float)0.9f);
+57:         GL11.glEnable((int)32826);
+58:         float tc = Math.min(1.0f, Math.max(0.0f, (float)(Sys.getTime() - par1.ticksWorld) / (float)par1.liveTime));
+59:         float tc2 = 1.0f - (float)Math.pow(2.0, -tc * 4.0f);
+60:         float scx = 0.03125f * par1.size * tc2;
+61:         float scy = 0.025f * par1.size * tc2;
+62:         GL11.glTranslatef((float)((float)par2), (float)((float)par4 - 10.0f * scy + 5.0f * scy * tc2), (float)((float)par6));
+63:         GL11.glRotatef((float)(par1.rotate / (float)Math.PI * 180.0f), (float)0.0f, (float)1.0f, (float)0.0f);
+64:         this.renderModel(tessellator, 0.0, 0.0, 0.0, Icon, scx, scy);
+65:         GL11.glDisable((int)32826);
+66:         GL11.glColor4f((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
+67:         GL11.glDisable((int)3042);
+68:         GL11.glPopMatrix();
+69:     }
+70: 
+71:     protected ResourceLocation func_110775_a(Entity par1Entity) {
+72:         return this.field_110637_a;
+73:     }
+74: 
+75:     public void func_76986_a(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
+76:         this.doRenderBubble((EntityBubble)par1Entity, par2, par4, par6, par8, par9);
+77:     }
+78: 
+79:     public void renderModel(Tessellator tessellator, double x, double y, double z, IIcon Icon, float scx, float scy) {
+80:         GL11.glScalef((float)scx, (float)scy, (float)scx);
+81:         this.renderCube(tessellator, -4.0, 1.0, -4.0, 8.0, 8.0, 8.0, Icon);
+82:         this.renderCube(tessellator, -3.0, 2.0, -5.0, 6.0, 6.0, 10.0, Icon);
+83:         this.renderCube(tessellator, -5.0, 2.0, -3.0, 10.0, 6.0, 6.0, Icon);
+84:         this.renderCube(tessellator, -3.0, 0.0, -3.0, 6.0, 10.0, 6.0, Icon);
+85:     }
+86: 
+87:     public void renderCube(Tessellator tessellator, double x, double y, double z, double xs, double ys, double zs, IIcon Icon) {
+88:         double minU = Icon.func_94209_e();
+89:         double minV = Icon.func_94206_g();
+90:         double maxU = minU + ((double)Icon.func_94212_f() - minU) / 2.0;
+91:         double maxV = minV + ((double)Icon.func_94210_h() - minV) / 2.0;
+92:         tessellator.func_78382_b();
+93:         tessellator.func_78375_b(0.0f, 1.0f, 0.0f);
+94:         tessellator.func_78374_a(x, y + ys, z, maxU, minV);
+95:         tessellator.func_78374_a(x, y + ys, z + zs, maxU, maxV);
+96:         tessellator.func_78374_a(x + xs, y + ys, z + zs, minU, maxV);
+97:         tessellator.func_78374_a(x + xs, y + ys, z, minU, minV);
+98:         tessellator.func_78381_a();
+99:         tessellator.func_78382_b();
+100:         tessellator.func_78375_b(0.0f, -1.0f, 0.0f);
+101:         tessellator.func_78374_a(x + xs, y, z, maxU, minV);
+102:         tessellator.func_78374_a(x + xs, y, z + zs, maxU, maxV);
+103:         tessellator.func_78374_a(x, y, z + zs, minU, maxV);
+104:         tessellator.func_78374_a(x, y, z, minU, minV);
+105:         tessellator.func_78381_a();
+106:         tessellator.func_78382_b();
+107:         tessellator.func_78375_b(0.0f, 0.0f, -1.0f);
+108:         tessellator.func_78374_a(x, y, z, maxU, minV);
+109:         tessellator.func_78374_a(x, y + ys, z, maxU, maxV);
+110:         tessellator.func_78374_a(x + xs, y + ys, z, minU, maxV);
+111:         tessellator.func_78374_a(x + xs, y, z, minU, minV);
+112:         tessellator.func_78381_a();
+113:         tessellator.func_78382_b();
+114:         tessellator.func_78375_b(0.0f, 0.0f, 1.0f);
+115:         tessellator.func_78374_a(x + xs, y, z + zs, maxU, minV);
+116:         tessellator.func_78374_a(x + xs, y + ys, z + zs, maxU, maxV);
+117:         tessellator.func_78374_a(x, y + ys, z + zs, minU, maxV);
+118:         tessellator.func_78374_a(x, y, z + zs, minU, minV);
+119:         tessellator.func_78381_a();
+120:         tessellator.func_78382_b();
+121:         tessellator.func_78375_b(-1.0f, 0.0f, 0.0f);
+122:         tessellator.func_78374_a(x, y, z + zs, maxU, minV);
+123:         tessellator.func_78374_a(x, y + ys, z + zs, maxU, maxV);
+124:         tessellator.func_78374_a(x, y + ys, z, minU, maxV);
+125:         tessellator.func_78374_a(x, y, z, minU, minV);
+126:         tessellator.func_78381_a();
+127:         tessellator.func_78382_b();
+128:         tessellator.func_78375_b(1.0f, 0.0f, 0.0f);
+129:         tessellator.func_78374_a(x + xs, y, z, minU, minV);
+130:         tessellator.func_78374_a(x + xs, y + ys, z, minU, maxV);
+131:         tessellator.func_78374_a(x + xs, y + ys, z + zs, maxU, maxV);
+132:         tessellator.func_78374_a(x + xs, y, z + zs, maxU, minV);
+133:         tessellator.func_78381_a();
+134:     }
+135: }
+136: 

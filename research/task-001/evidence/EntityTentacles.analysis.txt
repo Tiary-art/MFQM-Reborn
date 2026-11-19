@@ -1,0 +1,368 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.common.registry.IEntityAdditionalSpawnData
+6:  *  cpw.mods.fml.relauncher.Side
+7:  *  cpw.mods.fml.relauncher.SideOnly
+8:  *  io.netty.buffer.ByteBuf
+9:  *  net.minecraft.client.Minecraft
+10:  *  net.minecraft.entity.Entity
+11:  *  net.minecraft.entity.EntityLivingBase
+12:  *  net.minecraft.nbt.NBTTagCompound
+13:  *  net.minecraft.potion.Potion
+14:  *  net.minecraft.potion.PotionEffect
+15:  *  net.minecraft.util.DamageSource
+16:  *  net.minecraft.world.World
+17:  */
+18: package MoreFunQuicksandMod.main.entity;
+19: 
+20: import MoreFunQuicksandMod.main.MFQM;
+21: import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
+22: import cpw.mods.fml.relauncher.Side;
+23: import cpw.mods.fml.relauncher.SideOnly;
+24: import io.netty.buffer.ByteBuf;
+25: import java.util.UUID;
+26: import net.minecraft.client.Minecraft;
+27: import net.minecraft.entity.Entity;
+28: import net.minecraft.entity.EntityLivingBase;
+29: import net.minecraft.nbt.NBTTagCompound;
+30: import net.minecraft.potion.Potion;
+31: import net.minecraft.potion.PotionEffect;
+32: import net.minecraft.util.DamageSource;
+33: import net.minecraft.world.World;
+34: 
+35: public class EntityTentacles
+36: extends Entity
+37: implements IEntityAdditionalSpawnData {
+38:     public Entity target;
+39:     public boolean targetUpdate = true;
+40:     public UUID targetUUID;
+41:     public int AnimLifeTime = 0;
+42:     public int maxHurtResistantTime;
+43:     public float health = 10.0f;
+44:     public int high;
+45: 
+46:     public EntityTentacles(World world) {
+47:         super(world);
+48:         this.func_70105_a(1.0f, 1.0f);
+49:         this.field_70129_M = this.field_70131_O / 2.0f;
+50:         this.field_70158_ak = true;
+51:         this.AnimLifeTime = 0;
+52:         this.field_70145_X = true;
+53:     }
+54: 
+55:     public EntityTentacles(World world, double x, double y, double z, Entity liv, int Hgh, int tiw) {
+56:         this(world);
+57:         this.func_70107_b(x, y, z);
+58:         this.high = Hgh;
+59:         this.AnimLifeTime = tiw;
+60:         this.target = liv;
+61:     }
+62: 
+63:     protected void func_70088_a() {
+64:         this.field_70180_af.func_75682_a(25, (Object)-1);
+65:         this.field_70180_af.func_75682_a(26, (Object)0);
+66:         this.field_70180_af.func_75682_a(27, (Object)Float.valueOf(10.0f));
+67:     }
+68: 
+69:     protected void checkTarget() {
+70:         if (!this.field_70170_p.field_72995_K) {
+71:             this.field_70180_af.func_75692_b(26, (Object)this.AnimLifeTime);
+72:             this.field_70180_af.func_75692_b(27, (Object)Float.valueOf(this.health));
+73:             if (this.target != null) {
+74:                 this.field_70180_af.func_75692_b(25, (Object)this.target.func_145782_y());
+75:             } else {
+76:                 this.field_70180_af.func_75692_b(25, (Object)-1);
+77:                 if (this.targetUUID != null) {
+78:                     this.target = MFQM.getEntityByUUID(this.field_70170_p, this, this.targetUUID, 32.0);
+79:                 }
+80:             }
+81:         } else {
+82:             this.health = this.field_70180_af.func_111145_d(27);
+83:             this.target = this.field_70170_p.func_73045_a(this.field_70180_af.func_75679_c(25));
+84:             if (this.AnimLifeTime < 10000) {
+85:                 if (this.target != null) {
+86:                     this.AnimLifeTime = this.field_70180_af.func_75679_c(26);
+87:                     this.func_70105_a(this.target.field_70130_N + 0.1f, 1.0f);
+88:                 } else {
+89:                     this.AnimLifeTime = 10000 + Math.max(100 - this.AnimLifeTime, 0);
+90:                 }
+91:             }
+92:         }
+93:     }
+94: 
+95:     public void CheckInQSBlock() {
+96:         if (this.field_70170_p.func_147439_a((int)Math.floor(this.field_70165_t), (int)Math.floor(this.field_70163_u - 0.5), (int)Math.floor(this.field_70161_v)) != MFQM.SwFleshBlock && this.field_70170_p.func_147439_a((int)Math.floor(this.field_70165_t), (int)Math.floor(this.field_70163_u + 0.5), (int)Math.floor(this.field_70161_v)) != MFQM.SwFleshBlock) {
+97:             this.func_70106_y();
+98:             return;
+99:         }
+100:     }
+101: 
+102:     public void ManipulateWithTerrain() {
+103:     }
+104: 
+105:     public boolean func_70067_L() {
+106:         return true;
+107:     }
+108: 
+109:     public void writeSpawnData(ByteBuf data) {
+110:         data.writeInt(this.high);
+111:         data.writeInt(this.AnimLifeTime);
+112:         data.writeInt(this.target != null ? this.target.func_145782_y() : 0);
+113:         data.writeFloat(this.health);
+114:     }
+115: 
+116:     public void readSpawnData(ByteBuf data) {
+117:         this.high = data.readInt();
+118:         this.AnimLifeTime = data.readInt();
+119:         this.target = this.field_70170_p.func_73045_a(data.readInt());
+120:         this.health = data.readFloat();
+121:     }
+122: 
+123:     @SideOnly(value=Side.CLIENT)
+124:     public boolean func_70112_a(double par1) {
+125:         double d1 = this.field_70121_D.func_72320_b() * 4.0;
+126:         return par1 < (d1 *= 64.0) * d1;
+127:     }
+128: 
+129:     public void CheckDead() {
+130:         if (this.AnimLifeTime < 10000 && this.field_70170_p.func_82737_E() % 32L == 0L) {
+131:             this.target = null;
+132:             this.AnimLifeTime = 10000 + Math.max(100 - this.AnimLifeTime, 0);
+133:         }
+134:     }
+135: 
+136:     public void DeadEffect() {
+137:         for (int var1 = 0; var1 < 5; ++var1) {
+138:             double var8 = this.field_70146_Z.nextGaussian() * 0.02;
+139:             double var4 = this.field_70146_Z.nextGaussian() * 0.02;
+140:             double var6 = this.field_70146_Z.nextGaussian() * 0.02;
+141:             this.field_70170_p.func_72869_a("explode", this.field_70165_t + (double)(this.field_70146_Z.nextFloat() * this.field_70130_N * 2.0f) - (double)this.field_70130_N, (double)((float)this.high + 0.5f) + (double)(this.field_70146_Z.nextFloat() * this.field_70131_O), this.field_70161_v + (double)(this.field_70146_Z.nextFloat() * this.field_70130_N * 2.0f) - (double)this.field_70130_N, var8, var4, var6);
+142:         }
+143:         this.func_70106_y();
+144:     }
+145: 
+146:     public void func_70071_h_() {
+147:         super.func_70071_h_();
+148:         this.field_70159_w = 0.0;
+149:         this.field_70181_x = 0.0;
+150:         this.field_70179_y = 0.0;
+151:         int lastTick = this.AnimLifeTime++;
+152:         int Ticker = 32;
+153:         if (this.target == null) {
+154:             Ticker = 16;
+155:         }
+156:         if (!this.field_70170_p.field_72995_K && this.targetUpdate || this.field_70170_p.func_82737_E() % (long)Ticker == 0L) {
+157:             this.checkTarget();
+158:             this.targetUpdate = false;
+159:         }
+160:         if (this.AnimLifeTime > 10100) {
+161:             this.func_70106_y();
+162:             return;
+163:         }
+164:         if (this.field_70163_u > (double)this.high) {
+165:             this.field_70163_u = this.high;
+166:         }
+167:         if (this.field_70170_p.field_72995_K) {
+168:             if (this.health < 0.01f) {
+169:                 this.DeadEffect();
+170:                 return;
+171:             }
+172:         } else {
+173:             if (this.health < 0.01f) {
+174:                 this.health -= 1.0f;
+175:                 this.target = null;
+176:                 this.AnimLifeTime = 10099;
+177:                 if (this.health < -50.0f) {
+178:                     this.func_70106_y();
+179:                 }
+180:                 return;
+181:             }
+182:             if (this.AnimLifeTime < 10000 && this.maxHurtResistantTime > 0) {
+183:                 --this.maxHurtResistantTime;
+184:             }
+185:             this.CheckInQSBlock();
+186:             boolean Brak = false;
+187:             String reason = "";
+188:             if (this.target != null) {
+189:                 if (this.target instanceof EntityLivingBase) {
+190:                     if (this.target.field_70128_L || !this.target.func_70089_S()) {
+191:                         reason = "Dead target";
+192:                         Brak = true;
+193:                     } else if (this.field_70170_p.func_82737_E() % 32L == 0L) {
+194:                         PotionEffect PEWeak = ((EntityLivingBase)this.target).func_70660_b(Potion.field_76437_t);
+195:                         PotionEffect PESlow = ((EntityLivingBase)this.target).func_70660_b(Potion.field_76419_f);
+196:                         int weakLevel = -1;
+197:                         int slowLevel = -1;
+198:                         if (PEWeak != null) {
+199:                             weakLevel = PEWeak.func_76458_c();
+200:                         }
+201:                         if (PESlow != null) {
+202:                             slowLevel = PESlow.func_76458_c();
+203:                         }
+204:                         if (weakLevel > -1 && slowLevel > 2 && this.AnimLifeTime < 60) {
+205:                             Brak = true;
+206:                             reason = "Already caught";
+207:                         }
+208:                     }
+209:                 } else {
+210:                     Brak = true;
+211:                     reason = "Not living base";
+212:                 }
+213:             } else {
+214:                 Brak = true;
+215:                 reason = "No target";
+216:             }
+217:             if (Brak) {
+218:                 this.CheckDead();
+219:                 return;
+220:             }
+221:         }
+222:         if (this.target != null) {
+223:             double disq;
+224:             double xx = this.field_70165_t;
+225:             double zz = this.field_70161_v;
+226:             double yy = Math.min(this.field_70163_u, (double)this.high);
+227:             double yc = 0.0;
+228:             double power = 1.0 + (double)(Math.min(this.AnimLifeTime, 500) - 60) / 100.0;
+229:             double moveC = 100.0;
+230:             double Sinker = 0.0;
+231:             if (this.AnimLifeTime > 60) {
+232:                 moveC = 200.0;
+233:                 if (this.field_70170_p.func_82737_E() % 64L == 0L && this.field_70170_p.field_73012_v.nextInt(10) == 0) {
+234:                     this.field_70170_p.func_72908_a(this.field_70165_t, this.field_70163_u, this.field_70161_v, "mob.magmacube.jump", 0.25f, 0.25f + (this.field_70170_p.field_73012_v.nextFloat() - this.field_70170_p.field_73012_v.nextFloat()) * 0.4f);
+235:                 }
+236:                 if (this.field_70170_p.func_82737_E() % 64L == 0L) {
+237:                     this.field_70170_p.func_72908_a(this.field_70165_t, this.field_70163_u, this.field_70161_v, "mob.silverfish.step", 0.25f, this.field_70170_p.field_73012_v.nextFloat() * 0.25f + 0.1f);
+238:                     this.field_70170_p.func_72908_a(this.field_70165_t, this.field_70163_u, this.field_70161_v, "mob.silverfish.step", 0.25f, this.field_70170_p.field_73012_v.nextFloat() * 0.25f + 0.1f);
+239:                 }
+240:             } else if (this.field_70170_p.func_82737_E() % 64L == 0L) {
+241:                 this.field_70170_p.func_72908_a(this.field_70165_t, this.field_70163_u, this.field_70161_v, "mob.silverfish.step", 0.15f, this.field_70170_p.field_73012_v.nextFloat() * 0.25f + 0.5f);
+242:             }
+243:             if (this.AnimLifeTime > 100 && (double)this.high - (this.target.field_70163_u + yc) < 1.0) {
+244:                 Sinker = 0.0025;
+245:             }
+246:             if (this.field_70170_p.field_72995_K && this.target == Minecraft.func_71410_x().field_71439_g) {
+247:                 yc = -1.6;
+248:             }
+249:             if ((disq = Math.pow(Math.pow(this.target.field_70165_t - xx, 2.0) + Math.pow(this.target.field_70161_v - zz, 2.0), 0.5)) < 2.0) {
+250:                 if (this.target.field_70163_u + yc <= (double)this.high + 1.0 && (double)this.high - (this.target.field_70163_u + yc) < 2.0) {
+251:                     if (disq > 0.25) {
+252:                         xx = (this.target.field_70165_t - this.field_70165_t) / moveC + this.field_70165_t;
+253:                         zz = (this.target.field_70161_v - this.field_70161_v) / moveC + this.field_70161_v;
+254:                     }
+255:                     yy = Math.min(Math.min(0.0, (this.target.field_70163_u + yc - this.field_70163_u) / moveC) + Math.max(0.0, (this.target.field_70163_u + yc - this.field_70163_u) / (moveC * 2.0)) + this.field_70163_u, (double)this.high) - Sinker;
+256:                     if (disq > 0.75) {
+257:                         if (this.AnimLifeTime == 59) {
+258:                             this.AnimLifeTime = 59;
+259:                         }
+260:                         this.CheckDead();
+261:                     } else {
+262:                         if (!this.field_70170_p.field_72995_K) {
+263:                             if (this.AnimLifeTime >= 60) {
+264:                                 if (this.AnimLifeTime == 60) {
+265:                                     this.field_70170_p.func_72908_a(this.field_70165_t, this.field_70163_u, this.field_70161_v, "mob.silverfish.step", 0.25f, this.field_70170_p.field_73012_v.nextFloat() * 0.25f + 0.1f);
+266:                                 }
+267:                                 int slowLevel = (int)Math.floor(power * 16.0);
+268:                                 int weakLevel = (int)Math.floor(power * 4.0);
+269:                                 if (this.field_70170_p.func_82737_E() % 32L == 0L) {
+270:                                     ((EntityLivingBase)this.target).func_70690_d(new PotionEffect(4, 100, Math.min(slowLevel + 1, 255), false));
+271:                                     ((EntityLivingBase)this.target).func_70690_d(new PotionEffect(18, 100, Math.min(weakLevel + 1, 255), false));
+272:                                 }
+273:                             }
+274:                             this.ManipulateWithTerrain();
+275:                         }
+276:                         if (this.AnimLifeTime > 60) {
+277:                             double apower = Math.max(100.0 / power, 10.0);
+278:                             if (disq <= 0.75 && disq >= 0.075) {
+279:                                 if (this.field_70170_p.field_72995_K) {
+280:                                     if (this.target == Minecraft.func_71410_x().field_71439_g) {
+281:                                         this.target.field_70159_w += (xx - this.target.field_70165_t) / apower;
+282:                                         this.target.field_70179_y += (zz - this.target.field_70161_v) / apower;
+283:                                     }
+284:                                 } else {
+285:                                     this.target.field_70159_w += (xx - this.target.field_70165_t) / Math.max(apower / 2.0, 1.0);
+286:                                     this.target.field_70179_y += (zz - this.target.field_70161_v) / Math.max(apower / 2.0, 1.0);
+287:                                 }
+288:                             }
+289:                             this.target.field_70181_x += -0.01;
+290:                             if (Math.abs(yy - (this.target.field_70163_u + yc)) > 0.075) {
+291:                                 if (this.field_70170_p.field_72995_K) {
+292:                                     if (this.target == Minecraft.func_71410_x().field_71439_g) {
+293:                                         this.target.field_70181_x += (yy - (this.target.field_70163_u + yc)) / Math.max(apower / 2.0, 1.0);
+294:                                     }
+295:                                 } else {
+296:                                     this.target.field_70181_x += -0.05 + (yy - (this.target.field_70163_u + yc)) / Math.max(apower / 4.0, 1.0);
+297:                                 }
+298:                             }
+299:                             if (this.AnimLifeTime > 1000) {
+300:                                 this.AnimLifeTime = 500;
+301:                             }
+302:                         }
+303:                     }
+304:                 } else {
+305:                     this.target = null;
+306:                     this.CheckDead();
+307:                 }
+308:             } else {
+309:                 this.CheckDead();
+310:             }
+311:             this.func_70107_b(xx, yy, zz);
+312:         }
+313:     }
+314: 
+315:     public float func_70047_e() {
+316:         return 1.5f;
+317:     }
+318: 
+319:     public boolean func_70097_a(DamageSource dmgs, float amount) {
+320:         if (this.field_70170_p.field_72995_K) {
+321:             return false;
+322:         }
+323:         if (this.health > 0.0f && this.maxHurtResistantTime < 1) {
+324:             this.health -= amount;
+325:             if (this.health <= 0.01f) {
+326:                 this.func_85030_a("game.neutral.die", 1.0f, (this.field_70170_p.field_73012_v.nextFloat() - this.field_70170_p.field_73012_v.nextFloat()) * 0.2f + 1.0f);
+327:                 this.func_85030_a("mob.silverfish.kill", 1.0f, (this.field_70170_p.field_73012_v.nextFloat() - this.field_70170_p.field_73012_v.nextFloat()) * 0.2f + 1.75f);
+328:                 this.func_85030_a("mob.silverfish.step", 0.5f, this.field_70170_p.field_73012_v.nextFloat() * 0.25f + 0.5f);
+329:                 this.health = 0.0f;
+330:                 this.checkTarget();
+331:             } else {
+332:                 this.func_85030_a("game.neutral.hurt", 1.0f, (this.field_70170_p.field_73012_v.nextFloat() - this.field_70170_p.field_73012_v.nextFloat()) * 0.2f + 1.0f);
+333:             }
+334:             this.maxHurtResistantTime = 20;
+335:             return true;
+336:         }
+337:         return false;
+338:     }
+339: 
+340:     public void func_70091_d(double p_70091_1_, double p_70091_3_, double p_70091_5_) {
+341:     }
+342: 
+343:     public void func_70014_b(NBTTagCompound nbtt) {
+344:         nbtt.func_74768_a("high", this.high);
+345:         nbtt.func_74768_a("TickHere", this.AnimLifeTime);
+346:         if (this.target != null) {
+347:             nbtt.func_74772_a("TargetMSB", this.target.func_110124_au().getMostSignificantBits());
+348:             nbtt.func_74772_a("TargetLSB", this.target.func_110124_au().getLeastSignificantBits());
+349:         } else {
+350:             nbtt.func_74772_a("TargetMSB", 0L);
+351:             nbtt.func_74772_a("TargetLSB", 0L);
+352:         }
+353:         nbtt.func_74776_a("FKHealth", this.health);
+354:     }
+355: 
+356:     public void func_70037_a(NBTTagCompound nbtt) {
+357:         this.high = nbtt.func_74762_e("high");
+358:         this.AnimLifeTime = nbtt.func_74762_e("TickHere");
+359:         this.targetUUID = new UUID(nbtt.func_74763_f("TargetMSB"), nbtt.func_74763_f("TargetLSB"));
+360:         this.health = nbtt.func_74760_g("FKHealth");
+361:     }
+362: 
+363:     @SideOnly(value=Side.CLIENT)
+364:     public float func_70053_R() {
+365:         return 0.0f;
+366:     }
+367: }
+368: 

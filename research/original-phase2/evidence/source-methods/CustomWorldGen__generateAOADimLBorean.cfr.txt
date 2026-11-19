@@ -1,0 +1,77 @@
+// CFR0.152; original decompiler line 5947; NOT original source; inspect **/goto artifacts if present.
+    private void generateAOADimLBorean(World world, Random random, int chunkX, int chunkZ) {
+        int rad;
+        int genCount;
+        boolean isBubbles;
+        int dHeight = 0;
+        int firstBlockXCoord = chunkX + random.nextInt(16);
+        int firstBlockYCoord = 96 + dHeight;
+        int firstBlockZCoord = chunkZ + random.nextInt(16);
+        BiomeGenBase biomegenbase = world.func_72807_a(firstBlockXCoord, firstBlockZCoord);
+        int biomeId = biomegenbase.field_76756_M;
+        boolean blockGen = false;
+        boolean isRedForest = biomeId == MFQM.AOABiomes[29];
+        boolean isPonds = biomeId == MFQM.AOABiomes[30];
+        boolean bl = isBubbles = biomeId == MFQM.AOABiomes[27];
+        if (MFQM.GenMoss) {
+            int MossP = 15;
+            genCount = 30 + random.nextInt(20);
+            int genRad = 10;
+            int genRadP = 10;
+            if (!isRedForest && random.nextInt(MossP) == 0) {
+                for (int i = 0; i < genCount; ++i) {
+                    firstBlockXCoord = chunkX - 8 + random.nextInt(32);
+                    firstBlockZCoord = chunkZ - 8 + random.nextInt(32);
+                    rad = genRad + random.nextInt(genRadP);
+                    boolean canGen = false;
+                    int countBlock = 0;
+                    for (firstBlockYCoord = 67 + dHeight; firstBlockYCoord > 60 + dHeight; --firstBlockYCoord) {
+                        if (this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                            if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                canGen = true;
+                                break;
+                            }
+                            ++countBlock;
+                        }
+                        if (countBlock > 10) break;
+                    }
+                    if (!canGen) continue;
+                    this.generateMoss(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad, world, random);
+                }
+            }
+        }
+        if (MFQM.GenMoss && MFQM.GenBog && !blockGen) {
+            boolean canGen = false;
+            genCount = 10 + random.nextInt(10);
+            int genPos = 20;
+            int genRad = 8;
+            int genRadP = 6;
+            rad = 0;
+            if (!(isPonds || isBubbles || isRedForest || random.nextInt(genPos) != 0)) {
+                boolean Flat = false;
+                if (random.nextInt(10) == 0) {
+                    Flat = true;
+                }
+                for (int i = 0; i < genCount; ++i) {
+                    firstBlockXCoord = chunkX + random.nextInt(16);
+                    firstBlockZCoord = chunkZ + random.nextInt(16);
+                    rad = genRad + random.nextInt(genRadP);
+                    int countBlock = 0;
+                    canGen = false;
+                    for (firstBlockYCoord = 96 + dHeight; firstBlockYCoord > 60 + dHeight; --firstBlockYCoord) {
+                        if (this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world) && !this.validLiqMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)) {
+                            if (CustomWorldGen.isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                                canGen = true;
+                                break;
+                            }
+                            ++countBlock;
+                        }
+                        if (countBlock > 10) break;
+                    }
+                    if (!canGen || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad - 3, world) || !this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, rad - 3, world)) continue;
+                    this.generateMossQS(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, rad, world, random, MFQM.BogBlock);
+                    blockGen = true;
+                }
+            }
+        }
+    }

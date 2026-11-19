@@ -1,0 +1,478 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.common.registry.IEntityAdditionalSpawnData
+6:  *  cpw.mods.fml.relauncher.Side
+7:  *  cpw.mods.fml.relauncher.SideOnly
+8:  *  io.netty.buffer.ByteBuf
+9:  *  net.minecraft.block.Block
+10:  *  net.minecraft.entity.Entity
+11:  *  net.minecraft.entity.EntityLivingBase
+12:  *  net.minecraft.nbt.NBTTagCompound
+13:  *  net.minecraft.world.World
+14:  */
+15: package MoreFunQuicksandMod.main.entity;
+16: 
+17: import MoreFunQuicksandMod.main.MFQM;
+18: import MoreFunQuicksandMod.main.entity.EntityRope;
+19: import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
+20: import cpw.mods.fml.relauncher.Side;
+21: import cpw.mods.fml.relauncher.SideOnly;
+22: import io.netty.buffer.ByteBuf;
+23: import net.minecraft.block.Block;
+24: import net.minecraft.entity.Entity;
+25: import net.minecraft.entity.EntityLivingBase;
+26: import net.minecraft.nbt.NBTTagCompound;
+27: import net.minecraft.world.World;
+28: 
+29: public class EntityLongStick
+30: extends Entity
+31: implements IEntityAdditionalSpawnData {
+32:     public int xx = 0;
+33:     public int yy = 0;
+34:     public int zz = 0;
+35:     public Entity curPlayer;
+36: 
+37:     public EntityLongStick(World world) {
+38:         super(world);
+39:         this.func_70105_a(0.25f, 0.25f);
+40:         this.field_70158_ak = true;
+41:     }
+42: 
+43:     public EntityLongStick(World world, double x, double y, double z, Entity entity) {
+44:         this(world);
+45:         this.func_70107_b(x, y, z);
+46:         this.field_70158_ak = true;
+47:         this.curPlayer = entity;
+48:     }
+49: 
+50:     public EntityLongStick(World world, double x, double y, double z, Entity entity, int xx, int yy, int zz) {
+51:         this(world, x, y, z, entity);
+52:         this.xx = xx;
+53:         this.yy = yy;
+54:         this.zz = zz;
+55:     }
+56: 
+57:     public EntityLongStick(World par1World, EntityLivingBase liv) {
+58:         super(par1World);
+59:         this.field_70158_ak = true;
+60:         this.func_70105_a(0.25f, 0.25f);
+61:         this.func_70107_b(this.field_70165_t, this.field_70163_u, this.field_70161_v);
+62:     }
+63: 
+64:     protected void func_70088_a() {
+65:     }
+66: 
+67:     public void writeSpawnData(ByteBuf data) {
+68:         data.writeInt(this.curPlayer != null ? this.curPlayer.func_145782_y() : 0);
+69:         data.writeInt(this.xx);
+70:         data.writeInt(this.yy);
+71:         data.writeInt(this.zz);
+72:     }
+73: 
+74:     public void readSpawnData(ByteBuf data) {
+75:         this.curPlayer = this.field_70170_p.func_73045_a(data.readInt());
+76:         this.xx = data.readInt();
+77:         this.yy = data.readInt();
+78:         this.zz = data.readInt();
+79:     }
+80: 
+81:     @SideOnly(value=Side.CLIENT)
+82:     public boolean func_70112_a(double par1) {
+83:         double d1 = this.field_70121_D.func_72320_b() * 4.0;
+84:         return par1 < (d1 *= 64.0) * d1;
+85:     }
+86: 
+87:     public void func_70071_h_() {
+88:         super.func_70071_h_();
+89:         if (!this.field_70170_p.field_72995_K) {
+90:             this.func_70106_y();
+91:             return;
+92:         }
+93:         Block block1 = this.field_70170_p.func_147439_a(this.xx, this.yy, this.zz);
+94:         int meta1 = this.field_70170_p.func_72805_g(this.xx, this.yy, this.zz);
+95:         int Indax1 = -1;
+96:         Block block2 = this.field_70170_p.func_147439_a(this.xx, this.yy - 1, this.zz);
+97:         int meta2 = this.field_70170_p.func_72805_g(this.xx, this.yy - 1, this.zz);
+98:         int Indax2 = -1;
+99:         if (block1 == MFQM.MudBlock || block1.func_149668_a(this.field_70170_p, this.xx, this.yy, this.zz) == null) {
+100:             int i;
+101:             for (i = 0; i < EntityRope.quicksandIDS.length; ++i) {
+102:                 if (EntityRope.quicksandIDS[i] != block1) continue;
+103:                 Indax1 = i;
+104:             }
+105:             if (block2.func_149668_a(this.field_70170_p, this.xx, this.yy, this.zz) == null) {
+106:                 for (i = 0; i < EntityRope.quicksandIDS.length; ++i) {
+107:                     if (EntityRope.quicksandIDS[i] != block2) continue;
+108:                     Indax2 = i;
+109:                 }
+110:             }
+111:             int deep = 1;
+112:             if (Indax2 != -1) {
+113:                 deep = 3;
+114:             }
+115:             if (Indax1 != -1) {
+116:                 switch (Indax1) {
+117:                     case 0: {
+118:                         this.spawnParticle(block1, 0, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+119:                         this.playSound("mob.slime.attack", 0.25f, 0.25f, 0.25f);
+120:                         if (deep > 1) {
+121:                             this.playSuction(0.25f);
+122:                             this.playSound("mob.slime.attack", 0.25f, 0.1f, 0.25f);
+123:                         }
+124:                         MFQM.spawnStickBubble(this.field_70170_p, this.field_70165_t, this.field_70163_u, this.field_70161_v, block1, 0, deep > 1);
+125:                         break;
+126:                     }
+127:                     case 1: {
+128:                         this.spawnParticle(block1, 0, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+129:                         this.playSound("dig.cloth", 0.75f, 0.5f, 0.5f);
+130:                         if (deep <= 1) break;
+131:                         this.playSound("dig.cloth", 0.75f, 0.25f, 0.5f);
+132:                         break;
+133:                     }
+134:                     case 2: {
+135:                         this.spawnParticle(block1, 0, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+136:                         this.playSound("dig.sand", 0.25f, 0.5f, 0.5f);
+137:                         if (deep <= 1) break;
+138:                         this.playSound("dig.sand", 0.15f, 0.25f, 0.5f);
+139:                         break;
+140:                     }
+141:                     case 3: {
+142:                         this.spawnParticle(MFQM.MireBlock, 10, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+143:                         this.playSound("mob.slime.attack", 0.25f, 0.25f, 0.25f);
+144:                         if (deep <= 1) break;
+145:                         this.playSuction(0.25f);
+146:                         this.playSound("mob.slime.attack", 0.25f, 0.1f, 0.25f);
+147:                         break;
+148:                     }
+149:                     case 4: {
+150:                         this.spawnParticle(block1, 0, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+151:                         this.playSound("mob.slime.attack", 0.25f, 0.25f, 0.25f);
+152:                         if (deep > 1) {
+153:                             this.playSuction(0.25f);
+154:                             this.playSound("mob.slime.attack", 0.25f, 0.1f, 0.25f);
+155:                         }
+156:                         MFQM.spawnStickBubble(this.field_70170_p, this.field_70165_t, this.field_70163_u, this.field_70161_v, block1, 0, deep > 1);
+157:                         break;
+158:                     }
+159:                     case 5: {
+160:                         this.spawnParticle(block1, 0, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+161:                         this.playSound("mob.slime.attack", 0.25f, 0.25f, 0.25f);
+162:                         this.playSuction(0.1f);
+163:                         if (deep > 1) {
+164:                             this.playSuction(0.25f);
+165:                             this.playSound("mob.slime.attack", 0.25f, 0.1f, 0.25f);
+166:                         }
+167:                         MFQM.spawnStickBubble(this.field_70170_p, this.field_70165_t, this.field_70163_u, this.field_70161_v, block1, 0, deep > 1);
+168:                         break;
+169:                     }
+170:                     case 6: {
+171:                         this.spawnParticle(block1, 0, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+172:                         this.playSound("mob.slime.attack", 0.25f, 0.25f, 0.25f);
+173:                         if (deep > 1) {
+174:                             this.playSuction(0.15f);
+175:                             this.playSound("mob.slime.attack", 0.25f, 0.1f, 0.25f);
+176:                         }
+177:                         MFQM.spawnStickBubble(this.field_70170_p, this.field_70165_t, this.field_70163_u, this.field_70161_v, block1, 0, deep > 1);
+178:                         break;
+179:                     }
+180:                     case 7: {
+181:                         this.spawnParticle(block1, 0, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+182:                         this.playSound("mob.slime.attack", 0.25f, 0.25f, 0.25f);
+183:                         if (deep > 1) {
+184:                             this.playSuction(0.15f);
+185:                             this.playSound("mob.slime.attack", 0.25f, 0.1f, 0.25f);
+186:                         }
+187:                         MFQM.spawnStickBubble(this.field_70170_p, this.field_70165_t, this.field_70163_u, this.field_70161_v, block1, 0, deep > 1);
+188:                         break;
+189:                     }
+190:                     case 8: {
+191:                         this.spawnParticle(block1, 0, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+192:                         this.playSound("mob.slime.attack", 0.25f, 0.25f, 0.25f);
+193:                         this.playSuction(0.1f);
+194:                         if (deep <= 1) break;
+195:                         this.playSuction(0.25f);
+196:                         this.playSound("mob.slime.attack", 0.25f, 0.1f, 0.25f);
+197:                         break;
+198:                     }
+199:                     case 9: {
+200:                         this.spawnParticle(block1, 10, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+201:                         this.playSound("mob.slime.attack", 0.25f, 0.25f, 0.25f);
+202:                         this.playSuction(0.1f);
+203:                         if (deep > 1) {
+204:                             this.playSuction(0.25f);
+205:                             this.playSound("mob.slime.attack", 0.25f, 0.1f, 0.25f);
+206:                         }
+207:                         MFQM.spawnStickBubble(this.field_70170_p, this.field_70165_t, this.field_70163_u, this.field_70161_v, block1, -1, deep > 1);
+208:                         break;
+209:                     }
+210:                     case 10: {
+211:                         this.spawnParticle(block1, 10, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+212:                         this.playSound("mob.slime.attack", 0.25f, 0.25f, 0.25f);
+213:                         this.playSuction(0.1f);
+214:                         if (deep > 1) {
+215:                             this.playSuction(0.25f);
+216:                             this.playSound("mob.slime.attack", 0.25f, 0.1f, 0.25f);
+217:                         }
+218:                         MFQM.spawnStickBubble(this.field_70170_p, this.field_70165_t, this.field_70163_u, this.field_70161_v, block1, 10, deep > 1);
+219:                         break;
+220:                     }
+221:                     case 11: {
+222:                         this.spawnParticle(block1, 10, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+223:                         this.playSound("mob.slime.attack", 0.25f, 0.25f, 0.25f);
+224:                         this.playSuction(0.1f);
+225:                         if (deep > 1) {
+226:                             this.playSuction(0.25f);
+227:                             this.playSound("mob.slime.attack", 0.25f, 0.1f, 0.25f);
+228:                         }
+229:                         MFQM.spawnStickBubble(this.field_70170_p, this.field_70165_t, this.field_70163_u, this.field_70161_v, block1, 10, deep > 1);
+230:                         break;
+231:                     }
+232:                     case 12: {
+233:                         this.spawnParticle(block1, 0, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+234:                         this.playSound("mob.slime.attack", 0.25f, 0.25f, 0.25f);
+235:                         this.playSuction(0.2f);
+236:                         if (deep > 1) {
+237:                             this.playSuction(0.25f);
+238:                             this.playSound("mob.slime.attack", 0.25f, 0.1f, 0.25f);
+239:                         }
+240:                         MFQM.spawnStickBubble(this.field_70170_p, this.field_70165_t, this.field_70163_u, this.field_70161_v, block1, 0, deep > 1);
+241:                         break;
+242:                     }
+243:                     case 13: {
+244:                         this.playSound("mob.silverfish.step", 0.55f, 0.85f, 0.15f);
+245:                         this.playSound("mob.silverfish.hit", 0.15f, 1.75f, 0.25f);
+246:                         if (deep <= 1) break;
+247:                         this.playSound("mob.silverfish.step", 0.55f, 0.45f, 0.15f);
+248:                         break;
+249:                     }
+250:                     case 14: {
+251:                         this.spawnParticle(block1, 0, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+252:                         this.playSound("dig.sand", 0.25f, 0.5f, 0.5f);
+253:                         if (deep <= 1) break;
+254:                         this.playSound("dig.sand", 0.15f, 0.25f, 0.5f);
+255:                         break;
+256:                     }
+257:                     case 15: {
+258:                         break;
+259:                     }
+260:                     case 16: {
+261:                         this.spawnParticle(block1, meta1, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+262:                         this.playSound("mob.slime.attack", 0.25f, 0.25f, 0.25f);
+263:                         this.playSound("dig.cloth", 0.55f, 0.1f, 0.15f);
+264:                         if (deep <= 1) break;
+265:                         this.playSuction(0.25f);
+266:                         this.playSound("mob.slime.attack", 0.25f, 0.1f, 0.25f);
+267:                         this.playSound("dig.cloth", 0.55f, 0.1f, 0.15f);
+268:                         break;
+269:                     }
+270:                     case 17: {
+271:                         this.spawnParticle(block1, 0, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+272:                         this.playSound("mob.slime.attack", 0.25f, 0.25f, 0.25f);
+273:                         this.playSound("dig.sand", 0.25f, 0.5f, 0.5f);
+274:                         this.playSuction(0.1f);
+275:                         if (deep <= 1) break;
+276:                         this.playSuction(0.25f);
+277:                         this.playSound("mob.slime.attack", 0.25f, 0.1f, 0.25f);
+278:                         this.playSound("dig.sand", 0.25f, 0.25f, 0.5f);
+279:                         break;
+280:                     }
+281:                     case 18: {
+282:                         this.spawnParticle(block1, 0, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+283:                         this.playSound("mob.magmacube.jump", 0.25f, 0.25f, 0.4f);
+284:                         if (deep <= 1) break;
+285:                         this.playSound("mob.magmacube.jump", 0.25f, 0.1f, 0.4f);
+286:                         break;
+287:                     }
+288:                     case 19: {
+289:                         this.spawnParticle(block1, 0, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+290:                         this.playSound("mob.slime.attack", 0.25f, 0.25f, 0.25f);
+291:                         this.playSuction(0.1f);
+292:                         if (deep <= 1) break;
+293:                         this.playSuction(0.25f);
+294:                         this.playSound("mob.slime.attack", 0.25f, 0.1f, 0.25f);
+295:                         break;
+296:                     }
+297:                     case 20: {
+298:                         this.spawnParticle(block1, 0, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+299:                         this.playSound("mob.slime.attack", 0.25f, 0.25f, 0.25f);
+300:                         this.playSuction(0.1f);
+301:                         if (deep > 1) {
+302:                             this.playSuction(0.25f);
+303:                             this.playSound("mob.slime.attack", 0.25f, 0.1f, 0.25f);
+304:                         }
+305:                         MFQM.spawnStickBubble(this.field_70170_p, this.field_70165_t, this.field_70163_u, this.field_70161_v, block1, 0, deep > 1);
+306:                         break;
+307:                     }
+308:                     case 21: {
+309:                         break;
+310:                     }
+311:                     case 22: {
+312:                         this.spawnParticle(block1, 0, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+313:                         this.playSound("dig.grass", 0.15f, 0.25f, 0.4f);
+314:                         if (deep <= 1) break;
+315:                         this.playSuction(0.25f);
+316:                         this.playSound("dig.grass", 0.15f, 0.1f, 0.4f);
+317:                         break;
+318:                     }
+319:                     case 23: {
+320:                         this.spawnParticle(block1, meta1, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+321:                         this.playSound("mob.slime.attack", 0.25f, 0.25f, 0.25f);
+322:                         if (deep > 1) {
+323:                             this.playSuction(0.25f);
+324:                             this.playSound("mob.slime.attack", 0.25f, 0.1f, 0.25f);
+325:                         }
+326:                         MFQM.spawnStickBubble(this.field_70170_p, this.field_70165_t, this.field_70163_u, this.field_70161_v, block1, -1, deep > 1);
+327:                         break;
+328:                     }
+329:                     case 24: {
+330:                         this.spawnParticle(block1, meta1, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+331:                         this.playSound("mob.slime.attack", 0.25f, 0.25f, 0.25f);
+332:                         if (deep > 1) {
+333:                             this.playSuction(0.25f);
+334:                             this.playSound("mob.slime.attack", 0.25f, 0.1f, 0.25f);
+335:                         }
+336:                         MFQM.spawnStickBubble(this.field_70170_p, this.field_70165_t, this.field_70163_u, this.field_70161_v, block1, -1, deep > 1);
+337:                         break;
+338:                     }
+339:                     case 25: {
+340:                         this.spawnParticle(block1, 0, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+341:                         this.playSound("mob.slime.attack", 0.25f, 0.25f, 0.25f);
+342:                         if (deep <= 1) break;
+343:                         this.playSuction(0.25f);
+344:                         this.playSound("mob.slime.attack", 0.25f, 0.1f, 0.25f);
+345:                         break;
+346:                     }
+347:                     case 26: {
+348:                         this.spawnParticle(block1, 0, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+349:                         this.playSound("mob.slime.attack", 0.25f, 0.25f, 0.25f);
+350:                         this.playSuction(0.1f);
+351:                         if (deep > 1) {
+352:                             this.playSuction(0.25f);
+353:                             this.playSound("mob.slime.attack", 0.25f, 0.1f, 0.25f);
+354:                         }
+355:                         MFQM.spawnStickBubble(this.field_70170_p, this.field_70165_t, this.field_70163_u, this.field_70161_v, block1, -1, deep > 1);
+356:                         break;
+357:                     }
+358:                     case 27: {
+359:                         this.spawnParticle(block1, 0, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+360:                         this.playSound("mob.slime.attack", 0.25f, 0.25f, 0.25f);
+361:                         this.playSuction(0.1f);
+362:                         if (deep > 1) {
+363:                             this.playSuction(0.25f);
+364:                             this.playSound("mob.slime.attack", 0.25f, 0.1f, 0.25f);
+365:                         }
+366:                         MFQM.spawnStickBubble(this.field_70170_p, this.field_70165_t, this.field_70163_u, this.field_70161_v, block1, 0, deep > 1);
+367:                         break;
+368:                     }
+369:                     case 28: {
+370:                         if (this.curPlayer != null) {
+371:                             this.spawnParticle(block1, 0, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+372:                             this.playSound("mob.slime.attack", 0.25f, 0.25f, 0.25f);
+373:                             if (deep > 1) {
+374:                                 this.playSuction(0.25f);
+375:                                 this.playSound("mob.slime.attack", 0.25f, 0.1f, 0.25f);
+376:                             }
+377:                             MFQM.spawnStickBubble(this.field_70170_p, this.field_70165_t, this.field_70163_u, this.field_70161_v, block1, 0, deep > 1);
+378:                             break;
+379:                         }
+380:                         MFQM.spawnStickBubble(this.field_70170_p, this.field_70165_t, this.field_70163_u, this.field_70161_v, block1, 0, true);
+381:                         break;
+382:                     }
+383:                     case 29: {
+384:                         if (meta1 == 0) {
+385:                             this.playBottom(block1);
+386:                         }
+387:                         if (meta1 > 0) {
+388:                             this.spawnParticle(block1, 0, 5, 0.2, 0.1, 0.05);
+389:                             this.playSound("mob.slime.attack", 0.25f, 0.25f, 0.25f);
+390:                             this.playSound("dig.sand", 0.25f, 0.5f, 0.5f);
+391:                         }
+392:                         if (meta1 == 2) {
+393:                             this.playSuction(0.1f);
+394:                         }
+395:                         if (meta1 <= 2) break;
+396:                         this.playSuction(0.25f);
+397:                         MFQM.spawnStickBubble(this.field_70170_p, this.field_70165_t, this.field_70163_u, this.field_70161_v, block1, 0, deep > 1);
+398:                         break;
+399:                     }
+400:                     case 30: {
+401:                         this.spawnParticle(block1, 0, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+402:                         this.playSound("mob.slime.attack", 0.25f, 0.25f, 0.25f);
+403:                         if (deep > 1) {
+404:                             this.playSuction(0.25f);
+405:                             this.playSound("mob.slime.attack", 0.25f, 0.1f, 0.25f);
+406:                         }
+407:                         MFQM.spawnStickBubble(this.field_70170_p, this.field_70165_t, this.field_70163_u, this.field_70161_v, block1, 2, deep > 1);
+408:                         break;
+409:                     }
+410:                     case 31: {
+411:                         if (this.curPlayer != null) {
+412:                             this.spawnParticle(block1, 0, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+413:                             this.playSound("mob.slime.attack", 0.25f, 0.25f, 0.25f);
+414:                             if (deep > 1) {
+415:                                 this.playSuction(0.25f);
+416:                                 this.playSound("mob.slime.attack", 0.25f, 0.1f, 0.25f);
+417:                             }
+418:                             MFQM.spawnStickBubble(this.field_70170_p, this.field_70165_t, this.field_70163_u, this.field_70161_v, block1, 0, deep > 1);
+419:                             break;
+420:                         }
+421:                         MFQM.spawnStickBubble(this.field_70170_p, this.field_70165_t, this.field_70163_u, this.field_70161_v, block1, 0, true);
+422:                         break;
+423:                     }
+424:                     case 32: {
+425:                         this.spawnParticle(block1, 0, 5 * deep, 0.2 * (double)deep, 0.1 * (double)deep, 0.05 / (double)deep);
+426:                         this.playSound("mob.slime.attack", 0.25f, 0.25f, 0.25f);
+427:                         if (deep > 1) {
+428:                             this.playSuction(0.15f);
+429:                             this.playSound("mob.slime.attack", 0.25f, 0.1f, 0.25f);
+430:                         }
+431:                         MFQM.spawnStickBubble(this.field_70170_p, this.field_70165_t, this.field_70163_u, this.field_70161_v, block1, 0, deep > 1);
+432:                     }
+433:                 }
+434:                 if (deep == 1) {
+435:                     this.playBottom(block2);
+436:                 }
+437:             }
+438:         } else {
+439:             this.field_70170_p.func_72980_b(this.field_70165_t, this.field_70163_u, this.field_70161_v, block1.field_149762_H.func_150498_e(), 0.25f, block1.field_149762_H.func_150494_d(), false);
+440:         }
+441:         this.func_70106_y();
+442:     }
+443: 
+444:     public void spawnParticle(Block blc, int Meta, int count, double rad, double yrad, double up) {
+445:         for (int var3 = 0; var3 < count; ++var3) {
+446:             this.field_70170_p.func_72869_a("blockcrack_" + Block.func_149682_b((Block)blc) + "_" + Meta, this.field_70165_t + (double)this.field_70170_p.field_73012_v.nextFloat() * rad - rad / 2.0, this.field_70163_u + up + (double)this.field_70170_p.field_73012_v.nextFloat() * yrad - yrad / 2.0, this.field_70161_v + (double)this.field_70170_p.field_73012_v.nextFloat() * rad - rad / 2.0, 0.0, 0.0, 0.0);
+447:         }
+448:     }
+449: 
+450:     public void playSound(String str, float vol, float pitch, float rpitch) {
+451:         this.field_70170_p.func_72980_b(this.field_70165_t, this.field_70163_u, this.field_70161_v, str, vol, this.field_70170_p.field_73012_v.nextFloat() * rpitch + pitch, false);
+452:     }
+453: 
+454:     public void playBottom(Block blc) {
+455:         if (blc.func_149688_o().func_76220_a()) {
+456:             this.field_70170_p.func_72980_b(this.field_70165_t, this.field_70163_u - 1.0, this.field_70161_v, blc.field_149762_H.func_150498_e(), 0.2f, blc.field_149762_H.func_150494_d(), false);
+457:         }
+458:     }
+459: 
+460:     public void playSuction(float vol) {
+461:         this.field_70170_p.func_72980_b(this.field_70165_t, this.field_70163_u, this.field_70161_v, "mob.magmacube.jump", vol / 2.5f, 0.25f + (this.field_70146_Z.nextFloat() - this.field_70146_Z.nextFloat()) * 0.4f, false);
+462:         this.field_70170_p.func_72980_b(this.field_70165_t, this.field_70163_u, this.field_70161_v, "mob.magmacube.jump", vol / 2.5f, 0.25f + (this.field_70146_Z.nextFloat() - this.field_70146_Z.nextFloat()) * 0.4f, false);
+463:         this.field_70170_p.func_72980_b(this.field_70165_t, this.field_70163_u, this.field_70161_v, "mob.magmacube.jump", vol / 2.5f, 0.25f + (this.field_70146_Z.nextFloat() - this.field_70146_Z.nextFloat()) * 0.4f, false);
+464:         this.field_70170_p.func_72980_b(this.field_70165_t, this.field_70163_u, this.field_70161_v, "mob.magmacube.jump", vol / 2.5f, 0.25f + (this.field_70146_Z.nextFloat() - this.field_70146_Z.nextFloat()) * 0.4f, false);
+465:     }
+466: 
+467:     public void func_70014_b(NBTTagCompound par1NBTTagCompound) {
+468:     }
+469: 
+470:     public void func_70037_a(NBTTagCompound par1NBTTagCompound) {
+471:     }
+472: 
+473:     @SideOnly(value=Side.CLIENT)
+474:     public float func_70053_R() {
+475:         return 0.0f;
+476:     }
+477: }
+478: 

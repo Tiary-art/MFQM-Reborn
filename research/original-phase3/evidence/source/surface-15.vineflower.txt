@@ -1,0 +1,211 @@
+// Decompiled inference, NOT original source; semantic closure PARTIAL
+      if (MFQM.GenMorass && !blockGen) {
+         int BogP = 0;
+         int genCountx = 0;
+         int trueGenCount = 0;
+         int genRad = 0;
+         int trueGenRad = 0;
+         float dynamicGenRad = 0.0F;
+         int genRadP = 0;
+         int swD = this.getPeatBogType(biomeId);
+         boolean swGB = this.getPeatBogGenBirch(biomeId);
+         int GPX = 0;
+         int GPY = 0;
+         int GPZ = 0;
+         int BGPX = 0;
+         int BGPY = 62 + dHeight;
+         int BGPZ = 0;
+         int BRGEN = 0;
+         if (swD != 0 && this.T_BoP || (biomegenbase instanceof BiomeGenPlains || biomegenbase instanceof BiomeGenForest) && !this.T_BoP) {
+            byte var180;
+            byte var296;
+            switch (swD) {
+               case 1:
+                  trueGenCount = random.nextInt(250) + 50;
+                  BogP = 85 + trueGenCount / 10;
+                  genCountx = random.nextInt(30) + 50;
+                  var180 = 10;
+                  var296 = 10;
+                  trueGenRad = trueGenCount / 2;
+                  break;
+               case 2:
+                  trueGenCount = random.nextInt(250) + 100;
+                  BogP = 10 + trueGenCount / 10;
+                  genCountx = random.nextInt(30) + 50;
+                  var180 = 10;
+                  var296 = 10;
+                  trueGenRad = trueGenCount / 2;
+                  break;
+               case 3:
+                  trueGenCount = random.nextInt(250) + 50;
+                  BogP = 100 + trueGenCount / 10;
+                  genCountx = random.nextInt(30) + 50;
+                  var180 = 10;
+                  var296 = 10;
+                  trueGenRad = trueGenCount / 2;
+                  break;
+               default:
+                  trueGenCount = random.nextInt(250) + 50;
+                  BogP = 50 + trueGenCount / 10;
+                  genCountx = random.nextInt(30) + 50;
+                  var180 = 10;
+                  var296 = 10;
+                  trueGenRad = trueGenCount / 2;
+            }
+
+            if (random.nextInt(BogP) == 0) {
+               for (int ix = 0; ix < genCountx && trueGenCount > 0; ix++) {
+                  if (BRGEN == 0) {
+                     GPX = chunkX + random.nextInt(16);
+                     GPZ = chunkZ + random.nextInt(16);
+                     GPY = 63 + dHeight;
+                  } else {
+                     float rg = world.field_73012_v.nextFloat() * 360.0F;
+                     float imp = world.field_73012_v.nextFloat() * dynamicGenRad;
+                     rg = (float)Math.toRadians(rg);
+                     GPX = BGPX + (int)Math.floor(Math.sin(rg) * imp);
+                     GPY = BGPY;
+                     GPZ = BGPZ + (int)Math.floor(Math.cos(rg) * imp);
+                  }
+
+                  firstBlockXCoord = GPX;
+                  firstBlockYCoord = GPY;
+                  firstBlockZCoord = GPZ;
+                  int radx = var180 + random.nextInt(var296);
+                  int genType = 0;
+                  boolean canGenx = false;
+                  if (!canGenx) {
+                     for (int countBlock = 0; firstBlockYCoord > BGPY - 1; firstBlockYCoord--) {
+                        if (this.validWaterMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)
+                           && this.validSolidMaterial(firstBlockXCoord, firstBlockYCoord - 2, firstBlockZCoord, world)
+                           && isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                           canGenx = true;
+                           genType = 1;
+                           break;
+                        }
+
+                        if (countBlock > 10) {
+                           break;
+                        }
+                     }
+                  }
+
+                  if (!canGenx) {
+                     firstBlockYCoord = GPY;
+
+                     for (int countBlock = 0; firstBlockYCoord > BGPY - 1; firstBlockYCoord--) {
+                        if (this.validGroundMaterial(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)
+                           || world.func_147439_a(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord) == MFQM.MorassBlock) {
+                           if (!this.validWaterMaterial(firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord, world)
+                              && isAboveFreeSpace(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, world)) {
+                              canGenx = true;
+                              genType = 0;
+                              break;
+                           }
+
+                           countBlock++;
+                        }
+
+                        if (countBlock > 10) {
+                           break;
+                        }
+                     }
+                  }
+
+                  if (canGenx) {
+                     if (genType == 0) {
+                        if (BRGEN == 0) {
+                           for (int o = 0; o < 3; o++) {
+                              Vec3 XCOR = this.getXcor(world, firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, trueGenRad);
+                              Vec3 ZCOR = this.getZcor(world, firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, trueGenRad);
+                              int xCor = (int)Math.floor(XCOR.field_72450_a);
+                              int zCor = (int)Math.floor(ZCOR.field_72450_a);
+                              firstBlockXCoord += xCor;
+                              firstBlockZCoord += zCor;
+                              trueGenRad = Math.min(
+                                 trueGenRad, Math.max((int)Math.floor(XCOR.field_72448_b * 1.75), (int)Math.floor(ZCOR.field_72448_b * 1.75))
+                              );
+                           }
+                        }
+
+                        if (this.genIsFlatMorass(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radx, world)
+                           && this.genIsFlatMorass(firstBlockXCoord, firstBlockYCoord - 1, firstBlockZCoord, radx, world)) {
+                           if (BRGEN == 0) {
+                              BGPX = firstBlockXCoord;
+                              BGPY = firstBlockYCoord;
+                              BGPZ = firstBlockZCoord;
+                              BRGEN = 1;
+                              dynamicGenRad = radx;
+                              genCountx = trueGenRad * 5;
+                           } else {
+                              float disToC = Math.max((float)Math.sqrt(Math.pow(firstBlockXCoord - BGPX, 2.0) + Math.pow(firstBlockZCoord - BGPZ, 2.0)), 1.0F);
+                              if (random.nextInt(10) == 0) {
+                                 if (random.nextInt(25) == 0) {
+                                    this.generateWater(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, Math.min(radx, 7), world, random, 1);
+                                 } else {
+                                    this.generateWater(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, Math.min(radx, 7), world, random, 0);
+                                 }
+                              } else {
+                                 this.generateMorass(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radx, world, random, trueGenRad / disToC, 1);
+                                 if (trueGenRad > 25) {
+                                    biomegenbase = world.func_72807_a(firstBlockXCoord, firstBlockZCoord);
+                                    if ((!(biomegenbase instanceof BiomeGenForest) || swGB) && trueGenRad / disToC > 0.5 && random.nextInt(trueGenRad) == 0) {
+                                       new WorldGenTrees(true, 5 + random.nextInt(1), 2, 2, false)
+                                          .func_76484_a(world, random, firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord);
+                                    }
+                                 }
+                              }
+
+                              dynamicGenRad = Math.max(disToC, dynamicGenRad);
+                              trueGenCount--;
+                              blockGen = true;
+                           }
+                        }
+                     }
+
+                     if (genType == 1) {
+                        if (BRGEN == 0) {
+                           for (int o = 0; o < 3; o++) {
+                              Vec3 XCOR = this.getXcor(world, firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, trueGenRad);
+                              Vec3 ZCOR = this.getZcor(world, firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, trueGenRad);
+                              int xCor = (int)Math.floor(XCOR.field_72450_a);
+                              int zCor = (int)Math.floor(ZCOR.field_72450_a);
+                              firstBlockXCoord += xCor;
+                              firstBlockZCoord += zCor;
+                              trueGenRad = Math.min(
+                                 trueGenRad, Math.max((int)Math.floor(XCOR.field_72448_b * 1.75), (int)Math.floor(ZCOR.field_72448_b * 1.75))
+                              );
+                           }
+                        }
+
+                        if (this.genIsFlatSolid(firstBlockXCoord, firstBlockYCoord - 2, firstBlockZCoord, radx, world)) {
+                           if (BRGEN == 0) {
+                              BGPX = firstBlockXCoord;
+                              BGPY = firstBlockYCoord;
+                              BGPZ = firstBlockZCoord;
+                              BRGEN = 1;
+                              dynamicGenRad = radx;
+                              genCountx = trueGenRad * 5;
+                           } else {
+                              float disToC = Math.max((float)Math.sqrt(Math.pow(firstBlockXCoord - BGPX, 2.0) + Math.pow(firstBlockZCoord - BGPZ, 2.0)), 1.0F);
+                              this.generateMorass(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord, radx, world, random, trueGenRad / disToC, 1);
+                              if (trueGenRad > 25) {
+                                 biomegenbase = world.func_72807_a(firstBlockXCoord, firstBlockZCoord);
+                                 if ((!(biomegenbase instanceof BiomeGenForest) || swGB) && trueGenRad / disToC > 0.5 && random.nextInt(trueGenRad) == 0) {
+                                    new WorldGenTrees(true, 5 + random.nextInt(1), 2, 2, false)
+                                       .func_76484_a(world, random, firstBlockXCoord, firstBlockYCoord + 1, firstBlockZCoord);
+                                 }
+                              }
+
+                              dynamicGenRad = Math.max(disToC, dynamicGenRad);
+                              trueGenCount--;
+                              blockGen = true;
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+

@@ -1,0 +1,91 @@
+Baseline: 0c3295161b0dae91ee2a12ccaeebdd6770776469
+Only audit directory changes. Runtime/build/resource files unchanged.
+Scope capture reflects staged files at capture time; this evidence file is shown at its previous capture size.
+
+git diff --stat
+ forge-1.20.1/docs/task-0035-audit/AUDIT_REPORT.md  |  75 +++++
+ .../task-0035-audit/BOAT_COMPATIBILITY_AUDIT.md    |  89 ++++++
+ .../docs/task-0035-audit/CLASS_COVERAGE.md         | 167 ++++++++++++
+ .../docs/task-0035-audit/IMPLEMENTATION_ROADMAP.md |  55 ++++
+ .../task-0035-audit/MANUAL_ACCEPTANCE_MATRIX.md    |  98 +++++++
+ .../ORIGINAL_MECHANICS_INVENTORY.md                |  53 ++++
+ .../PHYSICS_AND_INTERACTION_AUDIT.md               |  82 ++++++
+ forge-1.20.1/docs/task-0035-audit/README.md        |  62 +++++
+ .../docs/task-0035-audit/REGISTRATION_COVERAGE.md  | 127 +++++++++
+ .../task-0035-audit/STATE_AUDIO_VISUAL_AUDIT.md    |  69 +++++
+ .../task-0035-audit/THREE_MATERIAL_GAP_MATRIX.md   |  46 ++++
+ .../docs/task-0035-audit/USER_OBSERVATIONS.md      |  22 ++
+ forge-1.20.1/docs/task-0035-audit/audit-index.csv  |  52 ++++
+ .../docs/task-0035-audit/evidence/SHA256SUMS       |  26 ++
+ .../docs/task-0035-audit/evidence/audit-check.json |  43 +++
+ .../docs/task-0035-audit/evidence/auditor-notes.md |   7 +
+ .../task-0035-audit/evidence/class-coverage.csv    | 162 +++++++++++
+ .../docs/task-0035-audit/evidence/git-scope.txt    |  79 ++++++
+ .../evidence/historical-trace-audit.json           | 263 ++++++++++++++++++
+ .../task-0035-audit/evidence/legacy-air-map.json   |  91 +++++++
+ .../task-0035-audit/evidence/resource-coverage.csv | 303 +++++++++++++++++++++
+ .../docs/task-0035-audit/evidence/run-output.log   |  43 +++
+ .../task-0035-audit/evidence/validation-check.json |  11 +
+ .../task-0035-audit/evidence/validation-output.log |  11 +
+ .../task-0035-audit/evidence/vanilla-methods.json  | 133 +++++++++
+ .../docs/task-0035-audit/tools/audit_readonly.py   | 246 +++++++++++++++++
+ .../task-0035-audit/tools/validate_documents.py    |  61 +++++
+ 27 files changed, 2476 insertions(+)
+
+git status --short
+A  forge-1.20.1/docs/task-0035-audit/AUDIT_REPORT.md
+A  forge-1.20.1/docs/task-0035-audit/BOAT_COMPATIBILITY_AUDIT.md
+A  forge-1.20.1/docs/task-0035-audit/CLASS_COVERAGE.md
+A  forge-1.20.1/docs/task-0035-audit/IMPLEMENTATION_ROADMAP.md
+A  forge-1.20.1/docs/task-0035-audit/MANUAL_ACCEPTANCE_MATRIX.md
+A  forge-1.20.1/docs/task-0035-audit/ORIGINAL_MECHANICS_INVENTORY.md
+A  forge-1.20.1/docs/task-0035-audit/PHYSICS_AND_INTERACTION_AUDIT.md
+A  forge-1.20.1/docs/task-0035-audit/README.md
+A  forge-1.20.1/docs/task-0035-audit/REGISTRATION_COVERAGE.md
+A  forge-1.20.1/docs/task-0035-audit/STATE_AUDIO_VISUAL_AUDIT.md
+A  forge-1.20.1/docs/task-0035-audit/THREE_MATERIAL_GAP_MATRIX.md
+A  forge-1.20.1/docs/task-0035-audit/USER_OBSERVATIONS.md
+A  forge-1.20.1/docs/task-0035-audit/audit-index.csv
+A  forge-1.20.1/docs/task-0035-audit/evidence/SHA256SUMS
+A  forge-1.20.1/docs/task-0035-audit/evidence/audit-check.json
+A  forge-1.20.1/docs/task-0035-audit/evidence/auditor-notes.md
+A  forge-1.20.1/docs/task-0035-audit/evidence/class-coverage.csv
+A  forge-1.20.1/docs/task-0035-audit/evidence/git-scope.txt
+A  forge-1.20.1/docs/task-0035-audit/evidence/historical-trace-audit.json
+A  forge-1.20.1/docs/task-0035-audit/evidence/legacy-air-map.json
+A  forge-1.20.1/docs/task-0035-audit/evidence/resource-coverage.csv
+A  forge-1.20.1/docs/task-0035-audit/evidence/run-output.log
+A  forge-1.20.1/docs/task-0035-audit/evidence/validation-check.json
+A  forge-1.20.1/docs/task-0035-audit/evidence/validation-output.log
+A  forge-1.20.1/docs/task-0035-audit/evidence/vanilla-methods.json
+A  forge-1.20.1/docs/task-0035-audit/tools/audit_readonly.py
+A  forge-1.20.1/docs/task-0035-audit/tools/validate_documents.py
+
+git diff --name-only
+forge-1.20.1/docs/task-0035-audit/AUDIT_REPORT.md
+forge-1.20.1/docs/task-0035-audit/BOAT_COMPATIBILITY_AUDIT.md
+forge-1.20.1/docs/task-0035-audit/CLASS_COVERAGE.md
+forge-1.20.1/docs/task-0035-audit/IMPLEMENTATION_ROADMAP.md
+forge-1.20.1/docs/task-0035-audit/MANUAL_ACCEPTANCE_MATRIX.md
+forge-1.20.1/docs/task-0035-audit/ORIGINAL_MECHANICS_INVENTORY.md
+forge-1.20.1/docs/task-0035-audit/PHYSICS_AND_INTERACTION_AUDIT.md
+forge-1.20.1/docs/task-0035-audit/README.md
+forge-1.20.1/docs/task-0035-audit/REGISTRATION_COVERAGE.md
+forge-1.20.1/docs/task-0035-audit/STATE_AUDIO_VISUAL_AUDIT.md
+forge-1.20.1/docs/task-0035-audit/THREE_MATERIAL_GAP_MATRIX.md
+forge-1.20.1/docs/task-0035-audit/USER_OBSERVATIONS.md
+forge-1.20.1/docs/task-0035-audit/audit-index.csv
+forge-1.20.1/docs/task-0035-audit/evidence/SHA256SUMS
+forge-1.20.1/docs/task-0035-audit/evidence/audit-check.json
+forge-1.20.1/docs/task-0035-audit/evidence/auditor-notes.md
+forge-1.20.1/docs/task-0035-audit/evidence/class-coverage.csv
+forge-1.20.1/docs/task-0035-audit/evidence/git-scope.txt
+forge-1.20.1/docs/task-0035-audit/evidence/historical-trace-audit.json
+forge-1.20.1/docs/task-0035-audit/evidence/legacy-air-map.json
+forge-1.20.1/docs/task-0035-audit/evidence/resource-coverage.csv
+forge-1.20.1/docs/task-0035-audit/evidence/run-output.log
+forge-1.20.1/docs/task-0035-audit/evidence/validation-check.json
+forge-1.20.1/docs/task-0035-audit/evidence/validation-output.log
+forge-1.20.1/docs/task-0035-audit/evidence/vanilla-methods.json
+forge-1.20.1/docs/task-0035-audit/tools/audit_readonly.py
+forge-1.20.1/docs/task-0035-audit/tools/validate_documents.py

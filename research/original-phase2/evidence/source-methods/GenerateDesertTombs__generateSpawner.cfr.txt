@@ -1,0 +1,22 @@
+// CFR0.152; original decompiler line 48; NOT original source; inspect **/goto artifacts if present.
+    public void generateSpawner(World world, int x, int y, int z) {
+        world.func_147465_d(x, y, z, Blocks.field_150474_ac, 0, 2);
+        TileEntityMobSpawner var18 = (TileEntityMobSpawner)world.func_147438_o(x, y, z);
+        if (var18 != null) {
+            NBTTagCompound nbt = new NBTTagCompound();
+            var18.func_145841_b(nbt);
+            nbt.func_74777_a("SpawnRange", (short)32);
+            nbt.func_74777_a("SpawnCount", (short)1);
+            if (world.field_73012_v.nextInt(2) == 0) {
+                nbt.func_74778_a("EntityId", "Skeleton");
+            } else {
+                nbt.func_74778_a("EntityId", "Zombie");
+            }
+            nbt.func_74777_a("MinSpawnDelay", (short)400);
+            nbt.func_74777_a("MaxSpawnDelay", (short)1600);
+            nbt.func_74777_a("MaxNearbyEntities", (short)3);
+            var18.func_145839_a(nbt);
+        } else {
+            System.err.println("(MFQM)Failed to fetch mob spawner entity");
+        }
+    }

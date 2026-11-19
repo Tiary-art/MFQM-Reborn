@@ -1,0 +1,17 @@
+// CFR0.152; original decompiler line 911; NOT original source; inspect **/goto artifacts if present.
+    private boolean isItLake2(int x, int y, int z, int rad, World world, boolean solid) {
+        int re = 8;
+        int groundCount = 0;
+        for (int i = 0; i < re; ++i) {
+            int zz;
+            float rg = (float)i * 45.0f;
+            float imp = (float)(rad / 2) + world.field_73012_v.nextFloat() * 2.0f;
+            int xx = x + (int)Math.floor(Math.sin(rg = (float)Math.toRadians(rg)) * (double)imp);
+            if (this.validGroundMaterial(xx, y, zz = z + (int)Math.floor(Math.cos(rg) * (double)imp), world) || solid && this.validSolidMaterial(xx, y, zz, world)) {
+                ++groundCount;
+            }
+            if (groundCount <= 7) continue;
+            return true;
+        }
+        return false;
+    }

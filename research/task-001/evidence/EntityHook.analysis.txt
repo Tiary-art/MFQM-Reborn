@@ -1,0 +1,1177 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.common.network.simpleimpl.IMessage
+6:  *  cpw.mods.fml.common.registry.IEntityAdditionalSpawnData
+7:  *  cpw.mods.fml.relauncher.Side
+8:  *  cpw.mods.fml.relauncher.SideOnly
+9:  *  io.netty.buffer.ByteBuf
+10:  *  net.minecraft.block.Block
+11:  *  net.minecraft.block.material.Material
+12:  *  net.minecraft.client.Minecraft
+13:  *  net.minecraft.client.settings.GameSettings
+14:  *  net.minecraft.client.settings.KeyBinding
+15:  *  net.minecraft.entity.Entity
+16:  *  net.minecraft.entity.EntityLivingBase
+17:  *  net.minecraft.entity.IProjectile
+18:  *  net.minecraft.entity.player.EntityPlayer
+19:  *  net.minecraft.init.Blocks
+20:  *  net.minecraft.item.ItemStack
+21:  *  net.minecraft.nbt.NBTTagCompound
+22:  *  net.minecraft.util.AxisAlignedBB
+23:  *  net.minecraft.util.DamageSource
+24:  *  net.minecraft.util.MathHelper
+25:  *  net.minecraft.util.MovingObjectPosition
+26:  *  net.minecraft.util.MovingObjectPosition$MovingObjectType
+27:  *  net.minecraft.util.Vec3
+28:  *  net.minecraft.world.World
+29:  *  org.lwjgl.input.Keyboard
+30:  */
+31: package MoreFunQuicksandMod.main.entity;
+32: 
+33: import MoreFunQuicksandMod.main.HookMessage;
+34: import MoreFunQuicksandMod.main.MFQM;
+35: import MoreFunQuicksandMod.main.entity.EntityRope;
+36: import MoreFunQuicksandMod.main.items.ItemGrapplingHook;
+37: import cpw.mods.fml.common.network.simpleimpl.IMessage;
+38: import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
+39: import cpw.mods.fml.relauncher.Side;
+40: import cpw.mods.fml.relauncher.SideOnly;
+41: import io.netty.buffer.ByteBuf;
+42: import java.util.List;
+43: import net.minecraft.block.Block;
+44: import net.minecraft.block.material.Material;
+45: import net.minecraft.client.Minecraft;
+46: import net.minecraft.client.settings.GameSettings;
+47: import net.minecraft.client.settings.KeyBinding;
+48: import net.minecraft.entity.Entity;
+49: import net.minecraft.entity.EntityLivingBase;
+50: import net.minecraft.entity.IProjectile;
+51: import net.minecraft.entity.player.EntityPlayer;
+52: import net.minecraft.init.Blocks;
+53: import net.minecraft.item.ItemStack;
+54: import net.minecraft.nbt.NBTTagCompound;
+55: import net.minecraft.util.AxisAlignedBB;
+56: import net.minecraft.util.DamageSource;
+57: import net.minecraft.util.MathHelper;
+58: import net.minecraft.util.MovingObjectPosition;
+59: import net.minecraft.util.Vec3;
+60: import net.minecraft.world.World;
+61: import org.lwjgl.input.Keyboard;
+62: 
+63: public class EntityHook
+64: extends Entity
+65: implements IProjectile,
+66: IEntityAdditionalSpawnData {
+67:     public EntityPlayer curPlayer;
+68:     public EntityLivingBase curGrabbed;
+69:     public int grabTick;
+70:     public int inSand;
+71:     public double BlockPosX;
+72:     public double BlockPosY;
+73:     public double BlockPosZ;
+74:     public boolean isRegistered;
+75:     public boolean hitted;
+76:     public int GrabType;
+77:     private int xTile = -1;
+78:     private int yTile = -1;
+79:     private int zTile = -1;
+80:     public boolean inGround;
+81:     public int throwableShake;
+82:     public double curLen;
+83:     public double beginCurLen;
+84:     private double maxLen;
+85:     private double brkLen;
+86:     private double mathLen;
+87:     private EntityLivingBase thrower;
+88:     private String throwerName;
+89:     private int ticksInGround;
+90:     private int ticksInAir;
+91: 
+92:     public EntityHook(World world) {
+93:         super(world);
+94:         this.func_70105_a(0.25f, 0.25f);
+95:         this.maxLen = 48.0;
+96:         this.field_70158_ak = true;
+97:         this.setWatcherGrabbed();
+98:     }
+99: 
+100:     public EntityHook(World world, EntityPlayer par8EntityPlayer) {
+101:         super(world);
+102:         this.thrower = par8EntityPlayer;
+103:         this.func_70105_a(0.25f, 0.25f);
+104:         this.func_70012_b(par8EntityPlayer.field_70165_t, par8EntityPlayer.field_70163_u + (double)par8EntityPlayer.func_70047_e(), par8EntityPlayer.field_70161_v, par8EntityPlayer.field_70177_z, par8EntityPlayer.field_70125_A);
+105:         this.field_70165_t -= (double)(MathHelper.func_76134_b((float)(this.field_70177_z / 180.0f * (float)Math.PI)) * 0.16f);
+106:         this.field_70163_u -= (double)0.1f;
+107:         this.field_70161_v -= (double)(MathHelper.func_76126_a((float)(this.field_70177_z / 180.0f * (float)Math.PI)) * 0.16f);
+108:         this.func_70107_b(this.field_70165_t, this.field_70163_u, this.field_70161_v);
+109:         this.field_70129_M = 0.0f;
+110:         float f = 0.4f;
+111:         this.field_70159_w = -MathHelper.func_76126_a((float)(this.field_70177_z / 180.0f * (float)Math.PI)) * MathHelper.func_76134_b((float)(this.field_70125_A / 180.0f * (float)Math.PI)) * f;
+112:         this.field_70179_y = MathHelper.func_76134_b((float)(this.field_70177_z / 180.0f * (float)Math.PI)) * MathHelper.func_76134_b((float)(this.field_70125_A / 180.0f * (float)Math.PI)) * f;
+113:         this.field_70181_x = -MathHelper.func_76126_a((float)((this.field_70125_A + this.func_70183_g()) / 180.0f * (float)Math.PI)) * f;
+114:         this.func_70186_c(this.field_70159_w, this.field_70181_x, this.field_70179_y, this.func_70182_d(), 1.0f);
+115:         this.curPlayer = par8EntityPlayer;
+116:         this.maxLen = 48.0;
+117:         this.field_70158_ak = true;
+118:         this.setWatcherGrabbed();
+119:     }
+120: 
+121:     public EntityHook(World world, double par2, double par4, double par6) {
+122:         super(world);
+123:         this.ticksInGround = 0;
+124:         this.func_70105_a(0.25f, 0.25f);
+125:         this.func_70107_b(par2, par4, par6);
+126:         this.field_70129_M = 0.0f;
+127:         this.maxLen = 48.0;
+128:         this.field_70158_ak = true;
+129:         this.setWatcherGrabbed();
+130:     }
+131: 
+132:     @SideOnly(value=Side.CLIENT)
+133:     public EntityHook(World world, double par2, double par4, double par6, EntityPlayer par8EntityPlayer) {
+134:         this(world, par2, par4, par6);
+135:         this.curPlayer = par8EntityPlayer;
+136:         this.maxLen = 48.0;
+137:         this.field_70158_ak = true;
+138:     }
+139: 
+140:     protected void func_70088_a() {
+141:         this.initWatcherGrabbed();
+142:     }
+143: 
+144:     protected void initWatcherGrabbed() {
+145:         this.field_70180_af.func_75682_a(25, (Object)Float.valueOf(0.0f));
+146:         this.field_70180_af.func_75682_a(26, (Object)0);
+147:         this.field_70180_af.func_75682_a(27, (Object)0);
+148:         this.field_70180_af.func_75682_a(28, (Object)0);
+149:         this.field_70180_af.func_75682_a(29, (Object)0);
+150:         this.field_70180_af.func_75682_a(30, (Object)0);
+151:         this.field_70180_af.func_75682_a(31, (Object)0);
+152:     }
+153: 
+154:     public void setWatcherGrabbed() {
+155:         if (!this.field_70170_p.field_72995_K) {
+156:             this.field_70180_af.func_75692_b(26, (Object)(this.inGround ? 1 : 0));
+157:             this.field_70180_af.func_75692_b(27, (Object)(this.hitted ? 1 : 0));
+158:             this.field_70180_af.func_75692_b(28, (Object)this.GrabType);
+159:             this.field_70180_af.func_75692_b(29, (Object)this.xTile);
+160:             this.field_70180_af.func_75692_b(30, (Object)this.yTile);
+161:             this.field_70180_af.func_75692_b(31, (Object)this.zTile);
+162:         }
+163:     }
+164: 
+165:     public void getWatcherLenMP() {
+166:         this.curLen = this.field_70180_af.func_111145_d(25);
+167:     }
+168: 
+169:     public void setWatcherLenMP() {
+170:         this.field_70180_af.func_75692_b(25, (Object)Float.valueOf((float)this.curLen));
+171:     }
+172: 
+173:     public void sendPacketCurLenToServer(double cul) {
+174:         if (this.field_70170_p.field_72995_K && Minecraft.func_71410_x().field_71439_g == this.curPlayer) {
+175:             MFQM.network.sendToServer((IMessage)new HookMessage((float)cul));
+176:         }
+177:     }
+178: 
+179:     public void getWatcherGrabbed() {
+180:         if (this.field_70170_p.field_72995_K) {
+181:             boolean prevInGround = this.inGround;
+182:             boolean prevHitted = this.hitted;
+183:             int prevGrabType = this.GrabType;
+184:             int prevXTile = this.xTile;
+185:             int prevYTile = this.yTile;
+186:             int prevZTile = this.zTile;
+187:             this.inGround = this.field_70180_af.func_75679_c(26) == 1;
+188:             this.hitted = this.field_70180_af.func_75679_c(27) == 1;
+189:             this.GrabType = this.field_70180_af.func_75679_c(28);
+190:             this.xTile = this.field_70180_af.func_75679_c(29);
+191:             this.yTile = this.field_70180_af.func_75679_c(30);
+192:             this.zTile = this.field_70180_af.func_75679_c(31);
+193:             if (this.inGround) {
+194:                 if (this.yTile > 0) {
+195:                     this.BlockPosX = (double)this.xTile + 0.5;
+196:                     this.BlockPosY = (double)this.yTile + 0.5 - 0.25;
+197:                     this.BlockPosZ = (double)this.zTile + 0.5;
+198:                 }
+199:                 if (prevInGround != this.inGround) {
+200:                     this.curLen = Math.pow(Math.pow(this.BlockPosX - this.curPlayer.field_70165_t, 2.0) + Math.pow(this.BlockPosY - this.curPlayer.field_70163_u, 2.0) + Math.pow(this.BlockPosZ - this.curPlayer.field_70161_v, 2.0), 0.5);
+201:                 }
+202:             } else if (this.GrabType != 0 && prevGrabType != this.GrabType) {
+203:                 this.curLen = Math.pow(Math.pow(this.BlockPosX - this.curPlayer.field_70165_t, 2.0) + Math.pow(this.BlockPosY - this.curPlayer.field_70163_u, 2.0) + Math.pow(this.BlockPosZ - this.curPlayer.field_70161_v, 2.0), 0.5);
+204:             }
+205:         }
+206:     }
+207: 
+208:     @SideOnly(value=Side.CLIENT)
+209:     public boolean func_70112_a(double par1) {
+210:         double d1 = this.field_70121_D.func_72320_b() * 4.0;
+211:         return par1 < (d1 *= 64.0) * d1;
+212:     }
+213: 
+214:     protected float func_70182_d() {
+215:         return 2.5f;
+216:     }
+217: 
+218:     protected float func_70183_g() {
+219:         return 0.0f;
+220:     }
+221: 
+222:     public void func_70186_c(double par1, double par3, double par5, float par7, float par8) {
+223:         float f2 = MathHelper.func_76133_a((double)(par1 * par1 + par3 * par3 + par5 * par5));
+224:         par1 /= (double)f2;
+225:         par3 /= (double)f2;
+226:         par5 /= (double)f2;
+227:         par1 += this.field_70146_Z.nextGaussian() * (double)0.0075f * (double)par8;
+228:         par3 += this.field_70146_Z.nextGaussian() * (double)0.0075f * (double)par8;
+229:         par5 += this.field_70146_Z.nextGaussian() * (double)0.0075f * (double)par8;
+230:         this.field_70159_w = par1 *= (double)par7;
+231:         this.field_70181_x = par3 *= (double)par7;
+232:         this.field_70179_y = par5 *= (double)par7;
+233:         float f3 = MathHelper.func_76133_a((double)(par1 * par1 + par5 * par5));
+234:         this.field_70126_B = this.field_70177_z = (float)(Math.atan2(par1, par5) * 180.0 / Math.PI);
+235:         this.field_70127_C = this.field_70125_A = (float)(Math.atan2(par3, f3) * 180.0 / Math.PI);
+236:         this.ticksInGround = 0;
+237:     }
+238: 
+239:     @SideOnly(value=Side.CLIENT)
+240:     public void func_70016_h(double par1, double par3, double par5) {
+241:         this.field_70159_w = par1;
+242:         this.field_70181_x = par3;
+243:         this.field_70179_y = par5;
+244:         if (this.field_70127_C == 0.0f && this.field_70126_B == 0.0f) {
+245:             float f = MathHelper.func_76133_a((double)(par1 * par1 + par5 * par5));
+246:             this.field_70126_B = this.field_70177_z = (float)(Math.atan2(par1, par5) * 180.0 / Math.PI);
+247:             this.field_70127_C = this.field_70125_A = (float)(Math.atan2(par3, f) * 180.0 / Math.PI);
+248:         }
+249:     }
+250: 
+251:     /*
+252:      * Enabled aggressive block sorting
+253:      */
+254:     public void func_70071_h_() {
+255:         this.field_70125_A = 0.0f;
+256:         this.field_70177_z = 0.0f;
+257:         this.field_70126_B = 0.0f;
+258:         this.field_70127_C = 0.0f;
+259:         super.func_70071_h_();
+260:         this.field_70125_A = 0.0f;
+261:         this.field_70177_z = 0.0f;
+262:         this.field_70126_B = 0.0f;
+263:         this.field_70127_C = 0.0f;
+264:         ++this.grabTick;
+265:         boolean breakIt = false;
+266:         if (this.curPlayer == null) {
+267:             this.func_70106_y();
+268:             return;
+269:         }
+270:         if (this.curPlayer.field_70128_L || !this.curPlayer.func_70089_S()) {
+271:             breakIt = true;
+272:         }
+273:         if (this.curPlayer != null && this.checkingInHotBar() == -1) {
+274:             breakIt = true;
+275:         }
+276:         if (breakIt) {
+277:             this.func_70106_y();
+278:             return;
+279:         }
+280:         if (this.field_70170_p.func_82737_E() % 16L == 0L) {
+281:             this.getWatcherGrabbed();
+282:         }
+283:         if (this.field_70170_p.func_82737_E() % 8L == 0L) {
+284:             this.saveMeInPacketHandler();
+285:         }
+286:         if (!this.inGround) {
+287:             if (this.GrabType < 7) {
+288:                 if (!this.hitted) {
+289:                     this.throwPhysics();
+290:                     this.mathLen = Math.pow(Math.pow(this.field_70165_t - this.curPlayer.field_70165_t, 2.0) + Math.pow(this.field_70163_u - this.curPlayer.field_70163_u, 2.0) + Math.pow(this.field_70161_v - this.curPlayer.field_70161_v, 2.0), 0.5);
+291:                     if (!(this.mathLen > this.maxLen)) return;
+292:                     this.hitted = true;
+293:                     this.field_70159_w = 0.0;
+294:                     this.field_70181_x = 0.0;
+295:                     this.field_70179_y = 0.0;
+296:                     return;
+297:                 }
+298:                 this.updatePhysics();
+299:                 this.hookPhysic();
+300:                 return;
+301:             }
+302:             if (this.field_70170_p.field_72995_K && Minecraft.func_71410_x().field_71439_g != this.curPlayer) {
+303:                 this.getWatcherLenMP();
+304:             }
+305:             if (!this.field_70170_p.field_72995_K) {
+306:                 this.setWatcherLenMP();
+307:             }
+308:             this.BlockPosX = this.field_70165_t;
+309:             this.BlockPosY = this.field_70163_u;
+310:             this.BlockPosZ = this.field_70161_v;
+311:             this.field_70145_X = true;
+312:             this.livingGrab();
+313:             return;
+314:         }
+315:         double dis = Math.pow(Math.pow(this.field_70165_t - this.BlockPosX, 2.0) + Math.pow(this.field_70163_u - this.BlockPosY, 2.0) + Math.pow(this.field_70161_v - this.BlockPosZ, 2.0), 0.5);
+316:         if (!this.field_70170_p.func_147439_a(this.xTile, this.yTile, this.zTile).func_149688_o().func_76220_a()) {
+317:             dis = 100.0;
+318:         }
+319:         if (dis > 5.0) {
+320:             this.unGrabServer();
+321:             return;
+322:         }
+323:         this.BlockPosX = (double)this.xTile + 0.5;
+324:         this.BlockPosY = (double)this.yTile + 0.5;
+325:         this.BlockPosZ = (double)this.zTile + 0.5;
+326:         this.field_70165_t = this.BlockPosX;
+327:         this.field_70163_u = this.BlockPosY;
+328:         this.field_70161_v = this.BlockPosZ;
+329:         this.field_70169_q = this.BlockPosX;
+330:         this.field_70167_r = this.BlockPosY;
+331:         this.field_70166_s = this.BlockPosZ;
+332:         this.field_70142_S = this.BlockPosX;
+333:         this.field_70137_T = this.BlockPosY;
+334:         this.field_70136_U = this.BlockPosZ;
+335:         this.field_70122_E = true;
+336:         this.field_70143_R = 0.0f;
+337:         this.field_70159_w = 0.0;
+338:         this.field_70181_x = 0.0;
+339:         this.field_70179_y = 0.0;
+340:         this.throwableShake = 0;
+341:         this.field_70145_X = true;
+342:         this.func_70110_aj();
+343:         this.playerControl();
+344:     }
+345: 
+346:     protected float getGravityVelocity() {
+347:         return 0.01f;
+348:     }
+349: 
+350:     protected void onImpact(MovingObjectPosition movingObjectPosition) {
+351:         if (movingObjectPosition.field_72308_g != null) {
+352:             if (movingObjectPosition.field_72308_g instanceof EntityLivingBase && movingObjectPosition.field_72308_g != this.curPlayer && !this.field_70170_p.field_72995_K) {
+353:                 this.hitted = true;
+354:                 this.curGrabbed = (EntityLivingBase)movingObjectPosition.field_72308_g;
+355:                 movingObjectPosition.field_72308_g.func_70097_a(DamageSource.func_76356_a((Entity)this, (Entity)this.getThrower()), 1.5f);
+356:                 this.field_70159_w = 0.0;
+357:                 this.field_70181_x = 0.0;
+358:                 this.field_70179_y = 0.0;
+359:                 this.field_70165_t = this.curGrabbed.field_70165_t;
+360:                 this.field_70163_u = this.curGrabbed.field_70121_D.field_72338_b + (double)this.curGrabbed.field_70131_O * 0.75;
+361:                 this.field_70161_v = this.curGrabbed.field_70161_v;
+362:                 this.BlockPosX = this.field_70165_t;
+363:                 this.BlockPosY = this.field_70163_u;
+364:                 this.BlockPosZ = this.field_70161_v;
+365:                 this.GrabType = !(this.curGrabbed instanceof EntityPlayer) ? 7 : 8;
+366:                 if (this.getMoCreatureValid(this.curGrabbed)) {
+367:                     this.field_70154_o = this.curGrabbed;
+368:                 }
+369:                 this.beginCurLen = this.curLen = Math.pow(Math.pow(this.curGrabbed.field_70165_t - this.curPlayer.field_70165_t, 2.0) + Math.pow(this.curGrabbed.field_70163_u - this.curPlayer.field_70163_u, 2.0) + Math.pow(this.curGrabbed.field_70161_v - this.curPlayer.field_70161_v, 2.0), 0.5);
+370:                 this.GrabSound();
+371:                 this.setWatcherGrabbed();
+372:                 return;
+373:             }
+374:         } else {
+375:             int blX = movingObjectPosition.field_72311_b;
+376:             int blY = movingObjectPosition.field_72312_c;
+377:             int blZ = movingObjectPosition.field_72309_d;
+378:             if (this.field_70170_p.func_147439_a(blX, blY, blZ).func_149688_o().func_76220_a()) {
+379:                 if (this.getValidStopMat(blX, blY, blZ)) {
+380:                     this.hitted = true;
+381:                     this.field_70165_t -= this.field_70159_w;
+382:                     this.field_70163_u -= this.field_70181_x;
+383:                     this.field_70161_v -= this.field_70179_y;
+384:                     this.mathLen = Math.pow(Math.pow((double)movingObjectPosition.field_72311_b + 0.5 - this.curPlayer.field_70165_t, 2.0) + Math.pow((double)movingObjectPosition.field_72312_c + 0.5 - this.curPlayer.field_70163_u, 2.0) + Math.pow((double)movingObjectPosition.field_72309_d + 0.5 - this.curPlayer.field_70161_v, 2.0), 0.5);
+385:                     if (this.mathLen > this.maxLen) {
+386:                         this.hitted = true;
+387:                         this.field_70159_w = 0.0;
+388:                         this.field_70181_x = 0.0;
+389:                         this.field_70179_y = 0.0;
+390:                         this.setWatcherGrabbed();
+391:                         return;
+392:                     }
+393:                     if (this.setValidToGrab(movingObjectPosition)) {
+394:                         this.setWatcherGrabbed();
+395:                         return;
+396:                     }
+397:                 } else {
+398:                     this.sandDigging();
+399:                 }
+400:             }
+401:             this.setWatcherGrabbed();
+402:         }
+403:     }
+404: 
+405:     protected void throwPhysics() {
+406:         this.field_70142_S = this.field_70165_t;
+407:         this.field_70137_T = this.field_70163_u;
+408:         this.field_70136_U = this.field_70161_v;
+409:         super.func_70071_h_();
+410:         if (this.throwableShake > 0) {
+411:             --this.throwableShake;
+412:         }
+413:         if (this.inGround) {
+414:             Block i = this.field_70170_p.func_147439_a(this.xTile, this.yTile, this.zTile);
+415:             this.inGround = false;
+416:             this.field_70159_w *= (double)(this.field_70146_Z.nextFloat() * 0.2f);
+417:             this.field_70181_x *= (double)(this.field_70146_Z.nextFloat() * 0.2f);
+418:             this.field_70179_y *= (double)(this.field_70146_Z.nextFloat() * 0.2f);
+419:             this.ticksInGround = 0;
+420:             this.ticksInAir = 0;
+421:         } else {
+422:             ++this.ticksInAir;
+423:         }
+424:         Vec3 vec3 = Vec3.func_72443_a((double)this.field_70165_t, (double)this.field_70163_u, (double)this.field_70161_v);
+425:         Vec3 vec31 = Vec3.func_72443_a((double)(this.field_70165_t + this.field_70159_w), (double)(this.field_70163_u + this.field_70181_x), (double)(this.field_70161_v + this.field_70179_y));
+426:         MovingObjectPosition movingobjectposition = this.field_70170_p.func_72933_a(vec3, vec31);
+427:         vec3 = Vec3.func_72443_a((double)this.field_70165_t, (double)this.field_70163_u, (double)this.field_70161_v);
+428:         vec31 = Vec3.func_72443_a((double)(this.field_70165_t + this.field_70159_w), (double)(this.field_70163_u + this.field_70181_x), (double)(this.field_70161_v + this.field_70179_y));
+429:         if (movingobjectposition != null) {
+430:             vec31 = Vec3.func_72443_a((double)movingobjectposition.field_72307_f.field_72450_a, (double)movingobjectposition.field_72307_f.field_72448_b, (double)movingobjectposition.field_72307_f.field_72449_c);
+431:         }
+432:         if (!this.field_70170_p.field_72995_K) {
+433:             Entity entity = null;
+434:             List list = this.field_70170_p.func_72839_b((Entity)this, this.field_70121_D.func_72321_a(this.field_70159_w, this.field_70181_x, this.field_70179_y).func_72314_b(1.0, 1.0, 1.0));
+435:             double d0 = 0.0;
+436:             EntityLivingBase entitylivingbase = this.getThrower();
+437:             for (int j = 0; j < list.size(); ++j) {
+438:                 double d1;
+439:                 float f;
+440:                 AxisAlignedBB axisalignedbb;
+441:                 MovingObjectPosition movingobjectposition1;
+442:                 Entity entity1 = (Entity)list.get(j);
+443:                 if (!entity1.func_70067_L() || entity1 == entitylivingbase && this.ticksInAir < 5 || (movingobjectposition1 = (axisalignedbb = entity1.field_70121_D.func_72314_b((double)(f = 0.3f), (double)f, (double)f)).func_72327_a(vec3, vec31)) == null || !((d1 = vec3.func_72438_d(movingobjectposition1.field_72307_f)) < d0) && d0 != 0.0) continue;
+444:                 entity = entity1;
+445:                 d0 = d1;
+446:             }
+447:             if (entity != null) {
+448:                 movingobjectposition = new MovingObjectPosition(entity);
+449:             }
+450:         }
+451:         if (movingobjectposition != null) {
+452:             if (movingobjectposition.field_72313_a == MovingObjectPosition.MovingObjectType.BLOCK && this.field_70170_p.func_147439_a(movingobjectposition.field_72311_b, movingobjectposition.field_72312_c, movingobjectposition.field_72309_d) == Blocks.field_150427_aO) {
+453:                 this.func_70063_aa();
+454:             } else if (this.field_70170_p.func_147439_a(movingobjectposition.field_72311_b, movingobjectposition.field_72312_c, movingobjectposition.field_72309_d).func_149668_a(this.field_70170_p, movingobjectposition.field_72311_b, movingobjectposition.field_72312_c, movingobjectposition.field_72309_d) != null) {
+455:                 this.onImpact(movingobjectposition);
+456:             }
+457:         }
+458:         this.field_70165_t += this.field_70159_w;
+459:         this.field_70163_u += this.field_70181_x;
+460:         this.field_70161_v += this.field_70179_y;
+461:         float f1 = MathHelper.func_76133_a((double)(this.field_70159_w * this.field_70159_w + this.field_70179_y * this.field_70179_y));
+462:         this.field_70177_z = (float)(Math.atan2(this.field_70159_w, this.field_70179_y) * 180.0 / Math.PI);
+463:         this.field_70125_A = (float)(Math.atan2(this.field_70181_x, f1) * 180.0 / Math.PI);
+464:         while (this.field_70125_A - this.field_70127_C < -180.0f) {
+465:             this.field_70127_C -= 360.0f;
+466:         }
+467:         while (this.field_70125_A - this.field_70127_C >= 180.0f) {
+468:             this.field_70127_C += 360.0f;
+469:         }
+470:         while (this.field_70177_z - this.field_70126_B < -180.0f) {
+471:             this.field_70126_B -= 360.0f;
+472:         }
+473:         while (this.field_70177_z - this.field_70126_B >= 180.0f) {
+474:             this.field_70126_B += 360.0f;
+475:         }
+476:         this.field_70125_A = this.field_70127_C + (this.field_70125_A - this.field_70127_C) * 0.2f;
+477:         this.field_70177_z = this.field_70126_B + (this.field_70177_z - this.field_70126_B) * 0.2f;
+478:         float f2 = 0.99f;
+479:         float f3 = this.getGravityVelocity();
+480:         if (this.func_70090_H()) {
+481:             for (int k = 0; k < 4; ++k) {
+482:                 float f4 = 0.25f;
+483:                 this.field_70170_p.func_72869_a("bubble", this.field_70165_t - this.field_70159_w * (double)f4, this.field_70163_u - this.field_70181_x * (double)f4, this.field_70161_v - this.field_70179_y * (double)f4, this.field_70159_w, this.field_70181_x, this.field_70179_y);
+484:             }
+485:             f2 = 0.8f;
+486:         }
+487:         this.field_70159_w *= (double)f2;
+488:         this.field_70181_x *= (double)f2;
+489:         this.field_70179_y *= (double)f2;
+490:         this.field_70181_x -= (double)f3;
+491:         this.func_70107_b(this.field_70165_t, this.field_70163_u, this.field_70161_v);
+492:     }
+493: 
+494:     protected void updatePhysics() {
+495:         boolean flag;
+496:         this.field_70169_q = this.field_70165_t;
+497:         this.field_70167_r = this.field_70163_u;
+498:         this.field_70166_s = this.field_70161_v;
+499:         this.field_70181_x -= (double)0.04f;
+500:         this.field_70145_X = this.func_145771_j(this.field_70165_t, (this.field_70121_D.field_72338_b + this.field_70121_D.field_72337_e) / 2.0, this.field_70161_v);
+501:         this.func_70091_d(this.field_70159_w, this.field_70181_x, this.field_70179_y);
+502:         boolean bl = flag = (int)this.field_70169_q != (int)this.field_70165_t || (int)this.field_70167_r != (int)this.field_70163_u || (int)this.field_70166_s != (int)this.field_70161_v;
+503:         if ((flag || this.field_70173_aa % 25 == 0) && this.field_70170_p.func_147439_a(MathHelper.func_76128_c((double)this.field_70165_t), MathHelper.func_76128_c((double)this.field_70163_u), MathHelper.func_76128_c((double)this.field_70161_v)).func_149688_o() == Material.field_151587_i) {
+504:             this.field_70181_x = 0.2f;
+505:             this.field_70159_w = (this.field_70146_Z.nextFloat() - this.field_70146_Z.nextFloat()) * 0.2f;
+506:             this.field_70179_y = (this.field_70146_Z.nextFloat() - this.field_70146_Z.nextFloat()) * 0.2f;
+507:             this.func_85030_a("random.fizz", 0.4f, 2.0f + this.field_70146_Z.nextFloat() * 0.4f);
+508:         }
+509:         float f = 0.98f;
+510:         if (this.field_70122_E) {
+511:             f = this.field_70170_p.func_147439_a((int)MathHelper.func_76128_c((double)this.field_70165_t), (int)(MathHelper.func_76128_c((double)this.field_70121_D.field_72338_b) - 1), (int)MathHelper.func_76128_c((double)this.field_70161_v)).field_149765_K * 0.98f;
+512:         }
+513:         this.field_70159_w *= (double)f;
+514:         this.field_70181_x *= (double)0.98f;
+515:         this.field_70179_y *= (double)f;
+516:         if (this.field_70122_E) {
+517:             this.field_70181_x *= -0.5;
+518:         }
+519:     }
+520: 
+521:     public boolean setValidToGrab(MovingObjectPosition mop) {
+522:         int blX = mop.field_72311_b;
+523:         int blY = mop.field_72312_c;
+524:         int blZ = mop.field_72309_d;
+525:         double bcX = (double)blX + 0.5;
+526:         double bcY = (double)blY + 0.5;
+527:         double bcZ = (double)blZ + 0.5;
+528:         this.GrabType = 0;
+529:         switch (mop.field_72310_e) {
+530:             case 0: {
+531:                 if (this.field_70170_p.func_147439_a(blX, blY - 1, blZ).func_149688_o().func_76220_a() || this.getValidStopMat(blX, blY - 1, blZ)) break;
+532:                 this.GrabType = 2;
+533:                 break;
+534:             }
+535:             case 1: {
+536:                 if (this.field_70170_p.func_147439_a(blX, blY + 1, blZ).func_149688_o().func_76220_a() || this.getValidStopMat(blX, blY + 1, blZ)) break;
+537:                 this.GrabType = 1;
+538:                 break;
+539:             }
+540:             case 2: {
+541:                 if (this.field_70170_p.func_147439_a(blX - 1, blY, blZ).func_149688_o().func_76220_a() || this.getValidStopMat(blX - 1, blY, blZ)) break;
+542:                 this.GrabType = 6;
+543:                 break;
+544:             }
+545:             case 3: {
+546:                 if (this.field_70170_p.func_147439_a(blX + 1, blY, blZ).func_149688_o().func_76220_a() || this.getValidStopMat(blX + 1, blY, blZ)) break;
+547:                 this.GrabType = 5;
+548:                 break;
+549:             }
+550:             case 4: {
+551:                 if (this.field_70170_p.func_147439_a(blX, blY, blZ - 1).func_149688_o().func_76220_a() || this.getValidStopMat(blX, blY, blZ - 1)) break;
+552:                 this.GrabType = 4;
+553:                 break;
+554:             }
+555:             case 5: {
+556:                 if (this.field_70170_p.func_147439_a(blX, blY, blZ + 1).func_149688_o().func_76220_a() || this.getValidStopMat(blX, blY, blZ + 1)) break;
+557:                 this.GrabType = 3;
+558:                 break;
+559:             }
+560:             default: {
+561:                 return false;
+562:             }
+563:         }
+564:         this.inGround = true;
+565:         this.BlockPosX = bcX;
+566:         this.BlockPosY = bcY;
+567:         this.BlockPosZ = bcZ;
+568:         this.xTile = blX;
+569:         this.yTile = blY;
+570:         this.zTile = blZ;
+571:         this.field_70159_w = 0.0;
+572:         this.field_70181_x = 0.0;
+573:         this.field_70179_y = 0.0;
+574:         this.beginCurLen = this.curLen = Math.pow(Math.pow(this.BlockPosX - this.curPlayer.field_70165_t, 2.0) + Math.pow(this.BlockPosY - this.curPlayer.field_70163_u, 2.0) + Math.pow(this.BlockPosZ - this.curPlayer.field_70161_v, 2.0), 0.5);
+575:         this.GrabSound();
+576:         return true;
+577:     }
+578: 
+579:     public boolean getValidStopMat(int x, int y, int z) {
+580:         if (!this.field_70170_p.func_147439_a(x, y, z).func_149688_o().func_76220_a()) {
+581:             return false;
+582:         }
+583:         if (this.field_70170_p.func_147439_a(x, y, z).func_149688_o().func_76224_d()) {
+584:             return false;
+585:         }
+586:         if (this.field_70170_p.func_147439_a(x, y, z).func_149688_o() == Material.field_151595_p) {
+587:             return false;
+588:         }
+589:         if (this.field_70170_p.func_147439_a(x, y, z).func_149688_o() == Material.field_151584_j) {
+590:             return false;
+591:         }
+592:         return this.field_70170_p.func_147439_a(x, y, z).func_149688_o() != Material.field_151597_y;
+593:     }
+594: 
+595:     public void writeSpawnData(ByteBuf data) {
+596:         data.writeInt(this.curPlayer != null ? this.curPlayer.func_145782_y() : 0);
+597:     }
+598: 
+599:     public void readSpawnData(ByteBuf data) {
+600:         this.curPlayer = (EntityPlayer)this.field_70170_p.func_73045_a(data.readInt());
+601:     }
+602: 
+603:     public void func_70014_b(NBTTagCompound par1NBTTagCompound) {
+604:     }
+605: 
+606:     public void func_70037_a(NBTTagCompound par1NBTTagCompound) {
+607:     }
+608: 
+609:     @SideOnly(value=Side.CLIENT)
+610:     public float func_70053_R() {
+611:         return 0.0f;
+612:     }
+613: 
+614:     public EntityLivingBase getThrower() {
+615:         if (this.thrower == null && this.throwerName != null && this.throwerName.length() > 0) {
+616:             this.thrower = this.field_70170_p.func_72924_a(this.throwerName);
+617:         }
+618:         return this.thrower;
+619:     }
+620: 
+621:     public void playerControl() {
+622:         ItemStack curItm;
+623:         if (this.curPlayer == null) {
+624:             return;
+625:         }
+626:         if (this.curPlayer.field_70128_L || !this.curPlayer.func_70089_S()) {
+627:             return;
+628:         }
+629:         int ropeNum = this.checkingInHotBar();
+630:         if (ropeNum == -1) {
+631:             return;
+632:         }
+633:         ItemStack ropeItem = this.curPlayer.field_71071_by.field_70462_a[ropeNum];
+634:         if (this.curPlayer.field_70181_x >= -1.0 && this.curPlayer.field_70165_t - this.curPlayer.field_70169_q >= -0.5) {
+635:             this.curPlayer.field_70143_R = 0.0f;
+636:         }
+637:         if (this.curPlayer.field_70181_x >= -1.0 && this.curPlayer.field_70161_v - this.curPlayer.field_70166_s >= -0.5) {
+638:             this.curPlayer.field_70143_R = 0.0f;
+639:         }
+640:         this.mathLen = Math.pow(Math.pow(this.BlockPosX - this.curPlayer.field_70165_t, 2.0) + Math.pow(this.BlockPosY - this.curPlayer.field_70163_u, 2.0) + Math.pow(this.BlockPosZ - this.curPlayer.field_70161_v, 2.0), 0.5);
+641:         this.brkLen = this.curLen + this.maxLen / 20.0 + 1.0;
+642:         double preCurLen = this.curLen;
+643:         if (this.mathLen > this.brkLen) {
+644:             if (!this.field_70170_p.field_72995_K) {
+645:                 if (ropeItem.func_77960_j() < 63) {
+646:                     ropeItem.func_77972_a(2, (EntityLivingBase)this.curPlayer);
+647:                     if (this.field_70170_p.field_73012_v.nextInt(5) == 0) {
+648:                         this.stretchSound();
+649:                     }
+650:                 } else {
+651:                     if (!this.field_70170_p.field_72995_K) {
+652:                         Vec3 dir = this.getBreakPos();
+653:                         MFQM.dropItem(this.field_70170_p, dir.field_72450_a, dir.field_72448_b, dir.field_72449_c, new ItemStack(MFQM.HookItem));
+654:                     }
+655:                     this.curPlayer.field_71071_by.func_70299_a(ropeNum, new ItemStack(MFQM.GrapplingHookBRKItem));
+656:                     this.breakSound();
+657:                 }
+658:                 if (this.field_70170_p.field_73012_v.nextInt(5) == 0) {
+659:                     this.tryingBreakBlock();
+660:                 }
+661:                 if (this.field_70170_p.field_73012_v.nextInt(100) == 0) {
+662:                     this.field_70159_w = MFQM.minAbs((this.curPlayer.field_70165_t - this.field_70165_t) / this.mathLen * (this.mathLen + 5.0), 1.0) + this.field_70159_w / (this.mathLen + 5.0 + 1.0);
+663:                     this.field_70181_x = MFQM.minAbs((this.curPlayer.field_70163_u - this.field_70163_u) / this.mathLen * (this.mathLen + 5.0), 1.0) + this.field_70181_x / (this.mathLen + 5.0 + 1.0);
+664:                     this.field_70179_y = MFQM.minAbs((this.curPlayer.field_70161_v - this.field_70161_v) / this.mathLen * (this.mathLen + 5.0), 1.0) + this.field_70179_y / (this.mathLen + 5.0 + 1.0);
+665:                     this.unGrabSound();
+666:                     this.unGrabServer();
+667:                     return;
+668:                 }
+669:             }
+670:             if (this.curLen < this.maxLen) {
+671:                 this.curLen += (this.maxLen - this.curLen) / 32.0;
+672:             }
+673:         }
+674:         if (this.jumpKey() && this.curLen > 1.0) {
+675:             this.curLen = this.mathLen - Math.max(0.25, 1.0 - Math.max(this.curPlayer.field_70181_x * 4.0, 0.0));
+676:         }
+677:         if (this.crouchKey() && this.curLen < this.maxLen) {
+678:             this.curLen += 0.15;
+679:         }
+680:         if ((curItm = this.curPlayer.func_71045_bC()) != null && curItm.func_77973_b() instanceof ItemGrapplingHook && curItm.func_77960_j() % 2 != 0 && this.leftKey() && this.curLen > 1.0) {
+681:             this.curLen -= 0.25;
+682:         }
+683:         if (this.midKey() && this.curLen < this.maxLen) {
+684:             this.curLen += 0.15;
+685:         }
+686:         this.curLen = Math.min(this.maxLen, this.curLen);
+687:         if (preCurLen < this.curLen) {
+688:             if (this.field_70170_p.func_82737_E() % 8L == 0L) {
+689:                 this.sendPacketCurLenToServer(this.maxLen);
+690:             }
+691:         } else if (this.curLen != this.maxLen && this.field_70170_p.func_82737_E() % 8L == 0L) {
+692:             this.sendPacketCurLenToServer(this.curLen);
+693:         }
+694:         if (this.mathLen > this.curLen) {
+695:             int qs = this.isInsideOfQuicksand((EntityLivingBase)this.curPlayer);
+696:             double movFac = this.getMovFactor((EntityLivingBase)this.curPlayer, qs);
+697:             double stretch = Math.max((this.mathLen - this.curLen) / Math.min(movFac * 4.0, 1.0), 0.0);
+698:             if (!this.field_70170_p.field_72995_K) {
+699:                 if (stretch > 3.5) {
+700:                     if (this.field_70170_p.func_82737_E() % (long)Math.max((int)Math.floor(32.0 - stretch), 1) == 0L) {
+701:                         if (this.field_70170_p.field_73012_v.nextInt((int)Math.floor(stretch / 10.0) + 10) == 0) {
+702:                             if (ropeItem.func_77960_j() < 63) {
+703:                                 ropeItem.func_77972_a(2, (EntityLivingBase)this.curPlayer);
+704:                                 if (this.field_70170_p.field_73012_v.nextInt(5) == 0) {
+705:                                     this.stretchSound();
+706:                                 }
+707:                             } else {
+708:                                 if (!this.field_70170_p.field_72995_K) {
+709:                                     Vec3 dir = this.getBreakPos();
+710:                                     MFQM.dropItem(this.field_70170_p, dir.field_72450_a, dir.field_72448_b, dir.field_72449_c, new ItemStack(MFQM.HookItem));
+711:                                 }
+712:                                 this.curPlayer.field_71071_by.func_70299_a(ropeNum, new ItemStack(MFQM.GrapplingHookBRKItem));
+713:                                 this.breakSound();
+714:                             }
+715:                         }
+716:                         if (this.field_70170_p.field_73012_v.nextInt(Math.max(200 - (int)Math.floor(stretch), 150)) == 0) {
+717:                             this.field_70159_w = MFQM.minAbs((this.curPlayer.field_70165_t - this.field_70165_t) / this.mathLen * (this.mathLen + 2.0), 1.0) + this.field_70159_w / (this.mathLen + 2.0 + 1.0);
+718:                             this.field_70181_x = MFQM.minAbs((this.curPlayer.field_70163_u - this.field_70163_u) / this.mathLen * (this.mathLen + 2.0), 1.0) + this.field_70181_x / (this.mathLen + 2.0 + 1.0);
+719:                             this.field_70179_y = MFQM.minAbs((this.curPlayer.field_70161_v - this.field_70161_v) / this.mathLen * (this.mathLen + 2.0), 1.0) + this.field_70179_y / (this.mathLen + 2.0 + 1.0);
+720:                             this.unGrabSound();
+721:                             this.unGrabServer();
+722:                             return;
+723:                         }
+724:                         if (this.field_70170_p.func_82737_E() % (long)Math.max((int)Math.floor(16.0 - stretch), 1) == 0L && !this.field_70170_p.field_72995_K && this.field_70170_p.field_73012_v.nextInt(Math.max(50 - (int)Math.floor(stretch * 10.0), 10)) == 0) {
+725:                             this.tryingBreakBlock();
+726:                         }
+727:                     }
+728:                 } else if (stretch > 1.5 && this.field_70170_p.func_82737_E() % (long)Math.max((int)Math.floor(16.0 - stretch), 1) == 0L && !this.field_70170_p.field_72995_K && this.field_70170_p.field_73012_v.nextInt(Math.max(50 - (int)Math.floor(stretch * 10.0), 10)) == 0) {
+729:                     this.tryingBreakBlock();
+730:                 }
+731:             } else {
+732:                 double disa = Math.max((this.mathLen - this.curLen) / 7.5, 0.0);
+733:                 this.curPlayer.field_70159_w = MFQM.minAbs((this.BlockPosX - this.curPlayer.field_70165_t) / this.mathLen * disa, 0.25) * movFac + this.curPlayer.field_70159_w / (disa / 100.0 + 1.0);
+734:                 this.curPlayer.field_70181_x = MFQM.minAbs((this.BlockPosY - this.curPlayer.field_70163_u) / this.mathLen * disa, 1.0) * movFac + this.curPlayer.field_70181_x / (disa / 2.0 + 1.0);
+735:                 this.curPlayer.field_70179_y = MFQM.minAbs((this.BlockPosZ - this.curPlayer.field_70161_v) / this.mathLen * disa, 0.25) * movFac + this.curPlayer.field_70179_y / (disa / 100.0 + 1.0);
+736:                 this.curPlayer.field_70181_x = this.getMaxYSpeed(this.curPlayer.field_70181_x, qs);
+737:             }
+738:         }
+739:     }
+740: 
+741:     public void hookPhysic() {
+742:         double disa = Math.max((this.mathLen - this.maxLen) / 20.0, 0.0);
+743:         this.mathLen = Math.pow(Math.pow(this.field_70165_t - this.curPlayer.field_70165_t, 2.0) + Math.pow(this.field_70163_u - this.curPlayer.field_70163_u, 2.0) + Math.pow(this.field_70161_v - this.curPlayer.field_70161_v, 2.0), 0.5);
+744:         this.field_70159_w = MFQM.minAbs((this.curPlayer.field_70165_t - this.field_70165_t) / this.mathLen * disa, 1.0) + this.field_70159_w / (disa + 1.0);
+745:         this.field_70181_x = MFQM.minAbs((this.curPlayer.field_70163_u - this.field_70163_u) / this.mathLen * disa, 1.0) + this.field_70181_x / (disa + 1.0);
+746:         this.field_70179_y = MFQM.minAbs((this.curPlayer.field_70161_v - this.field_70161_v) / this.mathLen * disa, 1.0) + this.field_70179_y / (disa + 1.0);
+747:     }
+748: 
+749:     @SideOnly(value=Side.CLIENT)
+750:     public EntityPlayer getPlayerMC() {
+751:         return Minecraft.func_71410_x().field_71439_g;
+752:     }
+753: 
+754:     public void livingGrab() {
+755:         ItemStack curItm;
+756:         if (this.curPlayer == null) {
+757:             return;
+758:         }
+759:         if (this.curPlayer.field_70128_L || !this.curPlayer.func_70089_S()) {
+760:             return;
+761:         }
+762:         int ropeNum = this.checkingInHotBar();
+763:         if (ropeNum == -1) {
+764:             return;
+765:         }
+766:         EntityPlayer ply = this.curPlayer;
+767:         if (this.field_70170_p.field_72995_K) {
+768:             ply = this.getPlayerMC();
+769:         }
+770:         ItemStack ropeItem = this.curPlayer.field_71071_by.field_70462_a[ropeNum];
+771:         if (!this.field_70170_p.field_72995_K) {
+772:             if (this.curGrabbed == null) {
+773:                 this.unGrabServer();
+774:                 return;
+775:             }
+776:             if (this.curGrabbed.field_70128_L || !this.curGrabbed.func_70089_S()) {
+777:                 this.unGrabServer();
+778:                 return;
+779:             }
+780:             this.field_70159_w = 0.0;
+781:             this.field_70181_x = 0.0;
+782:             this.field_70179_y = 0.0;
+783:             this.field_70165_t = this.curGrabbed.field_70165_t;
+784:             this.field_70163_u = this.curGrabbed.field_70121_D.field_72338_b + (double)this.curGrabbed.field_70131_O * 0.75;
+785:             this.field_70161_v = this.curGrabbed.field_70161_v;
+786:             if (this.curPlayer.field_70181_x >= -1.0 && this.curPlayer.field_70165_t - this.curPlayer.field_70169_q >= -0.5) {
+787:                 this.curPlayer.field_70143_R = 0.0f;
+788:                 this.curGrabbed.field_70143_R = 0.0f;
+789:             }
+790:             if (this.curPlayer.field_70181_x >= -1.0 && this.curPlayer.field_70161_v - this.curPlayer.field_70166_s >= -0.5) {
+791:                 this.curPlayer.field_70143_R = 0.0f;
+792:                 this.curGrabbed.field_70143_R = 0.0f;
+793:             }
+794:         } else if (this.GrabType == 8 && ply != this.curPlayer && this.curGrabbed == null && !ply.field_70128_L && ply.func_70089_S() && Math.pow(Math.pow(this.field_70165_t - ply.field_70165_t, 2.0) + Math.pow(this.field_70163_u - ply.field_70163_u, 2.0) + Math.pow(this.field_70161_v - ply.field_70161_v, 2.0), 0.5) < 1.5) {
+795:             this.curGrabbed = ply;
+796:             this.GrabSound();
+797:             return;
+798:         }
+799:         this.mathLen = Math.pow(Math.pow(this.field_70165_t - this.curPlayer.field_70165_t, 2.0) + Math.pow(this.field_70163_u - this.curPlayer.field_70163_u, 2.0) + Math.pow(this.field_70161_v - this.curPlayer.field_70161_v, 2.0), 0.5);
+800:         this.brkLen = this.curLen + this.maxLen / 10.0 + 1.0;
+801:         double preCurLen = this.curLen;
+802:         if (this.mathLen > this.brkLen) {
+803:             if (!this.field_70170_p.field_72995_K) {
+804:                 if (ropeItem.func_77960_j() < 63) {
+805:                     ropeItem.func_77972_a(2, (EntityLivingBase)this.curPlayer);
+806:                     if (this.field_70170_p.field_73012_v.nextInt(5) == 0) {
+807:                         this.stretchSound();
+808:                     }
+809:                 } else {
+810:                     if (!this.field_70170_p.field_72995_K) {
+811:                         MFQM.dropItem(this.field_70170_p, this.field_70165_t, this.field_70163_u, this.field_70161_v, new ItemStack(MFQM.HookItem));
+812:                     }
+813:                     this.curPlayer.field_71071_by.func_70299_a(ropeNum, new ItemStack(MFQM.GrapplingHookBRKItem));
+814:                     this.breakSound();
+815:                 }
+816:                 if (this.field_70170_p.field_73012_v.nextInt(50) == 0) {
+817:                     this.field_70159_w = MFQM.minAbs((this.curPlayer.field_70165_t - this.field_70165_t) / this.mathLen * (this.mathLen + 5.0), 1.0) + this.field_70159_w / (this.mathLen + 5.0 + 1.0);
+818:                     this.field_70181_x = MFQM.minAbs((this.curPlayer.field_70163_u - this.field_70163_u) / this.mathLen * (this.mathLen + 5.0), 1.0) + this.field_70181_x / (this.mathLen + 5.0 + 1.0);
+819:                     this.field_70179_y = MFQM.minAbs((this.curPlayer.field_70161_v - this.field_70161_v) / this.mathLen * (this.mathLen + 5.0), 1.0) + this.field_70179_y / (this.mathLen + 5.0 + 1.0);
+820:                     this.unGrabSound();
+821:                     this.unGrabServer();
+822:                     return;
+823:                 }
+824:             }
+825:             if (this.curLen < this.maxLen) {
+826:                 this.curLen += (this.maxLen - this.curLen) / 32.0;
+827:             }
+828:         }
+829:         if (this.jumpKey() && this.curLen > 1.0) {
+830:             this.curLen = this.mathLen - Math.max(0.25, 1.0 - Math.max(this.curPlayer.field_70181_x * 4.0, 0.0));
+831:         }
+832:         if ((curItm = this.curPlayer.func_71045_bC()) != null && curItm.func_77973_b() instanceof ItemGrapplingHook && curItm.func_77960_j() % 2 != 0 && this.leftKey() && this.curLen > 1.0) {
+833:             this.curLen -= 0.25;
+834:         }
+835:         if (this.midKey() && this.curLen < this.maxLen) {
+836:             this.curLen += 0.15;
+837:         }
+838:         this.curLen = Math.min(this.maxLen, this.curLen);
+839:         if (this.curLen != this.maxLen && this.field_70170_p.func_82737_E() % 8L == 0L) {
+840:             this.sendPacketCurLenToServer(this.curLen);
+841:         }
+842:         if (this.mathLen > this.curLen) {
+843:             int qs1 = this.isInsideOfQuicksand((EntityLivingBase)this.curPlayer);
+844:             double movFac1 = this.getMovFactor((EntityLivingBase)this.curPlayer, qs1) / 4.0;
+845:             int qs2 = -1;
+846:             double movY = 0.0;
+847:             double movFac2 = 1.0;
+848:             double movFac2XZ = 1.0;
+849:             if (!this.field_70170_p.field_72995_K) {
+850:                 qs2 = this.isInsideOfQuicksand(this.curGrabbed);
+851:                 if (qs2 >= 0) {
+852:                     movY = 2.0;
+853:                 }
+854:                 movFac2 = this.getMovFactor(this.curGrabbed, qs2) / this.getWeight(this.curGrabbed);
+855:                 movFac2XZ = movFac2 * 0.1;
+856:             } else {
+857:                 qs2 = -1;
+858:                 movFac2 = 1.0;
+859:                 movFac2XZ = 1.0;
+860:             }
+861:             double stretch = Math.max((this.mathLen - this.curLen) / Math.min(movFac1 * 4.0, 1.0) / Math.min(movFac2 * 8.0, 1.0), 0.0);
+862:             if (!this.field_70170_p.field_72995_K) {
+863:                 if (stretch > 4.5 && this.field_70170_p.func_82737_E() % (long)Math.max((int)Math.floor(32.0 - stretch), 1) == 0L) {
+864:                     if (this.field_70170_p.field_73012_v.nextInt((int)Math.floor(stretch / 10.0) + 10) == 0) {
+865:                         if (ropeItem.func_77960_j() < 63) {
+866:                             ropeItem.func_77972_a(2, (EntityLivingBase)this.curPlayer);
+867:                             if (this.field_70170_p.field_73012_v.nextInt(5) == 0) {
+868:                                 this.stretchSound();
+869:                             }
+870:                         } else {
+871:                             if (!this.field_70170_p.field_72995_K) {
+872:                                 MFQM.dropItem(this.field_70170_p, this.field_70165_t, this.field_70163_u, this.field_70161_v, new ItemStack(MFQM.HookItem));
+873:                             }
+874:                             this.curPlayer.field_71071_by.func_70299_a(ropeNum, new ItemStack(MFQM.GrapplingHookBRKItem));
+875:                             this.breakSound();
+876:                         }
+877:                     }
+878:                     if (this.field_70170_p.field_73012_v.nextInt(Math.max(200 - (int)Math.floor(stretch), 150)) == 0) {
+879:                         this.field_70159_w = MFQM.minAbs((this.curPlayer.field_70165_t - this.field_70165_t) / this.mathLen * (this.mathLen + 2.0), 1.0) + this.field_70159_w / (this.mathLen + 2.0 + 1.0);
+880:                         this.field_70181_x = MFQM.minAbs((this.curPlayer.field_70163_u - this.field_70163_u) / this.mathLen * (this.mathLen + 2.0), 1.0) + this.field_70181_x / (this.mathLen + 2.0 + 1.0);
+881:                         this.field_70179_y = MFQM.minAbs((this.curPlayer.field_70161_v - this.field_70161_v) / this.mathLen * (this.mathLen + 2.0), 1.0) + this.field_70179_y / (this.mathLen + 2.0 + 1.0);
+882:                         this.unGrabSound();
+883:                         this.unGrabServer();
+884:                         return;
+885:                     }
+886:                 }
+887:                 double disa = Math.max(this.mathLen - this.curLen, 0.0);
+888:                 this.curGrabbed.field_70159_w = MFQM.minAbs((this.curPlayer.field_70165_t - this.curGrabbed.field_70165_t) / this.mathLen * disa, 1.0) * movFac2XZ + this.curGrabbed.field_70159_w / (disa / 50.0 + 1.0);
+889:                 this.curGrabbed.field_70181_x = MFQM.minAbs((this.curPlayer.field_70163_u + movY + 0.5 - this.curGrabbed.field_70163_u) / this.mathLen * disa, 4.0) * movFac2 + this.curGrabbed.field_70181_x / (disa / 2.0 + 1.0);
+890:                 this.curGrabbed.field_70179_y = MFQM.minAbs((this.curPlayer.field_70161_v - this.curGrabbed.field_70161_v) / this.mathLen * disa, 1.0) * movFac2XZ + this.curGrabbed.field_70179_y / (disa / 50.0 + 1.0);
+891:                 this.curGrabbed.field_70122_E = false;
+892:                 this.curGrabbed.field_70181_x = this.getMaxYSpeed(this.curGrabbed.field_70181_x, qs2);
+893:             } else {
+894:                 if (ply != this.curPlayer && this.curGrabbed != null && this.curGrabbed instanceof EntityPlayer && !this.curGrabbed.field_70128_L && this.curGrabbed.func_70089_S()) {
+895:                     qs2 = this.isInsideOfQuicksand(this.curGrabbed);
+896:                     if (qs2 >= 0) {
+897:                         movY = 2.0;
+898:                     }
+899:                     qs2 = -1;
+900:                     double disa1 = Math.max((this.mathLen - this.curLen) / 5.0, 0.0);
+901:                     this.curGrabbed.field_70159_w = MFQM.minAbs((this.curPlayer.field_70165_t - this.curGrabbed.field_70165_t) / this.mathLen * disa1, 0.5) * movFac2XZ + this.curGrabbed.field_70159_w / (disa1 / 100.0 + 1.0);
+902:                     this.curGrabbed.field_70181_x = MFQM.minAbs((this.curPlayer.field_70163_u + movY - this.curGrabbed.field_70163_u) / this.mathLen * disa1, 2.0) * movFac2 + this.curGrabbed.field_70181_x / (disa1 / 2.0 + 1.0);
+903:                     this.curGrabbed.field_70179_y = MFQM.minAbs((this.curPlayer.field_70161_v - this.curGrabbed.field_70161_v) / this.mathLen * disa1, 0.5) * movFac2XZ + this.curGrabbed.field_70179_y / (disa1 / 100.0 + 1.0);
+904:                     this.curGrabbed.field_70181_x = this.getMaxYSpeed(this.curGrabbed.field_70181_x, qs2);
+905:                 }
+906:                 double disa = Math.max((this.mathLen - this.curLen) / 7.5, 0.0);
+907:                 this.curPlayer.field_70159_w = MFQM.minAbs((this.field_70165_t - this.curPlayer.field_70165_t) / this.mathLen * disa, 0.5) * movFac1 + this.curPlayer.field_70159_w / (disa / 100.0 + 1.0);
+908:                 this.curPlayer.field_70181_x = MFQM.minAbs((this.field_70163_u - this.curPlayer.field_70163_u) / this.mathLen * disa, 2.0) * movFac1 + this.curPlayer.field_70181_x / (disa / 2.0 + 1.0);
+909:                 this.curPlayer.field_70179_y = MFQM.minAbs((this.field_70161_v - this.curPlayer.field_70161_v) / this.mathLen * disa, 0.5) * movFac1 + this.curPlayer.field_70179_y / (disa / 100.0 + 1.0);
+910:                 this.curPlayer.field_70181_x = this.getMaxYSpeed(this.curPlayer.field_70181_x, qs1);
+911:             }
+912:         }
+913:     }
+914: 
+915:     @SideOnly(value=Side.CLIENT)
+916:     public int func_70070_b(float par1) {
+917:         int j;
+918:         int i = MathHelper.func_76128_c((double)this.curPlayer.field_70165_t);
+919:         if (this.field_70170_p.func_72899_e(i, 0, j = MathHelper.func_76128_c((double)this.curPlayer.field_70161_v))) {
+920:             boolean upper = false;
+921:             if (!this.field_70170_p.field_72995_K) {
+922:                 upper = true;
+923:             }
+924:             int k = MathHelper.func_76128_c((double)(this.curPlayer.field_70163_u + (double)upper));
+925:             return this.field_70170_p.func_72802_i(i, k, j, 0);
+926:         }
+927:         return 0;
+928:     }
+929: 
+930:     public float func_70013_c(float par1) {
+931:         int j;
+932:         int i = MathHelper.func_76128_c((double)this.curPlayer.field_70165_t);
+933:         if (this.field_70170_p.func_72899_e(i, 0, j = MathHelper.func_76128_c((double)this.curPlayer.field_70161_v))) {
+934:             boolean upper = false;
+935:             if (!this.field_70170_p.field_72995_K) {
+936:                 upper = true;
+937:             }
+938:             int k = MathHelper.func_76128_c((double)(this.curPlayer.field_70163_u + (double)upper));
+939:             return this.field_70170_p.func_72801_o(i, k, j);
+940:         }
+941:         return 0.0f;
+942:     }
+943: 
+944:     public int checkingInHotBar() {
+945:         int i = this.curPlayer.field_71071_by.field_70461_c;
+946:         if (this.curPlayer.field_71071_by.field_70462_a[i] != null && this.curPlayer.field_71071_by.field_70462_a[i].func_77973_b() instanceof ItemGrapplingHook && (this.grabTick <= 5 || this.curPlayer.field_71071_by.field_70462_a[i].func_77960_j() % 2 != 0)) {
+947:             return i;
+948:         }
+949:         return -1;
+950:     }
+951: 
+952:     public int isInsideOfQuicksand(EntityLivingBase ent) {
+953:         int ppx = (int)Math.floor(ent.field_70165_t);
+954:         int ppy = (int)Math.floor(ent.field_70163_u);
+955:         int ppz = (int)Math.floor(ent.field_70161_v);
+956:         if (!this.field_70170_p.field_72995_K || !(ent instanceof EntityPlayer)) {
+957:             ppy = (int)Math.floor(ent.field_70163_u + 1.25);
+958:         }
+959:         for (int i = 0; i < EntityRope.quicksandIDS.length; ++i) {
+960:             if (this.field_70170_p.func_147439_a(ppx, ppy, ppz) == EntityRope.quicksandIDS[i]) {
+961:                 return (i + 1) * 100;
+962:             }
+963:             if (this.field_70170_p.func_147439_a(ppx, ppy - 1, ppz) != EntityRope.quicksandIDS[i]) continue;
+964:             return i + 1;
+965:         }
+966:         return -1;
+967:     }
+968: 
+969:     public double getMovFactor(EntityLivingBase ent, int qs) {
+970:         double moveKof = 1.0;
+971:         if (qs != -1) {
+972:             if (qs >= 100) {
+973:                 int trueQS = qs / 100 - 1;
+974:                 int qsHC = EntityRope.quicksandHardCoof[trueQS];
+975:                 moveKof /= (double)qsHC * 0.625;
+976:             } else {
+977:                 int trueQS = qs - 1;
+978:                 int qsHC = EntityRope.quicksandHardCoof[trueQS];
+979:                 int ppy = (int)Math.floor(ent.field_70163_u);
+980:                 double depthCof = 0.0;
+981:                 depthCof = this.field_70170_p.field_72995_K && ent instanceof EntityPlayer ? Math.max(1.0 / (Math.max(ent.field_70163_u - (double)ppy, 0.25) * 8.0), 1.0) : Math.max(1.0 / (Math.max(ent.field_70163_u + 1.25 - (double)ppy, 0.25) * 8.0), 1.0);
+982:                 moveKof /= (double)qsHC * depthCof;
+983:             }
+984:         }
+985:         return Math.min(Math.max(moveKof, 0.01) * 10.0, 1.0);
+986:     }
+987: 
+988:     public double getWeight(EntityLivingBase ent) {
+989:         return Math.max((double)MathHelper.func_76133_a((double)(ent.field_70131_O / 2.0f * (ent.field_70131_O / 2.0f) + ent.field_70130_N * ent.field_70130_N)) / 0.75, 1.0);
+990:     }
+991: 
+992:     public Vec3 getBreakPos() {
+993:         Vec3 dir = Vec3.func_72443_a((double)0.0, (double)0.0, (double)0.0);
+994:         switch (this.GrabType) {
+995:             case 1: {
+996:                 dir.field_72450_a = 0.0;
+997:                 dir.field_72448_b = -1.0;
+998:                 dir.field_72449_c = 0.0;
+999:                 break;
+1000:             }
+1001:             case 2: {
+1002:                 dir.field_72450_a = 0.0;
+1003:                 dir.field_72448_b = 1.0;
+1004:                 dir.field_72449_c = 0.0;
+1005:                 break;
+1006:             }
+1007:             case 3: {
+1008:                 dir.field_72450_a = -1.0;
+1009:                 dir.field_72448_b = 0.0;
+1010:                 dir.field_72449_c = 0.0;
+1011:                 break;
+1012:             }
+1013:             case 4: {
+1014:                 dir.field_72450_a = 1.0;
+1015:                 dir.field_72448_b = 0.0;
+1016:                 dir.field_72449_c = 0.0;
+1017:                 break;
+1018:             }
+1019:             case 5: {
+1020:                 dir.field_72450_a = 0.0;
+1021:                 dir.field_72448_b = 0.0;
+1022:                 dir.field_72449_c = -1.0;
+1023:                 break;
+1024:             }
+1025:             case 6: {
+1026:                 dir.field_72450_a = 0.0;
+1027:                 dir.field_72448_b = 0.0;
+1028:                 dir.field_72449_c = 1.0;
+1029:             }
+1030:         }
+1031:         dir.field_72450_a *= 0.625;
+1032:         dir.field_72448_b *= 0.625;
+1033:         dir.field_72449_c *= 0.625;
+1034:         return dir;
+1035:     }
+1036: 
+1037:     public void tryingBreakBlock() {
+1038:         if (this.yTile > 0 && (this.field_70170_p.func_147439_a(this.xTile, this.yTile, this.zTile).func_149688_o() == Material.field_151592_s || this.field_70170_p.func_147439_a(this.xTile, this.yTile, this.zTile).func_149688_o().func_76227_m() == 1)) {
+1039:             this.field_70170_p.func_147480_a(this.xTile, this.yTile, this.zTile, true);
+1040:         }
+1041:     }
+1042: 
+1043:     public void sandDigging() {
+1044:         int zz;
+1045:         int yy;
+1046:         int xx = (int)Math.floor(this.field_70165_t);
+1047:         if (this.field_70170_p.func_147439_a(xx, yy = (int)Math.floor(this.field_70163_u - 0.5), zz = (int)Math.floor(this.field_70161_v)).func_149688_o().func_76220_a()) {
+1048:             Block block = this.field_70170_p.func_147439_a(xx, yy, zz);
+1049:             this.field_70170_p.func_72908_a(this.field_70165_t, this.field_70163_u, this.field_70161_v, block.field_149762_H.func_150496_b(), 0.25f, block.field_149762_H.func_150494_d());
+1050:             this.field_70170_p.func_72869_a("blockcrack_" + Block.func_149682_b((Block)block) + "_" + this.field_70170_p.func_72805_g(xx, yy, zz), this.field_70165_t, this.field_70163_u, this.field_70161_v, ((double)this.field_70170_p.field_73012_v.nextFloat() - 0.5) / 100.0, (double)(this.field_70170_p.field_73012_v.nextFloat() / 50.0f), ((double)this.field_70170_p.field_73012_v.nextFloat() - 0.5) / 100.0);
+1051:         }
+1052:         this.field_70159_w *= 0.85;
+1053:         this.field_70181_x *= 0.85;
+1054:         this.field_70179_y *= 0.85;
+1055:         ++this.inSand;
+1056:         if (this.inSand > 10) {
+1057:             this.hitted = true;
+1058:         }
+1059:     }
+1060: 
+1061:     public boolean getMoCreatureValid(EntityLivingBase ent) {
+1062:         if (!MFQM.HookAsRider) {
+1063:             return false;
+1064:         }
+1065:         if (ent.func_70005_c_().equalsIgnoreCase("HorseMob")) {
+1066:             return false;
+1067:         }
+1068:         if (ent.func_70005_c_().equalsIgnoreCase("Elephant")) {
+1069:             return false;
+1070:         }
+1071:         if (ent.func_70005_c_().equalsIgnoreCase("Crocodile")) {
+1072:             return false;
+1073:         }
+1074:         if (ent.func_70005_c_().equalsIgnoreCase("WildHorse")) {
+1075:             return false;
+1076:         }
+1077:         return ent.func_70042_X() == (double)ent.field_70131_O * 0.75;
+1078:     }
+1079: 
+1080:     public void unGrabServer() {
+1081:         this.inGround = false;
+1082:         this.GrabType = 0;
+1083:         this.BlockPosX = 0.0;
+1084:         this.BlockPosY = 0.0;
+1085:         this.BlockPosZ = 0.0;
+1086:         this.xTile = -1;
+1087:         this.yTile = -1;
+1088:         this.zTile = -1;
+1089:         this.curGrabbed = null;
+1090:         this.field_70154_o = null;
+1091:         this.setWatcherGrabbed();
+1092:     }
+1093: 
+1094:     public void breakSound() {
+1095:         this.field_70170_p.func_72908_a(this.field_70165_t, this.field_70163_u, this.field_70161_v, "random.break", 0.35f, this.field_70170_p.field_73012_v.nextFloat() * 0.25f + 0.8f);
+1096:         this.field_70170_p.func_72908_a(this.curPlayer.field_70165_t, this.curPlayer.field_70163_u, this.curPlayer.field_70161_v, "random.break", 0.25f, this.field_70170_p.field_73012_v.nextFloat() * 0.25f + 0.8f);
+1097:     }
+1098: 
+1099:     public void GrabSound() {
+1100:         if (this.yTile > 0) {
+1101:             this.field_70170_p.func_72908_a(this.field_70165_t, this.field_70163_u, this.field_70161_v, "mob.irongolem.hit", 0.5f, this.field_70170_p.field_73012_v.nextFloat() * 0.15f + 1.75f);
+1102:         }
+1103:     }
+1104: 
+1105:     public void unGrabSound() {
+1106:         if (this.yTile > 0 && this.field_70170_p.func_147439_a(this.xTile, this.yTile, this.zTile).func_149688_o().func_76220_a()) {
+1107:             Block block = this.field_70170_p.func_147439_a(this.xTile, this.yTile, this.zTile);
+1108:             this.field_70170_p.func_72908_a(this.field_70165_t, this.field_70163_u, this.field_70161_v, block.field_149762_H.func_150495_a(), 0.5f, block.field_149762_H.func_150494_d());
+1109:             this.field_70170_p.func_72908_a(this.curPlayer.field_70165_t, this.curPlayer.field_70163_u, this.curPlayer.field_70161_v, block.field_149762_H.func_150495_a(), 0.5f, block.field_149762_H.func_150494_d());
+1110:         }
+1111:     }
+1112: 
+1113:     public void stretchSound() {
+1114:         this.field_70170_p.func_72908_a(this.field_70165_t, this.field_70163_u, this.field_70161_v, "step.ladder", 0.5f, this.field_70170_p.field_73012_v.nextFloat() * 0.5f + 1.5f);
+1115:         this.field_70170_p.func_72908_a(this.curPlayer.field_70165_t, this.curPlayer.field_70163_u, this.curPlayer.field_70161_v, "step.ladder", 0.25f, this.field_70170_p.field_73012_v.nextFloat() * 0.5f + 1.5f);
+1116:     }
+1117: 
+1118:     public boolean midKey() {
+1119:         if (this.field_70170_p.field_72995_K && Minecraft.func_71410_x().field_71439_g == this.curPlayer) {
+1120:             GameSettings cfr_ignored_0 = Minecraft.func_71410_x().field_71474_y;
+1121:             return GameSettings.func_100015_a((KeyBinding)Minecraft.func_71410_x().field_71474_y.field_74322_I);
+1122:         }
+1123:         return false;
+1124:     }
+1125: 
+1126:     public boolean leftKey() {
+1127:         if (this.field_70170_p.field_72995_K && Minecraft.func_71410_x().field_71439_g == this.curPlayer) {
+1128:             GameSettings cfr_ignored_0 = Minecraft.func_71410_x().field_71474_y;
+1129:             return GameSettings.func_100015_a((KeyBinding)Minecraft.func_71410_x().field_71474_y.field_74312_F);
+1130:         }
+1131:         return false;
+1132:     }
+1133: 
+1134:     public boolean jumpKey() {
+1135:         if (this.field_70170_p.field_72995_K && Minecraft.func_71410_x().field_71439_g == this.curPlayer) {
+1136:             return Keyboard.isKeyDown((int)Minecraft.func_71410_x().field_71474_y.field_74314_A.func_151463_i());
+1137:         }
+1138:         return false;
+1139:     }
+1140: 
+1141:     public boolean crouchKey() {
+1142:         if (this.field_70170_p.field_72995_K && Minecraft.func_71410_x().field_71439_g == this.curPlayer) {
+1143:             return Keyboard.isKeyDown((int)Minecraft.func_71410_x().field_71474_y.field_74311_E.func_151463_i());
+1144:         }
+1145:         return false;
+1146:     }
+1147: 
+1148:     public double getMaxYSpeed(double vel, int qs) {
+1149:         if (qs != -1) {
+1150:             qs = qs >= 100 ? qs / 100 - 1 : --qs;
+1151:             if ((qs >= 3 && qs <= 5 || qs >= 8 && qs <= 12 || qs >= 14 && qs <= 22 || qs == 26) && this.field_70170_p.field_73012_v.nextInt(Math.max(1000 / EntityRope.quicksandHardCoof[qs], 1)) != 0) {
+1152:                 vel = Math.min(vel, 0.01625);
+1153:             }
+1154:         }
+1155:         return vel;
+1156:     }
+1157: 
+1158:     public void saveMeInPacketHandler() {
+1159:         if (!this.isRegistered && this.curPlayer != null && !this.field_70170_p.field_72995_K) {
+1160:             String un = this.curPlayer.func_70005_c_();
+1161:             for (int i = 0; i < 64; ++i) {
+1162:                 boolean EN = false;
+1163:                 if (MFQM.arrayHooks[i] == null) {
+1164:                     EN = true;
+1165:                 } else if (!MFQM.arrayHooks[i].func_70089_S()) {
+1166:                     EN = true;
+1167:                 }
+1168:                 if (!EN) continue;
+1169:                 MFQM.arrayHooks[i] = this;
+1170:                 MFQM.arrayPlayersHooks[i] = un;
+1171:                 this.isRegistered = true;
+1172:                 return;
+1173:             }
+1174:         }
+1175:     }
+1176: }
+1177: 

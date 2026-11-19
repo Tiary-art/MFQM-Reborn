@@ -1,0 +1,82 @@
+Picked up JAVA_TOOL_OPTIONS: -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080 -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts
+To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/8.1.1/userguide/gradle_daemon.html#sec:disabling_the_daemon.
+Daemon will be stopped at the end of the build 
+> Task :compileJava UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :downloadMcpConfig
+> Task :extractSrg UP-TO-DATE
+> Task :createSrgToMcp UP-TO-DATE
+> Task :downloadMCMeta UP-TO-DATE
+> Task :downloadAssets UP-TO-DATE
+> Task :extractNatives UP-TO-DATE
+> Task :makeSrcDirs
+> Task :prepareRuns
+> Task :prepareRunClient
+> Task :prepareRunClientCompile UP-TO-DATE
+
+> Task :runClient
+Picked up JAVA_TOOL_OPTIONS: -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080 -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts
+2026-11-18 13:22:22,220 main WARN Advanced terminal features are not available in this environment
+[13:22:22] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeclientuserdev, --version, MOD_DEV, --assetIndex, 5, --assetsDir, /workspace/work/task002-tools/gradle-home/caches/forge_gradle/assets, --gameDir, ., --fml.forgeVersion, 47.2.0, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412]
+[13:22:22] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.21 by Eclipse Adoptium; OS Linux arch amd64 version 6.18.57
+[13:22:22] [main/INFO] [ne.mi.fm.lo.ImmediateWindowHandler/]: Loading ImmediateWindowProvider fmlearlywindow
+Authorization required, but no authorization protocol specified
+
+error: XDG_RUNTIME_DIR is invalid or not set in the environment.
+[13:22:22] [main/ERROR] [EARLYDISPLAY/]: ERROR DISPLAY
+Failed to initialize graphics window with current settings.
+
+
+Failure details:
+We are unable to initialize the graphics system.
+glfwInit failed.
+
+
+If you click yes, we will try and open https://links.minecraftforge.net/early-display-errors in your default browser
+Exception in thread "main" java.lang.IllegalStateException: Unable to initialize GLFW
+	at MC-BOOTSTRAP/fmlearlydisplay@1.20.1-47.2.0/net.minecraftforge.fml.earlydisplay.DisplayWindow.initWindow(DisplayWindow.java:346)
+	at MC-BOOTSTRAP/fmlearlydisplay@1.20.1-47.2.0/net.minecraftforge.fml.earlydisplay.DisplayWindow.start(DisplayWindow.java:289)
+	at MC-BOOTSTRAP/fmlearlydisplay@1.20.1-47.2.0/net.minecraftforge.fml.earlydisplay.DisplayWindow.initialize(DisplayWindow.java:151)
+	at MC-BOOTSTRAP/fmlloader@1.20.1-47.2.0/net.minecraftforge.fml.loading.ImmediateWindowHandler.load(ImmediateWindowHandler.java:48)
+	at MC-BOOTSTRAP/fmlloader@1.20.1-47.2.0/net.minecraftforge.fml.loading.ModDirTransformerDiscoverer.earlyInitialization(ModDirTransformerDiscoverer.java:43)
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@10.0.9/cpw.mods.modlauncher.TransformationServicesHandler.lambda$discoverServices$18(TransformationServicesHandler.java:131)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@10.0.9/cpw.mods.modlauncher.TransformationServicesHandler.discoverServices(TransformationServicesHandler.java:131)
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@10.0.9/cpw.mods.modlauncher.Launcher.run(Launcher.java:87)
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@10.0.9/cpw.mods.modlauncher.Launcher.main(Launcher.java:78)
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@10.0.9/cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26)
+	at MC-BOOTSTRAP/cpw.mods.modlauncher@10.0.9/cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23)
+	at cpw.mods.bootstraplauncher@1.1.2/cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141)
+Authorization required, but no authorization protocol specified
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/tkinter/__init__.py", line 2346, in __init__
+    self.tk = _tkinter.create(screenName, baseName, className, interactive, wantobjects, useTk, sync, use)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_tkinter.TclError: couldn't connect to display ":0"
+
+> Task :runClient FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':runClient'.
+> Process 'command '/workspace/work/task002-tools/jdk-17.0.21+9/bin/java'' finished with non-zero exit value 1
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+
+* Get more help at https://help.gradle.org
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+See https://docs.gradle.org/8.1.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD FAILED in 13s
+10 actionable tasks: 3 executed, 7 up-to-date

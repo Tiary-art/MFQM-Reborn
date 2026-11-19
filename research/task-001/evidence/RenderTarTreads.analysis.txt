@@ -1,0 +1,129 @@
+1: /*
+2:  * Decompiled with CFR 0.152.
+3:  * 
+4:  * Could not load the following classes:
+5:  *  cpw.mods.fml.relauncher.Side
+6:  *  cpw.mods.fml.relauncher.SideOnly
+7:  *  net.minecraft.client.renderer.OpenGlHelper
+8:  *  net.minecraft.client.renderer.Tessellator
+9:  *  net.minecraft.client.renderer.entity.Render
+10:  *  net.minecraft.entity.Entity
+11:  *  net.minecraft.entity.EntityLivingBase
+12:  *  net.minecraft.util.ResourceLocation
+13:  *  net.minecraft.util.Vec3
+14:  *  net.minecraft.world.IBlockAccess
+15:  *  org.lwjgl.opengl.GL11
+16:  */
+17: package MoreFunQuicksandMod.main.client;
+18: 
+19: import MoreFunQuicksandMod.main.MFQM;
+20: import MoreFunQuicksandMod.main.entity.EntityTarTreads;
+21: import cpw.mods.fml.relauncher.Side;
+22: import cpw.mods.fml.relauncher.SideOnly;
+23: import net.minecraft.client.renderer.OpenGlHelper;
+24: import net.minecraft.client.renderer.Tessellator;
+25: import net.minecraft.client.renderer.entity.Render;
+26: import net.minecraft.entity.Entity;
+27: import net.minecraft.entity.EntityLivingBase;
+28: import net.minecraft.util.ResourceLocation;
+29: import net.minecraft.util.Vec3;
+30: import net.minecraft.world.IBlockAccess;
+31: import org.lwjgl.opengl.GL11;
+32: 
+33: @SideOnly(value=Side.CLIENT)
+34: public class RenderTarTreads
+35: extends Render {
+36:     private static final ResourceLocation TarTreads0 = new ResourceLocation("morefunquicksandmod", "textures/blocks/TarTread.png");
+37: 
+38:     public void doRenderTentacles(EntityTarTreads par1EntityTarTreads, double par2, double par4, double par6, float par8, float par9) {
+39:         if (par1EntityTarTreads.target == null) {
+40:             return;
+41:         }
+42:         if (!(par1EntityTarTreads.target instanceof EntityLivingBase)) {
+43:             return;
+44:         }
+45:         if (par1EntityTarTreads.target.field_70128_L || !par1EntityTarTreads.target.func_70089_S()) {
+46:             return;
+47:         }
+48:         double x = 0.0;
+49:         double y = 0.0;
+50:         double z = 0.0;
+51:         Tessellator tessellator = Tessellator.field_78398_a;
+52:         int px = (int)Math.floor(par1EntityTarTreads.field_70165_t);
+53:         int py = (int)Math.floor(par1EntityTarTreads.field_70163_u + 1.0);
+54:         int pz = (int)Math.floor(par1EntityTarTreads.field_70161_v);
+55:         double pxq = (double)px - par1EntityTarTreads.field_70165_t;
+56:         double pzq = (double)pz - par1EntityTarTreads.field_70161_v;
+57:         float f = 4 * MFQM.TarBlock.func_149677_c((IBlockAccess)par1EntityTarTreads.field_70170_p, px, py, pz);
+58:         int l = par1EntityTarTreads.field_70170_p.func_72802_i(px, py, pz, 0);
+59:         int l1 = l % 65536;
+60:         int l2 = l / 65536;
+61:         this.func_110776_a(this.func_110775_a(par1EntityTarTreads));
+62:         GL11.glPushMatrix();
+63:         GL11.glEnable((int)32826);
+64:         OpenGlHelper.func_77475_a((int)OpenGlHelper.field_77476_b, (float)l1, (float)l2);
+65:         tessellator.func_78386_a(f, f, f);
+66:         double npx = par1EntityTarTreads.field_70165_t;
+67:         double npy = par1EntityTarTreads.field_70163_u;
+68:         double npz = par1EntityTarTreads.field_70161_v;
+69:         double npxn = par1EntityTarTreads.target.field_70165_t + par1EntityTarTreads.xs * (double)par1EntityTarTreads.target.field_70130_N;
+70:         double npyn = par1EntityTarTreads.target.field_70121_D.field_72338_b + (double)par1EntityTarTreads.target.field_70131_O * par1EntityTarTreads.hgrab;
+71:         double npzn = par1EntityTarTreads.target.field_70161_v + par1EntityTarTreads.zs * (double)par1EntityTarTreads.target.field_70130_N;
+72:         Vec3 nv3 = Vec3.func_72443_a((double)(npxn - npx), (double)(npyn - npy), (double)(npzn - npz));
+73:         double dis = Math.sqrt(Math.pow(nv3.field_72450_a, 2.0) + Math.pow(nv3.field_72448_b, 2.0) + Math.pow(nv3.field_72449_c, 2.0));
+74:         nv3 = nv3.func_72432_b();
+75:         double size = par1EntityTarTreads.rsize / (1.0 + dis / 10.0);
+76:         double lpx = -nv3.field_72450_a;
+77:         double lpy = -nv3.field_72448_b;
+78:         double lpz = -nv3.field_72449_c;
+79:         double degree = 57.29577951308232;
+80:         double PITCH = Math.atan2(lpy, Math.sqrt(lpx * lpx + lpz * lpz)) * degree;
+81:         double YAW = -(Math.atan2(lpx, lpz) * degree + 180.0);
+82:         GL11.glTranslatef((float)((float)par2), (float)((float)par4), (float)((float)par6));
+83:         GL11.glRotatef((float)((float)(-YAW)), (float)0.0f, (float)1.0f, (float)0.0f);
+84:         GL11.glRotatef((float)((float)PITCH + 90.0f), (float)1.0f, (float)0.0f, (float)0.0f);
+85:         this.drawCrossedSquares(tessellator, size, -size, 0.0, -size, dis);
+86:         GL11.glDisable((int)32826);
+87:         GL11.glPopMatrix();
+88:     }
+89: 
+90:     public void drawCrossedSquares(Tessellator tessellator, double size, double xx, double height, double yy, double sacal) {
+91:         double var10 = 0.0;
+92:         double var12 = 0.0;
+93:         double var14 = 1.0;
+94:         double var16 = 1.0;
+95:         double var18 = size;
+96:         double var20 = xx + size - var18;
+97:         double var22 = xx + size + var18;
+98:         double var24 = yy + size - var18;
+99:         double var26 = yy + size + var18;
+100:         tessellator.func_78382_b();
+101:         tessellator.func_78375_b(0.0f, 1.0f, 0.0f);
+102:         tessellator.func_78374_a(var20, height + sacal, var24, var10, var12);
+103:         tessellator.func_78374_a(var20, height + 0.0, var24, var10, var16);
+104:         tessellator.func_78374_a(var22, height + 0.0, var26, var14, var16);
+105:         tessellator.func_78374_a(var22, height + sacal, var26, var14, var12);
+106:         tessellator.func_78374_a(var22, height + sacal, var26, var10, var12);
+107:         tessellator.func_78374_a(var22, height + 0.0, var26, var10, var16);
+108:         tessellator.func_78374_a(var20, height + 0.0, var24, var14, var16);
+109:         tessellator.func_78374_a(var20, height + sacal, var24, var14, var12);
+110:         tessellator.func_78374_a(var20, height + sacal, var26, var10, var12);
+111:         tessellator.func_78374_a(var20, height + 0.0, var26, var10, var16);
+112:         tessellator.func_78374_a(var22, height + 0.0, var24, var14, var16);
+113:         tessellator.func_78374_a(var22, height + sacal, var24, var14, var12);
+114:         tessellator.func_78374_a(var22, height + sacal, var24, var10, var12);
+115:         tessellator.func_78374_a(var22, height + 0.0, var24, var10, var16);
+116:         tessellator.func_78374_a(var20, height + 0.0, var26, var14, var16);
+117:         tessellator.func_78374_a(var20, height + sacal, var26, var14, var12);
+118:         tessellator.func_78381_a();
+119:     }
+120: 
+121:     protected ResourceLocation func_110775_a(Entity par1Entity) {
+122:         return TarTreads0;
+123:     }
+124: 
+125:     public void func_76986_a(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
+126:         this.doRenderTentacles((EntityTarTreads)par1Entity, par2, par4, par6, par8, par9);
+127:     }
+128: }
+129: 
