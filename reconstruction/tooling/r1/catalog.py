@@ -59,6 +59,27 @@ def compile_catalog():
         for d,icons in selected_faces(code,damages).items():
             en='Plant Wall' if cls!='BlockMeat' else 'Meat Wall '+['','Bottom','Conner','Conner','Conner','Conner','Side','Side','Side','Side','Anus'][d]
             entries.append(dict(id=spec['id']+('_'+str(d) if d else ''),legacy=spec['legacy_id'],damage=d,en=en.strip(),mode='sample' if d else 'block',stack=64,textures=[source('blocks',x) for x in icons],shape='slab' if cls=='BlockBlossomSlab' else 'faces',owner=cls,ref=cls+'.analysis.txt',food=None))
+    # The original ItemMeta tab exposes only the two forward-facing wax logs.
+    for damage, icon in [(0, "WaxTree0"), (4, "WaxTree1")]:
+        entries.append(dict(id="wax_wood" if damage == 0 else "wax_wood_4",
+            legacy="WaxWood", damage=damage, en="Wax Jungle Log", mode="block" if damage == 0 else "sample",
+            stack=64, textures=[source("blocks", icon)], shape="wax_log", owner="BlockWaxWood",
+            ref="BlockWaxWood.analysis.txt:74-100,122-126", food=None))
+    # BlockColored supplies the vanilla wool palette. No private texture is needed.
+    colors = "white orange magenta light_blue yellow lime pink gray light_gray cyan purple blue brown green red black".split()
+    for damage, color in enumerate(colors):
+        entries.append(dict(id="sinking_rug" if damage == 0 else "sinking_rug_" + color,
+            legacy="SinkingRug", damage=damage, en="Sinking Rug", mode="block" if damage == 0 else "sample",
+            stack=64, textures=[], vanilla="minecraft:block/" + color + "_wool", shape="wool",
+            owner="BlockSinkingWool", ref="MFQM.analysis.txt:1115-1119; BlockSinkingWool.analysis.txt:35-50", food=None))
+    # getSubBlocks(int,...) has a different descriptor from the Forge Item overload.
+    # Preserve its eight outputs as samples without claiming Forge dispatched it.
+    for damage in range(9):
+        top = "Moor" + str(max(0, damage - 1))
+        entries.append(dict(id="morass" if damage == 0 else "morass_" + str(damage),
+            legacy="Morass", damage=damage, en="Morass", mode="block" if damage == 0 else "sample",
+            stack=64, textures=[source("blocks", icon) for icon in ["Moor_side1", top] + ["Moor_side0"] * 4],
+            shape="faces", owner="BlockMorass", ref="BlockMorass.analysis.txt:593-639", food=None))
     return entries
 if __name__=='__main__':
     entries=compile_catalog()

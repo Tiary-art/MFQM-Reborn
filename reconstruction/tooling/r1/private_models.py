@@ -14,7 +14,13 @@ def overlay(archive, catalog, output):
             if source + ".mcmeta" in archive.namelist():
                 output[target + ".mcmeta"] = archive.read(source + ".mcmeta")
             refs.append("mfqm:" + relative)
-        if row["shape"] == "flat":
+        if row["shape"] == "wax_log":
+            textures = dict.fromkeys(("north", "west", "east", "particle"), "minecraft:block/jungle_log")
+            textures.update(down="minecraft:block/jungle_log_top", up="minecraft:block/jungle_log_top", south=refs[0])
+            model = {"parent":"minecraft:block/cube", "textures":textures}
+        elif row["shape"] == "wool":
+            model = {"parent":"minecraft:block/cube_all", "textures":{"all":row["vanilla"]}}
+        elif row["shape"] == "flat":
             model = {"parent":"minecraft:item/generated","textures":{"layer0":refs[0]}}
         elif len(refs) == 6:
             textures = dict(zip(("down","up","north","south","west","east"),refs))
@@ -31,7 +37,7 @@ def overlay(archive, catalog, output):
             model = {"parent":"minecraft:block/cube_all","textures":{"all":refs[0]}}
         data = (json.dumps(model,indent=2)+"\n").encode()
         output[f"assets/mfqm/models/item/{row['id']}.json"] = data
-        if row['mode']=='block' and row['shape']=='cube':
+        if row['mode']=='block' and row['shape']!='slab':
             output[f"assets/mfqm/models/block/{row['id']}.json"] = data
     # The default square frame (32x32) cannot tile 32x304. Preserve the full row width,
     # all 19 strips, original frametime and every PNG byte.
