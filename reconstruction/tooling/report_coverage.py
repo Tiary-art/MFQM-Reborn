@@ -10,7 +10,11 @@ for name,file in[('file_index','ORIGINAL_JAR_FILES'),('class_index','ORIGINAL_CL
 add('deep_class_semantics',len(read(o/'manifest/ORIGINAL_CLASSES.csv')),partial=0)
 add('registry_callsite_interpretation_not_complete_registry',len(read(o/'manifest/ORIGINAL_REGISTRY.csv')),partial=len(read(o/'manifest/ORIGINAL_REGISTRY.csv')))
 for name,file in [('modern_registered_runtime','manifest/MODERN_REGISTRY.csv'),('creative_correct_on_identified_calls','manifest/ORIGINAL_REGISTRY.csv'),('asset_binding_on_original_resources','manifest/ORIGINAL_RESOURCES.csv'),('name_parity_on_identified_calls','manifest/ORIGINAL_REGISTRY.csv'),('behavior_parity_on_catalogued_cases','mapping/BEHAVIOR_CASES.csv'),('original_oracle_replay_r0_on_catalogued_cases','mapping/BEHAVIOR_CASES.csv'),('multiplayer_on_modern_registered_objects','manifest/MODERN_REGISTRY.csv')]:
- n=len(read(o/file));add(name,n,notrun=n)
+ n=len(read(o/file))
+ if name=='modern_registered_runtime' and (o/'manifest/MODERN_REGISTRY_RUNTIME.csv').exists():
+  observed={(r['kind'],r['registry_id']) for r in read(o/'manifest/MODERN_REGISTRY_RUNTIME.csv')}
+  add(name,n,verified=sum((r['kind'],r['registry_id']) in observed for r in read(o/file)))
+ else:add(name,n,notrun=n)
 add('modern_static_inventory',len(read(o/'manifest/NEW_PROJECT_INVENTORY.csv')),len(read(o/'manifest/NEW_PROJECT_INVENTORY.csv')))
 add('modern_full_semantic_review',len(read(o/'manifest/NEW_PROJECT_INVENTORY.csv')),partial=len(read(o/'manifest/NEW_PROJECT_INVENTORY.csv')))
 add('approximation_candidates',len(read(o/'mapping/AI_APPROXIMATION_AUDIT.csv')),partial=len(read(o/'mapping/AI_APPROXIMATION_AUDIT.csv')))

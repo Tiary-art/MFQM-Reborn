@@ -44,3 +44,16 @@ ID `class:e652e076d861cf6d6ee5b7e5`；class SHA `c3ba8d15372507becdd02fcbbb0854e
 ## 验证计划
 
 用 CALL_GRAPH 按类和 JVM descriptor 取调用/字段写入，逐条比对历史 bytecode，再做同输入 oracle 与现代 tick/状态轨迹。原1.7.10游戏本轮 NOT_RUN，现代正式安装 NOT_RUN；签名与反编译定位不是行为 PASS。
+
+## R1 注册与显示证据
+
+- `func_149666_a(Lnet/minecraft/item/Item;Lnet/minecraft/creativetab/CreativeTabs;Ljava/util/List;)V` · CFR 78–81 · 79 damage=0 | 80 damage=1
+- `func_149691_a(II)Lnet/minecraft/util/IIcon;` · CFR 287–292
+- `func_149651_a(Lnet/minecraft/client/renderer/texture/IIconRegister;)V` · CFR 353–355 · 354 morefunquicksandmod:SoftSnow
+
+|旧对象|damage|旧名称候选|现代物品|
+|---|---:|---|---|
+|SoftSnow|0|Soft Snow|`mfqm:soft_snow`|
+|SoftSnow|1|Soft Ash|`mfqm:soft_ash`|
+
+上述行号指向 research/task-001/evidence 中同类的分析文本。模型、名称冲突、行为与存档验证按 original_stack_id 查询 CONTENT_PARITY_MATRIX。

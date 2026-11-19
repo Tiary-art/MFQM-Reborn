@@ -36,3 +36,5 @@ python reconstruction/tooling/report_coverage.py --out-dir reconstruction
 缺少原JAR为显式错误，绝不输出假空成功。--verify校验现有表，原输入重读用inventory_original；输出到临时目录可比较身份表哈希，类文档仍按repo-root生成，不建议并发修改同一数据库。所有权清理不是这些工具功能，工具不删除输入或游戏源码。Windows文本使用UTF-8；本轮Windows运行NOT_RUN。原版/现代正式安装NOT_RUN，现有JUnit/GameTest结果见 checks/。
 
 每个后续PR必须同时更新证据、实现、对应测试和矩阵；不能仅修改报告数值。清理门槛是证据/替代/同输入/安全/无重复执行/迁移/回滚/独立验收八项；未满足保持KEEP_TEMPORARILY。R0-E不执行。
+
+R1 的运行时清单、原版栈清单和逐对象差异已并入本数据库。阅读 [R1 完成报告](../docs/reconstruction/R1_COMPLETION_REPORT.zh-CN.md) 或 [安装与验证](../deliverables/r1/README.zh-CN.md)。

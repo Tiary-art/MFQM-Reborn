@@ -36,3 +36,19 @@ ID `class:690746da0eae5fd8d04ca350`；class SHA `c1e889f6f8077bcfc011e39c35f720f
 ## 验证计划
 
 用 CALL_GRAPH 按类和 JVM descriptor 取调用/字段写入，逐条比对历史 bytecode，再做同输入 oracle 与现代 tick/状态轨迹。原1.7.10游戏本轮 NOT_RUN，现代正式安装 NOT_RUN；签名与反编译定位不是行为 PASS。
+
+## R1 注册与显示证据
+
+- `<init>()V` · CFR 46–51
+- `func_94581_a(Lnet/minecraft/client/renderer/texture/IIconRegister;)V` · CFR 108–112 · 109 morefunquicksandmod:potion_mud | 110 morefunquicksandmod:potion_sinking | 111 morefunquicksandmod:HotChocolate
+- `func_77667_c(Lnet/minecraft/item/ItemStack;)Ljava/lang/String;` · CFR 114–120
+- `func_150895_a(Lnet/minecraft/item/Item;Lnet/minecraft/creativetab/CreativeTabs;Ljava/util/List;)V` · CFR 123–127 · 124 damage=0 | 125 damage=1 | 126 damage=2
+- `func_77617_a(I)Lnet/minecraft/util/IIcon;` · CFR 130–132
+
+|旧对象|damage|旧名称候选|现代物品|
+|---|---:|---|---|
+|Potion|0|Bottle of Mire|`mfqm:bottle_of_mire`|
+|Potion|1|Sinking Potion|`mfqm:sinking_potion`|
+|Potion|2|Hot Chocolate|`mfqm:hot_chocolate`|
+
+上述行号指向 research/task-001/evidence 中同类的分析文本。模型、名称冲突、行为与存档验证按 original_stack_id 查询 CONTENT_PARITY_MATRIX。

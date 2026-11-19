@@ -2,7 +2,12 @@
 import argparse,zipfile,xml.etree.ElementTree as E,json
 from pathlib import Path
 from common import *
-p=argparse.ArgumentParser();p.add_argument('--repo-root',type=Path,required=True);p.add_argument('--out-dir',type=Path,required=True);a=p.parse_args();r=a.repo_root;xml=list((r/'forge-1.20.1/build/test-results/test').glob('TEST-*.xml'));counts={k:sum(int(E.parse(p).getroot().get(k,0))for p in xml)for k in['tests','failures','errors','skipped']};assert xml and not counts['failures']and not counts['errors']
+p=argparse.ArgumentParser();p.add_argument('--repo-root',type=Path,required=True);p.add_argument('--out-dir',type=Path,required=True);a=p.parse_args();r=a.repo_root;
+if (r/'deliverables/r1/mfqm-reborn-r1-public.jar').exists():
+ import subprocess,sys
+ subprocess.run([sys.executable,str(r/'reconstruction/tooling/r1/check_public.py'),str(r.resolve())], check=True)
+ raise SystemExit(0)
+xml=list((r/'forge-1.20.1/build/test-results/test').glob('TEST-*.xml'));counts={k:sum(int(E.parse(p).getroot().get(k,0))for p in xml)for k in['tests','failures','errors','skipped']};assert xml and not counts['failures']and not counts['errors']
 log=(a.out_dir/'evidence/logs/clean-build-gametest.log').read_text(encoding='utf-8');assert 'All 43 required tests passed'in log and 'BUILD SUCCESSFUL'in log
 jar=next((r/'forge-1.20.1/build/libs').glob('*.jar'))
 with zipfile.ZipFile(jar)as z:

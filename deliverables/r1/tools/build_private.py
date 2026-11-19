@@ -37,8 +37,30 @@ with zipfile.ZipFile(jar) as archive:
     for path,digest in manifest["files"].items():
         if hashlib.sha256(archive.read(path)).hexdigest()!=digest:
             raise ValueError(f"Packaged resource differs: {path}")
-revision = subprocess.run(["git","rev-parse","HEAD"],cwd=ROOT,capture_output=True,text=True).stdout.strip() if (ROOT/".git").exists() else "archive checkout"
-result = dict(source_commit=revision,jar_sha256=hashlib.sha256(jar.read_bytes()).hexdigest(),
-              original_jar_sha256=manifest["original_jar_sha256"],verified_entries=manifest["files"])
+digest=hashlib.sha256(jar.read_bytes()).hexdigest()
+record=out/"ARTIFACTS.json"
+if args.verify_only:
+    previous=json.loads(record.read_text(encoding="utf-8"))
+    if previous["jar_sha256"]!=digest:
+        raise ValueError("Private JAR differs from the recorded build")
+    revision=previous["source_commit"]
+else:
+    revision = subprocess.run(["git","rev-parse","HEAD"],cwd=ROOT,capture_output=True,text=True).stdout.strip() if (ROOT/".git").exists() else None
+if not revision:
+    public_record=ROOT/"deliverables/r1/ARTIFACTS.json"
+    revision=json.loads(public_record.read_text(encoding="utf-8"))["source_commit"] if public_record.exists() else "unknown archive checkout"
+catalog=json.loads((ROOT/"forge-1.20.1/src/main/resources/data/mfqm/r1_content.json").read_text(encoding="utf-8"))
+originals=set()
+with zipfile.ZipFile(args.jar) as archive:
+    originals={p for p in archive.namelist() if p.endswith(".png")}
+packed_hashes=set(manifest["files"].values())
+with zipfile.ZipFile(args.jar) as archive:
+    matching=sum(hashlib.sha256(archive.read(p)).hexdigest() in packed_hashes for p in originals)
+result = dict(source_commit=revision,jar_sha256=digest,
+              original_jar_sha256=manifest["original_jar_sha256"],verified_entries=manifest["files"],
+              mapped_catalog_rows=len(catalog), original_pngs=len(originals),
+              original_pngs_without_identical_overlay_payload=len(originals)-matching,
+              model_check="all generated model JSON hashes match packaged entries")
 (out/"ARTIFACTS.json").write_text(json.dumps(result,indent=2)+"\n",encoding="utf-8")
+print(json.dumps({k:v for k,v in result.items() if k!="verified_entries"},indent=2))
 print(f"Verified {len(manifest['files'])} entries in {jar}\nSHA256 {result['jar_sha256']}")

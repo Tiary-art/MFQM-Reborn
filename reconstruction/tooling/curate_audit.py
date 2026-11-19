@@ -17,9 +17,14 @@ review={
 'DryQuicksandCore.java':('KEEP_EXACT_OR_NECESSARY','research/original-phase5/02_SURFACE_BRANCH_CLOSURE.md','Pure core limited oracle domain is not production worldgen registration','R4 adapter with same RNG/write transaction traces'),
 'OriginalTextureBindings.java':('KEEP_EXACT_OR_NECESSARY','docs/phase9/TEXTURE_MAPPING.csv','Private marker/resource manager is a modern bridge, not dead unoriginal behavior','Keep; validate actual packaged models/atlas'),
 'Phase9RenderProbe.java':('KEEP_EXACT_OR_NECESSARY','docs/phase9/TEST_MATRIX.md','Opt-in DEV_ONLY screenshot probe; should remain inactive without property','Keep diagnostics disabled by default; do not use as installed JAR acceptance')}
+review.update({
+'RestoredItems.java':('KEEP_TEMPORARILY','reconstruction/mapping/CONTENT_PARITY_MATRIX.csv','Separate item IDs and inert collection samples preserve damage identities only','Implement item-specific effects with paired old behavior evidence'),
+'R1AtlasProbe.java':('KEEP_EXACT_OR_NECESSARY','deliverables/r1/logs/client-atlas-100.json','Opt-in actual GUI model/render and atlas reload probe','Retain for model regression; Windows acceptance open'),
+'ModTabs.java':('KEEP_TEMPORARILY','reconstruction/manifest/ORIGINAL_CREATIVE_OUTPUT.csv','Modern tab aggregates items that occupied several legacy tabs','Preserve stable IDs and compare old runtime order')})
 rows=read(o/'mapping/AI_APPROXIMATION_AUDIT.csv')
 for r in rows:
  name=Path(r['new_path']).name;r['owner']='reconstruction';r['pr']='R0 audit; no replacement execution'
+ if name in ('RestoredItems.java','R1AtlasProbe.java','ModTabs.java'):r.update(pr='R1',implementation_status='R1_IMPLEMENTED_SCOPE_LIMITED')
  if name in review:
   decision,ev,diff,plan=review[name];r.update(decision=decision,original_refs=ev,difference_evidence=diff,replacement_plan=plan,proof_status='STATIC_REVIEW_PARTIAL_DYNAMIC_NOT_RUN')
 for name in ['AI_APPROXIMATION_AUDIT','CODE_CLEANUP_DECISIONS']:write(o/'mapping'/(name+'.csv'),rows)

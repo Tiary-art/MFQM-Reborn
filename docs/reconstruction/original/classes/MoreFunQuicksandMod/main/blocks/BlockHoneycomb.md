@@ -32,3 +32,17 @@ ID `class:299ca62419e37d400ee8ec59`；class SHA `29c4a513fc520e2802eea61b15c9bc3
 ## 验证计划
 
 用 CALL_GRAPH 按类和 JVM descriptor 取调用/字段写入，逐条比对历史 bytecode，再做同输入 oracle 与现代 tick/状态轨迹。原1.7.10游戏本轮 NOT_RUN，现代正式安装 NOT_RUN；签名与反编译定位不是行为 PASS。
+
+## R1 注册与显示证据
+
+- `func_149666_a(Lnet/minecraft/item/Item;Lnet/minecraft/creativetab/CreativeTabs;Ljava/util/List;)V` · CFR 57–61 · 58 damage=0 | 59 damage=1 | 60 damage=2
+- `func_149691_a(II)Lnet/minecraft/util/IIcon;` · CFR 64–66
+- `func_149651_a(Lnet/minecraft/client/renderer/texture/IIconRegister;)V` · CFR 141–146 · 143 morefunquicksandmod:honeycomb0 | 144 morefunquicksandmod:honeycomb1 | 145 morefunquicksandmod:honeycomb2
+
+|旧对象|damage|旧名称候选|现代物品|
+|---|---:|---|---|
+|Honeycomb|0|Honeycomb|`mfqm:honeycomb`|
+|Honeycomb|1|Honeycomb Empty|`mfqm:honeycomb_empty`|
+|Honeycomb|2|Honeycomb Filled|`mfqm:honeycomb_filled`|
+
+上述行号指向 research/task-001/evidence 中同类的分析文本。模型、名称冲突、行为与存档验证按 original_stack_id 查询 CONTENT_PARITY_MATRIX。

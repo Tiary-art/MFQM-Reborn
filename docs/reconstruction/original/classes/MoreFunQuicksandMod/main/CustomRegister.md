@@ -38,3 +38,10 @@ ID `class:31ab2f2f898bedc84af4c950`；class SHA `6134fd37860f2964628f6ff65dd2b65
 6. 现代差异：重点报告逐模块对照现代真实路径及存档风险。
 7. 测试设计：原版对照本轮 NOT_RUN，现有现代回归见 R0_TEST_RESULTS.json。
 8. 结论：PARTIAL，仅已列静态链；下一步按 NEXT_WORK_PACKAGES.md 闭合。
+
+## R1 注册与显示证据
+
+- `registerItem(Ljava/lang/String;Lnet/minecraft/item/Item;Ljava/lang/String;)V` · CFR 35–87
+- `registerBlock(Ljava/lang/String;Lnet/minecraft/block/Block;Ljava/lang/String;)V` · CFR 89–130
+
+上述行号指向 research/task-001/evidence 中同类的分析文本。模型、名称冲突、行为与存档验证按 original_stack_id 查询 CONTENT_PARITY_MATRIX。

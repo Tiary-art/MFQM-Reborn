@@ -30,3 +30,13 @@ ID `class:2c4bbd3ba55c02b90fc67925`；class SHA `333def52907019629a0f6ab4daea6d6
 ## 验证计划
 
 用 CALL_GRAPH 按类和 JVM descriptor 取调用/字段写入，逐条比对历史 bytecode，再做同输入 oracle 与现代 tick/状态轨迹。原1.7.10游戏本轮 NOT_RUN，现代正式安装 NOT_RUN；签名与反编译定位不是行为 PASS。
+
+## R1 注册与显示证据
+
+- `func_149666_a(Lnet/minecraft/item/Item;Lnet/minecraft/creativetab/CreativeTabs;Ljava/util/List;)V` · CFR 62–63
+
+|旧对象|damage|旧名称候选|现代物品|
+|---|---:|---|---|
+|SandstoneTrapBlock|0|Sandstone Trap|`mfqm:sandstone_trap`|
+
+上述行号指向 research/task-001/evidence 中同类的分析文本。模型、名称冲突、行为与存档验证按 original_stack_id 查询 CONTENT_PARITY_MATRIX。

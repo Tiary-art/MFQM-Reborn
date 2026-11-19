@@ -31,3 +31,18 @@ ID `class:3ac2675edfb0da35b90273f2`；class SHA `974665bdc1d07443bb4b2756a5f5a40
 ## 验证计划
 
 用 CALL_GRAPH 按类和 JVM descriptor 取调用/字段写入，逐条比对历史 bytecode，再做同输入 oracle 与现代 tick/状态轨迹。原1.7.10游戏本轮 NOT_RUN，现代正式安装 NOT_RUN；签名与反编译定位不是行为 PASS。
+
+## R1 注册与显示证据
+
+- `<init>(Lnet/minecraft/block/Block;)V` · CFR 49–55
+- `func_94581_a(Lnet/minecraft/client/renderer/texture/IIconRegister;)V` · CFR 58–61 · 59 morefunquicksandmod:BucketOfBrownClay | 60 morefunquicksandmod:BucketOfMineralClay
+- `func_77617_a(I)Lnet/minecraft/util/IIcon;` · CFR 64–69
+- `func_150895_a(Lnet/minecraft/item/Item;Lnet/minecraft/creativetab/CreativeTabs;Ljava/util/List;)V` · CFR 72–75 · 73 damage=0 | 74 damage=1
+- `func_77667_c(Lnet/minecraft/item/ItemStack;)Ljava/lang/String;` · CFR 77–83
+
+|旧对象|damage|旧名称候选|现代物品|
+|---|---:|---|---|
+|Bucket of Clay|0|Bucket of Brown Clay|`mfqm:brown_clay_bucket`|
+|Bucket of Clay|1|Bucket of Mineral Clay|`mfqm:mineral_clay_bucket`|
+
+上述行号指向 research/task-001/evidence 中同类的分析文本。模型、名称冲突、行为与存档验证按 original_stack_id 查询 CONTENT_PARITY_MATRIX。

@@ -65,5 +65,8 @@ def run(root,out):
   p.write_text(text,encoding='utf-8')
 
  write(root/'docs/reconstruction/original/CLASS_DOSSIER_INDEX.csv',[dict(class_id=c['class_id'],class_name=c['class_name'],path='docs/reconstruction/original/classes/'+c['class_name']+'.md',status='INDEXED_SEMANTICS_PARTIAL')for c in classes])
+ if (out/'mapping/CONTENT_PARITY_MATRIX.csv').exists():
+  from r1.reconcile import run as reconcile
+  reconcile(root,out)
 if __name__=='__main__':
  p=argparse.ArgumentParser();p.add_argument('--repo-root',type=Path,required=True);p.add_argument('--out-dir',type=Path,required=True);a=p.parse_args();run(a.repo_root.resolve(),a.out_dir)

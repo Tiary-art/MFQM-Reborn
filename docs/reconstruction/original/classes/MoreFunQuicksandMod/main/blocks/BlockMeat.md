@@ -47,3 +47,25 @@ ID `class:2bd357607ace335706953c68`；class SHA `c2f0e428457b8f72d3999c2341ca62c
 ## 验证计划
 
 用 CALL_GRAPH 按类和 JVM descriptor 取调用/字段写入，逐条比对历史 bytecode，再做同输入 oracle 与现代 tick/状态轨迹。原1.7.10游戏本轮 NOT_RUN，现代正式安装 NOT_RUN；签名与反编译定位不是行为 PASS。
+
+## R1 注册与显示证据
+
+- `func_149666_a(Lnet/minecraft/item/Item;Lnet/minecraft/creativetab/CreativeTabs;Ljava/util/List;)V` · CFR 90–102 · 91 damage=0 | 92 damage=1 | 93 damage=2 | 94 damage=3 | 95 damage=4 | 96 damage=5 | 97 damage=6 | 98 damage=7 | 99 damage=8 | 100 damage=9 | 101 damage=10
+- `func_149691_a(II)Lnet/minecraft/util/IIcon;` · CFR 162–308
+- `func_149651_a(Lnet/minecraft/client/renderer/texture/IIconRegister;)V` · CFR 520–533 · 522 morefunquicksandmod:Meat0 | 523 morefunquicksandmod:Meat1 | 524 morefunquicksandmod:Meat2 | 525 morefunquicksandmod:Meat3 | 526 morefunquicksandmod:Meat4 | 527 morefunquicksandmod:Meat5 | 528 morefunquicksandmod:Meat6 | 529 morefunquicksandmod:Meat7 | 530 morefunquicksandmod:Meat8 | 531 morefunquicksandmod:Meat9 | 532 morefunquicksandmod:Meat11
+
+|旧对象|damage|旧名称候选|现代物品|
+|---|---:|---|---|
+|MeatWall|0|Meat Wall|`mfqm:meat_wall`|
+|MeatWall|1|Meat Wall Bottom|`mfqm:meat_wall_1`|
+|MeatWall|2|Meat Wall Conner|`mfqm:meat_wall_2`|
+|MeatWall|3|Meat Wall Conner|`mfqm:meat_wall_3`|
+|MeatWall|4|Meat Wall Conner|`mfqm:meat_wall_4`|
+|MeatWall|5|Meat Wall Conner|`mfqm:meat_wall_5`|
+|MeatWall|6|Meat Wall Side|`mfqm:meat_wall_6`|
+|MeatWall|7|Meat Wall Side|`mfqm:meat_wall_7`|
+|MeatWall|8|Meat Wall Side|`mfqm:meat_wall_8`|
+|MeatWall|9|Meat Wall Side|`mfqm:meat_wall_9`|
+|MeatWall|10|Meat Wall Anus|`mfqm:meat_wall_10`|
+
+上述行号指向 research/task-001/evidence 中同类的分析文本。模型、名称冲突、行为与存档验证按 original_stack_id 查询 CONTENT_PARITY_MATRIX。

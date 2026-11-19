@@ -49,3 +49,24 @@ ID `class:d24c2396393b053f17db52ac`；class SHA `076d7036075b57adec1d8d40b01fb74
 ## 验证计划
 
 用 CALL_GRAPH 按类和 JVM descriptor 取调用/字段写入，逐条比对历史 bytecode，再做同输入 oracle 与现代 tick/状态轨迹。原1.7.10游戏本轮 NOT_RUN，现代正式安装 NOT_RUN；签名与反编译定位不是行为 PASS。
+
+## R1 注册与显示证据
+
+- `func_149691_a(II)Lnet/minecraft/util/IIcon;` · CFR 593–608
+- `func_149651_a(Lnet/minecraft/client/renderer/texture/IIconRegister;)V` · CFR 611–625 · 613 morefunquicksandmod:Moor0 | 615 morefunquicksandmod:Moor1 | 616 morefunquicksandmod:Moor2 | 617 morefunquicksandmod:Moor3 | 618 morefunquicksandmod:Moor4 | 619 morefunquicksandmod:Moor5 | 620 morefunquicksandmod:Moor6 | 621 morefunquicksandmod:Moor7 | 622 morefunquicksandmod:Moor8 | 623 morefunquicksandmod:Moor_side0 | 624 morefunquicksandmod:Moor_side1
+- `getSubBlocks(ILnet/minecraft/creativetab/CreativeTabs;Ljava/util/List;)V` · CFR 631–640 · 632 damage=1 | 633 damage=2 | 634 damage=3 | 635 damage=4 | 636 damage=5 | 637 damage=6 | 638 damage=7 | 639 damage=8
+
+|旧对象|damage|旧名称候选|现代物品|
+|---|---:|---|---|
+|Morass|0|Morass|`mfqm:morass`|
+|Morass|1|Morass|`mfqm:morass_1`|
+|Morass|2|Morass|`mfqm:morass_2`|
+|Morass|3|Morass|`mfqm:morass_3`|
+|Morass|4|Morass|`mfqm:morass_4`|
+|Morass|5|Morass|`mfqm:morass_5`|
+|Morass|6|Morass|`mfqm:morass_6`|
+|Morass|7|Morass|`mfqm:morass_7`|
+|Morass|8|Moor|`mfqm:morass_8`|
+|Morass|9|Moor|`未映射`|
+
+上述行号指向 research/task-001/evidence 中同类的分析文本。模型、名称冲突、行为与存档验证按 original_stack_id 查询 CONTENT_PARITY_MATRIX。
