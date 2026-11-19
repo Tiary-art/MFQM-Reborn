@@ -23,6 +23,8 @@ minecraft {
             mods { mfqm { source sourceSets.main } }
         }
         client {
+            if (project.hasProperty('r1Atlas')) property 'mfqm.r1Atlas', project.property('r1Atlas')
+            if (project.hasProperty('r1SingleWorld')) args '--quickPlaySingleplayer', project.property('r1SingleWorld')
             if (project.hasProperty('phase8Connect')) {
                 workingDirectory project.file('run/' + (project.findProperty('phase8Name') ?: 'Phase8One'))
                 args '--username', (project.findProperty('phase8Name') ?: 'Phase8One'), '--quickPlayMultiplayer', '127.0.0.1:25589'
